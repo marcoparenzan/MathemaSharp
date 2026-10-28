@@ -1,0 +1,4 @@
+Test run for D:\Dev\BuildArtifacts\NDSharp\bin\NDSharp.Plot.Tests\debug\NDSharp.Plot.Tests.dll (.NETCoreApp,Version=v11.0)
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    19, Skipped:     0, Total:    19, Duration: 381 ms - NDSharp.Plot.Tests.dll (net11.0)

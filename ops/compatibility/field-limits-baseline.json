@@ -1,0 +1,159 @@
+{
+  "GeneratedUtc": "2026-10-28T16:57:16.3694629Z",
+  "SourceSha256": "F726E46F438E7281253E8C5D464A131B8CA54872613B0075F02857C46FA302E3",
+  "Notes": "Before field-limits migration, endpoints read from production FieldPlot colorbar; chosen cases have exactly representable displayed endpoints. Null samples encode NaN.",
+  "Samples": [
+    {
+      "Name": "plain",
+      "Rows": 2,
+      "Columns": 5,
+      "Values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "Min": null,
+      "Max": null,
+      "Symmetric": false,
+      "Clip": 0,
+      "ExpectedMin": 0,
+      "ExpectedMax": 9
+    },
+    {
+      "Name": "clipped",
+      "Rows": 2,
+      "Columns": 5,
+      "Values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "Min": null,
+      "Max": null,
+      "Symmetric": false,
+      "Clip": 0.2,
+      "ExpectedMin": 1,
+      "ExpectedMax": 7
+    },
+    {
+      "Name": "symmetric",
+      "Rows": 2,
+      "Columns": 3,
+      "Values": [
+        -6,
+        -3,
+        0,
+        2,
+        4,
+        9
+      ],
+      "Min": null,
+      "Max": null,
+      "Symmetric": true,
+      "Clip": 0,
+      "ExpectedMin": -9,
+      "ExpectedMax": 9
+    },
+    {
+      "Name": "constant",
+      "Rows": 2,
+      "Columns": 2,
+      "Values": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "Min": null,
+      "Max": null,
+      "Symmetric": false,
+      "Clip": 0,
+      "ExpectedMin": 5,
+      "ExpectedMax": 6
+    },
+    {
+      "Name": "zero-symmetric",
+      "Rows": 2,
+      "Columns": 2,
+      "Values": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "Min": null,
+      "Max": null,
+      "Symmetric": true,
+      "Clip": 0,
+      "ExpectedMin": 0,
+      "ExpectedMax": 1
+    },
+    {
+      "Name": "explicit",
+      "Rows": 2,
+      "Columns": 2,
+      "Values": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "Min": -2,
+      "Max": 8,
+      "Symmetric": false,
+      "Clip": 0.2,
+      "ExpectedMin": -2,
+      "ExpectedMax": 8
+    },
+    {
+      "Name": "nan-ignored",
+      "Rows": 2,
+      "Columns": 3,
+      "Values": [
+        null,
+        -3,
+        0,
+        2,
+        4,
+        9
+      ],
+      "Min": null,
+      "Max": null,
+      "Symmetric": false,
+      "Clip": 0,
+      "ExpectedMin": -3,
+      "ExpectedMax": 9
+    },
+    {
+      "Name": "nan-fixed",
+      "Rows": 2,
+      "Columns": 2,
+      "Values": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "Min": 0,
+      "Max": 1,
+      "Symmetric": false,
+      "Clip": 0,
+      "ExpectedMin": 0,
+      "ExpectedMax": 1
+    }
+  ]
+}

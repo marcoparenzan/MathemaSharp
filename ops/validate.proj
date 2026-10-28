@@ -1,0 +1,4 @@
+<Project>
+ <Target Name="Baseline"><Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)validate-baseline.ps1&quot;" /></Target>
+ <Target Name="BuildAndTest"><Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)validate-baseline.ps1&quot; -SkipNotebooks" /></Target>
+</Project>

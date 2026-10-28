@@ -1,0 +1,31 @@
+{
+  "GeneratedUtc": "2026-10-28T23:14:39.4292454Z",
+  "Success": true,
+  "Failure": null,
+  "BaseUrl": "http://127.0.0.1:63560",
+  "Steps": [
+    {
+      "Page": "fischio",
+      "Grid": 140,
+      "Cycles": [
+        {
+          "Cycle": 1,
+          "ProgressObserved": "passo 350 di 14.000",
+          "Stopped": true,
+          "ControlsRestored": true
+        },
+        {
+          "Cycle": 2,
+          "ProgressObserved": "passo 350 di 14.000",
+          "Stopped": true,
+          "ControlsRestored": true
+        }
+      ],
+      "Success": true
+    }
+  ],
+  "Layouts": [],
+  "ScreenshotsRequested": false,
+  "Mode": "fischio-cancellation",
+  "Scope": "Running Kestrel \u002B Edge: smallest LBM grid 140x50, progress and two stop/restart cycles. Cancellation only, not periodicity/Strouhal, convergence, mobile or deployment."
+}

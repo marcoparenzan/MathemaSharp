@@ -1,0 +1,31 @@
+{
+  "GeneratedUtc": "2026-10-28T23:14:28.4214109Z",
+  "Success": true,
+  "Failure": null,
+  "BaseUrl": "http://127.0.0.1:62954",
+  "Steps": [
+    {
+      "Page": "quadro",
+      "Grid": 31,
+      "Cycles": [
+        {
+          "Cycle": 1,
+          "ProgressObserved": "passo 300 \u00B7 energia 0,02681",
+          "Stopped": true,
+          "ControlsRestored": true
+        },
+        {
+          "Cycle": 2,
+          "ProgressObserved": "passo 300 \u00B7 energia 0,02681",
+          "Stopped": true,
+          "ControlsRestored": true
+        }
+      ],
+      "Success": true
+    }
+  ],
+  "Layouts": [],
+  "ScreenshotsRequested": false,
+  "Mode": "quadro-cancellation",
+  "Scope": "Running Kestrel \u002B Edge: grid 31, progress observed and two stop/restart cycles. Cancellation only, not convergence/accuracy, fischio, mobile or deployment."
+}

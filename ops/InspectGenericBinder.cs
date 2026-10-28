@@ -1,0 +1,2 @@
+#:property TargetFramework=net11.0
+var lines=File.ReadAllLines(@"D:\Dev\Science\PySharp\src\PySharpLib\Runtime\Clr.cs");Console.WriteLine(string.Join("\n",lines.Skip(440).Take(63))); var interp=File.ReadAllLines(@"D:\Dev\Science\PySharp\src\PySharpLib\Interpretation\Interp.cs");for(int i=0;i<interp.Length;i++)if(interp[i].Contains("GetItem(object")||interp[i].Contains("case ClrMethod")||interp[i].Contains("case ClrType"))Console.WriteLine($"{i+1}: {interp[i]}");

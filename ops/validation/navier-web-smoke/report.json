@@ -1,0 +1,27 @@
+{
+  "GeneratedUtc": "2026-10-28T23:14:09.6644691Z",
+  "Success": true,
+  "Failure": null,
+  "BaseUrl": "http://127.0.0.1:56935",
+  "Steps": [
+    {
+      "Page": "tubo",
+      "BeforeBar": 0.42,
+      "AfterBar": 0.84,
+      "Check": "Doubling length doubles rounded pressure within 0.03 bar",
+      "Success": true
+    },
+    {
+      "Page": "vento",
+      "BeforeN": 963,
+      "DoubledSpeedN": 3853,
+      "HalfAreaN": 1926,
+      "Check": "Rounded force scales with speed squared and area",
+      "Success": true
+    }
+  ],
+  "Layouts": [],
+  "ScreenshotsRequested": false,
+  "Mode": "calculators",
+  "Scope": "Running Kestrel \u002B Edge, home navigation and interactive tubo/vento at desktop size. Range input events dispatched through DOM; rounded display tolerances. Not quadro/fischio simulations, mobile, factual editorial validation or deployment."
+}

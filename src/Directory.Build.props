@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- Output unico in <repo>/artifacts: percorsi stabili per i #r dei notebook JupyterNet e per i pacchetti. -->
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>$(MSBuildThisFileDirectory)../artifacts</ArtifactsPath>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <!-- Le librerie in src/libs sono i pacchetti NuGet della famiglia MathemaSharp. -->
+  <PropertyGroup Condition="$(MSBuildProjectDirectory.Replace('\', '/').Contains('/src/libs/'))">
+    <IsPackable>true</IsPackable>
+    <Version>0.2.0</Version>
+    <Authors>Marco Parenzan</Authors>
+    <PackageTags>numerics;generic-math;dotnet</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- CS1591: non tutti i membri pubblici hanno commento XML; gli altri warning restano errori. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Label="CentralBuildArtifacts">
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>D:\Dev\BuildArtifacts\MathemaSharp</ArtifactsPath>
+    <PackageOutputPath>D:\Dev\NuGetLocalFeed</PackageOutputPath>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,11 @@
+{
+  "soglia_haccp_c": 4.0,
+  "minuti_veri_sopra_soglia": 11,
+  "escursioni_vere": 1,
+  "inizio_prima_escursione": "2026-09-15T14:17:00",
+  "temperatura_massima_vera_c": 4.54,
+  "minuti_mancanti": 70,
+  "cambio_vibrazione": "2026-09-16T00:00:00",
+  "vibrazione_omega_base": 0.002,
+  "vibrazione_omega_usura": 0.006
+}

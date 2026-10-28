@@ -1,0 +1,34 @@
+{
+  "notebooks": [
+    "notebooks/Core/01-generic-math.ipynb",
+    "notebooks/Core/02-precision-decimal.ipynb",
+    "notebooks/Core/03-complex-signals.ipynb",
+    "notebooks/Core/04-performance.ipynb",
+    "notebooks/Core/05-dotnet11-decimals.ipynb",
+    "notebooks/Core/06-fft.ipynb",
+    "notebooks/Core/11-consolidation.ipynb",
+    "notebooks/Core/12-api-reference.ipynb",
+    "notebooks/LinearAlgebra/01-lu.ipynb",
+    "notebooks/LinearAlgebra/11-consolidation.ipynb",
+    "notebooks/LinearAlgebra/12-api-reference.ipynb",
+    "notebooks/LinearAlgebra/13-solve-diagnostics.ipynb",
+    "notebooks/Quantum/01-operators.ipynb",
+    "notebooks/Quantum/11-consolidation.ipynb",
+    "notebooks/Quantum/12-api-reference.ipynb",
+    "notebooks/Quantum/13-independent-oracles.ipynb",
+    "notebooks/TimeSeries/06-ts-reference-autoregression.ipynb",
+    "notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb",
+    "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+    "notebooks/TimeSeries/10-ts-libreria-tour.ipynb",
+    "notebooks/TimeSeries/11-consolidation.ipynb",
+    "notebooks/TimeSeries/12-api-reference.ipynb",
+    "notebooks/TimeSeries/13-independent-oracles.ipynb",
+    "notebooks/NDSharp/01-generic-math.ipynb"
+  ],
+  "exclusionReasons": {
+    "NDSharp": "Legacy runtime bridge examples not selected; typed Generic Math notebook is included.",
+    "PySharp": "Executed separately with ops/pysharp-notebooks.proj; saved-output concordance tests are active.",
+    "Scenarios": "Scenario notebooks are not part of the consolidated baseline.",
+    "Other": "Not explicitly selected; no execution claim."
+  }
+}

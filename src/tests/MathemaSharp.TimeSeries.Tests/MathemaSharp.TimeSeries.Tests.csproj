@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../../libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
+    <ProjectReference Include="../../libs/MathemaSharp.TimeSeries/MathemaSharp.TimeSeries.csproj" />
+  </ItemGroup>
+</Project>

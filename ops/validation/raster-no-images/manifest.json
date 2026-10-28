@@ -1,0 +1,352 @@
+{
+  "GeneratedUtc": "2026-10-28T23:15:40.2773282Z",
+  "Renderer": "Svg.Skia 5.2.3 (review tool only)",
+  "SaveImages": false,
+  "PngEncodingValidated": true,
+  "Images": [
+    {
+      "Notebook": "notebooks/Core/03-complex-signals.ipynb",
+      "EvidenceName": "03-complex-signals-01.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 21507,
+      "Sha256": "0C524224FF774E61656099C126D373B3942FF595DE7FF11124276466BA4AA9FF"
+    },
+    {
+      "Notebook": "notebooks/Core/03-complex-signals.ipynb",
+      "EvidenceName": "03-complex-signals-02.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 21833,
+      "Sha256": "98FF933888E1A75582054DCF84DC50DAB97CCE7BAD762000A130E27E14E42E4B"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb",
+      "EvidenceName": "07-ts-smoothing-kalman-01.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 87251,
+      "Sha256": "9B7D5C0683CAFDCE82E7ADC42F07F890771409B05F72EDF712CB445AF63870B3"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb",
+      "EvidenceName": "07-ts-smoothing-kalman-02.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 35803,
+      "Sha256": "3FAC623A2FA3FA80F77DBC06F7E4318534BD80EA0E42F5DD6E864851771D586B"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb",
+      "EvidenceName": "07-ts-smoothing-kalman-03.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 30032,
+      "Sha256": "3494022EF37C38E837FF244260CF5DC61F195535C4FE1B8DDB12024ACAED1A31"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb",
+      "EvidenceName": "07-ts-smoothing-kalman-04.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 125762,
+      "Sha256": "37E669E1CA58249A433436E847BD512BF34507315BFB89D1079EA9DF686333F2"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb",
+      "EvidenceName": "07-ts-smoothing-kalman-05.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 46673,
+      "Sha256": "51D49B67268C3F39F292D184DEDEB66CCE5FD786F1FE421B4A64C710FB55E15D"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb",
+      "EvidenceName": "07-ts-smoothing-kalman-06.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 65953,
+      "Sha256": "7D988D8C7531E9A10A3926928CC1B747CBF2B293FDBB2F0E64651B0160CBDE07"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/06-ts-reference-autoregression.ipynb",
+      "EvidenceName": "06-ts-reference-autoregression-01.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 51326,
+      "Sha256": "A978B49587E9B4D39663661B11309480C841A6D311B7F43C0C0FFBC5331EAD3E"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/06-ts-reference-autoregression.ipynb",
+      "EvidenceName": "06-ts-reference-autoregression-02.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 55747,
+      "Sha256": "82E682F6E9F360F0D7ED751A6F7A0E58D9EC8ED2507443C1A4DF4E315C18081A"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/06-ts-reference-autoregression.ipynb",
+      "EvidenceName": "06-ts-reference-autoregression-03.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 72879,
+      "Sha256": "0AF521ED6421BEC5D5257D23AF48C0B1F73E8F0BECED3A83EAA0A006666B5214"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/06-ts-reference-autoregression.ipynb",
+      "EvidenceName": "06-ts-reference-autoregression-04.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 44543,
+      "Sha256": "9C2F0DE3E3DC5E7C69DD8F073F008931F3445D53CB1AAB28B78EC0E3B8D7AD6A"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/06-ts-reference-autoregression.ipynb",
+      "EvidenceName": "06-ts-reference-autoregression-05.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 39386,
+      "Sha256": "865B7D4328D137F41A47928DCAD1EE058F52B8BC287695AE34A9C21D445F7A27"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/06-ts-reference-autoregression.ipynb",
+      "EvidenceName": "06-ts-reference-autoregression-06.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 60997,
+      "Sha256": "5C474A94147B469807E6D895C143F7464ED6D21843E93E45CA2934D279E805DA"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-01.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 38644,
+      "Sha256": "3C8F8D55B7BF7B531046B5A81E4F9E72F8BD78CE06AF20070EE68950E71A2F6F"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-02.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 51152,
+      "Sha256": "462E9B22F6E9C803EAC7A5B2B2E1D22CC2505A832466D4FB73489EB5E0FD9CCB"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-03.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 36242,
+      "Sha256": "BC219FBBA59F3CBC61119153A430E100926F8D524FBA4708E1B754C078E0CDC0"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-04.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 37109,
+      "Sha256": "E06AD2C09753C7B04E41A97661CDEA08DD49C2072AD2B537B39A8C8DA6D2B7C1"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-05.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 29184,
+      "Sha256": "987B0C3465863DF994A2E7D2539A945142BA355C667E4494C9BDAB3BD430E5A6"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-06.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 46763,
+      "Sha256": "BD515C91AE84534C77FB84E2043E0B9FA80E89E5BBC8AC4E780959AB66E959FF"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-07.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 95291,
+      "Sha256": "DCEA584DB6B5C7603AA60648A8F84E22FBA75C3FF61E4D888078574C636BDBFD"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-08.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 32734,
+      "Sha256": "0532EF815DF86D89894F4FE392462D58332E004D03F421D9DBCCD4F16B21321C"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-09.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 63525,
+      "Sha256": "A96CAE5AA98B18DB732ED8D69EDC454856A2A93555410EB7293744AF7A2616A5"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-10.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 49312,
+      "Sha256": "29764C2AB7CF689A5302C78556BFC3128B5B89BBC1E159D2630178D8071E47B0"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-11.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 35643,
+      "Sha256": "A9DABF72D98D762B5C7BE5C7929B616A9529D0E692B02A4ADA34CE3C3D878058"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-12.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 40222,
+      "Sha256": "BA76A5C2E4808C64B8C34308332309D52C7F4882C2098E6C31E13339649D6A0D"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb",
+      "EvidenceName": "08-ts-arima-var-garch-13.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 39361,
+      "Sha256": "B9793E0ED24BBC138C7CA26BDB99592AE8DB461D9BAF1333625AC35B33CE131B"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb",
+      "EvidenceName": "09-ts-stl-ndsharp-01.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 55401,
+      "Sha256": "3B11F47056261C6981E51693A6B583D1953738611702AF52D6E29E84B8C837E5"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb",
+      "EvidenceName": "09-ts-stl-ndsharp-02.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 37855,
+      "Sha256": "BEDA5EEEFC86863A969FA1F96B5175901B0B135E38D96A6C13425906DF14375B"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb",
+      "EvidenceName": "09-ts-stl-ndsharp-03.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 20014,
+      "Sha256": "004E5A3A84C895F1E6DE6A2CC473E1D713754CC38F084EF0F9AEDC7C6EC08FB6"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb",
+      "EvidenceName": "09-ts-stl-ndsharp-04.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 48471,
+      "Sha256": "775D88765C2B324F0E4F654214E7A7CB9626C0890C50AABD44E80089B96B42DC"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb",
+      "EvidenceName": "09-ts-stl-ndsharp-05.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 25794,
+      "Sha256": "6EAA08B9DB037721AFBFA656FC767170764375FB70BF0105C7B2F23A7E176582"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb",
+      "EvidenceName": "09-ts-stl-ndsharp-06.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 57048,
+      "Sha256": "E6CBECB7A59A2F1B43C1D4188E1E3396CC8844CDE57F27BF951EAA15D93040FC"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/10-ts-libreria-tour.ipynb",
+      "EvidenceName": "10-ts-libreria-tour-01.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 34187,
+      "Sha256": "D2832DB37351365B198408463D6E3BD726D8DD07F584B60A080986DF83BBB8A8"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/10-ts-libreria-tour.ipynb",
+      "EvidenceName": "10-ts-libreria-tour-02.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 60878,
+      "Sha256": "D8ECD268FBEFC5956F57925BF665178B44D619B028D31713C775A7575E99E24C"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/10-ts-libreria-tour.ipynb",
+      "EvidenceName": "10-ts-libreria-tour-03.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 26505,
+      "Sha256": "468F0823A3F7769BEDE52FA0995CF7ACF88F865903C14C562E9226D823594BB3"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/10-ts-libreria-tour.ipynb",
+      "EvidenceName": "10-ts-libreria-tour-04.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 76648,
+      "Sha256": "F64108E62375F51F5570F7AD6FB75246BA8A462238D76AC5F5985BCB8FABBC8A"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/10-ts-libreria-tour.ipynb",
+      "EvidenceName": "10-ts-libreria-tour-05.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 60376,
+      "Sha256": "2C4548B855AB02881C668F754CF9477AD1B430FC4948EC9F6C000025CE61B1B3"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-csharp.ipynb",
+      "EvidenceName": "A1-magazzino-frigorifero-csharp-01.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 53312,
+      "Sha256": "3E875071CE1739283DE2027C7F8839D2E2226E90BE82D487FA96CE73F923CA31"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-csharp.ipynb",
+      "EvidenceName": "A1-magazzino-frigorifero-csharp-02.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 116323,
+      "Sha256": "93EDC7DC1D5E2278D2231DA19567F2F0B98F17E547F68D615555D50F9C2A6A97"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-csharp.ipynb",
+      "EvidenceName": "A1-magazzino-frigorifero-csharp-03.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 65063,
+      "Sha256": "EF957E38AEB8FC419BE65EA310EF8950C13F52CFD51E0A0D3D88057CF8746D4F"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/Scenarios/D-fotovoltaico/D1-fotovoltaico-csharp.ipynb",
+      "EvidenceName": "D1-fotovoltaico-csharp-01.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 44952,
+      "Sha256": "3E4344D25078EC29A32FBDD7F13BA4CBE9519D44BB3EE1DB227CCDB88679320B"
+    },
+    {
+      "Notebook": "notebooks/TimeSeries/Scenarios/D-fotovoltaico/D1-fotovoltaico-csharp.ipynb",
+      "EvidenceName": "D1-fotovoltaico-csharp-02.png",
+      "Image": null,
+      "ImageWritten": false,
+      "PngBytes": 86187,
+      "Sha256": "CD74B63A9CA9118F21DAAC038B4FFCD609FEF95D4725964B97ACAE5C21639E52"
+    }
+  ]
+}

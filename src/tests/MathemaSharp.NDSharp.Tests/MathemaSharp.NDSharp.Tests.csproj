@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Condition="'$(UsePackagedBridge)' == 'true'">
+    <ArtifactsProjectName>MathemaSharp.NDSharp.PackageTests</ArtifactsProjectName>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(UsePackagedBridge)' != 'true'">
+    <ProjectReference Include="../../libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
+    <ProjectReference Include="../../libs/MathemaSharp.NDSharp/MathemaSharp.NDSharp.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UsePackagedBridge)' == 'true'">
+    <PackageReference Include="MathemaSharp.Core" />
+    <PackageReference Include="MathemaSharp.NDSharp" />
+  </ItemGroup>
+</Project>

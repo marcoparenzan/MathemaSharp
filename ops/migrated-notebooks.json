@@ -1,0 +1,10 @@
+[
+  { "id": "core", "path": "notebooks/Core/03-complex-signals.ipynb", "expectedSvg": 2, "requireGap": false, "requireTable": false },
+  { "id": "smoothing", "path": "notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb", "expectedSvg": 6, "requireGap": true, "requireTable": true },
+  { "id": "autoregression", "path": "notebooks/TimeSeries/06-ts-reference-autoregression.ipynb", "expectedSvg": 6, "requireGap": false, "requireTable": true },
+  { "id": "arima", "path": "notebooks/TimeSeries/08-ts-arima-var-garch.ipynb", "expectedSvg": 13, "requireGap": false, "requireTable": true },
+  { "id": "stl", "path": "notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb", "expectedSvg": 6, "requireGap": false, "requireTable": true },
+  { "id": "tour", "path": "notebooks/TimeSeries/10-ts-libreria-tour.ipynb", "expectedSvg": 5, "requireGap": false, "requireTable": false },
+  { "id": "cold-storage", "path": "notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-csharp.ipynb", "expectedSvg": 3, "requireGap": true, "requireTable": false, "expectedKpi": 1, "expectedQuotes": 2 },
+  { "id": "solar", "path": "notebooks/TimeSeries/Scenarios/D-fotovoltaico/D1-fotovoltaico-csharp.ipynb", "expectedSvg": 2, "requireGap": false, "requireTable": false, "expectedKpi": 1, "expectedQuotes": 2 }
+]

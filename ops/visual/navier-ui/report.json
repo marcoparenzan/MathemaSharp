@@ -1,0 +1,132 @@
+{
+  "GeneratedUtc": "2026-10-28T11:35:00.5664524Z",
+  "BaseUrl": "http://127.0.0.1:50301",
+  "Success": false,
+  "ServerStopped": true,
+  "Checks": [
+    {
+      "Name": "server-ready",
+      "Success": true,
+      "Detail": "Loopback Kestrel readiness"
+    },
+    {
+      "Name": "navigate-/",
+      "Success": true,
+      "Detail": "Real HTTP navigation, not assembled HTML"
+    },
+    {
+      "Name": "home-links",
+      "Success": true,
+      "Detail": "Four scenario cards"
+    },
+    {
+      "Name": "home-desktop-no-blazor-error",
+      "Success": true,
+      "Detail": "Circuit error banner must remain hidden"
+    },
+    {
+      "Name": "home-desktop-layout",
+      "Success": true,
+      "Detail": "Document horizontal overflow at current viewport"
+    },
+    {
+      "Name": "tube-charts",
+      "Success": true,
+      "Detail": "Profile and pressure curve rendered"
+    },
+    {
+      "Name": "tube-reference",
+      "Success": true,
+      "Detail": "Water 25mm/50m/40Lmin reference"
+    },
+    {
+      "Name": "bound-Lunghezza del tubo",
+      "Success": true,
+      "Detail": "Server-rendered control output updated to 100"
+    },
+    {
+      "Name": "tube-length-update",
+      "Success": true,
+      "Detail": "Double length doubles pressure within display rounding"
+    },
+    {
+      "Name": "tube-desktop-no-blazor-error",
+      "Success": true,
+      "Detail": "Circuit error banner must remain hidden"
+    },
+    {
+      "Name": "tube-desktop-layout",
+      "Success": true,
+      "Detail": "Document horizontal overflow at current viewport"
+    },
+    {
+      "Name": "tube-mobile-no-blazor-error",
+      "Success": true,
+      "Detail": "Circuit error banner must remain hidden"
+    },
+    {
+      "Name": "tube-mobile-layout",
+      "Success": true,
+      "Detail": "Document horizontal overflow at current viewport"
+    },
+    {
+      "Name": "navigate-/vento",
+      "Success": true,
+      "Detail": "Real HTTP navigation, not assembled HTML"
+    },
+    {
+      "Name": "wind-reference",
+      "Success": true,
+      "Detail": "Flat plate 2m2 at 90kmh, rounded analytic force"
+    },
+    {
+      "Name": "bound-Superficie esposta",
+      "Success": true,
+      "Detail": "Server-rendered control output updated to 3"
+    },
+    {
+      "Name": "wind-area-update",
+      "Success": true,
+      "Detail": "Area 3m2 updates force"
+    },
+    {
+      "Name": "wind-keyboard",
+      "Success": true,
+      "Detail": "Keyboard slider increments wind and recomputes force"
+    },
+    {
+      "Name": "wind-desktop-no-blazor-error",
+      "Success": true,
+      "Detail": "Circuit error banner must remain hidden"
+    },
+    {
+      "Name": "wind-desktop-layout",
+      "Success": true,
+      "Detail": "Document horizontal overflow at current viewport"
+    },
+    {
+      "Name": "wind-mobile-no-blazor-error",
+      "Success": true,
+      "Detail": "Circuit error banner must remain hidden"
+    },
+    {
+      "Name": "wind-mobile-layout",
+      "Success": true,
+      "Detail": "Document horizontal overflow at current viewport"
+    },
+    {
+      "Name": "navigate-/quadro",
+      "Success": true,
+      "Detail": "Real HTTP navigation, not assembled HTML"
+    },
+    {
+      "Name": "cavity-default-grid",
+      "Success": true,
+      "Detail": "Original default retained"
+    }
+  ],
+  "Errors": [
+    "Microsoft.Playwright.PlaywrightException: Error: strict mode violation: GetByLabel(\u0022Lato del quadro\u0022) resolved to 2 elements:\n    1) \u003Coutput\u003E80 cm\u003C/output\u003E aka GetByRole(AriaRole.Status, new() { Name = \u0022Lato del quadro\u0022 })\n    2) \u003Cinput min=\u002220\u0022 step=\u00225\u0022 disabled max=\u0022200\u0022 type=\u0022range\u0022 aria-label=\u0022Lato del quadro\u0022/\u003E aka GetByRole(AriaRole.Slider, new() { Name = \u0022Lato del quadro\u0022 })\n\nCall log:\n  - waiting for GetByLabel(\u0022Lato del quadro\u0022)\r\n   at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary\u00602 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 201\r\n   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func\u00601 action, Boolean isInternal, String title) in /_/src/Playwright/Transport/Connection.cs:line 499\r\n   at Microsoft.Playwright.Core.Frame.IsDisabledAsync(String selector, FrameIsDisabledOptions options) in /_/src/Playwright/Core/Frame.cs:line 826\r\n   at Program.\u003CMain\u003E$(String[] args)\r\n   at Program.\u003CMain\u003E$(String[] args)"
+  ],
+  "Scope": "Real Blazor Server UI in Edge, desktop 1280 and mobile 390 px. Coarse user-selected completion grids; defaults retained. Not fine-grid accuracy, OS tooltip or other browsers."
+}

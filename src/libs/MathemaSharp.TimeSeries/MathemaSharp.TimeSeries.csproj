@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Fondamenti statistici del forecasting, generici su IFloatingPointIeee754 (float, double, Half, Decimal32/64/128): ACF/PACF, previsioni di riferimento e MASE, AR, ARIMA, smoothing esponenziale, Kalman, VAR, GARCH, STL, quantili e perdita pinball. Con facciata non generica su double[] per PySharp.</Description>
+    <Version>0.2.1-net11-preview.1</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MathemaSharp.Core/MathemaSharp.Core.csproj" />
+    <ProjectReference Include="../MathemaSharp.LinearAlgebra/MathemaSharp.LinearAlgebra.csproj" />
+  </ItemGroup>
+</Project>

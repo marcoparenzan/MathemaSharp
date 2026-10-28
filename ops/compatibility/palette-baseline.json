@@ -1,0 +1,1948 @@
+{
+  "GeneratedUtc": "2026-10-28T16:06:37.6421920Z",
+  "Notes": "Pre-palette-migration outputs, including stop boundaries and adjacent doubles; do not regenerate for new implementation.",
+  "SourceHashes": {
+    "../articoli/2026.10 NavierStokes/src/NavierStokes.Core/Charts.cs": "A1D2B4A70F7979B86ADC2147DD254083AB58870C48507C90E31083ADC2224449",
+    "../PlotSharp/src/PlotSharp/PlotSharp/Heatmap.cs": "AFD44340312B5FA541DB7B64E5FA9D3C01566B3AEE6DA3E2DBE67329891445DC"
+  },
+  "Samples": [
+    {
+      "T": -0.1,
+      "Sequential8": "#f4f8fd",
+      "Diverging9": "#0d366b",
+      "Compact4": "#f4f8fd"
+    },
+    {
+      "T": 0,
+      "Sequential8": "#f4f8fd",
+      "Diverging9": "#0d366b",
+      "Compact4": "#f4f8fd"
+    },
+    {
+      "T": 5E-324,
+      "Sequential8": "#f4f8fd",
+      "Diverging9": "#0d366b",
+      "Compact4": "#f4f8fd"
+    },
+    {
+      "T": 0.00390625,
+      "Sequential8": "#f2f7fc",
+      "Diverging9": "#0d376d",
+      "Compact4": "#f2f7fc"
+    },
+    {
+      "T": 0.0078125,
+      "Sequential8": "#f1f6fc",
+      "Diverging9": "#0e3970",
+      "Compact4": "#f1f6fc"
+    },
+    {
+      "T": 0.01171875,
+      "Sequential8": "#f0f6fc",
+      "Diverging9": "#0f3a72",
+      "Compact4": "#f0f6fc"
+    },
+    {
+      "T": 0.015625,
+      "Sequential8": "#eff5fc",
+      "Diverging9": "#103c75",
+      "Compact4": "#eff5fc"
+    },
+    {
+      "T": 0.01953125,
+      "Sequential8": "#eef4fc",
+      "Diverging9": "#103e78",
+      "Compact4": "#eef5fc"
+    },
+    {
+      "T": 0.0234375,
+      "Sequential8": "#edf4fc",
+      "Diverging9": "#113f7a",
+      "Compact4": "#edf4fc"
+    },
+    {
+      "T": 0.02734375,
+      "Sequential8": "#ecf3fc",
+      "Diverging9": "#12417d",
+      "Compact4": "#ecf3fc"
+    },
+    {
+      "T": 0.03125,
+      "Sequential8": "#ebf3fc",
+      "Diverging9": "#134380",
+      "Compact4": "#ebf3fc"
+    },
+    {
+      "T": 0.03515625,
+      "Sequential8": "#eaf2fc",
+      "Diverging9": "#134482",
+      "Compact4": "#eaf2fc"
+    },
+    {
+      "T": 0.0390625,
+      "Sequential8": "#e9f1fc",
+      "Diverging9": "#144685",
+      "Compact4": "#e9f2fb"
+    },
+    {
+      "T": 0.04296875,
+      "Sequential8": "#e8f1fc",
+      "Diverging9": "#154787",
+      "Compact4": "#e8f1fb"
+    },
+    {
+      "T": 0.046875,
+      "Sequential8": "#e7f0fc",
+      "Diverging9": "#16498a",
+      "Compact4": "#e7f0fb"
+    },
+    {
+      "T": 0.05078125,
+      "Sequential8": "#e6f0fc",
+      "Diverging9": "#164b8d",
+      "Compact4": "#e6f0fb"
+    },
+    {
+      "T": 0.0546875,
+      "Sequential8": "#e5effc",
+      "Diverging9": "#174c8f",
+      "Compact4": "#e5effb"
+    },
+    {
+      "T": 0.05859375,
+      "Sequential8": "#e4eefc",
+      "Diverging9": "#184e92",
+      "Compact4": "#e4effb"
+    },
+    {
+      "T": 0.0625,
+      "Sequential8": "#e2eefc",
+      "Diverging9": "#195095",
+      "Compact4": "#e3eefb"
+    },
+    {
+      "T": 0.06640625,
+      "Sequential8": "#e1edfc",
+      "Diverging9": "#195197",
+      "Compact4": "#e2edfb"
+    },
+    {
+      "T": 0.0703125,
+      "Sequential8": "#e0edfc",
+      "Diverging9": "#1a539a",
+      "Compact4": "#e1edfb"
+    },
+    {
+      "T": 0.07421875,
+      "Sequential8": "#dfecfb",
+      "Diverging9": "#1b549c",
+      "Compact4": "#e0ecfa"
+    },
+    {
+      "T": 0.078125,
+      "Sequential8": "#deebfb",
+      "Diverging9": "#1c569f",
+      "Compact4": "#dfecfa"
+    },
+    {
+      "T": 0.08203125,
+      "Sequential8": "#ddebfb",
+      "Diverging9": "#1c58a2",
+      "Compact4": "#deebfa"
+    },
+    {
+      "T": 0.0859375,
+      "Sequential8": "#dceafb",
+      "Diverging9": "#1d59a4",
+      "Compact4": "#ddeafa"
+    },
+    {
+      "T": 0.08984375,
+      "Sequential8": "#dbeafb",
+      "Diverging9": "#1e5ba7",
+      "Compact4": "#dceafa"
+    },
+    {
+      "T": 0.09375,
+      "Sequential8": "#dae9fb",
+      "Diverging9": "#1f5daa",
+      "Compact4": "#dbe9fa"
+    },
+    {
+      "T": 0.09765625,
+      "Sequential8": "#d9e8fb",
+      "Diverging9": "#1f5eac",
+      "Compact4": "#dae9fa"
+    },
+    {
+      "T": 0.09999999999999999,
+      "Sequential8": "#d8e8fb",
+      "Diverging9": "#205fae",
+      "Compact4": "#dae8fa"
+    },
+    {
+      "T": 0.1,
+      "Sequential8": "#d8e8fb",
+      "Diverging9": "#205fae",
+      "Compact4": "#dae8fa"
+    },
+    {
+      "T": 0.10000000000000002,
+      "Sequential8": "#d8e8fb",
+      "Diverging9": "#205fae",
+      "Compact4": "#dae8fa"
+    },
+    {
+      "T": 0.1015625,
+      "Sequential8": "#d8e8fb",
+      "Diverging9": "#2060af",
+      "Compact4": "#d9e8fa"
+    },
+    {
+      "T": 0.10546875,
+      "Sequential8": "#d7e7fb",
+      "Diverging9": "#2161b1",
+      "Compact4": "#d8e7fa"
+    },
+    {
+      "T": 0.109375,
+      "Sequential8": "#d6e7fb",
+      "Diverging9": "#2263b4",
+      "Compact4": "#d7e7fa"
+    },
+    {
+      "T": 0.11328125,
+      "Sequential8": "#d5e6fb",
+      "Diverging9": "#2265b7",
+      "Compact4": "#d6e6f9"
+    },
+    {
+      "T": 0.1171875,
+      "Sequential8": "#d4e5fb",
+      "Diverging9": "#2366b9",
+      "Compact4": "#d5e6f9"
+    },
+    {
+      "T": 0.12109375,
+      "Sequential8": "#d2e5fb",
+      "Diverging9": "#2468bc",
+      "Compact4": "#d4e5f9"
+    },
+    {
+      "T": 0.12499999999999999,
+      "Sequential8": "#d1e4fb",
+      "Diverging9": "#256abf",
+      "Compact4": "#d3e4f9"
+    },
+    {
+      "T": 0.125,
+      "Sequential8": "#d1e4fb",
+      "Diverging9": "#256abf",
+      "Compact4": "#d3e4f9"
+    },
+    {
+      "T": 0.12500000000000003,
+      "Sequential8": "#d1e4fb",
+      "Diverging9": "#256abf",
+      "Compact4": "#d3e4f9"
+    },
+    {
+      "T": 0.12890625,
+      "Sequential8": "#d0e4fb",
+      "Diverging9": "#276bc0",
+      "Compact4": "#d2e4f9"
+    },
+    {
+      "T": 0.1328125,
+      "Sequential8": "#cfe3fb",
+      "Diverging9": "#296dc1",
+      "Compact4": "#d1e3f9"
+    },
+    {
+      "T": 0.13671875,
+      "Sequential8": "#cee2fb",
+      "Diverging9": "#2b6fc3",
+      "Compact4": "#d0e3f9"
+    },
+    {
+      "T": 0.140625,
+      "Sequential8": "#cde2fb",
+      "Diverging9": "#2e71c4",
+      "Compact4": "#cfe2f9"
+    },
+    {
+      "T": 0.14285714285714282,
+      "Sequential8": "#cde2fb",
+      "Diverging9": "#2f72c5",
+      "Compact4": "#cfe2f9"
+    },
+    {
+      "T": 0.14285714285714285,
+      "Sequential8": "#cde2fb",
+      "Diverging9": "#2f72c5",
+      "Compact4": "#cfe2f9"
+    },
+    {
+      "T": 0.14285714285714288,
+      "Sequential8": "#cde2fb",
+      "Diverging9": "#2f72c5",
+      "Compact4": "#cfe2f9"
+    },
+    {
+      "T": 0.14453125,
+      "Sequential8": "#cce1fa",
+      "Diverging9": "#3073c6",
+      "Compact4": "#cee1f9"
+    },
+    {
+      "T": 0.1484375,
+      "Sequential8": "#cbe0fa",
+      "Diverging9": "#3275c7",
+      "Compact4": "#cde1f8"
+    },
+    {
+      "T": 0.15234375,
+      "Sequential8": "#c9e0fa",
+      "Diverging9": "#3477c8",
+      "Compact4": "#cce0f8"
+    },
+    {
+      "T": 0.15625,
+      "Sequential8": "#c8dffa",
+      "Diverging9": "#3779ca",
+      "Compact4": "#cbe0f8"
+    },
+    {
+      "T": 0.16015625,
+      "Sequential8": "#c7defa",
+      "Diverging9": "#397bcb",
+      "Compact4": "#cadff8"
+    },
+    {
+      "T": 0.1640625,
+      "Sequential8": "#c6ddf9",
+      "Diverging9": "#3b7dcd",
+      "Compact4": "#c9def8"
+    },
+    {
+      "T": 0.16796875,
+      "Sequential8": "#c4dcf9",
+      "Diverging9": "#3d7ece",
+      "Compact4": "#c8def8"
+    },
+    {
+      "T": 0.171875,
+      "Sequential8": "#c3dcf9",
+      "Diverging9": "#4080cf",
+      "Compact4": "#c7ddf8"
+    },
+    {
+      "T": 0.17578125,
+      "Sequential8": "#c2dbf9",
+      "Diverging9": "#4282d1",
+      "Compact4": "#c6ddf8"
+    },
+    {
+      "T": 0.1796875,
+      "Sequential8": "#c0daf9",
+      "Diverging9": "#4484d2",
+      "Compact4": "#c5dcf8"
+    },
+    {
+      "T": 0.18359375,
+      "Sequential8": "#bfd9f9",
+      "Diverging9": "#4686d4",
+      "Compact4": "#c4dbf8"
+    },
+    {
+      "T": 0.1875,
+      "Sequential8": "#bed8f8",
+      "Diverging9": "#4988d5",
+      "Compact4": "#c3dbf7"
+    },
+    {
+      "T": 0.19140625,
+      "Sequential8": "#bdd8f8",
+      "Diverging9": "#4b8ad6",
+      "Compact4": "#c2daf7"
+    },
+    {
+      "T": 0.1953125,
+      "Sequential8": "#bbd7f8",
+      "Diverging9": "#4d8cd8",
+      "Compact4": "#c1daf7"
+    },
+    {
+      "T": 0.19921875,
+      "Sequential8": "#bad6f8",
+      "Diverging9": "#4f8ed9",
+      "Compact4": "#c0d9f7"
+    },
+    {
+      "T": 0.19999999999999998,
+      "Sequential8": "#bad6f8",
+      "Diverging9": "#508eda",
+      "Compact4": "#c0d9f7"
+    },
+    {
+      "T": 0.2,
+      "Sequential8": "#bad6f8",
+      "Diverging9": "#508eda",
+      "Compact4": "#c0d9f7"
+    },
+    {
+      "T": 0.20000000000000004,
+      "Sequential8": "#bad6f8",
+      "Diverging9": "#508eda",
+      "Compact4": "#c0d9f7"
+    },
+    {
+      "T": 0.203125,
+      "Sequential8": "#b9d5f8",
+      "Diverging9": "#5290db",
+      "Compact4": "#bfd8f7"
+    },
+    {
+      "T": 0.20703125,
+      "Sequential8": "#b7d4f7",
+      "Diverging9": "#5492dc",
+      "Compact4": "#bed8f7"
+    },
+    {
+      "T": 0.2109375,
+      "Sequential8": "#b6d4f7",
+      "Diverging9": "#5693dd",
+      "Compact4": "#bdd7f7"
+    },
+    {
+      "T": 0.21484375,
+      "Sequential8": "#b5d3f7",
+      "Diverging9": "#5895df",
+      "Compact4": "#bcd7f7"
+    },
+    {
+      "T": 0.21875,
+      "Sequential8": "#b4d2f7",
+      "Diverging9": "#5b97e0",
+      "Compact4": "#bbd6f7"
+    },
+    {
+      "T": 0.22265625,
+      "Sequential8": "#b2d1f7",
+      "Diverging9": "#5d99e2",
+      "Compact4": "#bad5f6"
+    },
+    {
+      "T": 0.2265625,
+      "Sequential8": "#b1d1f6",
+      "Diverging9": "#5f9be3",
+      "Compact4": "#b9d5f6"
+    },
+    {
+      "T": 0.23046875,
+      "Sequential8": "#b0d0f6",
+      "Diverging9": "#619de4",
+      "Compact4": "#b8d4f6"
+    },
+    {
+      "T": 0.234375,
+      "Sequential8": "#aecff6",
+      "Diverging9": "#649fe6",
+      "Compact4": "#b7d4f6"
+    },
+    {
+      "T": 0.23828125,
+      "Sequential8": "#adcef6",
+      "Diverging9": "#66a1e7",
+      "Compact4": "#b6d3f6"
+    },
+    {
+      "T": 0.2421875,
+      "Sequential8": "#accdf6",
+      "Diverging9": "#68a3e9",
+      "Compact4": "#b5d2f6"
+    },
+    {
+      "T": 0.24609375,
+      "Sequential8": "#abcdf5",
+      "Diverging9": "#6aa5ea",
+      "Compact4": "#b4d2f6"
+    },
+    {
+      "T": 0.24999999999999997,
+      "Sequential8": "#a9ccf5",
+      "Diverging9": "#6ca7ec",
+      "Compact4": "#b3d1f6"
+    },
+    {
+      "T": 0.25,
+      "Sequential8": "#a9ccf5",
+      "Diverging9": "#6da7ec",
+      "Compact4": "#b3d1f6"
+    },
+    {
+      "T": 0.25000000000000006,
+      "Sequential8": "#a9ccf5",
+      "Diverging9": "#6da7ec",
+      "Compact4": "#b3d1f6"
+    },
+    {
+      "T": 0.25390625,
+      "Sequential8": "#a8cbf5",
+      "Diverging9": "#6fa8ec",
+      "Compact4": "#b2d1f6"
+    },
+    {
+      "T": 0.2578125,
+      "Sequential8": "#a7caf5",
+      "Diverging9": "#71a9ec",
+      "Compact4": "#b1d0f6"
+    },
+    {
+      "T": 0.26171875,
+      "Sequential8": "#a5c9f5",
+      "Diverging9": "#73abec",
+      "Compact4": "#b0cff5"
+    },
+    {
+      "T": 0.265625,
+      "Sequential8": "#a4c9f4",
+      "Diverging9": "#76aced",
+      "Compact4": "#afcff5"
+    },
+    {
+      "T": 0.26953125,
+      "Sequential8": "#a3c8f4",
+      "Diverging9": "#78aded",
+      "Compact4": "#aecef5"
+    },
+    {
+      "T": 0.2734375,
+      "Sequential8": "#a2c7f4",
+      "Diverging9": "#7aafed",
+      "Compact4": "#adcef5"
+    },
+    {
+      "T": 0.27734375,
+      "Sequential8": "#a0c6f4",
+      "Diverging9": "#7db0ee",
+      "Compact4": "#accdf5"
+    },
+    {
+      "T": 0.28125,
+      "Sequential8": "#9fc5f4",
+      "Diverging9": "#7fb2ee",
+      "Compact4": "#abccf5"
+    },
+    {
+      "T": 0.28515625,
+      "Sequential8": "#9ec5f4",
+      "Diverging9": "#81b3ee",
+      "Compact4": "#aaccf5"
+    },
+    {
+      "T": 0.28571428571428564,
+      "Sequential8": "#9ec5f4",
+      "Diverging9": "#82b3ee",
+      "Compact4": "#aaccf5"
+    },
+    {
+      "T": 0.2857142857142857,
+      "Sequential8": "#9ec5f4",
+      "Diverging9": "#82b3ee",
+      "Compact4": "#aaccf5"
+    },
+    {
+      "T": 0.28571428571428575,
+      "Sequential8": "#9dc5f4",
+      "Diverging9": "#82b3ee",
+      "Compact4": "#aaccf5"
+    },
+    {
+      "T": 0.2890625,
+      "Sequential8": "#9cc4f3",
+      "Diverging9": "#84b4ef",
+      "Compact4": "#a9cbf5"
+    },
+    {
+      "T": 0.29296875,
+      "Sequential8": "#9bc3f3",
+      "Diverging9": "#86b6ef",
+      "Compact4": "#a8cbf5"
+    },
+    {
+      "T": 0.296875,
+      "Sequential8": "#9ac2f3",
+      "Diverging9": "#88b7ef",
+      "Compact4": "#a7caf4"
+    },
+    {
+      "T": 0.29999999999999993,
+      "Sequential8": "#99c2f3",
+      "Diverging9": "#8ab8f0",
+      "Compact4": "#a6caf4"
+    },
+    {
+      "T": 0.3,
+      "Sequential8": "#99c2f3",
+      "Diverging9": "#8ab8f0",
+      "Compact4": "#a6caf4"
+    },
+    {
+      "T": 0.30000000000000004,
+      "Sequential8": "#99c2f3",
+      "Diverging9": "#8ab8f0",
+      "Compact4": "#a6caf4"
+    },
+    {
+      "T": 0.30078125,
+      "Sequential8": "#98c1f3",
+      "Diverging9": "#8bb8f0",
+      "Compact4": "#a6c9f4"
+    },
+    {
+      "T": 0.3046875,
+      "Sequential8": "#97c1f2",
+      "Diverging9": "#8dbaf0",
+      "Compact4": "#a5c9f4"
+    },
+    {
+      "T": 0.30859375,
+      "Sequential8": "#96c0f2",
+      "Diverging9": "#8fbbf0",
+      "Compact4": "#a4c8f4"
+    },
+    {
+      "T": 0.3125,
+      "Sequential8": "#94bff2",
+      "Diverging9": "#92bdf1",
+      "Compact4": "#a3c8f4"
+    },
+    {
+      "T": 0.31640625,
+      "Sequential8": "#93bef2",
+      "Diverging9": "#94bef1",
+      "Compact4": "#a2c7f4"
+    },
+    {
+      "T": 0.3203125,
+      "Sequential8": "#92bdf2",
+      "Diverging9": "#96bff1",
+      "Compact4": "#a1c6f4"
+    },
+    {
+      "T": 0.32421875,
+      "Sequential8": "#90bcf1",
+      "Diverging9": "#98c1f1",
+      "Compact4": "#a0c6f4"
+    },
+    {
+      "T": 0.328125,
+      "Sequential8": "#8fbcf1",
+      "Diverging9": "#9bc2f2",
+      "Compact4": "#9fc5f4"
+    },
+    {
+      "T": 0.33203125,
+      "Sequential8": "#8ebbf1",
+      "Diverging9": "#9dc3f2",
+      "Compact4": "#9ec5f4"
+    },
+    {
+      "T": 0.33333333333333326,
+      "Sequential8": "#8dbbf1",
+      "Diverging9": "#9ec4f2",
+      "Compact4": "#9ec5f4"
+    },
+    {
+      "T": 0.3333333333333333,
+      "Sequential8": "#8dbbf1",
+      "Diverging9": "#9ec4f2",
+      "Compact4": "#9ec5f4"
+    },
+    {
+      "T": 0.33333333333333337,
+      "Sequential8": "#8dbbf1",
+      "Diverging9": "#9ec4f2",
+      "Compact4": "#9ec5f4"
+    },
+    {
+      "T": 0.3359375,
+      "Sequential8": "#8cbaf1",
+      "Diverging9": "#9fc5f2",
+      "Compact4": "#9dc4f3"
+    },
+    {
+      "T": 0.33984375,
+      "Sequential8": "#8bb9f0",
+      "Diverging9": "#a2c6f3",
+      "Compact4": "#9cc3f3"
+    },
+    {
+      "T": 0.34375,
+      "Sequential8": "#8ab8f0",
+      "Diverging9": "#a4c8f3",
+      "Compact4": "#9ac3f3"
+    },
+    {
+      "T": 0.34765625,
+      "Sequential8": "#88b7f0",
+      "Diverging9": "#a6c9f3",
+      "Compact4": "#99c2f3"
+    },
+    {
+      "T": 0.3515625,
+      "Sequential8": "#87b7f0",
+      "Diverging9": "#a9caf4",
+      "Compact4": "#98c1f3"
+    },
+    {
+      "T": 0.35546875,
+      "Sequential8": "#86b6f0",
+      "Diverging9": "#abccf4",
+      "Compact4": "#97c0f3"
+    },
+    {
+      "T": 0.359375,
+      "Sequential8": "#84b5ef",
+      "Diverging9": "#adcdf4",
+      "Compact4": "#96c0f2"
+    },
+    {
+      "T": 0.36328125,
+      "Sequential8": "#83b4ef",
+      "Diverging9": "#b0cef5",
+      "Compact4": "#94bff2"
+    },
+    {
+      "T": 0.3671875,
+      "Sequential8": "#82b3ef",
+      "Diverging9": "#b2d0f5",
+      "Compact4": "#93bef2"
+    },
+    {
+      "T": 0.37109375,
+      "Sequential8": "#80b3ef",
+      "Diverging9": "#b4d1f5",
+      "Compact4": "#92bdf2"
+    },
+    {
+      "T": 0.37499999999999994,
+      "Sequential8": "#7fb2ef",
+      "Diverging9": "#b6d2f6",
+      "Compact4": "#91bdf2"
+    },
+    {
+      "T": 0.375,
+      "Sequential8": "#7fb2ef",
+      "Diverging9": "#b7d3f6",
+      "Compact4": "#91bdf2"
+    },
+    {
+      "T": 0.37500000000000006,
+      "Sequential8": "#7fb2ef",
+      "Diverging9": "#b7d3f6",
+      "Compact4": "#91bdf2"
+    },
+    {
+      "T": 0.37890625,
+      "Sequential8": "#7eb1ee",
+      "Diverging9": "#b8d3f5",
+      "Compact4": "#90bcf1"
+    },
+    {
+      "T": 0.3828125,
+      "Sequential8": "#7cb0ee",
+      "Diverging9": "#bad4f5",
+      "Compact4": "#8fbbf1"
+    },
+    {
+      "T": 0.38671875,
+      "Sequential8": "#7bafee",
+      "Diverging9": "#bcd5f5",
+      "Compact4": "#8dbbf1"
+    },
+    {
+      "T": 0.390625,
+      "Sequential8": "#7aaeee",
+      "Diverging9": "#bed6f4",
+      "Compact4": "#8cbaf1"
+    },
+    {
+      "T": 0.39453125,
+      "Sequential8": "#78aeed",
+      "Diverging9": "#bfd7f4",
+      "Compact4": "#8bb9f1"
+    },
+    {
+      "T": 0.3984375,
+      "Sequential8": "#77aded",
+      "Diverging9": "#c1d8f4",
+      "Compact4": "#8ab8f1"
+    },
+    {
+      "T": 0.39999999999999997,
+      "Sequential8": "#76aded",
+      "Diverging9": "#c2d8f4",
+      "Compact4": "#89b8f1"
+    },
+    {
+      "T": 0.4,
+      "Sequential8": "#76aded",
+      "Diverging9": "#c2d8f4",
+      "Compact4": "#89b8f1"
+    },
+    {
+      "T": 0.4000000000000001,
+      "Sequential8": "#76aced",
+      "Diverging9": "#c2d8f4",
+      "Compact4": "#89b8f1"
+    },
+    {
+      "T": 0.40234375,
+      "Sequential8": "#75aced",
+      "Diverging9": "#c3d9f3",
+      "Compact4": "#89b8f0"
+    },
+    {
+      "T": 0.40625,
+      "Sequential8": "#74abed",
+      "Diverging9": "#c5daf3",
+      "Compact4": "#87b7f0"
+    },
+    {
+      "T": 0.41015625,
+      "Sequential8": "#73aaed",
+      "Diverging9": "#c7daf3",
+      "Compact4": "#86b6f0"
+    },
+    {
+      "T": 0.4140625,
+      "Sequential8": "#71aaec",
+      "Diverging9": "#c8dbf2",
+      "Compact4": "#85b5f0"
+    },
+    {
+      "T": 0.41796875,
+      "Sequential8": "#70a9ec",
+      "Diverging9": "#cadcf2",
+      "Compact4": "#84b5f0"
+    },
+    {
+      "T": 0.421875,
+      "Sequential8": "#6fa8ec",
+      "Diverging9": "#ccddf2",
+      "Compact4": "#83b4f0"
+    },
+    {
+      "T": 0.42578125,
+      "Sequential8": "#6da7ec",
+      "Diverging9": "#cedef1",
+      "Compact4": "#81b3ef"
+    },
+    {
+      "T": 0.4285714285714285,
+      "Sequential8": "#6da7ec",
+      "Diverging9": "#cfdef1",
+      "Compact4": "#81b3ef"
+    },
+    {
+      "T": 0.42857142857142855,
+      "Sequential8": "#6da7ec",
+      "Diverging9": "#cfdff1",
+      "Compact4": "#81b3ef"
+    },
+    {
+      "T": 0.4285714285714286,
+      "Sequential8": "#6ca7ec",
+      "Diverging9": "#cfdff1",
+      "Compact4": "#81b3ef"
+    },
+    {
+      "T": 0.4296875,
+      "Sequential8": "#6ca6eb",
+      "Diverging9": "#cfdff1",
+      "Compact4": "#80b3ef"
+    },
+    {
+      "T": 0.43359375,
+      "Sequential8": "#6ba5eb",
+      "Diverging9": "#d1e0f1",
+      "Compact4": "#7fb2ef"
+    },
+    {
+      "T": 0.4375,
+      "Sequential8": "#69a5eb",
+      "Diverging9": "#d3e1f1",
+      "Compact4": "#7eb1ef"
+    },
+    {
+      "T": 0.44140625,
+      "Sequential8": "#68a4eb",
+      "Diverging9": "#d5e1f0",
+      "Compact4": "#7db0ef"
+    },
+    {
+      "T": 0.4453125,
+      "Sequential8": "#66a3eb",
+      "Diverging9": "#d7e2f0",
+      "Compact4": "#7cb0ee"
+    },
+    {
+      "T": 0.44921875,
+      "Sequential8": "#65a2ea",
+      "Diverging9": "#d8e3f0",
+      "Compact4": "#7aafee"
+    },
+    {
+      "T": 0.453125,
+      "Sequential8": "#64a1ea",
+      "Diverging9": "#dae4ef",
+      "Compact4": "#79aeee"
+    },
+    {
+      "T": 0.45703125,
+      "Sequential8": "#62a0ea",
+      "Diverging9": "#dce5ef",
+      "Compact4": "#78adee"
+    },
+    {
+      "T": 0.4609375,
+      "Sequential8": "#619fea",
+      "Diverging9": "#dee6ef",
+      "Compact4": "#77adee"
+    },
+    {
+      "T": 0.46484375,
+      "Sequential8": "#5f9eea",
+      "Diverging9": "#dfe7ee",
+      "Compact4": "#76acee"
+    },
+    {
+      "T": 0.46875,
+      "Sequential8": "#5e9eea",
+      "Diverging9": "#e1e8ee",
+      "Compact4": "#74abed"
+    },
+    {
+      "T": 0.47265625,
+      "Sequential8": "#5c9de9",
+      "Diverging9": "#e3e8ee",
+      "Compact4": "#73abed"
+    },
+    {
+      "T": 0.4765625,
+      "Sequential8": "#5b9ce9",
+      "Diverging9": "#e5e9ed",
+      "Compact4": "#72aaed"
+    },
+    {
+      "T": 0.48046875,
+      "Sequential8": "#5a9be9",
+      "Diverging9": "#e7eaed",
+      "Compact4": "#71a9ed"
+    },
+    {
+      "T": 0.484375,
+      "Sequential8": "#589ae9",
+      "Diverging9": "#e8ebed",
+      "Compact4": "#70a8ed"
+    },
+    {
+      "T": 0.48828125,
+      "Sequential8": "#5799e9",
+      "Diverging9": "#eaecec",
+      "Compact4": "#6fa8ed"
+    },
+    {
+      "T": 0.4921875,
+      "Sequential8": "#5598e8",
+      "Diverging9": "#ecedec",
+      "Compact4": "#6da7ec"
+    },
+    {
+      "T": 0.49609375,
+      "Sequential8": "#5497e8",
+      "Diverging9": "#eeeeec",
+      "Compact4": "#6ca6ec"
+    },
+    {
+      "T": 0.49999999999999994,
+      "Sequential8": "#5397e8",
+      "Diverging9": "#efefec",
+      "Compact4": "#6ba6ec"
+    },
+    {
+      "T": 0.5,
+      "Sequential8": "#5297e8",
+      "Diverging9": "#f0efec",
+      "Compact4": "#6ba6ec"
+    },
+    {
+      "T": 0.5000000000000001,
+      "Sequential8": "#5296e8",
+      "Diverging9": "#f0eeeb",
+      "Compact4": "#6ba5ec"
+    },
+    {
+      "T": 0.50390625,
+      "Sequential8": "#5196e8",
+      "Diverging9": "#f0edea",
+      "Compact4": "#6aa5ec"
+    },
+    {
+      "T": 0.5078125,
+      "Sequential8": "#5095e8",
+      "Diverging9": "#f0ebe8",
+      "Compact4": "#69a4ec"
+    },
+    {
+      "T": 0.51171875,
+      "Sequential8": "#4e94e7",
+      "Diverging9": "#f0e9e6",
+      "Compact4": "#67a3eb"
+    },
+    {
+      "T": 0.515625,
+      "Sequential8": "#4d93e7",
+      "Diverging9": "#f0e8e4",
+      "Compact4": "#66a3eb"
+    },
+    {
+      "T": 0.51953125,
+      "Sequential8": "#4b92e7",
+      "Diverging9": "#f0e6e3",
+      "Compact4": "#65a2eb"
+    },
+    {
+      "T": 0.5234375,
+      "Sequential8": "#4a91e7",
+      "Diverging9": "#f0e4e1",
+      "Compact4": "#64a1eb"
+    },
+    {
+      "T": 0.52734375,
+      "Sequential8": "#4990e7",
+      "Diverging9": "#f0e3df",
+      "Compact4": "#63a0eb"
+    },
+    {
+      "T": 0.53125,
+      "Sequential8": "#4790e6",
+      "Diverging9": "#f0e1dd",
+      "Compact4": "#62a0eb"
+    },
+    {
+      "T": 0.53515625,
+      "Sequential8": "#468fe6",
+      "Diverging9": "#f0dfdb",
+      "Compact4": "#609fea"
+    },
+    {
+      "T": 0.5390625,
+      "Sequential8": "#448ee6",
+      "Diverging9": "#f0deda",
+      "Compact4": "#5f9eea"
+    },
+    {
+      "T": 0.54296875,
+      "Sequential8": "#438de6",
+      "Diverging9": "#f1dcd8",
+      "Compact4": "#5e9eea"
+    },
+    {
+      "T": 0.546875,
+      "Sequential8": "#418ce6",
+      "Diverging9": "#f1dad6",
+      "Compact4": "#5d9dea"
+    },
+    {
+      "T": 0.55078125,
+      "Sequential8": "#408be6",
+      "Diverging9": "#f1d9d4",
+      "Compact4": "#5c9cea"
+    },
+    {
+      "T": 0.5546875,
+      "Sequential8": "#3f8ae5",
+      "Diverging9": "#f1d7d3",
+      "Compact4": "#5a9bea"
+    },
+    {
+      "T": 0.55859375,
+      "Sequential8": "#3d89e5",
+      "Diverging9": "#f1d5d1",
+      "Compact4": "#599be9"
+    },
+    {
+      "T": 0.5625,
+      "Sequential8": "#3c89e5",
+      "Diverging9": "#f1d4cf",
+      "Compact4": "#589ae9"
+    },
+    {
+      "T": 0.56640625,
+      "Sequential8": "#3a88e5",
+      "Diverging9": "#f1d2cd",
+      "Compact4": "#5799e9"
+    },
+    {
+      "T": 0.5703125,
+      "Sequential8": "#3987e5",
+      "Diverging9": "#f1d0cb",
+      "Compact4": "#5698e9"
+    },
+    {
+      "T": 0.5714285714285713,
+      "Sequential8": "#3987e5",
+      "Diverging9": "#f1d0cb",
+      "Compact4": "#5598e9"
+    },
+    {
+      "T": 0.5714285714285714,
+      "Sequential8": "#3987e5",
+      "Diverging9": "#f1d0cb",
+      "Compact4": "#5598e9"
+    },
+    {
+      "T": 0.5714285714285715,
+      "Sequential8": "#3886e4",
+      "Diverging9": "#f1d0cb",
+      "Compact4": "#5598e9"
+    },
+    {
+      "T": 0.57421875,
+      "Sequential8": "#3886e4",
+      "Diverging9": "#f1ceca",
+      "Compact4": "#5598e9"
+    },
+    {
+      "T": 0.578125,
+      "Sequential8": "#3885e3",
+      "Diverging9": "#f1cdc8",
+      "Compact4": "#5397e8"
+    },
+    {
+      "T": 0.58203125,
+      "Sequential8": "#3784e2",
+      "Diverging9": "#f1cbc6",
+      "Compact4": "#5296e8"
+    },
+    {
+      "T": 0.5859375,
+      "Sequential8": "#3684e1",
+      "Diverging9": "#f2c9c4",
+      "Compact4": "#5196e8"
+    },
+    {
+      "T": 0.58984375,
+      "Sequential8": "#3683e0",
+      "Diverging9": "#f2c8c3",
+      "Compact4": "#5095e8"
+    },
+    {
+      "T": 0.59375,
+      "Sequential8": "#3582df",
+      "Diverging9": "#f2c6c1",
+      "Compact4": "#4f94e8"
+    },
+    {
+      "T": 0.59765625,
+      "Sequential8": "#3581de",
+      "Diverging9": "#f2c4bf",
+      "Compact4": "#4d93e8"
+    },
+    {
+      "T": 0.5999999999999999,
+      "Sequential8": "#3581dd",
+      "Diverging9": "#f2c3be",
+      "Compact4": "#4d93e8"
+    },
+    {
+      "T": 0.6,
+      "Sequential8": "#3581dd",
+      "Diverging9": "#f2c3be",
+      "Compact4": "#4d93e8"
+    },
+    {
+      "T": 0.6000000000000001,
+      "Sequential8": "#3481dd",
+      "Diverging9": "#f2c3be",
+      "Compact4": "#4d93e8"
+    },
+    {
+      "T": 0.6015625,
+      "Sequential8": "#3480dc",
+      "Diverging9": "#f2c3bd",
+      "Compact4": "#4c93e7"
+    },
+    {
+      "T": 0.60546875,
+      "Sequential8": "#3480db",
+      "Diverging9": "#f2c1bb",
+      "Compact4": "#4b92e7"
+    },
+    {
+      "T": 0.609375,
+      "Sequential8": "#337fda",
+      "Diverging9": "#f2bfba",
+      "Compact4": "#4a91e7"
+    },
+    {
+      "T": 0.61328125,
+      "Sequential8": "#337ed9",
+      "Diverging9": "#f2beb8",
+      "Compact4": "#4990e7"
+    },
+    {
+      "T": 0.6171875,
+      "Sequential8": "#327dd8",
+      "Diverging9": "#f2bcb6",
+      "Compact4": "#4790e7"
+    },
+    {
+      "T": 0.62109375,
+      "Sequential8": "#327cd7",
+      "Diverging9": "#f2bab4",
+      "Compact4": "#468fe7"
+    },
+    {
+      "T": 0.6249999999999999,
+      "Sequential8": "#317cd6",
+      "Diverging9": "#f3b9b3",
+      "Compact4": "#458ee6"
+    },
+    {
+      "T": 0.625,
+      "Sequential8": "#317cd6",
+      "Diverging9": "#f3b9b3",
+      "Compact4": "#458ee6"
+    },
+    {
+      "T": 0.6250000000000001,
+      "Sequential8": "#317cd6",
+      "Diverging9": "#f3b8b2",
+      "Compact4": "#458ee6"
+    },
+    {
+      "T": 0.62890625,
+      "Sequential8": "#307bd5",
+      "Diverging9": "#f2b6b0",
+      "Compact4": "#448ee6"
+    },
+    {
+      "T": 0.6328125,
+      "Sequential8": "#307ad4",
+      "Diverging9": "#f2b3ae",
+      "Compact4": "#438de6"
+    },
+    {
+      "T": 0.63671875,
+      "Sequential8": "#2f79d3",
+      "Diverging9": "#f1b1ab",
+      "Compact4": "#428ce6"
+    },
+    {
+      "T": 0.640625,
+      "Sequential8": "#2f78d2",
+      "Diverging9": "#f1aea9",
+      "Compact4": "#408be6"
+    },
+    {
+      "T": 0.64453125,
+      "Sequential8": "#2e78d1",
+      "Diverging9": "#f0aca7",
+      "Compact4": "#3f8be5"
+    },
+    {
+      "T": 0.6484375,
+      "Sequential8": "#2e77d0",
+      "Diverging9": "#f0a9a4",
+      "Compact4": "#3e8ae5"
+    },
+    {
+      "T": 0.65234375,
+      "Sequential8": "#2d76cf",
+      "Diverging9": "#f0a7a2",
+      "Compact4": "#3d89e5"
+    },
+    {
+      "T": 0.65625,
+      "Sequential8": "#2d75ce",
+      "Diverging9": "#efa4a0",
+      "Compact4": "#3c88e5"
+    },
+    {
+      "T": 0.66015625,
+      "Sequential8": "#2c74cd",
+      "Diverging9": "#efa19d",
+      "Compact4": "#3a88e5"
+    },
+    {
+      "T": 0.6640625,
+      "Sequential8": "#2c74cc",
+      "Diverging9": "#ee9f9b",
+      "Compact4": "#3987e5"
+    },
+    {
+      "T": 0.6666666666666665,
+      "Sequential8": "#2b73cb",
+      "Diverging9": "#ee9d99",
+      "Compact4": "#3987e5"
+    },
+    {
+      "T": 0.6666666666666666,
+      "Sequential8": "#2b73cb",
+      "Diverging9": "#ee9d99",
+      "Compact4": "#3987e5"
+    },
+    {
+      "T": 0.6666666666666667,
+      "Sequential8": "#2b73cb",
+      "Diverging9": "#ee9d99",
+      "Compact4": "#3987e5"
+    },
+    {
+      "T": 0.66796875,
+      "Sequential8": "#2b73cb",
+      "Diverging9": "#ee9c98",
+      "Compact4": "#3886e4"
+    },
+    {
+      "T": 0.671875,
+      "Sequential8": "#2a72ca",
+      "Diverging9": "#ee9a96",
+      "Compact4": "#3885e3"
+    },
+    {
+      "T": 0.67578125,
+      "Sequential8": "#2a71c9",
+      "Diverging9": "#ed9794",
+      "Compact4": "#3784e1"
+    },
+    {
+      "T": 0.6796875,
+      "Sequential8": "#2971c8",
+      "Diverging9": "#ed9591",
+      "Compact4": "#3783e0"
+    },
+    {
+      "T": 0.68359375,
+      "Sequential8": "#2970c7",
+      "Diverging9": "#ec928f",
+      "Compact4": "#3682de"
+    },
+    {
+      "T": 0.6875,
+      "Sequential8": "#286fc6",
+      "Diverging9": "#ec908d",
+      "Compact4": "#3681dd"
+    },
+    {
+      "T": 0.69140625,
+      "Sequential8": "#286ec5",
+      "Diverging9": "#ec8d8a",
+      "Compact4": "#3580db"
+    },
+    {
+      "T": 0.6953125,
+      "Sequential8": "#276dc4",
+      "Diverging9": "#eb8a88",
+      "Compact4": "#3580da"
+    },
+    {
+      "T": 0.69921875,
+      "Sequential8": "#276dc3",
+      "Diverging9": "#eb8885",
+      "Compact4": "#347fd9"
+    },
+    {
+      "T": 0.6999999999999998,
+      "Sequential8": "#276cc2",
+      "Diverging9": "#eb8785",
+      "Compact4": "#347ed8"
+    },
+    {
+      "T": 0.7,
+      "Sequential8": "#276cc2",
+      "Diverging9": "#eb8785",
+      "Compact4": "#347ed8"
+    },
+    {
+      "T": 0.7000000000000001,
+      "Sequential8": "#266cc2",
+      "Diverging9": "#eb8785",
+      "Compact4": "#347ed8"
+    },
+    {
+      "T": 0.703125,
+      "Sequential8": "#266cc1",
+      "Diverging9": "#ea8583",
+      "Compact4": "#347ed7"
+    },
+    {
+      "T": 0.70703125,
+      "Sequential8": "#266bc0",
+      "Diverging9": "#ea8381",
+      "Compact4": "#337dd6"
+    },
+    {
+      "T": 0.7109375,
+      "Sequential8": "#256abf",
+      "Diverging9": "#ea807e",
+      "Compact4": "#337cd4"
+    },
+    {
+      "T": 0.7142857142857142,
+      "Sequential8": "#256abf",
+      "Diverging9": "#e97e7c",
+      "Compact4": "#327bd3"
+    },
+    {
+      "T": 0.7142857142857143,
+      "Sequential8": "#256abf",
+      "Diverging9": "#e97e7c",
+      "Compact4": "#327bd3"
+    },
+    {
+      "T": 0.7142857142857144,
+      "Sequential8": "#2469be",
+      "Diverging9": "#e97e7c",
+      "Compact4": "#327bd3"
+    },
+    {
+      "T": 0.71484375,
+      "Sequential8": "#2469be",
+      "Diverging9": "#e97e7c",
+      "Compact4": "#327bd3"
+    },
+    {
+      "T": 0.71875,
+      "Sequential8": "#2469bd",
+      "Diverging9": "#e97b7a",
+      "Compact4": "#327ad1"
+    },
+    {
+      "T": 0.72265625,
+      "Sequential8": "#2468bc",
+      "Diverging9": "#e87877",
+      "Compact4": "#3179d0"
+    },
+    {
+      "T": 0.7265625,
+      "Sequential8": "#2367bb",
+      "Diverging9": "#e87675",
+      "Compact4": "#3178cf"
+    },
+    {
+      "T": 0.73046875,
+      "Sequential8": "#2366ba",
+      "Diverging9": "#e87372",
+      "Compact4": "#3077cd"
+    },
+    {
+      "T": 0.734375,
+      "Sequential8": "#2366b9",
+      "Diverging9": "#e77170",
+      "Compact4": "#3076cc"
+    },
+    {
+      "T": 0.73828125,
+      "Sequential8": "#2265b7",
+      "Diverging9": "#e76e6e",
+      "Compact4": "#2f75ca"
+    },
+    {
+      "T": 0.7421875,
+      "Sequential8": "#2264b6",
+      "Diverging9": "#e66c6b",
+      "Compact4": "#2f74c9"
+    },
+    {
+      "T": 0.74609375,
+      "Sequential8": "#2263b5",
+      "Diverging9": "#e66969",
+      "Compact4": "#2e73c7"
+    },
+    {
+      "T": 0.7499999999999999,
+      "Sequential8": "#2163b4",
+      "Diverging9": "#e66767",
+      "Compact4": "#2e72c6"
+    },
+    {
+      "T": 0.75,
+      "Sequential8": "#2163b4",
+      "Diverging9": "#e66767",
+      "Compact4": "#2e72c6"
+    },
+    {
+      "T": 0.7500000000000001,
+      "Sequential8": "#2163b4",
+      "Diverging9": "#e56666",
+      "Compact4": "#2d72c6"
+    },
+    {
+      "T": 0.75390625,
+      "Sequential8": "#2162b3",
+      "Diverging9": "#e46565",
+      "Compact4": "#2d71c5"
+    },
+    {
+      "T": 0.7578125,
+      "Sequential8": "#2161b2",
+      "Diverging9": "#e36464",
+      "Compact4": "#2c70c3"
+    },
+    {
+      "T": 0.76171875,
+      "Sequential8": "#2061b1",
+      "Diverging9": "#e26262",
+      "Compact4": "#2c6fc2"
+    },
+    {
+      "T": 0.765625,
+      "Sequential8": "#2060af",
+      "Diverging9": "#e16161",
+      "Compact4": "#2b6ec0"
+    },
+    {
+      "T": 0.76953125,
+      "Sequential8": "#1f5fae",
+      "Diverging9": "#e0605f",
+      "Compact4": "#2b6ebf"
+    },
+    {
+      "T": 0.7734375,
+      "Sequential8": "#1f5ead",
+      "Diverging9": "#df5e5e",
+      "Compact4": "#2a6dbd"
+    },
+    {
+      "T": 0.77734375,
+      "Sequential8": "#1f5eac",
+      "Diverging9": "#de5d5d",
+      "Compact4": "#2a6cbc"
+    },
+    {
+      "T": 0.78125,
+      "Sequential8": "#1e5dab",
+      "Diverging9": "#dd5c5b",
+      "Compact4": "#296bbb"
+    },
+    {
+      "T": 0.78515625,
+      "Sequential8": "#1e5caa",
+      "Diverging9": "#db5a5a",
+      "Compact4": "#296ab9"
+    },
+    {
+      "T": 0.7890625,
+      "Sequential8": "#1e5ba9",
+      "Diverging9": "#da5958",
+      "Compact4": "#2869b8"
+    },
+    {
+      "T": 0.79296875,
+      "Sequential8": "#1d5ba7",
+      "Diverging9": "#d95757",
+      "Compact4": "#2868b6"
+    },
+    {
+      "T": 0.796875,
+      "Sequential8": "#1d5aa6",
+      "Diverging9": "#d85656",
+      "Compact4": "#2767b5"
+    },
+    {
+      "T": 0.7999999999999999,
+      "Sequential8": "#1d59a5",
+      "Diverging9": "#d75555",
+      "Compact4": "#2766b4"
+    },
+    {
+      "T": 0.8,
+      "Sequential8": "#1d59a5",
+      "Diverging9": "#d75554",
+      "Compact4": "#2766b4"
+    },
+    {
+      "T": 0.8000000000000002,
+      "Sequential8": "#1d59a5",
+      "Diverging9": "#d75554",
+      "Compact4": "#2766b4"
+    },
+    {
+      "T": 0.80078125,
+      "Sequential8": "#1d59a5",
+      "Diverging9": "#d75554",
+      "Compact4": "#2766b3"
+    },
+    {
+      "T": 0.8046875,
+      "Sequential8": "#1c58a4",
+      "Diverging9": "#d65353",
+      "Compact4": "#2665b2"
+    },
+    {
+      "T": 0.80859375,
+      "Sequential8": "#1c58a3",
+      "Diverging9": "#d55251",
+      "Compact4": "#2664b1"
+    },
+    {
+      "T": 0.8125,
+      "Sequential8": "#1c57a2",
+      "Diverging9": "#d45150",
+      "Compact4": "#2563af"
+    },
+    {
+      "T": 0.81640625,
+      "Sequential8": "#1b56a0",
+      "Diverging9": "#d24f4f",
+      "Compact4": "#2562ae"
+    },
+    {
+      "T": 0.8203125,
+      "Sequential8": "#1b559f",
+      "Diverging9": "#d14e4d",
+      "Compact4": "#2461ac"
+    },
+    {
+      "T": 0.82421875,
+      "Sequential8": "#1a559e",
+      "Diverging9": "#d04c4c",
+      "Compact4": "#2460ab"
+    },
+    {
+      "T": 0.828125,
+      "Sequential8": "#1a549d",
+      "Diverging9": "#cf4b4a",
+      "Compact4": "#235fa9"
+    },
+    {
+      "T": 0.83203125,
+      "Sequential8": "#1a539c",
+      "Diverging9": "#ce4a49",
+      "Compact4": "#235ea8"
+    },
+    {
+      "T": 0.8359375,
+      "Sequential8": "#19539b",
+      "Diverging9": "#cd4848",
+      "Compact4": "#225da7"
+    },
+    {
+      "T": 0.83984375,
+      "Sequential8": "#19529a",
+      "Diverging9": "#cc4746",
+      "Compact4": "#225ca5"
+    },
+    {
+      "T": 0.84375,
+      "Sequential8": "#195198",
+      "Diverging9": "#cb4645",
+      "Compact4": "#215ba4"
+    },
+    {
+      "T": 0.84765625,
+      "Sequential8": "#185097",
+      "Diverging9": "#c94443",
+      "Compact4": "#215ba2"
+    },
+    {
+      "T": 0.8515625,
+      "Sequential8": "#185096",
+      "Diverging9": "#c84342",
+      "Compact4": "#205aa1"
+    },
+    {
+      "T": 0.85546875,
+      "Sequential8": "#184f95",
+      "Diverging9": "#c74141",
+      "Compact4": "#20599f"
+    },
+    {
+      "T": 0.857142857142857,
+      "Sequential8": "#184f95",
+      "Diverging9": "#c74140",
+      "Compact4": "#1f589f"
+    },
+    {
+      "T": 0.8571428571428571,
+      "Sequential8": "#184f95",
+      "Diverging9": "#c74140",
+      "Compact4": "#1f589f"
+    },
+    {
+      "T": 0.8571428571428572,
+      "Sequential8": "#174e94",
+      "Diverging9": "#c74140",
+      "Compact4": "#1f589f"
+    },
+    {
+      "T": 0.859375,
+      "Sequential8": "#174e94",
+      "Diverging9": "#c6403f",
+      "Compact4": "#1f589e"
+    },
+    {
+      "T": 0.86328125,
+      "Sequential8": "#174d93",
+      "Diverging9": "#c53f3e",
+      "Compact4": "#1f579d"
+    },
+    {
+      "T": 0.8671875,
+      "Sequential8": "#174d92",
+      "Diverging9": "#c43d3c",
+      "Compact4": "#1e569b"
+    },
+    {
+      "T": 0.87109375,
+      "Sequential8": "#164c90",
+      "Diverging9": "#c33c3b",
+      "Compact4": "#1e559a"
+    },
+    {
+      "T": 0.8749999999999999,
+      "Sequential8": "#164b8f",
+      "Diverging9": "#c23b3a",
+      "Compact4": "#1d5498"
+    },
+    {
+      "T": 0.875,
+      "Sequential8": "#164b8f",
+      "Diverging9": "#c23b3a",
+      "Compact4": "#1d5498"
+    },
+    {
+      "T": 0.8750000000000001,
+      "Sequential8": "#164b8f",
+      "Diverging9": "#c13a39",
+      "Compact4": "#1d5498"
+    },
+    {
+      "T": 0.87890625,
+      "Sequential8": "#164b8e",
+      "Diverging9": "#bf3a39",
+      "Compact4": "#1c5397"
+    },
+    {
+      "T": 0.8828125,
+      "Sequential8": "#164a8d",
+      "Diverging9": "#bd3938",
+      "Compact4": "#1c5295"
+    },
+    {
+      "T": 0.88671875,
+      "Sequential8": "#15498c",
+      "Diverging9": "#bb3837",
+      "Compact4": "#1b5194"
+    },
+    {
+      "T": 0.890625,
+      "Sequential8": "#15498b",
+      "Diverging9": "#b93736",
+      "Compact4": "#1b5093"
+    },
+    {
+      "T": 0.89453125,
+      "Sequential8": "#15488a",
+      "Diverging9": "#b73635",
+      "Compact4": "#1a4f91"
+    },
+    {
+      "T": 0.8984375,
+      "Sequential8": "#144788",
+      "Diverging9": "#b53534",
+      "Compact4": "#1a4e90"
+    },
+    {
+      "T": 0.8999999999999999,
+      "Sequential8": "#144788",
+      "Diverging9": "#b43534",
+      "Compact4": "#1a4e8f"
+    },
+    {
+      "T": 0.9,
+      "Sequential8": "#144788",
+      "Diverging9": "#b43534",
+      "Compact4": "#1a4e8f"
+    },
+    {
+      "T": 0.9000000000000001,
+      "Sequential8": "#144788",
+      "Diverging9": "#b43534",
+      "Compact4": "#1a4e8f"
+    },
+    {
+      "T": 0.90234375,
+      "Sequential8": "#144787",
+      "Diverging9": "#b33434",
+      "Compact4": "#194d8e"
+    },
+    {
+      "T": 0.90625,
+      "Sequential8": "#144686",
+      "Diverging9": "#b13433",
+      "Compact4": "#194c8d"
+    },
+    {
+      "T": 0.91015625,
+      "Sequential8": "#134585",
+      "Diverging9": "#af3332",
+      "Compact4": "#184b8b"
+    },
+    {
+      "T": 0.9140625,
+      "Sequential8": "#134584",
+      "Diverging9": "#ad3231",
+      "Compact4": "#184a8a"
+    },
+    {
+      "T": 0.91796875,
+      "Sequential8": "#134483",
+      "Diverging9": "#aa3130",
+      "Compact4": "#174989"
+    },
+    {
+      "T": 0.921875,
+      "Sequential8": "#134381",
+      "Diverging9": "#a8302f",
+      "Compact4": "#174887"
+    },
+    {
+      "T": 0.92578125,
+      "Sequential8": "#124280",
+      "Diverging9": "#a62f2f",
+      "Compact4": "#164886"
+    },
+    {
+      "T": 0.9296875,
+      "Sequential8": "#12427f",
+      "Diverging9": "#a42e2e",
+      "Compact4": "#164784"
+    },
+    {
+      "T": 0.93359375,
+      "Sequential8": "#12417e",
+      "Diverging9": "#a22d2d",
+      "Compact4": "#154683"
+    },
+    {
+      "T": 0.9375,
+      "Sequential8": "#11407d",
+      "Diverging9": "#a02d2c",
+      "Compact4": "#154581"
+    },
+    {
+      "T": 0.94140625,
+      "Sequential8": "#11407c",
+      "Diverging9": "#9e2c2b",
+      "Compact4": "#144480"
+    },
+    {
+      "T": 0.9453125,
+      "Sequential8": "#113f7b",
+      "Diverging9": "#9c2b2a",
+      "Compact4": "#14437f"
+    },
+    {
+      "T": 0.94921875,
+      "Sequential8": "#103e79",
+      "Diverging9": "#9a2a29",
+      "Compact4": "#13427d"
+    },
+    {
+      "T": 0.953125,
+      "Sequential8": "#103e78",
+      "Diverging9": "#982929",
+      "Compact4": "#13417c"
+    },
+    {
+      "T": 0.95703125,
+      "Sequential8": "#103d77",
+      "Diverging9": "#962828",
+      "Compact4": "#12407a"
+    },
+    {
+      "T": 0.9609375,
+      "Sequential8": "#103c76",
+      "Diverging9": "#932727",
+      "Compact4": "#123f79"
+    },
+    {
+      "T": 0.96484375,
+      "Sequential8": "#0f3c75",
+      "Diverging9": "#912626",
+      "Compact4": "#113e77"
+    },
+    {
+      "T": 0.96875,
+      "Sequential8": "#0f3b74",
+      "Diverging9": "#8f2625",
+      "Compact4": "#113d76"
+    },
+    {
+      "T": 0.97265625,
+      "Sequential8": "#0f3a73",
+      "Diverging9": "#8d2524",
+      "Compact4": "#103c75"
+    },
+    {
+      "T": 0.9765625,
+      "Sequential8": "#0e3a71",
+      "Diverging9": "#8b2424",
+      "Compact4": "#103b73"
+    },
+    {
+      "T": 0.98046875,
+      "Sequential8": "#0e3970",
+      "Diverging9": "#892323",
+      "Compact4": "#0f3a72"
+    },
+    {
+      "T": 0.984375,
+      "Sequential8": "#0e386f",
+      "Diverging9": "#872222",
+      "Compact4": "#0f3970"
+    },
+    {
+      "T": 0.98828125,
+      "Sequential8": "#0d386e",
+      "Diverging9": "#852121",
+      "Compact4": "#0e386f"
+    },
+    {
+      "T": 0.9921875,
+      "Sequential8": "#0d376d",
+      "Diverging9": "#832020",
+      "Compact4": "#0e376d"
+    },
+    {
+      "T": 0.99609375,
+      "Sequential8": "#0d366c",
+      "Diverging9": "#811f1f",
+      "Compact4": "#0d366c"
+    },
+    {
+      "T": 0.9999999999999999,
+      "Sequential8": "#0d366b",
+      "Diverging9": "#7f1f1f",
+      "Compact4": "#0d366b"
+    },
+    {
+      "T": 1,
+      "Sequential8": "#0d366b",
+      "Diverging9": "#7f1f1f",
+      "Compact4": "#0d366b"
+    },
+    {
+      "T": 1.1,
+      "Sequential8": "#0d366b",
+      "Diverging9": "#7f1f1f",
+      "Compact4": "#0d366b"
+    }
+  ]
+}

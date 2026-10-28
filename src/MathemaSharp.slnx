@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/libs/">
+    <Project Path="libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
+    <Project Path="libs/MathemaSharp.LinearAlgebra/MathemaSharp.LinearAlgebra.csproj" />
+    <Project Path="libs/MathemaSharp.NDSharp/MathemaSharp.NDSharp.csproj" />
+    <Project Path="libs/MathemaSharp.Quantum/MathemaSharp.Quantum.csproj" />
+    <Project Path="libs/MathemaSharp.TimeSeries/MathemaSharp.TimeSeries.csproj" />
+  </Folder>
+  <Folder Name="/apps/">
+    <Project Path="apps/MathemaSharp.Lab/MathemaSharp.Lab.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/Ecosystem.Validation/Ecosystem.Validation/Ecosystem.Validation.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ecosystem.Validation.Tests/Ecosystem.Validation.Tests/Ecosystem.Validation.Tests.csproj" />
+    <Project Path="tests/MathemaSharp.Core.Tests/MathemaSharp.Core.Tests.csproj" />
+    <Project Path="tests/MathemaSharp.NDSharp.Tests/MathemaSharp.NDSharp.Tests.csproj" />
+    <Project Path="tests/MathemaSharp.Quantum.Tests/MathemaSharp.Quantum.Tests.csproj" />
+    <Project Path="tests/MathemaSharp.TimeSeries.Tests/MathemaSharp.TimeSeries.Tests.csproj" />
+    <Project Path="tests/MathemaSharp.Docs.Tests/MathemaSharp.Docs.Tests.csproj" />
+  </Folder>
+  <Folder Name="/apps/MathemaSharp.Docs/">
+    <Project Path="apps/MathemaSharp.Docs/MathemaSharp.Docs/MathemaSharp.Docs.csproj" />
+  </Folder>
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/MathemaSharp.Benchmarks/MathemaSharp.Benchmarks.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,5 @@
+<Project>
+  <Target Name="Run">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)../scripts/run-notebooks.ps1&quot; -Module NDSharp -TopLevelOnly -Filter 01-generic-math" />
+  </Target>
+</Project>

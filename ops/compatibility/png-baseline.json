@@ -1,0 +1,73 @@
+{
+  "GeneratedUtc": "2026-10-28T16:31:44.5867574Z",
+  "Framework": ".NET 11.0.0-rc.3.26522.148",
+  "OS": "Microsoft Windows 10.0.26300",
+  "SourceSha256": "574FBFF42FEA9E9C39C3C450C895FB1FF22D55AB2126F67B284646BAF20B8CD7",
+  "Notes": "Pre-PNG-encoder migration: raw scanline bytes always comparable; compressed hash only comparable on the recorded runtime/OS.",
+  "Samples": [
+    {
+      "Name": "gradient",
+      "Rows": 2,
+      "Columns": 2,
+      "Values": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "Diverging": false,
+      "Min": 0,
+      "Max": 3,
+      "Width": 6,
+      "Height": 4,
+      "MaskCircle": false,
+      "ScanlinesHex": "00337EDA2B73CB2468BC1F5EAC1A539B15498B0067A3EB5297E83E8AE5337EDA2B73CB2468BC00A0C6F48DBBF17AAFEE67A3EB5297E83E8AE500D5E6FBC5DDF9B2D1F7A0C6F48DBBF17AAFEE",
+      "EncodedSha256": "B202D5E8FEC2814605C93418D6C9343F5835081812EC98777263CF7D959F41D9"
+    },
+    {
+      "Name": "signed",
+      "Rows": 3,
+      "Columns": 3,
+      "Values": [
+        -1,
+        0,
+        1,
+        1,
+        0.25,
+        -0.5,
+        0,
+        0.5,
+        -1
+      ],
+      "Diverging": true,
+      "Min": -1,
+      "Max": 1,
+      "Width": 7,
+      "Height": 5,
+      "MaskCircle": false,
+      "ScanlinesHex": "00F2BCB6F0A6A1EC8E8BE87776F0E1DDA1C6F33174C600DC5B5BE66969EA807EED9894F0E4E0B7D3F65E9AE3009B2B2ACC4746E77271F3B9B3F0E7E3C7DBF38CB9F000F2C5C0F2C8C3F1CBC6F1CEC9F1D1CDF1D4D0F1D7D3006AA5EAA1C6F3D1DFF1F0E4E0F2BCB6EA807ED65453",
+      "EncodedSha256": "6C23814FA40B444B7E2C228A3F0E71CE664F1944D72D32F95225281BEEDE4ABD"
+    },
+    {
+      "Name": "masked",
+      "Rows": 2,
+      "Columns": 3,
+      "Values": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        0
+      ],
+      "Diverging": false,
+      "Min": 0,
+      "Max": 2,
+      "Width": 8,
+      "Height": 6,
+      "MaskCircle": true,
+      "ScanlinesHex": "00174D922061B12D75CE408BE565A2EB8AB8F0ADCEF6CFE3FB002469BD2D75CE3582DF52514E52514E74ABED8AB8F09FC5F4003886E4408BE552514E52514E52514E52514E65A2EB6DA7EC006DA7EC65A2EB52514E52514E52514E52514E408BE53886E4009FC5F48AB8F074ABED52514E52514E3582DF2D75CE2469BD00CFE3FBADCEF68AB8F065A2EB408BE52D75CE2061B1174D92",
+      "EncodedSha256": "F6F406B1A207B8992494EA53F7CC9D3E70D8E6ABCFEC832D89C7CEEC57F89308"
+    }
+  ]
+}

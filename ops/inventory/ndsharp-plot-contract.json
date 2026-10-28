@@ -1,0 +1,82 @@
+{
+  "GeneratedUtc": "2026-10-28T21:46:24.3983990Z",
+  "TargetFramework": "net11.0",
+  "ProjectReferences": [
+    {
+      "Path": "..\\NDSharp\\NDSharp.csproj",
+      "Exists": true
+    },
+    {
+      "Path": "../../../PlotSharp/src/PlotSharp/PlotSharp/PlotSharp.csproj",
+      "Exists": true
+    }
+  ],
+  "Packages": [
+    {
+      "Name": "SkiaSharp",
+      "Version": "3.119.0"
+    },
+    {
+      "Name": "SkiaSharp.NativeAssets.Linux.NoDependencies",
+      "Version": "3.119.0"
+    },
+    {
+      "Name": "SkiaSharp.NativeAssets.macOS",
+      "Version": "3.119.0"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "../NDSharp/src/NDSharp.Plot/NDSharp.Plot.csproj",
+      "Sha256": "6FBDA6F7E8D14768F0ECB7DF93790A5252E78F52013742335DDFC14EB1570FB3"
+    },
+    {
+      "Path": "../NDSharp/src/NDSharp.Plot/Contour.cs",
+      "Sha256": "1811A49CED9DA6CEDE1C68A841DE2EEC0FC3B4766089F9F458BCFAB5C3F4363D"
+    },
+    {
+      "Path": "../NDSharp/src/NDSharp.Plot/Ticks.cs",
+      "Sha256": "42BC6A1E80795845B32B44A8370DE57C03D6B5CD83959ED1D8F6B7165607B72F"
+    },
+    {
+      "Path": "../PlotSharp/src/PlotSharp/PlotSharp/ContourKernel.cs",
+      "Sha256": "98A1147381FDCD063C659FCE1AC39F223807871AA51BF46B019C033FF8A14DD0"
+    },
+    {
+      "Path": "../PlotSharp/src/PlotSharp/PlotSharp/RectilinearContours.cs",
+      "Sha256": "DB052A708A24B628F9C2722E1DD48D41A141D420A1CB0B0BF29780133B722137"
+    },
+    {
+      "Path": "../PlotSharp/src/PlotSharp/PlotSharp/RectilinearFieldSampler.cs",
+      "Sha256": "68375A185B046F3EE917BCC08277E75D763C41CE094CCEB31B62FF7F4CF2A639"
+    },
+    {
+      "Path": "../PlotSharp/src/PlotSharp/PlotSharp/ContourBands.cs",
+      "Sha256": "4B388660FD1CD7D864B05897E52661BF35F97F72D572BDB763F2B2AF9F1C965F"
+    },
+    {
+      "Path": "../NDSharp/src/NDSharp.Plot.Tests/ContourBaselineTests.cs",
+      "Sha256": "5CF28962F6ADB995EE743B861B684291E17B663AD850F1CCD2B7028E9641F072"
+    },
+    {
+      "Path": "../NDSharp/src/NDSharp.Plot/Fonts/LICENSE_DEJAVU",
+      "Sha256": "D75938DEC098F06F0AC3C00853065D94F020BE1C3C62EF1DC2975BA15B4D9B0E"
+    }
+  ],
+  "Notes": [
+    "Active source NDSharp/src/NDSharp.Plot, not imported snapshot. PlotSharp dependency added for line-contour geometry only.",
+    "Line-contour geometry delegates to RectilinearContours/ContourKernel. Xs/Ys remain physical and nonuniform, not globally scaled sample indices.",
+    "NDSharp retains endpoint-level suppression; shared kernel preserves invalid corner-sum skip, edge direction/order and zero-length segments. Malformed axes/data or non-finite coordinates/levels are rejected.",
+    "AutoLevels uses matplotlib-shaped Ticks fineSteps; do not replace with PlotSharp NiceTicks.",
+    "Filled-contour sampling and inclusive band/midpoint selection delegate to RectilinearFieldSampler/ContourBands; alpha/colors, Skia paint/styles, Figure/Axes and registry remain NDSharp.",
+    "New baseline tests inspect PNG pixels in memory: physical grid, non-finite cell, endpoint levels and filled bands. No saved images.",
+    "Licenses/fonts metadata recorded, not complete release/legal audit; preserve DejaVu notice."
+  ],
+  "LineContourGeometryDelegated": true,
+  "FilledBilinearSamplingDelegated": true,
+  "FilledBandSelectionDelegated": true,
+  "FamilyMigrationComplete": false,
+  "TestExitCode": 0,
+  "PassedTests": 19,
+  "Scope": "Line-contour geometry migration and targeted baseline, not full NDSharp solution, notebook integration, visual review or publishing."
+}

@@ -1,0 +1,10 @@
+{
+  "potenza_nominale_kwp": 1000,
+  "potenza_ac_max_kw": 600,
+  "giorno_pulizia": 30,
+  "data_pulizia": "2026-08-26",
+  "sporcamento_per_giorno": 0.0009,
+  "giorno_guasto": 38,
+  "data_guasto": "2026-09-03",
+  "ore_guasto": 5
+}

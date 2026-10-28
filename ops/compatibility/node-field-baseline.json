@@ -1,0 +1,100 @@
+{
+  "GeneratedUtc": "2026-10-28T18:35:18.5702163Z",
+  "SourceSha256": "E83AA1F236F8E95F9A261AFF573CEF36F4BF069282DDADF27C3B9DF669ED4C4F",
+  "Notes": "Before FieldPlot assembly migration; only random ids and encoded PNG payload replaced in structural markup, decoded RGB checked independently. No images saved.",
+  "Samples": [
+    {
+      "Name": "gradient",
+      "Rows": 2,
+      "Columns": 3,
+      "Values": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        0
+      ],
+      "PlotWidth": 12,
+      "Subtitle": "",
+      "Diverging": false,
+      "Contours": false,
+      "Vectors": false,
+      "Obstacle": false,
+      "Markup": "\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 viewBox=\u00220 0 142 74\u0022 width=\u0022142\u0022 height=\u002274\u0022 font-family=\u0022Segoe UI, Inter, system-ui, sans-serif\u0022\u003E\u003Crect width=\u0022142\u0022 height=\u002274\u0022 fill=\u0022#fcfcfb\u0022 /\u003E\u003Ctext x=\u002216\u0022 y=\u002226\u0022 font-size=\u002215\u0022 font-weight=\u0022600\u0022 fill=\u0022#0b0b0b\u0022\u003EField \u0026lt;\u0026amp;\u0027\u003C/text\u003E\u003Cimage x=\u002216\u0022 y=\u002244\u0022 width=\u002212\u0022 height=\u00226\u0022 preserveAspectRatio=\u0022none\u0022 href=\u0022RGB-PIXELS-CHECKED-SEPARATELY\u0022 /\u003E\u003Crect x=\u002216\u0022 y=\u002244\u0022 width=\u002212\u0022 height=\u00226\u0022 fill=\u0022none\u0022 stroke=\u0022#8a8984\u0022 stroke-width=\u00221\u0022 /\u003E\u003Cdefs\u003E\u003ClinearGradient id=\u0022cb-fixed\u0022 x1=\u00220\u0022 y1=\u00221\u0022 x2=\u00220\u0022 y2=\u00220\u0022\u003E\u003Cstop offset=\u00220%\u0022 stop-color=\u0022#f4f8fd\u0022 /\u003E\u003Cstop offset=\u002210%\u0022 stop-color=\u0022#d8e8fb\u0022 /\u003E\u003Cstop offset=\u002220%\u0022 stop-color=\u0022#bad6f8\u0022 /\u003E\u003Cstop offset=\u002230%\u0022 stop-color=\u0022#99c2f3\u0022 /\u003E\u003Cstop offset=\u002240%\u0022 stop-color=\u0022#76aded\u0022 /\u003E\u003Cstop offset=\u002250%\u0022 stop-color=\u0022#5297e8\u0022 /\u003E\u003Cstop offset=\u002260%\u0022 stop-color=\u0022#3581dd\u0022 /\u003E\u003Cstop offset=\u002270%\u0022 stop-color=\u0022#276cc2\u0022 /\u003E\u003Cstop offset=\u002280%\u0022 stop-color=\u0022#1d59a5\u0022 /\u003E\u003Cstop offset=\u002290%\u0022 stop-color=\u0022#144788\u0022 /\u003E\u003Cstop offset=\u0022100%\u0022 stop-color=\u0022#0d366b\u0022 /\u003E\u003C/linearGradient\u003E\u003C/defs\u003E\u003Crect x=\u002248\u0022 y=\u002244\u0022 width=\u002214\u0022 height=\u00226\u0022 fill=\u0022url(#cb-fixed)\u0022 rx=\u00222\u0022 /\u003E\u003Ctext x=\u002268\u0022 y=\u002254\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E0\u003C/text\u003E\u003Ctext x=\u002268\u0022 y=\u002251\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E1\u003C/text\u003E\u003Ctext x=\u002268\u0022 y=\u002248\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E2\u003C/text\u003E\u003Ctext transform=\u0022translate(124,47) rotate(90)\u0022 text-anchor=\u0022middle\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003EScale \u0026lt;\u0026amp;\u0027\u003C/text\u003E\u003C/svg\u003E",
+      "RawPixelSha256": "1BCE5E7D059ABA97A64678CB85B5CA884E458B9EB639C39EE1CE130297ED5763"
+    },
+    {
+      "Name": "contours",
+      "Rows": 3,
+      "Columns": 3,
+      "Values": [
+        0,
+        1,
+        2,
+        0,
+        1,
+        2,
+        0,
+        1,
+        2
+      ],
+      "PlotWidth": 14,
+      "Subtitle": "sub",
+      "Diverging": false,
+      "Contours": true,
+      "Vectors": false,
+      "Obstacle": false,
+      "Markup": "\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 viewBox=\u00220 0 144 100\u0022 width=\u0022144\u0022 height=\u0022100\u0022 font-family=\u0022Segoe UI, Inter, system-ui, sans-serif\u0022\u003E\u003Crect width=\u0022144\u0022 height=\u0022100\u0022 fill=\u0022#fcfcfb\u0022 /\u003E\u003Ctext x=\u002216\u0022 y=\u002226\u0022 font-size=\u002215\u0022 font-weight=\u0022600\u0022 fill=\u0022#0b0b0b\u0022\u003EField \u0026lt;\u0026amp;\u0027\u003C/text\u003E\u003Ctext x=\u002216\u0022 y=\u002245\u0022 font-size=\u002212\u0022 fill=\u0022#52514e\u0022\u003Esub\u003C/text\u003E\u003Cimage x=\u002216\u0022 y=\u002262\u0022 width=\u002214\u0022 height=\u002214\u0022 preserveAspectRatio=\u0022none\u0022 href=\u0022RGB-PIXELS-CHECKED-SEPARATELY\u0022 /\u003E\u003Cpath d=\u0022M23 76L23 69M23 69L23 62\u0022 fill=\u0022none\u0022 stroke=\u0022#ffffff\u0022 stroke-opacity=\u00220.9\u0022 stroke-width=\u00221.2\u0022 /\u003E\u003Crect x=\u002216\u0022 y=\u002262\u0022 width=\u002214\u0022 height=\u002214\u0022 fill=\u0022none\u0022 stroke=\u0022#8a8984\u0022 stroke-width=\u00221\u0022 /\u003E\u003Cdefs\u003E\u003ClinearGradient id=\u0022cb-fixed\u0022 x1=\u00220\u0022 y1=\u00221\u0022 x2=\u00220\u0022 y2=\u00220\u0022\u003E\u003Cstop offset=\u00220%\u0022 stop-color=\u0022#f4f8fd\u0022 /\u003E\u003Cstop offset=\u002210%\u0022 stop-color=\u0022#d8e8fb\u0022 /\u003E\u003Cstop offset=\u002220%\u0022 stop-color=\u0022#bad6f8\u0022 /\u003E\u003Cstop offset=\u002230%\u0022 stop-color=\u0022#99c2f3\u0022 /\u003E\u003Cstop offset=\u002240%\u0022 stop-color=\u0022#76aded\u0022 /\u003E\u003Cstop offset=\u002250%\u0022 stop-color=\u0022#5297e8\u0022 /\u003E\u003Cstop offset=\u002260%\u0022 stop-color=\u0022#3581dd\u0022 /\u003E\u003Cstop offset=\u002270%\u0022 stop-color=\u0022#276cc2\u0022 /\u003E\u003Cstop offset=\u002280%\u0022 stop-color=\u0022#1d59a5\u0022 /\u003E\u003Cstop offset=\u002290%\u0022 stop-color=\u0022#144788\u0022 /\u003E\u003Cstop offset=\u0022100%\u0022 stop-color=\u0022#0d366b\u0022 /\u003E\u003C/linearGradient\u003E\u003C/defs\u003E\u003Crect x=\u002250\u0022 y=\u002262\u0022 width=\u002214\u0022 height=\u002214\u0022 fill=\u0022url(#cb-fixed)\u0022 rx=\u00222\u0022 /\u003E\u003Ctext x=\u002270\u0022 y=\u002280\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E0\u003C/text\u003E\u003Ctext x=\u002270\u0022 y=\u002273\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E1\u003C/text\u003E\u003Ctext x=\u002270\u0022 y=\u002266\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E2\u003C/text\u003E\u003Ctext transform=\u0022translate(126,69) rotate(90)\u0022 text-anchor=\u0022middle\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003EScale \u0026lt;\u0026amp;\u0027\u003C/text\u003E\u003C/svg\u003E",
+      "RawPixelSha256": "2B2A20ECAFEE00A53581D25B77B06B97C1FEF41FAF1273769C2F0168FCB30EE4"
+    },
+    {
+      "Name": "vectors",
+      "Rows": 3,
+      "Columns": 3,
+      "Values": [
+        -1,
+        0,
+        1,
+        1,
+        -1,
+        0,
+        2,
+        -2,
+        0
+      ],
+      "PlotWidth": 17,
+      "Subtitle": "sub",
+      "Diverging": true,
+      "Contours": false,
+      "Vectors": true,
+      "Obstacle": false,
+      "Markup": "\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 viewBox=\u00220 0 147 103\u0022 width=\u0022147\u0022 height=\u0022103\u0022 font-family=\u0022Segoe UI, Inter, system-ui, sans-serif\u0022\u003E\u003Crect width=\u0022147\u0022 height=\u0022103\u0022 fill=\u0022#fcfcfb\u0022 /\u003E\u003Ctext x=\u002216\u0022 y=\u002226\u0022 font-size=\u002215\u0022 font-weight=\u0022600\u0022 fill=\u0022#0b0b0b\u0022\u003EField \u0026lt;\u0026amp;\u0027\u003C/text\u003E\u003Ctext x=\u002216\u0022 y=\u002245\u0022 font-size=\u002212\u0022 fill=\u0022#52514e\u0022\u003Esub\u003C/text\u003E\u003Cimage x=\u002216\u0022 y=\u002262\u0022 width=\u002217\u0022 height=\u002217\u0022 preserveAspectRatio=\u0022none\u0022 href=\u0022RGB-PIXELS-CHECKED-SEPARATELY\u0022 /\u003E\u003Cpath d=\u0022M16 79L23.65 79M20.05 80.74L23.65 79L20.05 77.26M24.5 79L32.15 79M28.55 80.74L32.15 79L28.55 77.26M33 79L40.65 79M37.05 80.74L40.65 79L37.05 77.26M16 70.5L23.65 70.5M20.05 72.24L23.65 70.5L20.05 68.76M24.5 70.5L32.15 70.5M28.55 72.24L32.15 70.5L28.55 68.76M33 70.5L40.65 70.5M37.05 72.24L40.65 70.5L37.05 68.76M16 62L23.65 62M20.05 63.74L23.65 62L20.05 60.26M24.5 62L32.15 62M28.55 63.74L32.15 62L28.55 60.26M33 62L40.65 62M37.05 63.74L40.65 62L37.05 60.26\u0022 fill=\u0022none\u0022 stroke=\u0022#0b0b0b\u0022 stroke-opacity=\u00220.75\u0022 stroke-width=\u00221.1\u0022 stroke-linecap=\u0022round\u0022 /\u003E\u003Crect x=\u002216\u0022 y=\u002262\u0022 width=\u002217\u0022 height=\u002217\u0022 fill=\u0022none\u0022 stroke=\u0022#8a8984\u0022 stroke-width=\u00221\u0022 /\u003E\u003Cdefs\u003E\u003ClinearGradient id=\u0022cb-fixed\u0022 x1=\u00220\u0022 y1=\u00221\u0022 x2=\u00220\u0022 y2=\u00220\u0022\u003E\u003Cstop offset=\u00220%\u0022 stop-color=\u0022#0d366b\u0022 /\u003E\u003Cstop offset=\u002210%\u0022 stop-color=\u0022#205fae\u0022 /\u003E\u003Cstop offset=\u002220%\u0022 stop-color=\u0022#508eda\u0022 /\u003E\u003Cstop offset=\u002230%\u0022 stop-color=\u0022#8ab8f0\u0022 /\u003E\u003Cstop offset=\u002240%\u0022 stop-color=\u0022#c2d8f4\u0022 /\u003E\u003Cstop offset=\u002250%\u0022 stop-color=\u0022#f0efec\u0022 /\u003E\u003Cstop offset=\u002260%\u0022 stop-color=\u0022#f2c3be\u0022 /\u003E\u003Cstop offset=\u002270%\u0022 stop-color=\u0022#eb8785\u0022 /\u003E\u003Cstop offset=\u002280%\u0022 stop-color=\u0022#d75554\u0022 /\u003E\u003Cstop offset=\u002290%\u0022 stop-color=\u0022#b43534\u0022 /\u003E\u003Cstop offset=\u0022100%\u0022 stop-color=\u0022#7f1f1f\u0022 /\u003E\u003C/linearGradient\u003E\u003C/defs\u003E\u003Crect x=\u002253\u0022 y=\u002262\u0022 width=\u002214\u0022 height=\u002217\u0022 fill=\u0022url(#cb-fixed)\u0022 rx=\u00222\u0022 /\u003E\u003Ctext x=\u002273\u0022 y=\u002283\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E-2\u003C/text\u003E\u003Ctext x=\u002273\u0022 y=\u002274.5\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E0\u003C/text\u003E\u003Ctext x=\u002273\u0022 y=\u002266\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E2\u003C/text\u003E\u003Ctext transform=\u0022translate(129,70) rotate(90)\u0022 text-anchor=\u0022middle\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003EScale \u0026lt;\u0026amp;\u0027\u003C/text\u003E\u003C/svg\u003E",
+      "RawPixelSha256": "4E02ED516632D39991A56FB29C6D1627A7CBE9B5A91F6E5C6F0EB7E3B6EF2EDD"
+    },
+    {
+      "Name": "obstacle",
+      "Rows": 3,
+      "Columns": 3,
+      "Values": [
+        0,
+        1,
+        2,
+        0,
+        1,
+        2,
+        0,
+        1,
+        2
+      ],
+      "PlotWidth": 12,
+      "Subtitle": "",
+      "Diverging": false,
+      "Contours": false,
+      "Vectors": false,
+      "Obstacle": true,
+      "Markup": "\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 viewBox=\u00220 0 142 80\u0022 width=\u0022142\u0022 height=\u002280\u0022 font-family=\u0022Segoe UI, Inter, system-ui, sans-serif\u0022\u003E\u003Crect width=\u0022142\u0022 height=\u002280\u0022 fill=\u0022#fcfcfb\u0022 /\u003E\u003Ctext x=\u002216\u0022 y=\u002226\u0022 font-size=\u002215\u0022 font-weight=\u0022600\u0022 fill=\u0022#0b0b0b\u0022\u003EField \u0026lt;\u0026amp;\u0027\u003C/text\u003E\u003Cimage x=\u002216\u0022 y=\u002244\u0022 width=\u002212\u0022 height=\u002212\u0022 preserveAspectRatio=\u0022none\u0022 href=\u0022RGB-PIXELS-CHECKED-SEPARATELY\u0022 /\u003E\u003Crect x=\u002216\u0022 y=\u002244\u0022 width=\u002212\u0022 height=\u002212\u0022 fill=\u0022none\u0022 stroke=\u0022#8a8984\u0022 stroke-width=\u00221\u0022 /\u003E\u003Cdefs\u003E\u003ClinearGradient id=\u0022cb-fixed\u0022 x1=\u00220\u0022 y1=\u00221\u0022 x2=\u00220\u0022 y2=\u00220\u0022\u003E\u003Cstop offset=\u00220%\u0022 stop-color=\u0022#f4f8fd\u0022 /\u003E\u003Cstop offset=\u002210%\u0022 stop-color=\u0022#d8e8fb\u0022 /\u003E\u003Cstop offset=\u002220%\u0022 stop-color=\u0022#bad6f8\u0022 /\u003E\u003Cstop offset=\u002230%\u0022 stop-color=\u0022#99c2f3\u0022 /\u003E\u003Cstop offset=\u002240%\u0022 stop-color=\u0022#76aded\u0022 /\u003E\u003Cstop offset=\u002250%\u0022 stop-color=\u0022#5297e8\u0022 /\u003E\u003Cstop offset=\u002260%\u0022 stop-color=\u0022#3581dd\u0022 /\u003E\u003Cstop offset=\u002270%\u0022 stop-color=\u0022#276cc2\u0022 /\u003E\u003Cstop offset=\u002280%\u0022 stop-color=\u0022#1d59a5\u0022 /\u003E\u003Cstop offset=\u002290%\u0022 stop-color=\u0022#144788\u0022 /\u003E\u003Cstop offset=\u0022100%\u0022 stop-color=\u0022#0d366b\u0022 /\u003E\u003C/linearGradient\u003E\u003C/defs\u003E\u003Crect x=\u002248\u0022 y=\u002244\u0022 width=\u002214\u0022 height=\u002212\u0022 fill=\u0022url(#cb-fixed)\u0022 rx=\u00222\u0022 /\u003E\u003Ctext x=\u002268\u0022 y=\u002260\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E0\u003C/text\u003E\u003Ctext x=\u002268\u0022 y=\u002254\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E1\u003C/text\u003E\u003Ctext x=\u002268\u0022 y=\u002248\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003E2\u003C/text\u003E\u003Ctext transform=\u0022translate(124,50) rotate(90)\u0022 text-anchor=\u0022middle\u0022 font-size=\u002211\u0022 fill=\u0022#52514e\u0022\u003EScale \u0026lt;\u0026amp;\u0027\u003C/text\u003E\u003C/svg\u003E",
+      "RawPixelSha256": "78D4FD91DA846FED21D225D55459C90B97FB8668DA818C891AE892A9C1323B29"
+    }
+  ]
+}

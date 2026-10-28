@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "jupyternet.cli": {
+      "version": "0.3.0",
+      "commands": ["jupyternet"],
+      "rollForward": false
+    }
+  }
+}

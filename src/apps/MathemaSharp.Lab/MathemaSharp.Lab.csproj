@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
+    <ProjectReference Include="../../libs/MathemaSharp.Quantum/MathemaSharp.Quantum.csproj" />
+    <ProjectReference Include="../../libs/MathemaSharp.TimeSeries/MathemaSharp.TimeSeries.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+</Project>

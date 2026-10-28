@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+  <PropertyGroup>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <Using Include="Xunit" />
+    <Using Include="System.Reflection" />
+    <AssemblyMetadata Include="RepositoryRoot" Value="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../'))" />
+  </ItemGroup>
+  <PropertyGroup Label="CentralBuildArtifacts">
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>D:\Dev\BuildArtifacts\MathemaSharp</ArtifactsPath>
+    <PackageOutputPath>D:\Dev\NuGetLocalFeed</PackageOutputPath>
+  </PropertyGroup>
+</Project>

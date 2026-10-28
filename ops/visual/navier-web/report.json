@@ -1,0 +1,68 @@
+{
+  "GeneratedUtc": "2026-10-28T12:17:59.9077733Z",
+  "Success": true,
+  "Failure": null,
+  "LocalUrl": "http://127.0.0.1:49794",
+  "OwnedServerPid": 29092,
+  "OwnedServerStopped": true,
+  "Browser": "156.0.4314.42",
+  "PageErrors": [],
+  "Cases": [
+    {
+      "Case": "home",
+      "Success": true,
+      "Checks": {
+        "ScenarioLinks": 4
+      }
+    },
+    {
+      "Case": "pipe",
+      "Success": true,
+      "Checks": {
+        "Before": "Perdi 0,42 bar",
+        "After": "Perdi 0,12 bar",
+        "Charts": 2,
+        "ExpectedPressureBar": "0.12"
+      }
+    },
+    {
+      "Case": "wind",
+      "Success": true,
+      "Checks": {
+        "Before": "963 N, come appoggiarci 98 kg",
+        "After": "241 N, come appoggiarci 25 kg",
+        "Charts": 1,
+        "ExpectedForceN": "241"
+      }
+    },
+    {
+      "Case": "cavity-complete",
+      "Success": true,
+      "Checks": {
+        "Grid": 31,
+        "Charts": 3,
+        "RetainedFieldImages": 2,
+        "Status": "Fatto: 15.000 passi, divergenza RMS 3,5e-2"
+      }
+    },
+    {
+      "Case": "cavity-cancel",
+      "Success": true,
+      "Checks": {
+        "Stopped": true,
+        "ControlsEnabled": true
+      }
+    },
+    {
+      "Case": "cylinder-complete",
+      "Success": true,
+      "Checks": {
+        "GridWidth": 140,
+        "Charts": 2,
+        "RetainedFieldImages": 1,
+        "Status": "Fatto."
+      }
+    }
+  ],
+  "Notes": "Real HTTP/Blazor UI on localhost, numeric bindings and coarse simulations/cancellation. Not proof of mobile UI, OS tooltip popup, all simulation parameter combinations or numerical accuracy of coarse grids; editorial claims are not validated."
+}

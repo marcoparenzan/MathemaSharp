@@ -1,0 +1,1 @@
+<Project><Target Name="Inventory"><Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)inventory-api.ps1&quot;" /></Target></Project>

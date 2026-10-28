@@ -1,0 +1,8 @@
+<Project>
+ <PropertyGroup><OraclePython>$(MSBuildThisFileDirectory).venv-oracles/Scripts/python.exe</OraclePython></PropertyGroup>
+ <Target Name="Setup">
+  <Exec Condition="!Exists('$(OraclePython)')" Command="python -m venv &quot;$(MSBuildThisFileDirectory).venv-oracles&quot;" />
+  <Exec Command="&quot;$(OraclePython)&quot; -m pip install -r &quot;$(MSBuildThisFileDirectory)requirements-oracles.txt&quot;" />
+ </Target>
+ <Target Name="Generate"><Exec Command="&quot;$(OraclePython)&quot; &quot;$(MSBuildThisFileDirectory)generate-numerical-oracles.py&quot;" /></Target>
+</Project>

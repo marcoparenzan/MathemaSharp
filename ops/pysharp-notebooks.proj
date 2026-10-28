@@ -1,0 +1,18 @@
+<Project>
+  <Target Name="Tour">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)../scripts/run-notebooks.ps1&quot; -Module TimeSeries -Filter 10-ts-libreria-tour" />
+  </Target>
+  <Target Name="Scenarios">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)../scripts/run-notebooks.ps1&quot; -Module TimeSeries -Filter *1-*-*sharp" />
+  </Target>
+  <Target Name="Precision">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)../scripts/run-notebooks.ps1&quot; -Module TimeSeries -Filter 11-precision-interop" />
+  </Target>
+  <Target Name="Operators">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)../scripts/run-notebooks.ps1&quot; -Module TimeSeries -Filter 12-clr-operators" />
+  </Target>
+  <Target Name="Generics">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)../scripts/run-notebooks.ps1&quot; -Module TimeSeries -Filter 13-generic-binding" />
+  </Target>
+  <Target Name="Run" DependsOnTargets="Tour;Scenarios;Precision;Operators;Generics" />
+</Project>

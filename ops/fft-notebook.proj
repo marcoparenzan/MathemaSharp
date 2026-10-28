@@ -1,0 +1,1 @@
+<Project><Target Name="Run"><Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)../scripts/run-notebooks.ps1&quot; -Module Core -TopLevelOnly -Filter 06-fft" /></Target></Project>
