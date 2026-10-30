@@ -1,4 +1,4 @@
-#:property TargetFramework=net10.0
+#:property TargetFramework=net11.0
 #:property JsonSerializerIsReflectionEnabledByDefault=true
 #:property PublishAot=false
 #:project ../src/tools/Ecosystem.Validation/Ecosystem.Validation/Ecosystem.Validation.csproj

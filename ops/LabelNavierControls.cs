@@ -1,4 +1,4 @@
-#:property TargetFramework=net10.0
+#:property TargetFramework=net11.0
 var root="../articoli/2026.10 NavierStokes/src/NavierStokes.Web/Components/Pages";
 (string Page,(string Binding,string Label)[] Fields)[] pages=[
  ("Quadro",[("Side","Cabinet side"),("FanSpeed","Air speed"),("FluidName","Fluid")]),

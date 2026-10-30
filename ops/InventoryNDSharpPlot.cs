@@ -1,4 +1,4 @@
-#:property TargetFramework=net10.0
+#:property TargetFramework=net11.0
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.Json;

@@ -1,4 +1,4 @@
-#:property TargetFramework=net10.0
+#:property TargetFramework=net11.0
 // Idempotent local-source migration. Does not transfer field/raster algorithms or publish packages.
 var path="../articoli/2026.10 NavierStokes/src/NavierStokes.Core/Charts.cs";
 var text=File.ReadAllText(path);
