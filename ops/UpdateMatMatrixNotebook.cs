@@ -3,7 +3,7 @@ using System.Text.Json.Nodes;
 var path="notebooks/MatSharp/01-decimal-scalars.ipynb";
 var doc=JsonNode.Parse(File.ReadAllText(path))!;
 var cells=doc["cells"]!.AsArray();
-cells.Add(new JsonObject{["cell_type"]="markdown",["metadata"]=new JsonObject(),["source"]=new JsonArray(JsonValue.Create("## Matrici reali tipizzate\nConcatenazione, trasposizione, prodotto, indicizzazione e assegnazione preservano T. Broadcast MATLAB sugli assi iniziali. Matrici 2D reali soltanto; nessun solver typed o complesso."))});
+cells.Add(new JsonObject{["cell_type"]="markdown",["metadata"]=new JsonObject(),["source"]=new JsonArray(JsonValue.Create("## Typed real matrices\nConcatenation, transposition, product, indexing and assignment preserve T. MATLAB broadcasting on the leading axes. Real 2D matrices only; no typed or complex solver."))});
 var code="""
 using System.Numerics;
 engine.Run("A=[decimal128(1) decimal128(2); decimal128(3) decimal128(4)]; B=A.'; C=A*B;");
@@ -19,5 +19,5 @@ if(original.Value!=Decimal128.CreateChecked(3))throw new Exception("Copy on writ
 Console.WriteLine("typed_index_assignment_and_copy: OK");
 """;
 cells.Add(new JsonObject{["cell_type"]="code",["metadata"]=new JsonObject(),["execution_count"]=null,["outputs"]=new JsonArray(),["source"]=new JsonArray(JsonValue.Create(code))});
-foreach(var cell in cells){var source=cell!["source"]!.AsArray();for(int i=0;i<source.Count;i++)source[i]=source[i]!.GetValue<string>().Replace("Solo scalari: concatenazione, crescita, assegnazione indicizzata e matrici generiche non implementate.","Scalari e matrici reali 2D tipizzati; solve/divisione matriciale, complessi e dimensioni superiori non implementati.");}
+foreach(var cell in cells){var source=cell!["source"]!.AsArray();for(int i=0;i<source.Count;i++)source[i]=source[i]!.GetValue<string>().Replace("Scalars only: concatenation, growth, indexed assignment and generic matrices not implemented.","Typed real 2D scalars and matrices; matrix solve/division, complex numbers and higher dimensions are not implemented.");}
 File.WriteAllText(path,doc.ToJsonString());

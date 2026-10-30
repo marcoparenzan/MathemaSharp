@@ -3,23 +3,23 @@ using static MathemaSharp.TimeSeries.Num;
 
 namespace MathemaSharp.TimeSeries;
 
-/// <summary>y_t = Trend_t + Seasonal_t + Remainder_t, per costruzione esatta: Remainder = y − Trend − Seasonal.</summary>
+/// <summary>y_t = Trend_t + Seasonal_t + Remainder_t, exact by construction: Remainder = y − Trend − Seasonal.</summary>
 public sealed record StlDecomposition<T>(T[] Trend, T[] Seasonal, T[] Remainder, T[] RobustnessWeights) where T : IFloatingPointIeee754<T>;
 
 /// <summary>
-/// STL di Cleveland, Cleveland, McRae &amp; Terpenning (1990): decomposizione stagionale-trend con LOESS, generica su
-/// <c>T : IFloatingPointIeee754&lt;T&gt;</c>. Ciclo interno: detrend, smoothing delle sottoserie cicliche, filtro passa-basso,
-/// destagionalizzazione, smoothing del trend. Ciclo esterno opzionale: pesi robusti bisquare che declassano gli outlier.
-/// Fedele all'algoritmo, non al codice Fortran originale: niente salti di valutazione (jump) né LOESS di grado 0.
+/// STL of Cleveland, Cleveland, McRae &amp; Terpenning (1990): seasonal-trend decomposition with LOESS, generic over
+/// <c>T : IFloatingPointIeee754&lt;T&gt;</c>. Inner loop: detrend, smoothing of the cycle-subseries, low-pass filter,
+/// deseasonalisation, trend smoothing. Optional outer loop: bisquare robust weights that downweight outliers.
+/// Faithful to the algorithm, not to the original Fortran code: no evaluation jumps (jump) and no degree-0 LOESS.
 /// </summary>
 public static class Stl
 {
-    /// <param name="y">Serie osservata, almeno due periodi.</param>
-    /// <param name="period">n_p, osservazioni per ciclo.</param>
-    /// <param name="seasonalSpan">n_s, dispari ≥ 3 (consigliato ≥ 7): più grande ⇒ stagionalità più stabile nel tempo.</param>
-    /// <param name="trendSpan">n_t; default il minimo dispari ≥ 1.5 n_p/(1 − 1.5/n_s).</param>
-    /// <param name="innerIterations">n_i; 2 senza robustezza, 1 è sufficiente con robustezza.</param>
-    /// <param name="robustIterations">n_o; 0 = non robusto.</param>
+    /// <param name="y">Observed series, at least two periods.</param>
+    /// <param name="period">n_p, observations per cycle.</param>
+    /// <param name="seasonalSpan">n_s, odd ≥ 3 (recommended ≥ 7): larger ⇒ seasonality more stable over time.</param>
+    /// <param name="trendSpan">n_t; default the smallest odd number ≥ 1.5 n_p/(1 − 1.5/n_s).</param>
+    /// <param name="innerIterations">n_i; 2 without robustness, 1 is enough with robustness.</param>
+    /// <param name="robustIterations">n_o; 0 = non-robust.</param>
     public static StlDecomposition<T> Decompose<T>(ReadOnlySpan<T> y, int period, int seasonalSpan = 7, int? trendSpan = null,
         int innerIterations = 2, int robustIterations = 0) where T : IFloatingPointIeee754<T>
     {
@@ -42,7 +42,7 @@ public static class Stl
                 var detrended = new T[n];
                 for (var t = 0; t < n; t++) detrended[t] = data[t] - trend[t];
 
-                // 2. Sottoserie cicliche: ogni fase j è una serie a sé, lisciata ed estesa di un ciclo prima e dopo → C di lunghezza n + 2 n_p.
+                // 2. Cycle-subseries: each phase j is a series on its own, smoothed and extended by one cycle before and after → C of length n + 2 n_p.
                 var cycle = new T[n + 2 * period];
                 for (var j = 0; j < period; j++)
                 {
@@ -54,15 +54,15 @@ public static class Stl
                         cycle[j + (i + 1) * period] = Loess<T>(sub, subWeights, seasonalSpan, N<T>(i));
                 }
 
-                // 3. Passa-basso: MA(n_p), MA(n_p), MA(3), poi LOESS(n_l). Le tre medie mobili accorciano di 2 n_p: torna a lunghezza n.
+                // 3. Low-pass: MA(n_p), MA(n_p), MA(3), then LOESS(n_l). The three moving averages shorten by 2 n_p: back to length n.
                 var smooth = MovingAverage(MovingAverage(MovingAverage(cycle, period), period), 3);
                 var low = new T[n];
                 for (var t = 0; t < n; t++) low[t] = Loess<T>(smooth, [], nl, N<T>(t));
 
-                // 4. Stagionalità = C − L, togliendo al C il livello lento che il passa-basso ha catturato.
+                // 4. Seasonality = C − L, removing from C the slow level that the low-pass captured.
                 for (var t = 0; t < n; t++) seasonal[t] = cycle[period + t] - low[t];
 
-                // 5–6. Destagionalizza e liscia il trend.
+                // 5–6. Deseasonalise and smooth the trend.
                 var deseasonalized = new T[n];
                 for (var t = 0; t < n; t++) deseasonalized[t] = data[t] - seasonal[t];
                 for (var t = 0; t < n; t++) trend[t] = Loess<T>(deseasonalized, weights, nt, N<T>(t));
@@ -76,36 +76,36 @@ public static class Stl
     }
 
     /// <summary>
-    /// LOESS locale lineare su ascisse equispaziate 0..n−1, valutato in x (anche fuori dall'intervallo, per estrapolare).
-    /// Usa i q punti più vicini con pesi tricubici (1 − (d/h)³)³ moltiplicati per i pesi robusti; se q &gt; n, h cresce di (q − n)/2.
-    /// Un polinomio locale lineare riproduce esattamente le rette: proprietà su cui si basano i test.
+    /// Local linear LOESS on equally spaced abscissae 0..n−1, evaluated at x (also outside the interval, to extrapolate).
+    /// Uses the q nearest points with tricube weights (1 − (d/h)³)³ multiplied by the robust weights; if q &gt; n, h grows by (q − n)/2.
+    /// A local linear polynomial reproduces lines exactly: the property the tests rely on.
     /// </summary>
     public static T Loess<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> robustWeights, int span, T x) where T : IFloatingPointIeee754<T>
     {
         var n = y.Length;
-        if (n == 0) throw new ArgumentException("Serie vuota.");
+        if (n == 0) throw new ArgumentException("Empty series.");
         if (span < 2) throw new ArgumentOutOfRangeException(nameof(span));
         if (!T.IsFinite(x)) throw new ArgumentOutOfRangeException(nameof(x));
         if (!robustWeights.IsEmpty && robustWeights.Length != n)
-            throw new ArgumentException("Un peso per ogni osservazione.", nameof(robustWeights));
+            throw new ArgumentException("One weight per observation.", nameof(robustWeights));
         foreach (var value in y)
             if (!T.IsFinite(value)) throw new ArgumentException("Osservazioni finite richieste.", nameof(y));
         foreach (var weight in robustWeights)
             if (!T.IsFinite(weight) || weight < T.Zero)
-                throw new ArgumentException("Pesi finiti e non negativi richiesti.", nameof(robustWeights));
+                throw new ArgumentException("Finite, non-negative weights are required.", nameof(robustWeights));
         var q = Math.Min(span, n);
         var center = RoundToInt(x);
         var lo = Math.Clamp(center - (q - 1) / 2, 0, n - q);
         var hi = lo + q - 1;
         var h = T.Max(x - N<T>(lo), N<T>(hi) - x);
         if (span > n) h += N<T>(span - n) / N<T>(2);
-        // Margine come nel Fortran originale (0.999h): i punti al bordo della finestra hanno peso quasi nullo, non esattamente nullo.
+        // Margin as in the original Fortran (0.999h): the points at the window edge have almost-zero weight, not exactly zero.
         h = T.Max(h, Epsilon<T>()) / (N<T>(999) / N<T>(1000));
 
         T sw = T.Zero, swx = T.Zero, swy = T.Zero, swxx = T.Zero, swxy = T.Zero;
         for (var i = lo; i <= hi; i++)
         {
-            // Ascissa centrata in x: evita sottrarre momenti di indici assoluti grandi.
+            // Abscissa centred at x: avoids subtracting moments of large absolute indices.
             var xi = N<T>(i) - x;
             var u = T.Abs(xi) / h;
             var w = T.Zero;
@@ -121,7 +121,7 @@ public static class Stl
         var meanX = swx / sw;
         var meanY = swy / sw;
         var variance = swxx / sw - meanX * meanX;
-        // Retta pesata; se i punti con peso sono degeneri in x si ripiega sulla media pesata (grado 0).
+        // Weighted line; if the points with weight are degenerate in x it falls back to the weighted mean (degree 0).
         var threshold = N<T>(16) * Epsilon<T>() * T.Max(T.One, swxx / sw);
         var slope = variance > threshold ? (swxy / sw - meanX * meanY) / variance : T.Zero;
         return meanY - slope * meanX;
@@ -142,7 +142,7 @@ public static class Stl
         return result;
     }
 
-    /// <summary>ρ_t = B(|R_t|/(6·mediana|R|)), con bisquare B(u) = (1 − u²)² per u &lt; 1, altrimenti 0.</summary>
+    /// <summary>ρ_t = B(|R_t|/(6·median|R|)), with bisquare B(u) = (1 − u²)² for u &lt; 1, otherwise 0.</summary>
     private static T[] RobustnessWeights<T>(T[] y, T[] trend, T[] seasonal) where T : IFloatingPointIeee754<T>
     {
         var abs = new T[y.Length];

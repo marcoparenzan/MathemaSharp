@@ -1,17 +1,17 @@
 <#
 .SYNOPSIS
-    Compila la soluzione in Release ed esegue i notebook JupyterNet salvando gli output nei file (--in-place).
+        Builds the solution in Release and runs the JupyterSharp notebooks, saving the outputs into the files (--in-place).
 .DESCRIPTION
-    Le librerie sono net11.0 e il CLI JupyterSharp gira su .NET 11: tutti i notebook girano sul runtime .NET 11
-    tramite roll-forward (LatestMajor, anche su prerelease finché .NET 11 è RC).
-    I notebook C# stanno in notebooks/ e negli scenari; quelli PySharp in una cartella pysharp/ e usano il kernel PySharp,
-    che serve pubblicato di recente (deve avere il modulo `clr`): il percorso si prende, nell'ordine, da -PySharpKernel,
-    dalla variabile PYSHARP_KERNEL_PATH, dal kernel incluso nell'estensione JupyterNet, dal publish di PySharp.
+        The libraries are net11.0 and the JupyterSharp CLI runs on .NET 11: all the notebooks run on the .NET 11 runtime
+        through roll-forward (LatestMajor, also on prerelease while .NET 11 is RC).
+        The C# notebooks are in notebooks/ and in the scenarios; the PySharp ones are in a pysharp/ folder and use the PySharp kernel,
+        which must be recently published (it needs the `clr` module): the path is taken, in this order, from -PySharpKernel,
+        the PYSHARP_KERNEL_PATH variable, the kernel bundled in the JupyterSharp extension, the PySharp publish.
     Prerequisito: dotnet tool restore (manifest in .config/dotnet-tools.json, feed locale in nuget.config).
 .EXAMPLE
-    ./scripts/run-notebooks.ps1                       # tutti
-    ./scripts/run-notebooks.ps1 -Filter '0[6-9]*'     # solo serie temporali
-    ./scripts/run-notebooks.ps1 -Filter '10-*'        # il giro della libreria, C# e PySharp
+        ./scripts/run-notebooks.ps1                       # all
+        ./scripts/run-notebooks.ps1 -Filter '0[6-9]*'     # time series only
+        ./scripts/run-notebooks.ps1 -Filter '10-*'        # the library tour, C# and PySharp
 #>
 param(
     [string]$Filter = '*',
@@ -28,7 +28,7 @@ function Resolve-PySharpKernel {
     $candidates = @($PySharpKernel, $env:PYSHARP_KERNEL_PATH,
         'D:\Dev\BuildArtifacts\PySharp\kernel') | Where-Object { $_ }
     foreach ($c in $candidates) { if (Test-Path $c) { return $c } }
-    throw 'Kernel PySharp non trovato: impostare -PySharpKernel o PYSHARP_KERNEL_PATH.'
+        throw 'PySharp kernel not found: set -PySharpKernel or PYSHARP_KERNEL_PATH.'
 }
 
 Push-Location $root

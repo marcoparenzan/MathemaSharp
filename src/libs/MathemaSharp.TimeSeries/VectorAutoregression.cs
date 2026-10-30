@@ -4,15 +4,15 @@ using static MathemaSharp.TimeSeries.Num;
 namespace MathemaSharp.TimeSeries;
 
 /// <summary>
-/// VAR(p): Y_t = c + A_1 Y_{t−1} + … + A_p Y_{t−p} + ε_t, con Y_t vettore di k serie. A_i[r,c] misura l'effetto della serie c al lag i
-/// sulla serie r: ogni serie dipende dai propri ritardi e da quelli delle altre (Sims, 1980). Dati come T[tempo, serie].
+/// VAR(p): Y_t = c + A_1 Y_{t−1} + … + A_p Y_{t−p} + ε_t, with Y_t a vector of k series. A_i[r,c] measures the effect of series c at lag i
+/// on series r: each series depends on its own lags and on those of the others (Sims, 1980). Data as T[time, series].
 /// </summary>
 public sealed record VarModel<T>(T[] Intercept, T[][,] Coefficients, T[,] ResidualCovariance) where T : IFloatingPointIeee754<T>
 {
     public int Order => Coefficients.Length;
     public int Dimension => Intercept.Length;
 
-    /// <summary>Previsione ricorsiva: result[h, serie].</summary>
+    /// <summary>Recursive forecast: result[h, series].</summary>
     public T[,] Forecast(T[,] history, int horizon)
     {
         if (history.GetLength(1) != Dimension || history.GetLength(0) < Order) throw new ArgumentException("Storia incompatibile.");
@@ -39,12 +39,12 @@ public sealed record VarModel<T>(T[] Intercept, T[][,] Coefficients, T[,] Residu
     }
 
     /// <summary>
-    /// Stazionarietà di un VAR(1) bivariato: autovalori di A_1 dentro il cerchio unitario. λ = (tr ± √(tr² − 4 det))/2: se il discriminante
-    /// è negativo gli autovalori sono complessi coniugati con |λ|² = det, altrimenti sono reali.
+    /// Stationarity of a bivariate VAR(1): eigenvalues of A_1 inside the unit circle. λ = (tr ± √(tr² − 4 det))/2: if the discriminant
+    /// is negative the eigenvalues are complex conjugates with |λ|² = det, otherwise they are real.
     /// </summary>
     public bool IsStableOrder1Bivariate()
     {
-        if (Order != 1 || Dimension != 2) throw new InvalidOperationException("Solo VAR(1) bivariato.");
+        if (Order != 1 || Dimension != 2) throw new InvalidOperationException("Only a bivariate VAR(1).");
         var a = Coefficients[0];
         var trace = a[0, 0] + a[1, 1];
         var det = a[0, 0] * a[1, 1] - a[0, 1] * a[1, 0];
@@ -56,12 +56,12 @@ public sealed record VarModel<T>(T[] Intercept, T[][,] Coefficients, T[,] Residu
     }
 }
 
-/// <summary>Stima di un <see cref="VarModel{T}"/>.</summary>
+/// <summary>Estimate of a <see cref="VarModel{T}"/>.</summary>
 public static class VarModel
 {
     /// <summary>
-    /// OLS equazione per equazione: con gli stessi regressori in ogni equazione coincide con lo stimatore SUR/GLS (Zellner).
-    /// Covarianza dei residui con divisore T − kp − 1.
+    /// Equation-by-equation OLS: with the same regressors in every equation it coincides with the SUR/GLS estimator (Zellner).
+    /// Residual covariance with divisor T − kp − 1.
     /// </summary>
     public static VarModel<T> Fit<T>(T[,] y, int order) where T : IFloatingPointIeee754<T>
     {
@@ -69,7 +69,7 @@ public static class VarModel
         if (order < 1) throw new ArgumentOutOfRangeException(nameof(order));
         var rows = n - order;
         var columns = 1 + k * order;
-        if (rows <= columns) throw new ArgumentException("Serie troppo corta per ordine e dimensione.");
+        if (rows <= columns) throw new ArgumentException("Series too short for the order and dimension.");
         var x = new T[rows, columns];
         for (var r = 0; r < rows; r++)
         {

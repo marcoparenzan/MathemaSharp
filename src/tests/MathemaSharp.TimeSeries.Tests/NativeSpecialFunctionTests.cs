@@ -21,7 +21,7 @@ public class NativeSpecialFunctionTests
         foreach (var point in new T[] {T.One / N(2), T.One, N(4)})
         {
             Assert.Equal(T.Exp(-point), SpecialFunctions.RegularizedGammaQ(T.One, point));
-            // Q(2,x) = exp(-x)(1+x): couvre serie e frazione continua.
+            // Q(2,x) = exp(-x)(1+x): covers the series and the continued fraction.
             var q = SpecialFunctions.RegularizedGammaQ(N(2), point);
             Assert.True(q >= T.Zero && q <= T.One);
             Assert.True(T.Abs(q - T.Exp(-point) * (T.One + point)) <= tolerance);

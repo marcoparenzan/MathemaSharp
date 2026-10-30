@@ -4,14 +4,14 @@ using static MathemaSharp.TimeSeries.Num;
 namespace MathemaSharp.TimeSeries;
 
 /// <summary>
-/// Generatori di processi sintetici con seme esplicito: i test e i notebook verificano gli stimatori su parametri noti.
-/// Gli overload predefiniti estraggono double (<see cref="Random"/>) e li convertono in T: lo stesso seme dà lo stesso rumore iniziale.
-/// Gli overload con innovationSource accettano innovazioni direttamente in T, senza conversioni intermedie.
-/// Distribuzione, indipendenza e standardizzazione della sorgente personalizzata sono responsabilità del chiamante.
+/// Generators of synthetic processes with an explicit seed: the tests and notebooks verify the estimators on known parameters.
+/// The default overloads draw doubles (<see cref="Random"/>) and convert them to T: the same seed gives the same initial noise.
+/// The overloads with innovationSource accept innovations directly in T, without intermediate conversions.
+/// Distribution, independence and standardisation of the custom source are the caller's responsibility.
 /// </summary>
 public static class Simulation
 {
-    /// <summary>N(0,1) con Box-Muller. 1 − U evita ln(0).</summary>
+    /// <summary>N(0,1) with Box-Muller. 1 − U avoids ln(0).</summary>
     public static double StandardNormal(Random random)
     {
         var u1 = 1 - random.NextDouble();
@@ -22,11 +22,11 @@ public static class Simulation
     /// <summary>N(0,1) convertita in T.</summary>
     public static T StandardNormal<T>(Random random) where T : IFloatingPointIeee754<T> => T.CreateChecked(StandardNormal(random));
 
-    /// <summary>ARMA(p,q): y_t = c + Σ φ_i y_{t−i} + e_t + Σ θ_j e_{t−j}, e ~ N(0, σ²). I primi burnIn valori sono scartati per dimenticare lo stato iniziale.</summary>
+    /// <summary>ARMA(p,q): y_t = c + Σ φ_i y_{t−i} + e_t + Σ θ_j e_{t−j}, e ~ N(0, σ²). The first burnIn values are discarded to forget the initial state.</summary>
     public static T[] Arma<T>(Random random, int n, T constant, T[] phi, T[] theta, T sigma, int burnIn = 200) where T : IFloatingPointIeee754<T>
         => Arma(random, n, constant, phi, theta, sigma, StandardNormal<T>, burnIn);
 
-    /// <summary>ARMA con innovazioni standardizzate fornite direttamente in T; la sorgente è chiamata anche durante il burn-in.</summary>
+    /// <summary>ARMA with standardised innovations supplied directly in T; the source is also called during the burn-in.</summary>
     public static T[] Arma<T>(Random random, int n, T constant, T[] phi, T[] theta, T sigma,
         Func<Random, T> innovationSource, int burnIn = 200) where T : IFloatingPointIeee754<T>
     {
@@ -47,11 +47,11 @@ public static class Simulation
         return y[burnIn..];
     }
 
-    /// <summary>Passeggiata aleatoria con drift: y_t = y_{t−1} + drift + e_t.</summary>
+    /// <summary>Random walk with drift: y_t = y_{t−1} + drift + e_t.</summary>
     public static T[] RandomWalk<T>(Random random, int n, T start, T drift, T sigma) where T : IFloatingPointIeee754<T>
         => RandomWalk(random, n, start, drift, sigma, StandardNormal<T>);
 
-    /// <summary>Passeggiata aleatoria con innovazioni standardizzate direttamente in T.</summary>
+    /// <summary>Random walk with innovations standardised directly in T.</summary>
     public static T[] RandomWalk<T>(Random random, int n, T start, T drift, T sigma,
         Func<Random, T> innovationSource) where T : IFloatingPointIeee754<T>
     {
@@ -62,14 +62,14 @@ public static class Simulation
         return y;
     }
 
-    /// <summary>Passeggiata aleatoria standard: parte da 0, senza drift, σ = 1.</summary>
+    /// <summary>Standard random walk: starts at 0, no drift, σ = 1.</summary>
     public static T[] RandomWalk<T>(Random random, int n) where T : IFloatingPointIeee754<T> => RandomWalk(random, n, T.Zero, T.Zero, T.One);
 
-    /// <summary>Shock GARCH(1,1) ε_t = σ_t z_t, partendo dalla varianza incondizionata.</summary>
+    /// <summary>GARCH(1,1) shocks ε_t = σ_t z_t, starting from the unconditional variance.</summary>
     public static T[] Garch<T>(Random random, Garch11<T> model, int n, int burnIn = 200) where T : IFloatingPointIeee754<T>
         => Garch(random, model, n, StandardNormal<T>, burnIn);
 
-    /// <summary>GARCH con innovazioni standardizzate direttamente in T.</summary>
+    /// <summary>GARCH with innovations standardised directly in T.</summary>
     public static T[] Garch<T>(Random random, Garch11<T> model, int n,
         Func<Random, T> innovationSource, int burnIn = 200) where T : IFloatingPointIeee754<T>
     {
@@ -78,7 +78,7 @@ public static class Simulation
         var total = checked(n + burnIn);
         var shocks = new T[total];
         var variance = model.UnconditionalVariance;
-        if (!T.IsFinite(variance)) throw new ArgumentException("Il modello deve avere α + β < 1.");
+        if (!T.IsFinite(variance)) throw new ArgumentException("The model must have α + β < 1.");
         for (var t = 0; t < total; t++)
         {
             if (t > 0) variance = model.Omega + model.Alpha * shocks[t - 1] * shocks[t - 1] + model.Beta * variance;
@@ -87,11 +87,11 @@ public static class Simulation
         return shocks[burnIn..];
     }
 
-    /// <summary>VAR con rumore gaussiano indipendente di deviazione standard sigma per ogni serie. Risultato T[tempo, serie].</summary>
+    /// <summary>VAR with independent Gaussian noise of standard deviation sigma for each series. Result T[time, series].</summary>
     public static T[,] Var<T>(Random random, VarModel<T> model, int n, T sigma, int burnIn = 200) where T : IFloatingPointIeee754<T>
         => Var(random, model, n, sigma, StandardNormal<T>, burnIn);
 
-    /// <summary>VAR con innovazioni in T; una chiamata per serie e istante, inclusi gli istanti di burn-in.</summary>
+    /// <summary>VAR with innovations in T; one call per series and instant, including the burn-in instants.</summary>
     public static T[,] Var<T>(Random random, VarModel<T> model, int n, T sigma,
         Func<Random, T> innovationSource, int burnIn = 200) where T : IFloatingPointIeee754<T>
     {

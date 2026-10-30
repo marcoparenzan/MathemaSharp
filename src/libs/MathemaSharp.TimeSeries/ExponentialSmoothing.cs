@@ -4,32 +4,32 @@ using static MathemaSharp.TimeSeries.Num;
 namespace MathemaSharp.TimeSeries;
 
 /// <summary>
-/// Esito di un metodo di smoothing. Fitted[t] è la previsione a un passo ŷ_{t|t−1}, Forecast le previsioni h = 1..H dopo l'ultima osservazione.
-/// Sse somma gli errori a un passo dalla prima osservazione realmente prevista.
+/// Outcome of a smoothing method. Fitted[t] is the one-step forecast ŷ_{t|t−1}, Forecast the forecasts h = 1..H after the last observation.
+/// Sse sums the one-step errors from the first observation that is actually forecast.
 /// </summary>
 public sealed record SmoothingResult<T>(T[] Fitted, T[] Forecast, T Level, T Trend, T[] Season, T Sse) where T : IFloatingPointIeee754<T>;
 
 /// <summary>
 /// Smoothing esponenziale additivo (Brown/Holt 1957/Winters 1960, damped trend di Gardner &amp; McKenzie 1985) in forma a componenti,
-/// generico su <c>T : IFloatingPointIeee754&lt;T&gt;</c>. Inizializzazioni semplici e deterministiche, non stimate: i primi residui risentono della scelta.
+/// generic over <c>T : IFloatingPointIeee754&lt;T&gt;</c>. Simple, deterministic initialisations, not estimated: the first residuals are affected by the choice.
 /// </summary>
 public static class ExponentialSmoothing
 {
     /// <summary>
-    /// SES: ℓ_t = α y_t + (1−α) ℓ_{t−1}, ŷ_{T+h} = ℓ_T. Media pesata con pesi geometrici α(1−α)^j.
-    /// Equivale ad ARIMA(0,1,1) con θ = α − 1 e al filtro di Kalman stazionario del local level. ℓ_0 = y_0.
+    /// SES: ℓ_t = α y_t + (1−α) ℓ_{t−1}, ŷ_{T+h} = ℓ_T. Weighted mean with geometric weights α(1−α)^j.
+    /// Equivalent to ARIMA(0,1,1) with θ = α − 1 and to the stationary Kalman filter of the local level. ℓ_0 = y_0.
     /// </summary>
     public static SmoothingResult<T> Ses<T>(ReadOnlySpan<T> y, T alpha, int horizon) where T : IFloatingPointIeee754<T> =>
         HoltCore(y, alpha, T.Zero, horizon, T.One, withTrend: false);
 
-    /// <summary>Holt lineare (φ = 1): il trend prosegue all'infinito. ℓ_0 = y_0, b_0 = y_1 − y_0.</summary>
+    /// <summary>Linear Holt (φ = 1): the trend continues to infinity. ℓ_0 = y_0, b_0 = y_1 − y_0.</summary>
     public static SmoothingResult<T> Holt<T>(ReadOnlySpan<T> y, T alpha, T beta, int horizon) where T : IFloatingPointIeee754<T> =>
         HoltCore(y, alpha, beta, horizon, T.One, withTrend: true);
 
     /// <summary>
-    /// Holt con damping φ: ŷ_{t|t−1} = ℓ + φb; ℓ_t = α y_t + (1−α)(ℓ + φb); b_t = β(ℓ_t − ℓ_{t−1}) + (1−β)φb.
-    /// ŷ_{T+h} = ℓ_T + (φ + φ² + … + φ^h) b_T → ℓ_T + φ b_T/(1−φ) per φ &lt; 1: il trend si spegne invece di proseguire all'infinito.
-    /// φ = 1 è Holt lineare. ℓ_0 = y_0, b_0 = y_1 − y_0.
+    /// Holt with damping φ: ŷ_{t|t−1} = ℓ + φb; ℓ_t = α y_t + (1−α)(ℓ + φb); b_t = β(ℓ_t − ℓ_{t−1}) + (1−β)φb.
+    /// ŷ_{T+h} = ℓ_T + (φ + φ² + … + φ^h) b_T → ℓ_T + φ b_T/(1−φ) for φ &lt; 1: the trend fades out instead of continuing to infinity.
+    /// φ = 1 is linear Holt. ℓ_0 = y_0, b_0 = y_1 − y_0.
     /// </summary>
     public static SmoothingResult<T> Holt<T>(ReadOnlySpan<T> y, T alpha, T beta, int horizon, T phi) where T : IFloatingPointIeee754<T> =>
         HoltCore(y, alpha, beta, horizon, phi, withTrend: true);
@@ -58,15 +58,15 @@ public static class ExponentialSmoothing
         return new SmoothingResult<T>(fitted, DampedPath(level, trend, phi, horizon, _ => T.Zero), level, trend, [], sse);
     }
 
-    /// <summary>Holt-Winters additivo senza damping (φ = 1), periodo m. Vedi l'overload con φ per le formule.</summary>
+    /// <summary>Additive Holt-Winters without damping (φ = 1), period m. See the overload with φ for the formulas.</summary>
     public static SmoothingResult<T> HoltWinters<T>(ReadOnlySpan<T> y, int period, T alpha, T beta, T gamma, int horizon) where T : IFloatingPointIeee754<T> =>
         HoltWinters(y, period, alpha, beta, gamma, horizon, T.One);
 
     /// <summary>
-    /// Holt-Winters additivo con damping, periodo m:
+    /// Additive Holt-Winters with damping, period m:
     /// ℓ_t = α(y_t − s_{t−m}) + (1−α)(ℓ + φb); b_t = β(ℓ_t − ℓ_{t−1}) + (1−β)φb; s_t = γ(y_t − ℓ_{t−1} − φb_{t−1}) + (1−γ)s_{t−m}.
-    /// Inizializzazione sui primi due cicli: b_0 = (media 2° − media 1°)/m, ℓ_0 = media 1° + b_0(m−1)/2, s_j = y_j − (media 1° + b_0(j − (m−1)/2)).
-    /// Fitted[t] = y_t per t &lt; m. Season[j] corrisponde a t ≡ j (mod m).
+    /// Initialisation on the first two cycles: b_0 = (mean of 2nd − mean of 1st)/m, ℓ_0 = mean of 1st + b_0(m−1)/2, s_j = y_j − (mean of 1st + b_0(j − (m−1)/2)).
+    /// Fitted[t] = y_t for t &lt; m. Season[j] corresponds to t ≡ j (mod m).
     /// </summary>
     public static SmoothingResult<T> HoltWinters<T>(ReadOnlySpan<T> y, int period, T alpha, T beta, T gamma, int horizon, T phi) where T : IFloatingPointIeee754<T>
     {
@@ -75,8 +75,8 @@ public static class ExponentialSmoothing
         CheckUnit(gamma, nameof(gamma));
         CheckUnit(phi, nameof(phi));
         if (period < 2 || y.Length < 2 * period) throw new ArgumentException("Servono almeno due stagioni complete.");
-        // La media del primo ciclo stima il livello al suo centro (m−1)/2, non alla fine: si sposta lungo il trend fino a t = m−1
-        // e si tolgono dalla stagionalità iniziale sia il livello sia il trend. Così retta + stagionalità a media nulla è riprodotta esattamente.
+        // The mean of the first cycle estimates the level at its centre (m−1)/2, not at the end: it is shifted along the trend up to t = m−1
+        // and both the level and the trend are removed from the initial seasonality. So a line + zero-mean seasonality is reproduced exactly.
         var firstMean = SeriesStatistics.Mean(y[..period]);
         var trend = (SeriesStatistics.Mean(y[period..(2 * period)]) - firstMean) / N<T>(period);
         var center = N<T>(period - 1) / N<T>(2);
@@ -105,7 +105,7 @@ public static class ExponentialSmoothing
     }
 
     /// <summary>
-    /// Stima α del SES minimizzando l'SSE a un passo con la sezione aurea su [0,1]. Presuppone SSE unimodale in α, tipico ma non garantito.
+    /// Estimates the SES α by minimising the one-step SSE with the golden section on [0,1]. Presupposes a unimodal SSE in α, typical but not guaranteed.
     /// </summary>
     public static T FitSesAlpha<T>(ReadOnlySpan<T> y) where T : IFloatingPointIeee754<T>
     {
@@ -113,10 +113,10 @@ public static class ExponentialSmoothing
         return GoldenSection<T>(a => Ses<T>(data, a, 0).Sse, T.Zero, T.One);
     }
 
-    /// <summary>Sezione aurea con tolleranza √ε del tipo (≈ 1.5e-8 per double).</summary>
+    /// <summary>Golden section with tolerance √ε of the type (≈ 1.5e-8 for double).</summary>
     public static T GoldenSection<T>(Func<T, T> f, T a, T b) where T : IFloatingPointIeee754<T> => GoldenSection(f, a, b, T.Sqrt(Epsilon<T>()));
 
-    /// <summary>Minimo di una funzione unimodale su [a,b]: ogni passo riduce l'intervallo del fattore 1/φ ≈ 0.618 riusando un punto.</summary>
+    /// <summary>Minimum of a unimodal function on [a,b]: each step shrinks the interval by the factor 1/φ ≈ 0.618, reusing a point.</summary>
     public static T GoldenSection<T>(Func<T, T> f, T a, T b, T tolerance) where T : IFloatingPointIeee754<T>
     {
         var invPhi = (T.Sqrt(N<T>(5)) - T.One) / N<T>(2);

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Description>Algoritmi numerici su Generic Math di .NET 11 (float, double, Half, Decimal32/64/128, Complex&lt;T&gt;): somme con Kahan, prodotto scalare SIMD con ripiego scalare, Horner, GCD, DFT, confronti con tolleranza proporzionale al formato.</Description>
+    <Description>Numerical algorithms on .NET 11 Generic Math (float, double, Half, Decimal32/64/128, Complex&lt;T&gt;): Kahan sums, SIMD dot product with scalar fallback, Horner, GCD, DFT, comparisons with a format-proportional tolerance.</Description>
     <Version>0.2.1-net11-preview.1</Version>
   </PropertyGroup>
 </Project>

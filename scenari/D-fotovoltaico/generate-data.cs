@@ -3,13 +3,13 @@
 #:property Nullable=enable
 #:property ImplicitUsings=enable
 
-// Generatore (deterministico, con seme) dei dati sintetici dello scenario D: un parco fotovoltaico da 1 MWp (inverter da 600 kW AC (limita la potenza nelle ore di sole pieno)) a 45°N.
+// Generator (deterministic, seeded) of the synthetic data of scenario D: a 1 MWp photovoltaic plant (600 kW AC inverter (limits the power in the full-sun hours)) at 45°N.
 //   dotnet run scenari/D-fotovoltaico/generate-data.cs
 // Scrive in data/:
-//   impianto_orario.csv  56 giorni orari: irraggiamento misurato, irraggiamento PREVISTO il giorno prima (con errore), temperature,
+//   impianto_orario.csv  56 hourly days: measured irradiance, irradiance FORECAST the day before (with error), temperatures,
 //                        potenza AC, stato dell'inverter
-//   verita.json          ciò che il generatore SA: giorno della pulizia, sporcamento, guasto dell'inverter
-// Nessun dato è una misura di un impianto reale.
+//   verita.json          what the generator KNOWS: cleaning day, soiling, inverter fault
+// No datum is a measurement of a real plant.
 using System.Globalization;
 using System.Text;
 
@@ -22,11 +22,11 @@ const int days = 56;
 const int hours = days * 24;
 const double nominalKwp = 1000, inverterMaxKw = 600, soilingPerDay = 0.0009;
 const int cleaningDay = 30, faultDay = 38, faultFromHour = 10, faultToHour = 14;      // guasto: 10:00–14:59
-var start = new DateTime(2026, 7, 27, 0, 0, 0);                                      // lunedì
+var start = new DateTime(2026, 7, 27, 0, 0, 0);                                      // Monday
 var rng = new Random(20260727);
 double Normal() { var u1 = 1 - rng.NextDouble(); var u2 = rng.NextDouble(); return Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2); }
 
-// Tipo di giornata: chiara (45 %), variabile (35 %), coperta (20 %). Il servizio meteo conosce il tipo con un errore di giornata (σ = 0.12).
+// Day type: clear (45 %), variable (35 %), overcast (20 %). The weather service knows the type with a day-level error (σ = 0.12).
 var dayClearness = new double[days];
 var dayForecastClearness = new double[days];
 for (var d = 0; d < days; d++)
@@ -56,7 +56,7 @@ for (var h = 0; h < hours; h++)
 
     var airTemperature = 22 + 7 * Math.Sin(2 * Math.PI * (hour - 9) / 24.0) - 0.04 * day + 0.8 * Normal();
     var moduleTemperature = airTemperature + 0.03 * irradiance;
-    var soiling = soilingPerDay * (day < cleaningDay ? day : day - cleaningDay);       // la pioggia del giorno 30 pulisce i moduli
+        var soiling = soilingPerDay * (day < cleaningDay ? day : day - cleaningDay);       // the rain of day 30 cleans the modules
 
     var fault = day == faultDay && hour >= faultFromHour && hour <= faultToHour;
     if (fault) faultHours++;
@@ -82,4 +82,4 @@ var truth =
     $"  \"ore_guasto\": {faultHours}\n" +
     "}\n";
 File.WriteAllText(Path.Combine(dataDir, "verita.json"), truth);
-Console.WriteLine($"impianto_orario.csv: {hours} righe; pulizia il giorno {cleaningDay}, guasto il giorno {faultDay} ({faultHours} ore)");
+Console.WriteLine($"impianto_orario.csv: {hours} rows; cleaning on day {cleaningDay}, fault on day {faultDay} ({faultHours} hours)");

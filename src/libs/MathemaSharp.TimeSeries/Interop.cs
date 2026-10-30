@@ -1,21 +1,21 @@
 namespace MathemaSharp.TimeSeries.Interop;
 
-// Facciata NON generica su double per host che non sanno chiamare metodi generici né passare ReadOnlySpan<T>:
-// PySharp (clr.AddReference), PowerShell, F# script, reflection in genere. Ogni metodo delega all'API generica con T = double.
-// Convenzioni: array monodimensionali double[]; le matrici (VAR, minimi quadrati) sono "appiattite" in ordine di riga con righe e colonne
-// esplicite, perché la creazione di double[,] da questi host è scomoda; i risultati sono classi semplici, non tuple.
-// Per C# usare direttamente l'API generica (MathemaSharp.TimeSeries), che supporta anche float, Half e Decimal32/64/128.
+// NON-generic facade over double for hosts that cannot call generic methods or pass ReadOnlySpan<T>:
+// PySharp (clr.AddReference), PowerShell, F# scripts, reflection in general. Each method delegates to the generic API with T = double.
+// Conventions: one-dimensional double[] arrays; matrices (VAR, least squares) are "flattened" in row order with explicit rows and columns,
+// because creating double[,] from these hosts is awkward; the results are plain classes, not tuples.
+// For C# use the generic API directly (MathemaSharp.TimeSeries), which also supports float, Half and Decimal32/64/128.
 
-/// <summary>Esito di Levinson-Durbin: coefficienti AR, PACF e varianza d'innovazione.</summary>
+/// <summary>Outcome of Levinson-Durbin: AR coefficients, PACF and innovation variance.</summary>
 public sealed record LevinsonResult(double[] Phi, double[] Pacf, double InnovationVariance);
 
-/// <summary>Esito del test di Ljung-Box.</summary>
+/// <summary>Outcome of the Ljung-Box test.</summary>
 public sealed record LjungBoxResult(double Statistic, int DegreesOfFreedom, double PValue);
 
-/// <summary>Esito di un filtro di Kalman con osservazione scalare.</summary>
+/// <summary>Outcome of a Kalman filter with a scalar observation.</summary>
 public sealed record KalmanResult(double[] Predictions, double[] PredictionVariances, double[] FilteredFirstState, double[] FirstGain, double LogLikelihood);
 
-/// <summary>Statistiche di base di una serie: media, autocorrelazione, PACF, differenze, Ljung-Box, funzioni speciali.</summary>
+/// <summary>Basic statistics of a series: mean, autocorrelation, PACF, differences, Ljung-Box, special functions.</summary>
 public static class Statistics
 {
     public static double Mean(double[] y) => SeriesStatistics.Mean<double>(y);
@@ -36,14 +36,14 @@ public static class Statistics
         return new LjungBoxResult(q, dof, p);
     }
 
-    /// <summary>Quantile con interpolazione lineare: coincide con <c>np.quantile</c> (metodo lineare).</summary>
+    /// <summary>Quantile with linear interpolation: matches <c>np.quantile</c> (linear method).</summary>
     public static double Quantile(double[] values, double p) => SeriesStatistics.Quantile<double>(values, p);
 
     public static double LogGamma(double x) => SpecialFunctions.LogGamma(x);
     public static double ChiSquareSurvival(double x, int degreesOfFreedom) => SpecialFunctions.ChiSquareSurvival(x, degreesOfFreedom);
 }
 
-/// <summary>Previsioni di riferimento: media, naive, seasonal naive, drift.</summary>
+/// <summary>Reference forecasts: mean, naive, seasonal naive, drift.</summary>
 public static class Forecasts
 {
     public static double[] Mean(double[] y, int horizon) => ReferenceForecasts.Mean<double>(y, horizon);
@@ -52,7 +52,7 @@ public static class Forecasts
     public static double[] Drift(double[] y, int horizon) => ReferenceForecasts.Drift<double>(y, horizon);
 }
 
-/// <summary>Misure di accuratezza fuori campione: MAE, RMSE, MAPE, MASE.</summary>
+/// <summary>Out-of-sample accuracy measures: MAE, RMSE, MAPE, MASE.</summary>
 public static class Metrics
 {
     public static double Mae(double[] actual, double[] forecast) => Accuracy.Mae<double>(actual, forecast);
@@ -73,7 +73,7 @@ public static class Smoothing
     public static double FitSesAlpha(double[] y) => ExponentialSmoothing.FitSesAlpha<double>(y);
 }
 
-/// <summary>Modelli AR (Yule-Walker) e ARIMA (Hannan-Rissanen). I modelli restituiti hanno metodi con array: Forecast, Residuals.</summary>
+/// <summary>AR (Yule-Walker) and ARIMA (Hannan-Rissanen) models. The returned models have methods with arrays: Forecast, Residuals.</summary>
 public static class Arima
 {
     public static ArModel<double> FitYuleWalker(double[] y, int order) => ArModel.FitYuleWalker<double>(y, order);
@@ -82,7 +82,7 @@ public static class Arima
         new(p, d, q, constant, phi, theta, innovationVariance);
 }
 
-/// <summary>Filtro di Kalman con osservazione scalare: local level, local linear trend, guadagno stazionario.</summary>
+/// <summary>Kalman filter with a scalar observation: local level, local linear trend, steady-state gain.</summary>
 public static class Kalman
 {
     public static KalmanFilter<double> LocalLevel(double q, double r, double initialLevel, double initialVariance) =>
@@ -93,7 +93,7 @@ public static class Kalman
 
     public static double SteadyStateGain(double q, double r) => KalmanFilter.LocalLevelSteadyStateGain(q, r);
 
-    /// <summary>Filtra la serie (NaN = dato mancante). Il filtro conserva lo stato: crearne uno nuovo per ogni serie.</summary>
+    /// <summary>Filters the series (NaN = missing data). The filter keeps its state: create a new one for each series.</summary>
     public static KalmanResult Filter(KalmanFilter<double> filter, double[] y)
     {
         var (predictions, variances, filtered, gains, logLikelihood) = filter.Filter(y);
@@ -101,16 +101,16 @@ public static class Kalman
     }
 }
 
-/// <summary>VAR con matrici appiattite in ordine di riga: y[tempo × serie], coefficienti k × k per ogni lag.</summary>
+/// <summary>VAR with matrices flattened in row order: y[time × series], k × k coefficients for each lag.</summary>
 public static class Var
 {
     public static VarModel<double> Fit(double[] flat, int rows, int cols, int order) => VarModel.Fit(Unflatten(flat, rows, cols), order);
 
-    /// <summary>Previsione ricorsiva: restituisce horizon × k valori in ordine di riga.</summary>
+    /// <summary>Recursive forecast: returns horizon × k values in row order.</summary>
     public static double[] Forecast(VarModel<double> model, double[] historyFlat, int historyRows, int horizon) =>
         Flatten(model.Forecast(Unflatten(historyFlat, historyRows, model.Dimension), horizon));
 
-    /// <summary>Matrice A_lag (lag da 1) appiattita k × k in ordine di riga.</summary>
+    /// <summary>Matrix A_lag (lag from 1) flattened k × k in row order.</summary>
     public static double[] Coefficient(VarModel<double> model, int lag) => Flatten(model.Coefficients[lag - 1]);
 
     public static double[] ResidualCovariance(VarModel<double> model) => Flatten(model.ResidualCovariance);
@@ -119,7 +119,7 @@ public static class Var
 
     internal static double[,] Unflatten(double[] flat, int rows, int cols)
     {
-        if (flat.Length != rows * cols) throw new ArgumentException($"Attesi {rows}×{cols} = {rows * cols} valori, ricevuti {flat.Length}.");
+        if (flat.Length != rows * cols) throw new ArgumentException($"Expected {rows}×{cols} = {rows * cols} values, received {flat.Length}.");
         var result = new double[rows, cols];
         for (var i = 0; i < rows; i++)
             for (var j = 0; j < cols; j++) result[i, j] = flat[i * cols + j];
@@ -136,7 +136,7 @@ public static class Var
     }
 }
 
-/// <summary>GARCH(1,1). I modelli restituiti hanno metodi con array: ConditionalVariances, LogLikelihood, ForecastVariance.</summary>
+/// <summary>GARCH(1,1). The returned models have methods with arrays: ConditionalVariances, LogLikelihood, ForecastVariance.</summary>
 public static class Garch
 {
     public static Garch11<double> Model(double omega, double alpha, double beta) => new(omega, alpha, beta);
@@ -152,13 +152,13 @@ public static class Decomposition
     public static double Loess(double[] y, int span, double x) => MathemaSharp.TimeSeries.Stl.Loess<double>(y, [], span, x);
 }
 
-/// <summary>Minimi quadrati (QR di Householder) con la matrice dei regressori appiattita in ordine di riga.</summary>
+/// <summary>Least squares (Householder QR) with the regressor matrix flattened in row order.</summary>
 public static class Linear
 {
     public static double[] LeastSquares(double[] flat, int rows, int cols, double[] y) => MatrixAlgebra.LeastSquares<double>(Var.Unflatten(flat, rows, cols), y);
 }
 
-/// <summary>Processi sintetici con seme esplicito.</summary>
+/// <summary>Synthetic processes with an explicit seed.</summary>
 public static class Simulate
 {
     public static double[] Normal(int seed, int count)

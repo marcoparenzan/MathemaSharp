@@ -2,19 +2,19 @@ using System.Numerics;
 
 namespace MathemaSharp.Core.Tests;
 
-/// <summary>Precision e Signals sono generiche sui formati IEEE di Generic Math di .NET 11: float, double, Half, Decimal32/64/128.</summary>
+/// <summary>Precision and Signals are generic over the .NET 11 Generic Math IEEE formats: float, double, Half, Decimal32/64/128.</summary>
 public class GenericFormatTests
 {
     private static T V<T>(double x) where T : IFloatingPointIeee754<T> => T.CreateChecked(x);
 
     [Fact] public void NearlyEqualScalesItsDefaultToleranceWithTheFormat()
     {
-        // 0.1 + 0.2 ≠ 0.3 in binario ma è "quasi uguale": il default è 4096 ε del tipo, quindi vale in ogni formato.
+        // 0.1 + 0.2 ≠ 0.3 in binary but it is "nearly equal": the default is 4096 ε of the type, so it holds in every format.
         Assert.True(Precision.NearlyEqual(0.1f + 0.2f, 0.3f));
         Assert.True(Precision.NearlyEqual(0.1 + 0.2, 0.3));
         Assert.True(Precision.NearlyEqual(V<Decimal64>(0.1) + V<Decimal64>(0.2), V<Decimal64>(0.3)));
         Assert.True(Precision.NearlyEqual(Decimal128.One / V<Decimal128>(3) * V<Decimal128>(3), Decimal128.One));
-        // La stessa differenza (1e-9) è rilevante per double e Decimal128 ma non per float.
+        // The same difference (1e-9) is significant for double and Decimal128 but not for float.
         Assert.False(Precision.NearlyEqual(1.0, 1.0 + 1e-9));
         Assert.False(Precision.NearlyEqual(Decimal128.One, Decimal128.One + V<Decimal128>(1e-9)));
         Assert.True(Precision.NearlyEqual(1.0f, 1.0f + 1e-9f));

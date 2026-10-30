@@ -5,12 +5,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <!-- Output unico in <repo>/artifacts: percorsi stabili per i #r dei notebook JupyterNet e per i pacchetti. -->
+        <!-- Single output in <repo>/artifacts: stable paths for the notebooks' #r directives and for the packages. -->
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <ArtifactsPath>$(MSBuildThisFileDirectory)../artifacts</ArtifactsPath>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <!-- Le librerie in src/libs sono i pacchetti NuGet della famiglia MathemaSharp. -->
+    <!-- The libraries in src/libs are the NuGet packages of the MathemaSharp family. -->
   <PropertyGroup Condition="$(MSBuildProjectDirectory.Replace('\', '/').Contains('/src/libs/'))">
     <IsPackable>true</IsPackable>
     <Version>0.2.0</Version>
@@ -18,7 +18,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>numerics;generic-math;dotnet</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!-- CS1591: non tutti i membri pubblici hanno commento XML; gli altri warning restano errori. -->
+        <!-- CS1591: not all public members have an XML comment; the other warnings remain errors. -->
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Label="CentralBuildArtifacts">

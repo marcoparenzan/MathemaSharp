@@ -18,7 +18,7 @@ public class NativeHermitianTests
             Assert.True(T.Abs(QuantumAlgorithms.Norm<T>(vp)-T.One)<=tolerance);
             Assert.True(T.Abs(QuantumAlgorithms.Norm<T>(vm)-T.One)<=tolerance);
             Assert.True(QuantumAlgorithms.InnerProduct<T>(vp,vm).GetMagnitude()<=tolerance);
-            // Residui sulla matrice unitaria: niente overflow nella verifica.
+            // Residuals on the unitary matrix: no overflow in the check.
             var ap=QuantumAlgorithms.Apply(Pauli<T>.Y,vp);
             var am=QuantumAlgorithms.Apply(Pauli<T>.Y,vm);
             for(var i=0;i<2;i++)

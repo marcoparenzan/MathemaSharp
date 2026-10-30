@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace MathemaSharp.Core.Tests;
 
-/// <summary>Verifica l'evidenza salvata; non sostituisce la riesecuzione con JupyterNet.</summary>
+/// <summary>Verifies the saved evidence; it does not replace a re-run with JupyterSharp.</summary>
 public class ConsolidationNotebookTests
 {
     [Theory]

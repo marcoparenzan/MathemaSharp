@@ -1,10 +1,10 @@
 #:property TargetFramework=net10.0
 var root="../articoli/2026.10 NavierStokes/src/NavierStokes.Web/Components/Pages";
 (string Page,(string Binding,string Label)[] Fields)[] pages=[
- ("Quadro",[("Side","Lato del quadro"),("FanSpeed","Velocità dell'aria"),("FluidName","Fluido")]),
- ("Tubo",[("fluidName","Fluido"),("diameterMm","Diametro interno"),("lengthM","Lunghezza del tubo"),("flowLpm","Portata"),("roughnessMm","Materiale del tubo")]),
- ("Vento",[("shapeName","Forma"),("areaM2","Superficie esposta"),("windKmh","Vento")]),
- ("Fischio",[("Preset","Oggetto"),("diameterMm","Diametro"),("windKmh","Vento")])
+ ("Quadro",[("Side","Cabinet side"),("FanSpeed","Air speed"),("FluidName","Fluid")]),
+ ("Tubo",[("fluidName","Fluid"),("diameterMm","Inner diameter"),("lengthM","Pipe length"),("flowLpm","Flow rate"),("roughnessMm","Pipe material")]),
+ ("Vento",[("shapeName","Shape"),("areaM2","Exposed area"),("windKmh","Wind")]),
+ ("Fischio",[("Preset","Object"),("diameterMm","Diameter"),("windKmh","Wind")])
 ];
 foreach(var page in pages)
 {

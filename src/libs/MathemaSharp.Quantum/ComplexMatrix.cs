@@ -4,9 +4,9 @@ using MathemaSharp.Core;
 namespace MathemaSharp.Quantum;
 
 /// <summary>
-/// Matrice complessa densa: operatore su uno spazio di Hilbert a dimensione finita, generica sui formati di Generic Math di .NET 11
-/// (<c>T : IFloatingPointIeee754&lt;T&gt;, IMinMaxValue&lt;T&gt;</c>, i vincoli di <see cref="Complex{T}"/>).
-/// Backing array condiviso: copiare esplicitamente prima di mutare un alias.
+/// Dense complex matrix: operator on a finite-dimensional Hilbert space, generic over the .NET 11 Generic Math formats
+/// (<c>T : IFloatingPointIeee754&lt;T&gt;, IMinMaxValue&lt;T&gt;</c>, the constraints of <see cref="Complex{T}"/>).
+/// Shared backing array: copy explicitly before mutating an alias.
 /// </summary>
 public readonly struct ComplexMatrix<T> where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
 {
@@ -70,14 +70,14 @@ public readonly struct ComplexMatrix<T> where T : IFloatingPointIeee754<T>, IMin
 
     public static ComplexMatrix<T> operator *(ComplexMatrix<T> a, Complex<T> scalar) => scalar * a;
 
-    /// <summary>Moltiplicazione per uno scalare reale.</summary>
+    /// <summary>Multiplication by a real scalar.</summary>
     public static ComplexMatrix<T> operator *(T scalar, ComplexMatrix<T> a) => new Complex<T>(scalar, T.Zero) * a;
 
     public static ComplexMatrix<T> operator *(ComplexMatrix<T> a, T scalar) => scalar * a;
 
     public static ComplexMatrix<T> operator *(ComplexMatrix<T> a, ComplexMatrix<T> b)
     {
-        if (a.Cols != b.Rows) throw new ArgumentException("Dimensioni incompatibili per il prodotto righe per colonne.");
+        if (a.Cols != b.Rows) throw new ArgumentException("Incompatible dimensions for the row-by-column product.");
         var result = new ComplexMatrix<T>(a.Rows, b.Cols);
         for (var i = 0; i < a.Rows; i++)
             for (var j = 0; j < b.Cols; j++)
@@ -115,16 +115,16 @@ public readonly struct ComplexMatrix<T> where T : IFloatingPointIeee754<T>, IMin
 
     public Complex<T> Trace()
     {
-        if (Rows != Cols) throw new InvalidOperationException("La traccia richiede una matrice quadrata.");
+        if (Rows != Cols) throw new InvalidOperationException("The trace requires a square matrix.");
         var sum = Complex<T>.Zero;
         for (var i = 0; i < Rows; i++) sum += this[i, i];
         return sum;
     }
 
-    /// <summary>Tolleranza di default dei controlli booleani: √ε del tipo (≈ 1.5e-8 per double), cioè metà delle cifre.</summary>
+    /// <summary>Default tolerance of the boolean checks: √ε of the type (≈ 1.5e-8 for double), that is, half the digits.</summary>
     public static T DefaultTolerance => T.Sqrt(T.BitIncrement(T.One) - T.One);
 
-    /// <summary>Â = Â†: autovalori reali, base di autovettori ortonormale garantita.</summary>
+    /// <summary>Â = Â†: real eigenvalues, an orthonormal eigenvector basis guaranteed.</summary>
     public bool IsHermitian() => IsHermitian(DefaultTolerance);
 
     public bool IsHermitian(T tolerance)

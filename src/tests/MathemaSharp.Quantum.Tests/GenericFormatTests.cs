@@ -3,7 +3,7 @@ using MathemaSharp.Core;
 
 namespace MathemaSharp.Quantum.Tests;
 
-/// <summary>La libreria quantistica è generica su <c>T : IFloatingPointIeee754&lt;T&gt;, IMinMaxValue&lt;T&gt;</c> (i vincoli di <see cref="Complex{T}"/>).</summary>
+/// <summary>The quantum library is generic over <c>T : IFloatingPointIeee754&lt;T&gt;, IMinMaxValue&lt;T&gt;</c> (the constraints of <see cref="Complex{T}"/>).</summary>
 public class GenericFormatTests
 {
     private static T V<T>(double x) where T : IFloatingPointIeee754<T> => T.CreateChecked(x);
@@ -34,14 +34,14 @@ public class GenericFormatTests
 
     [Fact] public void TimeEvolutionIsUnitaryAndExactInDecimal128()
     {
-        // exp(−iXπ/2)|0⟩ = −i|1⟩. Con 24 termini di Taylor dopo lo scaling l'errore teorico è ~1e-33: in Decimal128 si verifica a 1e-28,
-        // un livello che nessun double (ε ≈ 2e-16) può raggiungere.
+        // exp(−iXπ/2)|0⟩ = −i|1⟩. With 24 Taylor terms after scaling the theoretical error is ~1e-33: in Decimal128 it is verified to 1e-28,
+        // a level that no double (ε ≈ 2e-16) can reach.
         var u = QuantumAlgorithms.TimeEvolution(Pauli<Decimal128>.X, Decimal128.Pi / V<Decimal128>(2));
         Assert.True(u.IsUnitary());
         var evolved = QuantumAlgorithms.Apply(u, QubitStates<Decimal128>.Zero);
-        Assert.True(evolved[0].GetMagnitude() < V<Decimal128>(1e-28), "ampiezza di |0⟩");
+        Assert.True(evolved[0].GetMagnitude() < V<Decimal128>(1e-28), "amplitude of |0⟩");
         Assert.True((evolved[1] - new Complex<Decimal128>(Decimal128.Zero, -Decimal128.One)).GetMagnitude() < V<Decimal128>(1e-28), "−i|1⟩");
-        // La tolleranza di default scala col formato: √ε.
+        // The default tolerance scales with the format: √ε.
         Assert.True(ComplexMatrix<Decimal128>.DefaultTolerance < V<Decimal128>(1e-15));
         Assert.True(ComplexMatrix<double>.DefaultTolerance > 1e-9);
     }

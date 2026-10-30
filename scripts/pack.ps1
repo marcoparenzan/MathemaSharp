@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
-    Crea i pacchetti delle librerie direttamente nel feed locale condiviso.
-    Aumentare la versione prima di aggiornare pacchetti già consumati dalla cache NuGet.
+        Creates the library packages directly in the shared local feed.
+        Raise the version before updating packages already consumed from the NuGet cache.
 #>
 param(
-    [switch]$Publish, # Compatibilità: il pack scrive già nel feed, senza copia aggiuntiva.
+        [switch]$Publish, # Compatibility: pack already writes to the feed, with no extra copy.
     [string]$Feed = 'D:\Dev\NuGetLocalFeed'
 )
 $ErrorActionPreference = 'Stop'

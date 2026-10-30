@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace MathemaSharp.Quantum;
 
-/// <summary>Operatori di spin-1/2. Base computazionale {|0⟩,|1⟩}: autostati di Z con autovalori +1,-1. Generico: <c>Pauli&lt;double&gt;.X</c>, <c>Pauli&lt;Decimal128&gt;.Y</c>...</summary>
+/// <summary>Spin-1/2 operators. Computational basis {|0⟩,|1⟩}: eigenstates of Z with eigenvalues +1,-1. Generic: <c>Pauli&lt;double&gt;.X</c>, <c>Pauli&lt;Decimal128&gt;.Y</c>...</summary>
 public static class Pauli<T> where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
 {
     public static ComplexMatrix<T> I => ComplexMatrix<T>.Identity(2);
@@ -26,7 +26,7 @@ public static class Pauli<T> where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
     });
 }
 
-/// <summary>Stati base e combinazioni comuni di un singolo qubit, come ket (array di due ampiezze).</summary>
+/// <summary>Basis states and common combinations of a single qubit, as kets (array of two amplitudes).</summary>
 public static class QubitStates<T> where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
 {
     private static T InvSqrt2 => T.One / T.Sqrt(T.CreateChecked(2));

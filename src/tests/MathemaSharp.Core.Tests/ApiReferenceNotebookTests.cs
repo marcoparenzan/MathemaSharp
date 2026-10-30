@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace MathemaSharp.Core.Tests;
 
-/// <summary>Controlla il catalogo salvato, non esegue il kernel e non certifica i metodi elencati.</summary>
+/// <summary>Checks the saved catalogue, does not run the kernel and does not certify the listed methods.</summary>
 public class ApiReferenceNotebookTests
 {
     [Theory]

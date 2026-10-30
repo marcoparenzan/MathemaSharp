@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Description>Matematica quantistica a dimensione finita su Complex&lt;T&gt; di .NET 11: ket, operatori, Pauli, evoluzione temporale, matrice densità, generici su float, double e Decimal32/64/128.</Description>
+    <Description>Finite-dimensional quantum mathematics on .NET 11 Complex&lt;T&gt;: kets, operators, Pauli, time evolution, density matrix, generic over float, double and Decimal32/64/128.</Description>
     <Version>0.2.1-net11-preview.1</Version>
   </PropertyGroup>
   <ItemGroup>

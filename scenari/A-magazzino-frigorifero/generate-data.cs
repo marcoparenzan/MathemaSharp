@@ -3,30 +3,30 @@
 #:property Nullable=enable
 #:property ImplicitUsings=enable
 
-// Generatore (deterministico, con seme) dei dati sintetici dello scenario A: un magazzino frigorifero a +2 °C.
+// Generator (deterministic, seeded) of the synthetic data of scenario A: a cold store at +2 °C.
 //   dotnet run scenari/A-magazzino-frigorifero/generate-data.cs
 // Scrive in data/:
-//   cella_1min.csv     72 h al minuto: temperatura cella (con buchi di comunicazione), setpoint, porta, sbrinamento,
-//                      corrente compressore, pressione di aspirazione, vibrazione
+//   cella_1min.csv     72 h per minute: chamber temperature (with communication gaps), setpoint, door, defrost,
+//                      compressor current, suction pressure, vibration
 //   energia_oraria.csv 6 settimane orarie: kWh e temperatura esterna
-//   verita.json        ciò che il generatore SA e uno storico reale non dice: minuti veri sopra +4 °C, quando cambia la vibrazione, i buchi
-// Nessun dato è una misura di un impianto reale.
+//   verita.json        what the generator KNOWS and a real historian does not say: true minutes above +4 °C, when the vibration changes, the gaps
+// No datum is a measurement of a real plant.
 using System.Globalization;
 using System.Text;
 
 var inv = CultureInfo.InvariantCulture;
-// Cartella dello script: la espone il runtime ai file-based app; in alternativa si passa come primo argomento (dotnet run generate-data.cs -- <cartella>).
+// Script folder: exposed by the runtime to file-based apps; alternatively it is passed as the first argument (dotnet run generate-data.cs -- <folder>).
 var here = args.Length > 0 ? args[0] : AppContext.GetData("EntryPointFileDirectoryPath") as string ?? Directory.GetCurrentDirectory();
 var dataDir = Path.Combine(here, "data");
 Directory.CreateDirectory(dataDir);
 
 // ------------------------------------------------------------------------------------------------------------------- cella al minuto
 const int minutes = 3 * 24 * 60;
-var start = new DateTime(2026, 9, 14, 0, 0, 0);               // lunedì
+var start = new DateTime(2026, 9, 14, 0, 0, 0);               // Monday
 var rng = new Random(20260914);
 double Normal() { var u1 = 1 - rng.NextDouble(); var u2 = rng.NextDouble(); return Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2); }
 
-// Porta aperta: eventi ordinari (3–6 min, +0.06 °C/min) durante l'orario di carico 8–18, più UN evento lungo: martedì 14:00, 22 minuti, +0.22 °C/min (una porta lasciata aperta).
+// Door open: ordinary events (3–6 min, +0.06 °C/min) during the loading hours 8–18, plus ONE long event: Tuesday 14:00, 22 minutes, +0.22 °C/min (a door left open).
 var doorRng = new Random(1);
 var doorExtra = new double[minutes];
 var doorOpen = new bool[minutes];
@@ -40,15 +40,15 @@ for (var day = 0; day < 3; day++)
 const int longDoorStart = 1440 + 14 * 60, longDoorMinutes = 22;
 AddDoor(longDoorStart, longDoorMinutes, 0.22);
 
-// Sbrinamento: 03:00, 11:00, 19:00 per 25 minuti: compressore spento, resistenza (+0.02 °C/min).
+// Defrost: 03:00, 11:00, 19:00 for 25 minutes: compressor off, heater (+0.02 °C/min).
 bool Defrost(int m) { var d = m % 1440; return (d >= 180 && d < 205) || (d >= 660 && d < 685) || (d >= 1140 && d < 1165); }
 
-// Buchi di comunicazione del gateway (minuto di inizio, durata). Uno cade proprio nella salita dell'escursione lunga.
+// Gateway communication gaps (start minute, duration). One falls right on the rise of the long excursion.
 (int From, int Duration)[] gaps = [(5 * 60 + 10, 8), (16 * 60 + 40, 15), (1440 + 14 * 60 + 8, 12), (1440 + 22 * 60, 6), (2 * 1440 + 9 * 60 + 30, 20), (2 * 1440 + 18 * 60 + 5, 9)];
 var missing = new bool[minutes];
 foreach (var (from, duration) in gaps) for (var m = from; m < from + duration; m++) missing[m] = true;
 
-// Vibrazione: livello per stato (acceso 2.6 / spento 0.4 mm/s) + shock GARCH(1,1). Nelle ultime 24 h ω triplica: un cedimento del cuscinetto.
+// Vibration: level per state (on 2.6 / off 0.4 mm/s) + GARCH(1,1) shock. In the last 24 h ω triples: a bearing failing.
 const int vibrationChange = 2 * 1440;
 (double Omega, double Alpha, double Beta) Baseline = (0.002, 0.10, 0.80), Worn = (0.006, 0.10, 0.80);
 
@@ -80,7 +80,7 @@ File.WriteAllText(Path.Combine(dataDir, "cella_1min.csv"), csv.ToString());
 
 // ------------------------------------------------------------------------------------------------------------------- energia oraria
 const int hours = 6 * 7 * 24;
-var energyStart = new DateTime(2026, 8, 3, 0, 0, 0);          // lunedì: finisce domenica 13 settembre, un giorno prima della cella
+var energyStart = new DateTime(2026, 8, 3, 0, 0, 0);          // Monday: ends on Sunday 13 September, one day before the chamber
 var erng = new Random(20260803);
 double ENormal() { var u1 = 1 - erng.NextDouble(); var u2 = erng.NextDouble(); return Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2); }
 var weather = 0.0;
@@ -103,7 +103,7 @@ for (var h = 0; h < hours; h++)
 }
 File.WriteAllText(Path.Combine(dataDir, "energia_oraria.csv"), energy.ToString());
 
-// ------------------------------------------------------------------------------------------------------------------- verità
+// ------------------------------------------------------------------------------------------------------------------- truth
 var above = Enumerable.Range(0, minutes).Where(m => trueTemperature[m] > 4.0).ToArray();
 var excursions = above.Where((m, i) => i == 0 || m != above[i - 1] + 1).ToArray();
 var truth =
@@ -121,4 +121,4 @@ var truth =
 File.WriteAllText(Path.Combine(dataDir, "verita.json"), truth);
 
 Console.WriteLine($"cella_1min.csv: {minutes} righe; energia_oraria.csv: {hours} righe");
-Console.WriteLine($"verità: {above.Length} minuti veri sopra +4 °C in {excursions.Length} escursione/i, massimo {trueTemperature.Max():F2} °C, {missing.Count(x => x)} minuti mancanti");
+Console.WriteLine($"truth: {above.Length} true minutes above +4 °C in {excursions.Length} excursion(s), maximum {trueTemperature.Max():F2} °C, {missing.Count(x => x)} minutes missing");

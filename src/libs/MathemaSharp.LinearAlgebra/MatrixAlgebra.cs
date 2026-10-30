@@ -2,14 +2,14 @@ using System.Numerics;
 namespace MathemaSharp.LinearAlgebra;
 
 /// <summary>
-/// Algebra lineare reale minima su <c>T[,]</c>, generica su <c>T : IFloatingPointIeee754&lt;T&gt;</c>: quanto basta per regressioni con pochi
-/// regressori e filtri con stato piccolo. Non è una BLAS: per array N-dimensionali generici usare NDSharp (ponte in MathemaSharp.NDSharp).
+/// Minimal real linear algebra on <c>T[,]</c>, generic over <c>T : IFloatingPointIeee754&lt;T&gt;</c>: just enough for regressions with few
+/// regressors and filters with a small state. It is not a BLAS: for generic N-dimensional arrays use NDSharp (bridge in MathemaSharp.NDSharp).
 /// </summary>
 public static class MatrixAlgebra
 {
     private static T N<T>(int value) where T : IFloatingPointIeee754<T> => T.CreateChecked(value);
     private static T Epsilon<T>() where T : IFloatingPointIeee754<T> => T.BitIncrement(T.One) - T.One;
-    /// <summary>Norma L1; il vettore vuoto ha norma zero.</summary>
+    /// <summary>L1 norm; the empty vector has norm zero.</summary>
     public static T NormL1<T>(ReadOnlySpan<T> x) where T : IFloatingPointIeee754<T>
     {
         var sum = T.Zero;
@@ -17,7 +17,7 @@ public static class MatrixAlgebra
         return sum;
     }
 
-    /// <summary>Norma L2 con Hypot: evita overflow prematuro dei quadrati.</summary>
+    /// <summary>L2 norm with Hypot: avoids premature overflow of the squares.</summary>
     public static T NormL2<T>(ReadOnlySpan<T> x) where T : IFloatingPointIeee754<T>
     {
         var norm = T.Zero;
@@ -45,7 +45,7 @@ public static class MatrixAlgebra
         return a[0, 0] * a[1, 1] - a[0, 1] * a[1, 0];
     }
 
-    /// <summary>Inversa didattica 2×2. Rifiuta input non finiti e matrici quasi singolari sulla scala normalizzata.</summary>
+    /// <summary>Educational 2×2 inverse. Rejects non-finite inputs and nearly singular matrices on the normalised scale.</summary>
     public static T[,] Inverse2x2<T>(T[,] a) where T : IFloatingPointIeee754<T>
     {
         Require2x2(a);
@@ -69,7 +69,7 @@ public static class MatrixAlgebra
     private static void Require2x2<T>(T[,] a)
     {
         if (a.GetLength(0) != 2 || a.GetLength(1) != 2)
-            throw new ArgumentException("Serve una matrice 2×2.");
+            throw new ArgumentException("A 2×2 matrix is required.");
     }
 
     public static T[,] Multiply<T>(T[,] a, T[,] b) where T : INumber<T>
@@ -110,10 +110,10 @@ public static class MatrixAlgebra
     }
 
     /// <summary>
-    /// Minimi quadrati min‖Xβ − y‖₂ con QR di Householder. Non forma XᵀX: le equazioni normali elevano al quadrato il numero di
+    /// Least squares min‖Xβ − y‖₂ with Householder QR. It does not form XᵀX: the normal equations square the condition
     /// condizionamento, la QR no. Richiede righe ≥ colonne, dati finiti e colonne linearmente indipendenti.
-    /// Normalizza il sistema sulla scala della matrice; soglia min(4096 ε, √ε) e riflettori normalizzati.
-    /// Non stima il condizionamento. Intermedi non rappresentabili sono segnalati con ArithmeticException.
+    /// Normalises the system on the matrix scale; threshold min(4096 ε, √ε) and normalised reflectors.
+    /// It does not estimate conditioning. Unrepresentable intermediates are reported with ArithmeticException.
     /// </summary>
     public static T[] LeastSquares<T>(T[,] x, ReadOnlySpan<T> y) where T : IFloatingPointIeee754<T>
     {
@@ -137,7 +137,7 @@ public static class MatrixAlgebra
         for (var i = 0; i < m; i++)
         {
             b[i] /= scale;
-            if (!T.IsFinite(b[i])) throw new ArithmeticException("Sistema normalizzato non rappresentabile.");
+            if (!T.IsFinite(b[i])) throw new ArithmeticException("Normalised system not representable.");
             for (var j = 0; j < n; j++) a[i, j] /= scale;
         }
         var epsilon = Epsilon<T>();
@@ -148,9 +148,9 @@ public static class MatrixAlgebra
         {
             var norm = T.Zero;
             for (var i = k; i < m; i++) norm = T.Hypot(norm, a[i, k]);
-            if (!T.IsFinite(norm)) throw new ArithmeticException("Norma QR non rappresentabile.");
+            if (!T.IsFinite(norm)) throw new ArithmeticException("QR norm not representable.");
             if (norm <= threshold) throw new ArgumentException("Regressori linearmente dipendenti.");
-            // Riflettore prima scalato per norm, poi reso unitario: evita quadrati di valori grandi.
+            // Reflector first scaled by norm, then made unit: avoids squares of large values.
             var sign = a[k, k] > T.Zero ? T.One : -T.One;
             var alpha = -sign * norm;
             for (var i = k; i < m; i++) a[i, k] /= norm;
@@ -164,13 +164,13 @@ public static class MatrixAlgebra
                 var s = T.Zero;
                 for (var i = k; i < m; i++) s += a[i, k] * a[i, j];
                 var f = two * s;
-                if (!T.IsFinite(f)) throw new ArithmeticException("Proiezione QR non rappresentabile.");
+                if (!T.IsFinite(f)) throw new ArithmeticException("QR projection not representable.");
                 for (var i = k; i < m; i++) a[i, j] -= f * a[i, k];
             }
             var sb = T.Zero;
             for (var i = k; i < m; i++) sb += a[i, k] * b[i];
             var fb = two * sb;
-            if (!T.IsFinite(fb)) throw new ArithmeticException("Proiezione del termine noto non rappresentabile.");
+            if (!T.IsFinite(fb)) throw new ArithmeticException("Projection of the right-hand side not representable.");
             for (var i = k; i < m; i++) b[i] -= fb * a[i, k];
             diagonal[k] = alpha;
         }
@@ -181,7 +181,7 @@ public static class MatrixAlgebra
             var s = b[k];
             for (var j = k + 1; j < n; j++) s -= a[k, j] * beta[j];
             beta[k] = s / diagonal[k];
-            if (!T.IsFinite(beta[k])) throw new ArithmeticException("Soluzione non rappresentabile.");
+            if (!T.IsFinite(beta[k])) throw new ArithmeticException("Solution not representable.");
         }
         return beta;
     }

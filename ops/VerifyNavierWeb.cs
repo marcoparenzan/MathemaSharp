@@ -145,10 +145,10 @@ try
  string summary;
  if(quadro||fischio)
  {
-  string route=fischio?"fischio":"quadro",gridLabel=fischio?"Griglia LBM":"Griglia numerica",gridValue=fischio?"140":"31";
-  string hydrateLabel=fischio?"Vento":"Lato del quadro",hydrateValue=fischio?"45":"85",hydrateText=fischio?"45 km/h":"85 cm";
-  string startLabel=fischio?"Guarda i vortici":"Avvia simulazione";
-  string[] controls=fischio?["Oggetto","Diametro","Vento","Griglia LBM"]:["Griglia numerica","Lato del quadro","Velocità dell'aria","Fluido"];
+  string route=fischio?"fischio":"quadro",gridLabel=fischio?"LBM grid":"Numerical grid",gridValue=fischio?"140":"31";
+  string hydrateLabel=fischio?"Wind":"Cabinet side",hydrateValue=fischio?"45":"85",hydrateText=fischio?"45 km/h":"85 cm";
+  string startLabel=fischio?"Watch the vortices":"Start simulation";
+  string[] controls=fischio?["Object","Diameter","Wind","LBM grid"]:["Numerical grid","Cabinet side","Air speed","Fluid"];
   await page.Locator($"a.card[href='{route}']").ClickAsync();await page.WaitForURLAsync("**/"+route);
   // First confirm an actual bound update: DOM presence alone does not prove Blazor hydration.
   var hydrated=false;var hydrateDeadline=DateTime.UtcNow.AddSeconds(15);
@@ -165,14 +165,14 @@ try
   for(int cycle=1;cycle<=2;cycle++)
   {
    await page.GetByRole(AriaRole.Button,new() { Name=startLabel,Exact=true }).ClickAsync();
-   await page.WaitForFunctionAsync("document.querySelector('.status')?.textContent.trim().startsWith('passo ')",null,new() { Timeout=15000 });
+   await page.WaitForFunctionAsync("document.querySelector('.status')?.textContent.trim().startsWith('step ')",null,new() { Timeout=15000 });
    var progressText=await page.Locator(".status").InnerTextAsync();
    foreach(var label in controls)
     if(await page.GetByLabel(label,new() { Exact=true }).IsEnabledAsync())throw new Exception("Control not locked while running: "+label);
    if(await page.GetByLabel(gridLabel,new() { Exact=true }).InputValueAsync()!=gridValue)throw new Exception("Expected smallest simulation grid.");
    if(await page.Locator(".chart svg").CountAsync()<1)throw new Exception("Live field SVG missing.");
-   await page.GetByRole(AriaRole.Button,new() { Name="Ferma",Exact=true }).ClickAsync();
-   await page.WaitForFunctionAsync("document.querySelector('.status')?.textContent.trim()==='Simulazione fermata.'",null,new() { Timeout=15000 });
+   await page.GetByRole(AriaRole.Button,new() { Name="Stop",Exact=true }).ClickAsync();
+   await page.WaitForFunctionAsync("document.querySelector('.status')?.textContent.trim()==='Simulation stopped.'",null,new() { Timeout=15000 });
    if(!await page.GetByRole(AriaRole.Button,new() { Name=startLabel,Exact=true }).IsEnabledAsync())throw new Exception("Start did not become usable again.");
    foreach(var label in controls)
     if(!await page.GetByLabel(label,new() { Exact=true }).IsEnabledAsync())throw new Exception("Control not restored: "+label);
@@ -187,7 +187,7 @@ try
  await page.Locator("a.card[href='tubo']").ClickAsync();await page.WaitForURLAsync("**/tubo");
  var pressureBefore=UiNumbers.PressureBar(await page.Locator(".answer .big").InnerTextAsync());
  if(pressureBefore<=0)throw new Exception("Invalid initial pressure.");
- await ChangeRange("Lunghezza del tubo","100",UiNumbers.PressureBar,p=>Math.Abs(p-2*pressureBefore)<=0.03);
+ await ChangeRange("Pipe length","100",UiNumbers.PressureBar,p=>Math.Abs(p-2*pressureBefore)<=0.03);
  var pressureAfter=UiNumbers.PressureBar(await page.Locator(".answer .big").InnerTextAsync());await CheckCharts(2);
  await CheckMobileLayout("tubo");
  steps.Add((JsonNode)new JsonObject { ["Page"]="tubo",["BeforeBar"]=pressureBefore,["AfterBar"]=pressureAfter,["Check"]="Doubling length doubles rounded pressure within 0.03 bar",["Success"]=true });
@@ -195,14 +195,14 @@ try
  await page.GotoAsync(url+"/");await page.Locator("a.card[href='vento']").ClickAsync();await page.WaitForURLAsync("**/vento");
  var forceBefore=UiNumbers.ForceNewtons(await page.Locator(".answer .big").InnerTextAsync());
  if(forceBefore<=0)throw new Exception("Invalid initial force.");
- await ChangeRange("Vento","180",UiNumbers.ForceNewtons,f=>Math.Abs(f-4*forceBefore)<=3);
+ await ChangeRange("Wind","180",UiNumbers.ForceNewtons,f=>Math.Abs(f-4*forceBefore)<=3);
  var forceFast=UiNumbers.ForceNewtons(await page.Locator(".answer .big").InnerTextAsync());
- await ChangeRange("Superficie esposta","1",UiNumbers.ForceNewtons,f=>Math.Abs(2*f-forceFast)<=2);
+ await ChangeRange("Exposed area","1",UiNumbers.ForceNewtons,f=>Math.Abs(2*f-forceFast)<=2);
  var forceHalfArea=UiNumbers.ForceNewtons(await page.Locator(".answer .big").InnerTextAsync());await CheckCharts(1);
  steps.Add((JsonNode)new JsonObject { ["Page"]="vento",["BeforeN"]=forceBefore,["DoubledSpeedN"]=forceFast,["HalfAreaN"]=forceHalfArea,["Check"]="Rounded force scales with speed squared and area",["Success"]=true });
  if(mobile)
  {
-  var wind=page.GetByLabel("Vento",new() { Exact=true });
+  var wind=page.GetByLabel("Wind",new() { Exact=true });
   int beforeWind=int.Parse(await wind.InputValueAsync());
   await wind.FocusAsync();await wind.PressAsync("ArrowRight");
   double keyboardForce=forceHalfArea;bool updated=false;var keyboardDeadline=DateTime.UtcNow.AddSeconds(15);

@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace MathemaSharp.Core;
 
-/// <summary>Constraint minimi: Complex non è un numero ordinato.</summary>
+/// <summary>Minimal constraints: Complex is not an ordered number.</summary>
 public static class NumericAlgorithms
 {
     public static T Sum<T>(ReadOnlySpan<T> values) where T : INumberBase<T>
@@ -24,7 +24,7 @@ public static class NumericAlgorithms
         if (left.Length != right.Length) throw new ArgumentException("Lunghezze diverse.");
         var sum = T.Zero;
         for (var i = 0; i < left.Length; i++) sum += left[i] * right[i];
-        return sum; // Per Complex è bilineare, NON prodotto hermitiano.
+        return sum; // For Complex it is bilinear, NOT a Hermitian product.
     }
 
     /// <summary>Coefficienti in ordine crescente: c0 + c1*x + c2*x².</summary>
@@ -37,11 +37,11 @@ public static class NumericAlgorithms
 
     public static T Mean<T>(ReadOnlySpan<T> values) where T : IFloatingPoint<T>
     {
-        if (values.IsEmpty) throw new ArgumentException("La media richiede almeno un valore.");
+        if (values.IsEmpty) throw new ArgumentException("The mean requires at least one value.");
         return Sum<T>(values) / T.CreateChecked(values.Length);
     }
 
-    /// <summary>Kahan per valori finiti; non elimina tutti gli errori di cancellazione.</summary>
+    /// <summary>Kahan for finite values; it does not remove all cancellation errors.</summary>
     public static T KahanSum<T>(ReadOnlySpan<T> values) where T : IFloatingPointIeee754<T>
     {
         var sum = T.Zero;

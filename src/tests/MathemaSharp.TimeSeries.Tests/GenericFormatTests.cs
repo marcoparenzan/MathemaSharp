@@ -4,9 +4,9 @@ using MathemaSharp.TimeSeries;
 namespace MathemaSharp.TimeSeries.Tests;
 
 /// <summary>
-/// La libreria è generica su <c>T : IFloatingPointIeee754&lt;T&gt;</c>: le stesse identità matematiche devono valere con ogni formato di
-/// Generic Math di .NET 11, con tolleranze proporzionate alla precisione del tipo. Half è escluso dalle identità numeriche (circa 3 cifre
-/// decimali non bastano agli accumulatori) ed è coperto solo da uno smoke test.
+/// The library is generic over <c>T : IFloatingPointIeee754&lt;T&gt;</c>: the same mathematical identities must hold with every .NET 11
+/// Generic Math format, with tolerances proportional to the type's precision. Half is excluded from the numerical identities (about 3
+/// decimal digits are not enough for the accumulators) and is covered only by a smoke test.
 /// </summary>
 public class GenericFormatTests
 {
@@ -15,7 +15,7 @@ public class GenericFormatTests
     private static void Close<T>(T expected, T actual, double tolerance, string what) where T : IFloatingPointIeee754<T> =>
         Assert.True(Math.Abs(D(expected) - D(actual)) <= tolerance, $"{typeof(T).Name} {what}: atteso {D(expected)}, ottenuto {D(actual)}, tolleranza {tolerance}");
 
-    /// <summary>Esegue un controllo su tutti i formati con la tolleranza adatta (float, double, Decimal64, Decimal128).</summary>
+    /// <summary>Runs a check on all the formats with the suitable tolerance (float, double, Decimal64, Decimal128).</summary>
     private static void AllFormats(Action<double> forFloat, Action<double> forDouble, Action<double> forDecimal64, Action<double> forDecimal128, double floatTol, double doubleTol, double decimalTol)
     {
         forFloat(floatTol);
@@ -75,19 +75,19 @@ public class GenericFormatTests
         for (var t = 0; t < y.Length; t++)
         {
             Close(V<T>(3 + 0.05 * t), stl.Trend[t], tolerance, $"trend t={t}");
-            Close(V<T>(2 * Math.Sin(2 * Math.PI * t / period)), stl.Seasonal[t], tolerance, $"stagionalità t={t}");
+            Close(V<T>(2 * Math.Sin(2 * Math.PI * t / period)), stl.Seasonal[t], tolerance, $"seasonality t={t}");
         }
     }
 
     [Fact] public void StlExactInEveryFormat() =>
         AllFormats(StlExact<float>, StlExact<double>, StlExact<Decimal64>, StlExact<Decimal128>, 5e-3, 1e-9, 1e-9);
 
-    // ---------------------------------------------------------------------------------------------------- Kalman a regime
+    // ---------------------------------------------------------------------------------------------------- Kalman at steady state
     private static void KalmanGain<T>(double tolerance) where T : IFloatingPointIeee754<T>
     {
         var y = Simulation.RandomWalk<T>(new Random(11), 200);
         var result = KalmanFilter.LocalLevel(V<T>(0.5), V<T>(2), T.Zero, V<T>(1e6)).Filter(y);
-        Close(KalmanFilter.LocalLevelSteadyStateGain(V<T>(0.5), V<T>(2)), result.FirstGain[^1], tolerance, "guadagno a regime");
+        Close(KalmanFilter.LocalLevelSteadyStateGain(V<T>(0.5), V<T>(2)), result.FirstGain[^1], tolerance, "steady-state gain");
     }
 
     [Fact] public void KalmanSteadyStateGainInEveryFormat() =>
@@ -120,8 +120,8 @@ public class GenericFormatTests
     // ---------------------------------------------------------------------------------------------------- Stesso seme, formati diversi
     [Fact] public void Decimal128AgreesWithDoubleOnTheSameNoise()
     {
-        // Le estrazioni casuali sono double in ogni formato: con lo stesso seme cambia solo l'aritmetica, quindi due formati diversi
-        // devono produrre gli stessi coefficienti a meno degli arrotondamenti del double.
+        // The random draws are doubles in every format: with the same seed only the arithmetic changes, so two different formats
+        // must produce the same coefficients up to the double's rounding.
         var yd = Simulation.Arma<double>(new Random(42), 600, 0, [0.5, -0.3], [], 1);
         var yq = Simulation.Arma<Decimal128>(new Random(42), 600, Decimal128.Zero, [Decimal128.CreateChecked(0.5), Decimal128.CreateChecked(-0.3)], [], Decimal128.One);
         var fd = ArModel.FitYuleWalker(yd, 2);
@@ -143,8 +143,8 @@ public class GenericFormatTests
 
     [Fact] public void HalfAndDecimal32WorkForSimpleStatistics()
     {
-        Close(V<Half>(3), SeriesStatistics.Mean<Half>([V<Half>(2), V<Half>(3), V<Half>(4)]), 1e-3, "media Half");
-        Close(V<Decimal32>(2.5), SeriesStatistics.Mean<Decimal32>([V<Decimal32>(2), V<Decimal32>(3)]), 1e-9, "media Decimal32");
+        Close(V<Half>(3), SeriesStatistics.Mean<Half>([V<Half>(2), V<Half>(3), V<Half>(4)]), 1e-3, "Half mean");
+        Close(V<Decimal32>(2.5), SeriesStatistics.Mean<Decimal32>([V<Decimal32>(2), V<Decimal32>(3)]), 1e-9, "Decimal32 mean");
         var naive = ReferenceForecasts.Naive<Decimal32>([V<Decimal32>(1.1), V<Decimal32>(2.2)], 3);
         Assert.Equal([V<Decimal32>(2.2), V<Decimal32>(2.2), V<Decimal32>(2.2)], naive);
     }

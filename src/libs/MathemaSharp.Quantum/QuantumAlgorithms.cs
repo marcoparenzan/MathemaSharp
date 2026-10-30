@@ -4,18 +4,18 @@ using MathemaSharp.Core;
 namespace MathemaSharp.Quantum;
 
 /// <summary>
-/// Stati come ket, cioè Complex&lt;T&gt;[] / ReadOnlySpan&lt;Complex&lt;T&gt;&gt;; il bra ⟨ψ| non è un tipo a parte, è il coniugato implicito nel prodotto interno.
-/// Operatori come ComplexMatrix&lt;T&gt;. Posizione e impulso (x̂, p̂=-iħ d/dx) sono operatori su uno spazio continuo e restano fuori scope: qui si lavora
-/// solo su spazi di Hilbert a dimensione finita (qubit, spin, sistemi a N livelli). Generico su <c>T : IFloatingPointIeee754&lt;T&gt;, IMinMaxValue&lt;T&gt;</c>.
+/// States as kets, that is Complex&lt;T&gt;[] / ReadOnlySpan&lt;Complex&lt;T&gt;&gt;; the bra ⟨ψ| is not a separate type, it is the conjugate implicit in the inner product.
+/// Operators as ComplexMatrix&lt;T&gt;. Position and momentum (x̂, p̂=-iħ d/dx) are operators on a continuous space and stay out of scope: here we work
+/// only on finite-dimensional Hilbert spaces (qubits, spins, N-level systems). Generic over <c>T : IFloatingPointIeee754&lt;T&gt;, IMinMaxValue&lt;T&gt;</c>.
 /// </summary>
 public static class QuantumAlgorithms
 {
-    /// <summary>⟨φ|ψ⟩: antilineare nel bra, lineare nel ket.</summary>
+    /// <summary>⟨φ|ψ⟩: antilinear in the bra, linear in the ket.</summary>
     public static Complex<T> InnerProduct<T>(ReadOnlySpan<Complex<T>> bra, ReadOnlySpan<Complex<T>> ket) where T : IFloatingPointIeee754<T>, IMinMaxValue<T> =>
         Signals.HermitianDot(bra, ket);
 
-    /// <summary>Norma euclidea con Hypot sulle componenti: evita quadrati prematuri.
-    /// Il risultato può essere infinito se la norma stessa supera il range di T.</summary>
+    /// <summary>Euclidean norm with Hypot on the components: avoids premature squares.
+    /// The result can be infinite if the norm itself exceeds the range of T.</summary>
     public static T Norm<T>(ReadOnlySpan<Complex<T>> ket) where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
     {
         var norm = T.Zero;
@@ -33,21 +33,21 @@ public static class QuantumAlgorithms
         foreach (var value in ket)
         {
             if (!T.IsFinite(value.Real) || !T.IsFinite(value.Imaginary))
-                throw new ArgumentException("Lo stato deve avere componenti finite.", nameof(ket));
+                throw new ArgumentException("The state must have finite components.", nameof(ket));
             scale = T.Max(scale, T.Max(T.Abs(value.Real), T.Abs(value.Imaginary)));
         }
-        if (scale == T.Zero) throw new ArgumentException("Il vettore nullo non è normalizzabile.", nameof(ket));
+        if (scale == T.Zero) throw new ArgumentException("The zero vector cannot be normalised.", nameof(ket));
         var result = new Complex<T>[ket.Length];
         for (var i = 0; i < ket.Length; i++)
             result[i] = new Complex<T>(ket[i].Real / scale, ket[i].Imaginary / scale);
         var norm = Norm<T>(result);
-        if (!T.IsFinite(norm) || norm == T.Zero) throw new ArithmeticException("Norma dello stato scalato non rappresentabile.");
+        if (!T.IsFinite(norm) || norm == T.Zero) throw new ArithmeticException("Norm of the scaled state not representable.");
         for (var i = 0; i < result.Length; i++)
             result[i] = new Complex<T>(result[i].Real / norm, result[i].Imaginary / norm);
         return result;
     }
 
-    /// <summary>|ψ⟩⟨φ|: operatore di rango 1.</summary>
+    /// <summary>|ψ⟩⟨φ|: rank-1 operator.</summary>
     public static ComplexMatrix<T> OuterProduct<T>(ReadOnlySpan<Complex<T>> ket, ReadOnlySpan<Complex<T>> bra) where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
     {
         var result = new ComplexMatrix<T>(ket.Length, bra.Length);
@@ -60,7 +60,7 @@ public static class QuantumAlgorithms
     /// <summary>Â|ψ⟩.</summary>
     public static Complex<T>[] Apply<T>(ComplexMatrix<T> operatorA, ReadOnlySpan<Complex<T>> ket) where T : IFloatingPointIeee754<T>, IMinMaxValue<T> => operatorA * ket;
 
-    /// <summary>⟨ψ|Â|ψ⟩. Per Â hermitiano e stato normalizzato la parte immaginaria è nulla a meno di errori numerici: non viene scartata qui.</summary>
+    /// <summary>⟨ψ|Â|ψ⟩. For a Hermitian Â and a normalised state the imaginary part is zero up to numerical errors: it is not discarded here.</summary>
     public static Complex<T> ExpectationValue<T>(ComplexMatrix<T> operatorA, ReadOnlySpan<Complex<T>> state) where T : IFloatingPointIeee754<T>, IMinMaxValue<T> =>
         InnerProduct(state, Apply(operatorA, state));
 
@@ -68,7 +68,7 @@ public static class QuantumAlgorithms
     public static ComplexMatrix<T> Projector<T>(ReadOnlySpan<Complex<T>> normalizedKet) where T : IFloatingPointIeee754<T>, IMinMaxValue<T> =>
         OuterProduct(normalizedKet, normalizedKet);
 
-    /// <summary>[Â,B̂] = ÂB̂ − B̂Â. Nullo se e solo se Â e B̂ sono simultaneamente diagonalizzabili (osservabili compatibili).</summary>
+    /// <summary>[Â,B̂] = ÂB̂ − B̂Â. Zero if and only if Â and B̂ are simultaneously diagonalisable (compatible observables).</summary>
     public static ComplexMatrix<T> Commutator<T>(ComplexMatrix<T> a, ComplexMatrix<T> b) where T : IFloatingPointIeee754<T>, IMinMaxValue<T> => a * b - b * a;
 
     /// <summary>Verifica Â|a⟩ = a|a⟩ con tolleranza di default (√ε del tipo).</summary>
@@ -77,14 +77,14 @@ public static class QuantumAlgorithms
 
     /// <summary>
     /// Verifica Â|a⟩ = a|a⟩ con residuo relativo ||Âu−λu||₂/||Â||F ≤ tolerance, u stato normalizzato.
-    /// Stato e operatore sono scalati separatamente. L'autovalore è il quoziente di Rayleigh, anche per operatori non hermitiani.
-    /// Tolleranza finita non negativa; stato non nullo e componenti finite. Intermedi/autovalori fuori range sono segnalati.
+    /// State and operator are scaled separately. The eigenvalue is the Rayleigh quotient, also for non-Hermitian operators.
+    /// Finite non-negative tolerance; non-null state and finite components. Out-of-range intermediates/eigenvalues are reported.
     /// </summary>
     public static (bool IsEigenstate, Complex<T> Eigenvalue) CheckEigenstate<T>(ComplexMatrix<T> operatorA, ReadOnlySpan<Complex<T>> ket, T tolerance) where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
     {
         if (!T.IsFinite(tolerance) || tolerance < T.Zero) throw new ArgumentOutOfRangeException(nameof(tolerance));
         if (operatorA.Rows != operatorA.Cols || operatorA.Cols != ket.Length)
-            throw new ArgumentException("Operatore quadrato e dimensioni dello stato compatibili richiesti.", nameof(operatorA));
+            throw new ArgumentException("A square operator and compatible state dimensions are required.", nameof(operatorA));
         var unit = Normalize(ket);
         var scale = T.Zero;
         for (var i = 0; i < operatorA.Rows; i++)
@@ -112,35 +112,35 @@ public static class QuantumAlgorithms
         for (var i = 0; i < unit.Length; i++) residual[i] = applied[i] - lambda * unit[i];
         var residualNorm = Norm<T>(residual);
         if (!T.IsFinite(residualNorm) || !T.IsFinite(operatorNorm))
-            throw new ArithmeticException("Residuo dell'autostato non rappresentabile.");
+            throw new ArithmeticException("Eigenstate residual not representable.");
         var eigenvalue = new Complex<T>(lambda.Real * scale, lambda.Imaginary * scale);
         if (!T.IsFinite(eigenvalue.Real) || !T.IsFinite(eigenvalue.Imaginary))
-            throw new ArithmeticException("Autovalore non rappresentabile.");
+            throw new ArithmeticException("Eigenvalue not representable.");
         return (residualNorm / operatorNorm <= tolerance, eigenvalue);
     }
 
     /// <summary>
-    /// Diagonalizzazione analitica di una matrice hermitiana 2×2 (qubit, spin-1/2): H=[[a,b],[b*,d]], a,d reali.
-    /// λ± = (a+d)/2 ± √(((a-d)/2)²+|b|²). Gli autovettori sono definiti a meno di una fase globale, come sempre in meccanica quantistica.
+    /// Analytic diagonalisation of a 2×2 Hermitian matrix (qubit, spin-1/2): H=[[a,b],[b*,d]], a,d real.
+    /// λ± = (a+d)/2 ± √(((a-d)/2)²+|b|²). The eigenvectors are defined up to a global phase, as always in quantum mechanics.
     /// </summary>
     public static (T LambdaPlus, Complex<T>[] VectorPlus, T LambdaMinus, Complex<T>[] VectorMinus) DiagonalizeHermitian2<T>(ComplexMatrix<T> h) where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
     {
-        if (h.Rows != 2 || h.Cols != 2) throw new ArgumentException("Richiede una matrice 2x2.");
+        if (h.Rows != 2 || h.Cols != 2) throw new ArgumentException("A 2x2 matrix is required.");
         var scale = T.Zero;
         for (var i = 0; i < 2; i++)
             for (var j = 0; j < 2; j++)
             {
                 var value = h[i, j];
                 if (!T.IsFinite(value.Real) || !T.IsFinite(value.Imaginary))
-                    throw new ArgumentException("La matrice deve avere componenti finite.", nameof(h));
+                    throw new ArgumentException("The matrix must have finite components.", nameof(h));
                 scale = T.Max(scale, T.Max(T.Abs(value.Real), T.Abs(value.Imaginary)));
             }
-        if (!h.IsHermitian()) throw new ArgumentException("La matrice non è hermitiana.");
+        if (!h.IsHermitian()) throw new ArgumentException("The matrix is not Hermitian.");
         if (scale == T.Zero)
             return (T.Zero, [Complex<T>.One, Complex<T>.Zero], T.Zero, [Complex<T>.Zero, Complex<T>.One]);
         if (h[0, 1].Real == T.Zero && h[0, 1].Imaginary == T.Zero)
         {
-            // Nessuna sottrazione tra numeri grandi: conserva anche diagonali estremamente sbilanciate.
+            // No subtraction between large numbers: it also preserves extremely unbalanced diagonals.
             var first = h[0, 0].Real;
             var second = h[1, 1].Real;
             return first >= second
@@ -170,30 +170,30 @@ public static class QuantumAlgorithms
         var lambdaPlus = plusValue * scale;
         var lambdaMinus = minusValue * scale;
         if (!T.IsFinite(lambdaPlus) || !T.IsFinite(lambdaMinus))
-            throw new ArithmeticException("Autovalori non rappresentabili nel tipo richiesto.");
+            throw new ArithmeticException("Eigenvalues not representable in the requested type.");
         Complex<T>[] plus;
         if (b.Real == T.Zero && b.Imaginary == T.Zero)
             plus = a >= d ? [Complex<T>.One, Complex<T>.Zero] : [Complex<T>.Zero, Complex<T>.One];
         else
         {
-            // Sceglie radius + |halfDiff|, senza cancellazione; non divide per b.
+            // Chooses radius + |halfDiff|, without cancellation; it does not divide by b.
             plus = halfDiff >= T.Zero
                 ? Normalize<T>([new Complex<T>(radius + halfDiff, T.Zero), Complex<T>.Conjugate(b)])
                 : Normalize<T>([b, new Complex<T>(radius - halfDiff, T.Zero)]);
         }
-        // Complemento ortonormale, valido anche per autovalori coincidenti.
+        // Orthonormal complement, also valid for coincident eigenvalues.
         Complex<T>[] minus = [-Complex<T>.Conjugate(plus[1]), Complex<T>.Conjugate(plus[0])];
         return (lambdaPlus, plus, lambdaMinus, minus);
     }
 
     /// <summary>
-    /// Matrice esponenziale via serie di Taylor con scaling-and-squaring: scala la matrice finché la norma è piccola, somma la serie, poi
-    /// eleva al quadrato per annullare la scala. Didattica come Signals.Dft: O(terms·n³), non Padé, pensata per matrici piccole e ben scalate.
+    /// Matrix exponential via Taylor series with scaling-and-squaring: scales the matrix until the norm is small, sums the series, then
+    /// squares to undo the scaling. Educational like Signals.Dft: O(terms·n³), not Padé, meant for small, well-scaled matrices.
     /// </summary>
     public static ComplexMatrix<T> MatrixExp<T>(ComplexMatrix<T> m, int taylorTerms = 24) where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(taylorTerms, 1);
-        if (m.Rows != m.Cols) throw new ArgumentException("L'esponenziale richiede una matrice quadrata.");
+        if (m.Rows != m.Cols) throw new ArgumentException("The exponential requires a square matrix.");
         var scaled = new ComplexMatrix<T>(m.Rows, m.Cols);
         for (var i = 0; i < m.Rows; i++)
             for (var j = 0; j < m.Cols; j++)
@@ -208,7 +208,7 @@ public static class QuantumAlgorithms
         var scalingSteps = 0;
         while (FrobeniusNorm(scaled) > half)
         {
-            if (++scalingSteps > 100000) throw new ArithmeticException("Limite di scaling superato.");
+            if (++scalingSteps > 100000) throw new ArithmeticException("Scaling limit exceeded.");
             for (var i = 0; i < scaled.Rows; i++)
                 for (var j = 0; j < scaled.Cols; j++)
                 {
@@ -258,34 +258,34 @@ public static class QuantumAlgorithms
             {
                 var value = matrix[i, j];
                 if (!T.IsFinite(value.Real) || !T.IsFinite(value.Imaginary))
-                    throw new ArithmeticException("Esponenziale matriciale: intermedio non rappresentabile.");
+                    throw new ArithmeticException("Matrix exponential: intermediate not representable.");
             }
     }
 
-    /// <summary>Û(t) = exp(−iĤt) con ħ = 1.</summary>
+    /// <summary>Û(t) = exp(−iĤt) with ħ = 1.</summary>
     public static ComplexMatrix<T> TimeEvolution<T>(ComplexMatrix<T> hamiltonian, T t) where T : IFloatingPointIeee754<T>, IMinMaxValue<T> =>
         TimeEvolution(hamiltonian, t, T.One);
 
-    /// <summary>Û(t) = exp(−iĤt/ħ). Û è unitaria se Ĥ è hermitiano (controllare con ComplexMatrix.IsUnitary se serve verificarlo).</summary>
+    /// <summary>Û(t) = exp(−iĤt/ħ). Û is unitary if Ĥ is Hermitian (check with ComplexMatrix.IsUnitary if you need to verify it).</summary>
     public static ComplexMatrix<T> TimeEvolution<T>(ComplexMatrix<T> hamiltonian, T t, T hbar) where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
     {
         if (!T.IsFinite(t)) throw new ArgumentOutOfRangeException(nameof(t));
         if (!T.IsFinite(hbar) || hbar <= T.Zero) throw new ArgumentOutOfRangeException(nameof(hbar));
         var ratio = -t / hbar;
-        if (!T.IsFinite(ratio)) throw new ArithmeticException("Rapporto t/hbar non rappresentabile.");
+        if (!T.IsFinite(ratio)) throw new ArithmeticException("Ratio t/hbar not representable.");
         return MatrixExp(new Complex<T>(T.Zero, ratio) * hamiltonian);
     }
 
-    /// <summary>Matrice densità ρ=|ψ⟩⟨ψ| di uno stato puro normalizzato.</summary>
+    /// <summary>Density matrix ρ=|ψ⟩⟨ψ| of a normalised pure state.</summary>
     public static ComplexMatrix<T> DensityMatrix<T>(ReadOnlySpan<Complex<T>> normalizedKet) where T : IFloatingPointIeee754<T>, IMinMaxValue<T> => Projector(normalizedKet);
 
-    /// <summary>Tr(ρ²): 1 per uno stato puro, &lt;1 per uno stato misto.</summary>
+    /// <summary>Tr(ρ²): 1 for a pure state, &lt;1 for a mixed state.</summary>
     public static T Purity<T>(ComplexMatrix<T> rho) where T : IFloatingPointIeee754<T>, IMinMaxValue<T> => (rho * rho).Trace().Real;
 
-    /// <summary>Vettore di Bloch (x,y,z)=Tr(ρ·σ) di una matrice densità 2×2. |v|=1 ⇔ stato puro (sulla superficie della sfera di Bloch).</summary>
+    /// <summary>Bloch vector (x,y,z)=Tr(ρ·σ) of a 2×2 density matrix. |v|=1 ⇔ pure state (on the surface of the Bloch sphere).</summary>
     public static (T X, T Y, T Z) BlochVector<T>(ComplexMatrix<T> rho) where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
     {
-        if (rho.Rows != 2 || rho.Cols != 2) throw new ArgumentException("Il vettore di Bloch è definito per qubit (matrici 2x2).");
+        if (rho.Rows != 2 || rho.Cols != 2) throw new ArgumentException("The Bloch vector is defined for qubits (2x2 matrices).");
         return ((rho * Pauli<T>.X).Trace().Real, (rho * Pauli<T>.Y).Trace().Real, (rho * Pauli<T>.Z).Trace().Real);
     }
 }

@@ -2,26 +2,26 @@ using System.Numerics;
 
 namespace MathemaSharp.LinearAlgebra;
 
-/// <summary>Soluzione e diagnostica floating-point in norma infinito, non una certificazione dell'errore forward.</summary>
+/// <summary>Solution and floating-point diagnostics in the infinity norm, not a certification of the forward error.</summary>
 /// <param name="Solution">Soluzione indipendente dagli input.</param>
-/// <param name="RelativeResidualInfinity">||Ax-b||∞/||b||∞; zero per residuo e termine noto nulli.</param>
+/// <param name="RelativeResidualInfinity">||Ax-b||∞/||b||∞; zero for a zero residual and right-hand side.</param>
 /// <param name="NormwiseBackwardErrorInfinity">||Ax-b||∞/(||A||∞||x||∞+||b||∞).</param>
-/// <param name="ConditionInfinityEstimate">||A||∞||A⁻¹||∞ approssimata tramite n solve LU; non una stima iterativa economica.</param>
+/// <param name="ConditionInfinityEstimate">||A||∞||A⁻¹||∞ approximated through n LU solves; not a cheap iterative estimate.</param>
 /// <param name="ReciprocalConditionInfinityEstimate">Reciproco del condizionamento stimato; zero se la stima trabocca.</param>
-/// <param name="IsIllConditioned">Avviso: rcond ≤ √epsilon (potenziale perdita di almeno metà delle cifre). Non un giudizio universale di accuratezza.</param>
+/// <param name="IsIllConditioned">Warning: rcond ≤ √epsilon (potential loss of at least half of the digits). Not a universal judgement of accuracy.</param>
 public sealed record LinearSolveReport<T>(T[] Solution, T RelativeResidualInfinity,
     T NormwiseBackwardErrorInfinity, T ConditionInfinityEstimate,
     T ReciprocalConditionInfinityEstimate, bool IsIllConditioned)
     where T : IFloatingPointIeee754<T>
 {
-    /// <summary>Alias dell'errore backward normwise in norma infinito.</summary>
+    /// <summary>Alias of the normwise backward error in the infinity norm.</summary>
     public T NormwiseBackwardError => NormwiseBackwardErrorInfinity;
 }
 
 /// <summary>Diagnostica opt-in per piccoli sistemi densi quadrati, interamente in T.</summary>
-/// <remarks>Riusa una LU e risolve n sistemi per stimare la norma dell'inversa senza memorizzarla.
-/// Il condizionamento stimato dipende dalla qualità della LU. Residuo calcolato in T, non a precisione superiore.
-/// Non stima l'errore componente per componente e non esegue refinement. Input e intermedi non rappresentabili sono rifiutati.</remarks>
+/// <remarks>Reuses an LU and solves n systems to estimate the norm of the inverse without storing it.
+/// The estimated conditioning depends on the quality of the LU. Residual computed in T, not at higher precision.
+/// It does not estimate the error component by component and performs no refinement. Unrepresentable inputs and intermediates are rejected.</remarks>
 public static class LinearSystemDiagnostics
 {
     public static LinearSolveReport<T> Solve<T>(T[,] matrix, ReadOnlySpan<T> rhs) where T : IFloatingPointIeee754<T>
@@ -45,7 +45,7 @@ public static class LinearSystemDiagnostics
             }
             normA = T.Max(normA, rowSum);
         }
-        if (!T.IsFinite(normA)) throw new ArithmeticException("Norma della matrice normalizzata non rappresentabile.");
+        if (!T.IsFinite(normA)) throw new ArithmeticException("Norm of the normalised matrix not representable.");
 
         var b = new T[n];
         var normX = MatrixAlgebra.NormInfinity<T>(solution);
@@ -53,7 +53,7 @@ public static class LinearSystemDiagnostics
         for (var i = 0; i < n; i++)
         {
             b[i] = rhs[i] / scale;
-            if (!T.IsFinite(b[i])) throw new ArithmeticException("Termine noto normalizzato non rappresentabile.");
+            if (!T.IsFinite(b[i])) throw new ArithmeticException("Normalised right-hand side not representable.");
             vectorScale = T.Max(vectorScale, T.Abs(b[i]));
         }
         var residualNorm = T.Zero;
@@ -72,11 +72,11 @@ public static class LinearSystemDiagnostics
                 normB = T.Max(normB, T.Abs(b[i] / vectorScale));
             }
             var denominator = normA * (normX / vectorScale) + normB;
-            if (!T.IsFinite(denominator)) throw new ArithmeticException("Denominatore backward non rappresentabile.");
+            if (!T.IsFinite(denominator)) throw new ArithmeticException("Backward denominator not representable.");
             backward = denominator == T.Zero ? T.Zero : residualNorm / denominator;
             relative = normB == T.Zero ? (residualNorm == T.Zero ? T.Zero : T.PositiveInfinity) : residualNorm / normB;
         }
-        // Abar=A/scale; solve A*z=scale*e_j restituisce colonna j di Abar^-1.
+        // Abar=A/scale; solving A*z=scale*e_j returns column j of Abar^-1.
         var inverseRowSums = new T[n];
         var basis = new T[n];
         for (var j = 0; j < n; j++)
@@ -86,7 +86,7 @@ public static class LinearSystemDiagnostics
             basis[j] = T.Zero;
             for (var i = 0; i < n; i++)
             {
-                if (!T.IsFinite(column[i])) throw new ArithmeticException("Norma dell'inversa non stimabile nel tipo richiesto.");
+                if (!T.IsFinite(column[i])) throw new ArithmeticException("Norm of the inverse cannot be estimated in the requested type.");
                 inverseRowSums[i] += T.Abs(column[i]);
             }
         }

@@ -4,8 +4,8 @@ using System.Text.RegularExpressions;
 namespace MathemaSharp.Core.Tests;
 
 /// <summary>
-/// I notebook sono salvati eseguiti (scripts/run-notebooks.ps1): il test controlla formato JupyterNet, assenza di errori negli output
-/// e che i file caricati con #load esistano. Non riesegue le celle: per quello serve lo script.
+/// The notebooks are saved executed (scripts/run-notebooks.ps1): the test checks the Jupyter format, the absence of errors in the outputs
+/// and that the files loaded with #load exist. It does not re-run the cells: for that use the script.
 /// </summary>
 public class NotebookTests
 {
@@ -14,7 +14,7 @@ public class NotebookTests
         var directory = new DirectoryInfo(System.Reflection.Assembly.GetExecutingAssembly().GetCustomAttributes<System.Reflection.AssemblyMetadataAttribute>().Single(a => a.Key == "RepositoryRoot").Value!);
         while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "src", "MathemaSharp.slnx")))
             directory = directory.Parent;
-        return directory ?? throw new InvalidOperationException("Radice del repository non trovata.");
+        return directory ?? throw new InvalidOperationException("Repository root not found.");
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public class NotebookTests
         var root = RepositoryRoot();
         var files = Directory.GetFiles(Path.Combine(root.FullName, "notebooks"), "*.ipynb", SearchOption.AllDirectories)
             .Concat(Directory.GetFiles(Path.Combine(root.FullName, "scenari"), "*.ipynb", SearchOption.AllDirectories)).ToArray();
-        Assert.True(files.Length >= 15, $"Attesi almeno 15 notebook (10 C#, il gemello PySharp e le due coppie degli scenari A e D), trovati {files.Length}.");
+        Assert.True(files.Length >= 15, $"Expected at least 15 notebooks (10 C#, the PySharp twin and the two pairs of scenarios A and D), found {files.Length}.");
         foreach (var file in files)
         {
             using var document = JsonDocument.Parse(File.ReadAllText(file));
@@ -44,25 +44,25 @@ public class NotebookTests
                 if (outputs.Length > 0) cellsWithOutput++;
                 Assert.DoesNotContain(outputs, o => o.GetProperty("output_type").GetString() == "error");
                 var source = string.Concat(cell.GetProperty("source").EnumerateArray().Select(s => s.GetString()));
-                // JupyterNet ≥ 0.3.0 risolve i #load relativi rispetto alla cartella del notebook.
+                // The kernel (≥ 0.3.0) resolves relative #load directives against the notebook's folder.
                 foreach (Match load in Regex.Matches(source, "#load \"([^\"]+)\""))
                     Assert.True(File.Exists(Path.Combine(Path.GetDirectoryName(file)!, load.Groups[1].Value)), $"{Path.GetFileName(file)}: #load inesistente {load.Groups[1].Value}");
             }
-            // Una cella che definisce solo variabili non stampa nulla: l'esecuzione si riconosce da almeno metà delle celle con output.
-            // Gli output sono azzerati nella migrazione; questo test verifica solo struttura e percorsi.
+            // A cell that only defines variables prints nothing: execution is recognised by at least half of the cells having output.
+            // The outputs were cleared in the migration; this test only checks structure and paths.
             Assert.True(codeCells > 0);
         }
     }
 
     /// <summary>
-    /// I due notebook del "giro della libreria" fanno le stesse operazioni, uno in C# con l'API generica e uno in PySharp con la facciata
-    /// non generica, sugli stessi dati (stesso seme). Ogni riga "etichetta: valori" in comune deve essere identica.
+    /// The two "library tour" notebooks do the same operations, one in C# with the generic API and one in PySharp with the non-generic facade,
+    /// on the same data (same seed). Every "label: values" line they have in common must be identical.
     /// </summary>
     [Fact]
     public void LibraryTourNotebooksAgreeAcrossLanguages() =>
         AssertSameNumbers("10-ts-libreria-tour.ipynb", Path.Combine("notebooks", "TimeSeries", "10-ts-libreria-tour.ipynb"), Path.Combine("notebooks", "TimeSeries", "pysharp", "10-ts-libreria-tour.ipynb"), minimumLabels: 24);
 
-    /// <summary>Scenario A (magazzino frigorifero): stessa analisi in C# (API generica) e in PySharp (facciata Interop), stessi dati CSV.</summary>
+        /// <summary>Scenario A (cold store): the same analysis in C# (generic API) and in PySharp (Interop facade), the same CSV data.</summary>
     [Fact]
     public void ScenarioANotebooksAgreeAcrossLanguages() =>
         AssertSameNumbers("scenario A", Path.Combine("notebooks", "TimeSeries", "Scenarios", "A-magazzino-frigorifero", "A1-magazzino-frigorifero-csharp.ipynb"),

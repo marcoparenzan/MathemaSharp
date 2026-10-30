@@ -27,7 +27,7 @@ sealed class Lab(ILogger<Lab> logger)
         };
         if (topic != "all" && !examples.ContainsKey(topic))
         {
-            logger.LogError("Topic sconosciuto: {Topic}. Usare all, generic, precision, decimal, complex, integers, simd, quantum, timeseries, formats.", topic);
+                        logger.LogError("Unknown topic: {Topic}. Use all, generic, precision, decimal, complex, integers, simd, quantum, timeseries, formats.", topic);
             return 2;
         }
         Console.WriteLine($"Runtime: {RuntimeInformation.FrameworkDescription}; TFM compilato: net11.0");
@@ -49,7 +49,7 @@ sealed class Lab(ILogger<Lab> logger)
     {
         Console.WriteLine($"double 0.1+0.2: {0.1 + 0.2:R}; ==0.3: {0.1 + 0.2 == 0.3}");
         Console.WriteLine($"NearlyEqual: {Precision.NearlyEqual(0.1 + 0.2, 0.3)}");
-        Console.WriteLine($"ULP a 1: {double.BitIncrement(1) - 1:R}; double.Epsilon: {double.Epsilon:R} (non machine epsilon)");
+                Console.WriteLine($"ULP at 1: {double.BitIncrement(1) - 1:R}; double.Epsilon: {double.Epsilon:R} (not machine epsilon)");
         double[] data = [1e16, 1, 1, -1e16];
         Console.WriteLine($"Somma naive: {NumericAlgorithms.Sum<double>(data)}; Kahan: {NumericAlgorithms.KahanSum<double>(data)}");
         Console.WriteLine($"Half 2048+1: {(Half)((Half)2048 + (Half)1)}; float 16777216+1: {16777216f + 1f}");
@@ -59,9 +59,9 @@ sealed class Lab(ILogger<Lab> logger)
         Console.WriteLine($"decimal 0.1+0.2 == 0.3: {0.1m + 0.2m == 0.3m}; 1/3: {1m / 3m}");
         decimal[] lines = [0.005m, 0.005m, 0.005m];
         foreach (var mode in new[] { MidpointRounding.ToEven, MidpointRounding.AwayFromZero })
-            Console.WriteLine($"{mode}: per riga {Precision.InvoiceTotal(lines, mode, true)}, sul totale {Precision.InvoiceTotal(lines, mode, false)}");
-        Console.WriteLine($"1.00m: scala {Precision.DecimalScale(1.00m)}, valore uguale a 1m: {1.00m == 1m}");
-        Console.WriteLine("decimal NON è Decimal128 IEEE 754: le librerie generiche usano Decimal32/64/128 (topic formats).");
+                        Console.WriteLine($"{mode}: per line {Precision.InvoiceTotal(lines, mode, true)}, on the total {Precision.InvoiceTotal(lines, mode, false)}");
+                Console.WriteLine($"1.00m: scale {Precision.DecimalScale(1.00m)}, value equal to 1m: {1.00m == 1m}");
+                Console.WriteLine("decimal is NOT IEEE 754 Decimal128: the generic libraries use Decimal32/64/128 (topic formats).");
     }
     private static void ComplexNumbers()
     {
@@ -69,13 +69,13 @@ sealed class Lab(ILogger<Lab> logger)
         Console.WriteLine($"z={z}; modulo={z.GetMagnitude()}; fase={z.GetPhase()}; sqrt(-1)={Complex<double>.Sqrt(-Complex<double>.One)}");
         Console.WriteLine($"<z,z> hermitiano: {Signals.HermitianDot<double>([z], [z])}; bilineare: {NumericAlgorithms.Dot<Complex<double>>([z], [z])}");
         Console.WriteLine($"DFT impulso: {string.Join(", ", Signals.Dft<double>([Complex<double>.One, Complex<double>.Zero, Complex<double>.Zero, Complex<double>.Zero]))}");
-        // Stessi algoritmi, altri formati IEEE di Generic Math di .NET 11.
-        Console.WriteLine($"DFT in Decimal64, bin 1 di [1,0,0,0] = {Signals.Dft<Decimal64>([Complex<Decimal64>.One, Complex<Decimal64>.Zero, Complex<Decimal64>.Zero, Complex<Decimal64>.Zero])[1]}");
+                // The same algorithms, other .NET 11 Generic Math IEEE formats.
+                Console.WriteLine($"DFT in Decimal64, bin 1 of [1,0,0,0] = {Signals.Dft<Decimal64>([Complex<Decimal64>.One, Complex<Decimal64>.Zero, Complex<Decimal64>.Zero, Complex<Decimal64>.Zero])[1]}");
     }
     private static void Integers()
     {
         Console.WriteLine($"GCD(48,18): {NumericAlgorithms.Gcd(48, 18)}; 50!: {NumericAlgorithms.Factorial(50)}");
-        Console.WriteLine($"Int128: {Int128.MaxValue}; BigInteger non ha limite fisso ma alloca memoria.");
+                Console.WriteLine($"Int128: {Int128.MaxValue}; BigInteger has no fixed limit but allocates memory.");
         try { NumericAlgorithms.SumChecked<int>([int.MaxValue, 1]); } catch (OverflowException) { Console.WriteLine("SumChecked: overflow rilevato"); }
     }
     private static void Quantum()
@@ -88,10 +88,10 @@ sealed class Lab(ILogger<Lab> logger)
         var comm = QuantumAlgorithms.Commutator(Pauli<double>.X, Pauli<double>.Y);
         Console.WriteLine($"[X,Y] = 2iZ: elemento (0,0) = {comm[0, 0]}, (1,1) = {comm[1, 1]}");
         var (lp, _, lm, _) = QuantumAlgorithms.DiagonalizeHermitian2(Pauli<double>.X);
-        Console.WriteLine($"Autovalori di X: {lp:F3}, {lm:F3}");
+                Console.WriteLine($"Eigenvalues of X: {lp:F3}, {lm:F3}");
         var u = QuantumAlgorithms.TimeEvolution(Pauli<double>.X, Math.PI / 2);
         var evolved = QuantumAlgorithms.Apply(u, QubitStates<double>.Zero);
-        Console.WriteLine($"U(π/2) per H=X unitario: {u.IsUnitary(1e-6)}; U|0> = [{evolved[0]:F3}, {evolved[1]:F3}]");
+                Console.WriteLine($"U(π/2) for H=X unitary: {u.IsUnitary(1e-6)}; U|0> = [{evolved[0]:F3}, {evolved[1]:F3}]");
         var rho = QuantumAlgorithms.DensityMatrix(psi);
         var bloch = QuantumAlgorithms.BlochVector(rho);
         Console.WriteLine($"Purezza Tr(ρ²) = {QuantumAlgorithms.Purity(rho):F3}; Bloch = ({bloch.X:F3}, {bloch.Y:F3}, {bloch.Z:F3})");
@@ -117,7 +117,7 @@ sealed class Lab(ILogger<Lab> logger)
         Console.WriteLine($"ARMA(1,1) vero (0.6, 0.4); Hannan-Rissanen ({hr.Phi[0]:F3}, {hr.Theta[0]:F3}); Ljung-Box Q={lb.Statistic:F1}, p={lb.PValue:F3}");
 
         var alpha = KalmanFilter.LocalLevelSteadyStateGain(0.5, 2);
-        Console.WriteLine($"Local level q=0.5, r=2: guadagno stazionario K={alpha:F4} = α del SES equivalente; SES ≡ ARIMA(0,1,1) con θ=α−1={alpha - 1:F4}");
+                Console.WriteLine($"Local level q=0.5, r=2: steady-state gain K={alpha:F4} = α of the equivalent SES; SES ≡ ARIMA(0,1,1) with θ=α−1={alpha - 1:F4}");
 
         var garch = Garch11.FitVarianceTargeting<double>(Simulation.Garch(random, new Garch11<double>(0.05, 0.1, 0.85), 5000));
         Console.WriteLine($"GARCH(1,1) vero (α=0.10, β=0.85); stima (α={garch.Alpha:F3}, β={garch.Beta:F3}), σ̄²={garch.UnconditionalVariance:F3}");
@@ -125,12 +125,12 @@ sealed class Lab(ILogger<Lab> logger)
         var stl = Stl.Decompose(y, period, robustIterations: 2, innerIterations: 1);
         Console.WriteLine($"STL: trend {stl.Trend[0]:F1} → {stl.Trend[^1]:F1}; ampiezza stagionale {stl.Seasonal.Max() - stl.Seasonal.Min():F1} (vera 20); σ residuo {Math.Sqrt(stl.Remainder.Average(r => r * r)):F2} (vero 2)");
     }
-    /// <summary>Gli stessi algoritmi generici su formati IEEE diversi di Generic Math: l'errore segue la precisione del tipo.</summary>
+        /// <summary>The same generic algorithms on different Generic Math IEEE formats: the error follows the type's precision.</summary>
     private static void Formats()
     {
-        Console.WriteLine($"{"formato",-11} {"ε (ULP a 1)",-12} {"errore DFT",-12} {"errore U(π/2)|0⟩",-18} {"LS Hilbert 7×7",-16}");
+                Console.WriteLine($"{"format",-11} {"ε (ULP at 1)",-12} {"DFT error",-12} {"U(π/2)|0⟩ error",-18} {"LS Hilbert 7×7",-16}");
         Row<float>(); Row<double>(); Row<Decimal64>(); Row<Decimal128>();
-        Console.WriteLine("DFT: picco 8 di un coseno; U: exp(−iXπ/2)|0⟩ = −i|1⟩; LS: minimi quadrati QR su una matrice di Hilbert (cond ≈ 5e8), soluzione esatta = 1.");
+                Console.WriteLine("DFT: peak 8 of a cosine; U: exp(−iXπ/2)|0⟩ = −i|1⟩; LS: QR least squares on a Hilbert matrix (cond ≈ 5e8), exact solution = 1.");
 
         static void Row<T>() where T : IFloatingPointIeee754<T>, IMinMaxValue<T>
         {
@@ -138,16 +138,16 @@ sealed class Lab(ILogger<Lab> logger)
             static T N(int v) => T.CreateChecked(v);
             var epsilon = double.CreateChecked(T.BitIncrement(T.One) - T.One);
 
-            // DFT di un coseno a frequenza 3 su 16 campioni, con il coseno calcolato in T: picco esatto 8 al bin 3.
+                        // DFT of a cosine at frequency 3 over 16 samples, with the cosine computed in T: exact peak 8 at bin 3.
             var samples = new Complex<T>[16];
             for (var i = 0; i < 16; i++) samples[i] = new Complex<T>(T.Cos(T.Tau * N(3 * i) / N(16)), T.Zero);
-            var dftError = double.CreateChecked(T.Abs(Signals.Dft<T>(samples)[3].GetMagnitude() - N(8))); // differenza calcolata in T, non dopo la conversione in double
+                        var dftError = double.CreateChecked(T.Abs(Signals.Dft<T>(samples)[3].GetMagnitude() - N(8))); // difference computed in T, not after the conversion to double
 
             // exp(−iXπ/2)|0⟩ = −i|1⟩.
             var evolved = QuantumAlgorithms.Apply(QuantumAlgorithms.TimeEvolution(Pauli<T>.X, T.Pi / N(2)), QubitStates<T>.Zero);
             var qError = double.CreateChecked((evolved[1] - new Complex<T>(T.Zero, -T.One)).GetMagnitude());
 
-            // Minimi quadrati su Hilbert 7×7 con termine noto H·1: la soluzione è il vettore di uno.
+                        // Least squares on Hilbert 7×7 with right-hand side H·1: the solution is the vector of ones.
             const int n = 7;
             var hilbert = new T[n, n];
             var rhs = new T[n];

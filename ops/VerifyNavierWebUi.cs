@@ -58,7 +58,7 @@ try
 
  await Navigate("/tubo");
  string pipeBefore=await page.Locator(".answer .big").InnerTextAsync();
- await SetRange("Portata","20");
+ await SetRange("Flow rate","20");
  var pipeExpected=Pipe.Solve(Fluid.Water,0.025,50,20,0.0015).PressureDropPa/1e5;
  var expected=pipeExpected.ToString("0.00",CultureInfo.InvariantCulture);
  await page.WaitForFunctionAsync("expected=>document.querySelector('.answer .big').textContent.replaceAll(',','.').includes(expected)",expected);
@@ -67,31 +67,31 @@ try
  await Capture("pipe",new() { ["Before"]=pipeBefore,["After"]=pipeAfter,["Charts"]=2,["ExpectedPressureBar"]=expected });
 
  await Navigate("/vento");string windBefore=await page.Locator(".answer .big").InnerTextAsync();
- await SetRange("Vento","45");
+ await SetRange("Wind","45");
  var expectedForce=Wind.Force(45/3.6,2,Shape.FlatPlate).ToString("0",CultureInfo.InvariantCulture);
  await page.WaitForFunctionAsync("expected=>document.querySelector('.answer .big').textContent.trim().startsWith(expected+' N')",expectedForce);
  string windAfter=await page.Locator(".answer .big").InnerTextAsync();
  if(windBefore==windAfter||await page.Locator(".chart svg").CountAsync()!=1)throw new Exception("Wind binding or chart update failed.");
  await Capture("wind",new() { ["Before"]=windBefore,["After"]=windAfter,["Charts"]=1,["ExpectedForceN"]=expectedForce });
 
- await Navigate("/quadro");await page.GetByLabel("Griglia numerica").SelectOptionAsync("31");await page.GetByLabel("Fluido").SelectOptionAsync("Olio");
- await SetRange("Lato del quadro","20");await SetRange("Velocità dell'aria","0.1");
- await page.GetByRole(AriaRole.Button,new() { Name="Avvia simulazione",Exact=true }).ClickAsync();
- await page.WaitForFunctionAsync("()=>document.querySelector('.status')?.textContent.startsWith('Fatto:')",null,new() { Timeout=180000 });
+ await Navigate("/quadro");await page.GetByLabel("Numerical grid").SelectOptionAsync("31");await page.GetByLabel("Fluid").SelectOptionAsync("Oil");
+ await SetRange("Cabinet side","20");await SetRange("Air speed","0.1");
+ await page.GetByRole(AriaRole.Button,new() { Name="Start simulation",Exact=true }).ClickAsync();
+ await page.WaitForFunctionAsync("()=>document.querySelector('.status')?.textContent.startsWith('Done:')",null,new() { Timeout=180000 });
  if(await page.Locator(".chart svg").CountAsync()!=3||await page.Locator(".chart svg image").CountAsync()!=2||await page.Locator(".chart svg g.point-overlays").CountAsync()<1)throw new Exception("Cavity reports missing after UI simulation.");
- if(!await page.GetByLabel("Griglia numerica").IsEnabledAsync())throw new Exception("Cavity controls not restored.");
+ if(!await page.GetByLabel("Numerical grid").IsEnabledAsync())throw new Exception("Cavity controls not restored.");
  await Capture("cavity-complete",new() { ["Grid"]=31,["Charts"]=3,["RetainedFieldImages"]=2,["Status"]=await page.Locator(".status").InnerTextAsync() });
- await page.GetByRole(AriaRole.Button,new() { Name="Avvia simulazione",Exact=true }).ClickAsync();
- await page.GetByRole(AriaRole.Button,new() { Name="Ferma",Exact=true }).ClickAsync();
- await page.WaitForFunctionAsync("()=>document.querySelector('.status')?.textContent.includes('Simulazione fermata.')");
- if(!await page.GetByLabel("Griglia numerica").IsEnabledAsync())throw new Exception("Cancel did not restore cavity controls.");
+ await page.GetByRole(AriaRole.Button,new() { Name="Start simulation",Exact=true }).ClickAsync();
+ await page.GetByRole(AriaRole.Button,new() { Name="Stop",Exact=true }).ClickAsync();
+ await page.WaitForFunctionAsync("()=>document.querySelector('.status')?.textContent.includes('Simulation stopped.')");
+ if(!await page.GetByLabel("Numerical grid").IsEnabledAsync())throw new Exception("Cancel did not restore cavity controls.");
  await Capture("cavity-cancel",new() { ["Stopped"]=true,["ControlsEnabled"]=true });
 
- await Navigate("/fischio");await page.GetByLabel("Griglia LBM").SelectOptionAsync("140");
- await page.GetByRole(AriaRole.Button,new() { Name="Guarda i vortici",Exact=true }).ClickAsync();
- await page.WaitForFunctionAsync("()=>document.querySelector('.status')?.textContent.trim()==='Fatto.'",null,new() { Timeout=180000 });
+ await Navigate("/fischio");await page.GetByLabel("LBM grid").SelectOptionAsync("140");
+ await page.GetByRole(AriaRole.Button,new() { Name="Watch the vortices",Exact=true }).ClickAsync();
+ await page.WaitForFunctionAsync("()=>document.querySelector('.status')?.textContent.trim()==='Done.'",null,new() { Timeout=180000 });
  if(await page.Locator(".chart svg").CountAsync()!=2||await page.Locator(".chart svg image").CountAsync()!=1||await page.Locator(".chart svg g.point-overlays").CountAsync()<1)throw new Exception("Cylinder reports missing after UI simulation.");
- if(!await page.GetByLabel("Griglia LBM").IsEnabledAsync())throw new Exception("Cylinder controls not restored.");
+ if(!await page.GetByLabel("LBM grid").IsEnabledAsync())throw new Exception("Cylinder controls not restored.");
  await Capture("cylinder-complete",new() { ["GridWidth"]=140,["Charts"]=2,["RetainedFieldImages"]=1,["Status"]=await page.Locator(".status").InnerTextAsync() });
 }
 catch(Exception e){failure=e.Message;Console.WriteLine("UI verification failed: "+failure);}

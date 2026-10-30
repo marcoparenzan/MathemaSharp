@@ -3,7 +3,7 @@ using MathemaSharp.Core;
 
 namespace MathemaSharp.Core.Tests;
 
-/// <summary>Fixture e confronti in T: nessun passaggio dei valori numerici da double.</summary>
+/// <summary>Fixtures and comparisons in T: no numeric value passes through double.</summary>
 public class NativePrecisionTests
 {
     private static void Verify<T>() where T : IFloatingPointIeee754<T>, IMinMaxValue<T>

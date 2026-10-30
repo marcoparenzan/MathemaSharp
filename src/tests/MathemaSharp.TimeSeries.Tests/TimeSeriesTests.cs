@@ -8,7 +8,7 @@ public class StatisticsTests
 {
     [Fact] public void LevinsonDurbinOnTheoreticalAr1Acf()
     {
-        // AR(1) con φ = 0.6: γ(k) ∝ φ^k. PACF = φ al lag 1, esattamente 0 dopo.
+        // AR(1) with φ = 0.6: γ(k) ∝ φ^k. PACF = φ at lag 1, exactly 0 after.
         var gamma = Enumerable.Range(0, 6).Select(k => Math.Pow(0.6, k)).ToArray();
         var (phi, pacf, variance) = SeriesStatistics.LevinsonDurbin(gamma, 5);
         Assert.True(Precision.NearlyEqual(0.6, pacf[0], 1e-12, 1e-12));
@@ -113,7 +113,7 @@ public class ArimaTests
         Assert.InRange(model.Phi[0], 0.56, 0.64);
         Assert.InRange(model.Theta[0], 0.36, 0.44);
         Assert.InRange(model.Constant, 0.9, 1.1);
-        // Residui ≈ innovazioni: nessuna autocorrelazione residua significativa.
+        // Residuals ≈ innovations: no significant residual autocorrelation.
         Assert.True(SeriesStatistics.LjungBox(model.Residuals(y)[1..], 20, 2).PValue > 0.01);
     }
 
@@ -121,7 +121,7 @@ public class ArimaTests
     {
         double[] y = [3, 5, 4, 8];
         Assert.Equal([8.0, 8.0], new ArimaModel<double>(0, 1, 0, 0, [], [], 1).Forecast(y, 2));
-        // Δ²y = 0 con costante nulla: la previsione prosegue l'ultima pendenza (8 − 4 = 4).
+        // Δ²y = 0 with a zero constant: the forecast continues the last slope (8 − 4 = 4).
         Assert.Equal([12.0, 16.0], new ArimaModel<double>(0, 2, 0, 0, [], [], 1).Forecast(y, 2));
     }
 
@@ -197,7 +197,7 @@ public class KalmanTests
         var result = kf.Filter(y);
         var steady = KalmanFilter.LocalLevelSteadyStateGain(q, r);
         Assert.True(Precision.NearlyEqual(steady, result.FirstGain[^1], 1e-12, 1e-12));
-        // Prior diffuso: il primo guadagno ≈ 1, il filtro "crede" alla prima osservazione.
+        // Diffuse prior: the first gain ≈ 1, the filter "believes" the first observation.
         Assert.True(result.FirstGain[0] > 0.999);
     }
 
@@ -208,7 +208,7 @@ public class KalmanTests
         var y = Simulation.RandomWalk<double>(new Random(12), 300);
         var kalman = KalmanFilter.LocalLevel(q, r, y[0], 0).Filter(y);
         var ses = ExponentialSmoothing.Ses(y, alpha, 1);
-        // Dopo il transitorio la previsione a un passo del Kalman coincide con quella del SES.
+        // After the transient the Kalman one-step forecast coincides with the SES one.
         for (var t = 100; t < y.Length; t++) Assert.True(Math.Abs(kalman.Predictions[t] - ses.Fitted[t]) < 1e-9, $"t={t}");
     }
 
@@ -266,7 +266,7 @@ public class GarchTests
         var f = model.ForecastVariance([3.0, -2.5, 4.0], 400);
         Assert.True(f[0] > 1);
         Assert.True(Math.Abs(f[^1] - 1) < 1e-9);
-        // Decadimento geometrico con ragione α + β.
+        // Geometric decay with ratio α + β.
         Assert.True(Precision.NearlyEqual(0.9, (f[2] - 1) / (f[1] - 1), 1e-12, 1e-12));
     }
 
@@ -285,8 +285,8 @@ public class StlTests
 {
     [Fact] public void ExactOnLinearTrendPlusZeroMeanSeasonal()
     {
-        // Il LOESS lineare riproduce le rette e le medie mobili di un periodo annullano una stagionalità a media nulla:
-        // STL separa esattamente trend lineare e stagionalità periodica.
+        // Linear LOESS reproduces lines and moving averages of one period cancel a zero-mean seasonality:
+        // STL separates linear trend and periodic seasonality exactly.
         const int period = 12;
         var y = Enumerable.Range(0, 120).Select(t => 3 + 0.05 * t + 2 * Math.Sin(2 * Math.PI * t / period)).ToArray();
         var stl = Stl.Decompose(y, period);
@@ -351,7 +351,7 @@ public class QuantileTests
         var best = SeriesStatistics.Quantile<double>(sample, 0.9);
         double Loss(double q) => Accuracy.PinballLoss<double>(sample, Enumerable.Repeat(q, sample.Length).ToArray(), 0.9);
         Assert.True(Loss(best) <= Loss(best - 0.2) && Loss(best) <= Loss(best + 0.2));
-        Assert.InRange(best, 1.15, 1.42);                         // quantile 0.9 di N(0,1) = 1.2816
+        Assert.InRange(best, 1.15, 1.42);                         // 0.9 quantile of N(0,1) = 1.2816
     }
 
     [Fact] public void IntervalCoverageCountsObservationsInside() =>

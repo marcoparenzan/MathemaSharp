@@ -103,7 +103,7 @@ public class QuantumTests
 
     private static void AssertSameStateUpToGlobalPhase(Complex<double>[] expected, Complex<double>[] actual)
     {
-        // |⟨expected|actual⟩| = 1 per vettori normalizzati che differiscono solo per una fase globale.
+        // |⟨expected|actual⟩| = 1 for normalised vectors that differ only by a global phase.
         var overlap = QuantumAlgorithms.InnerProduct(expected, actual).GetMagnitude();
         Assert.True(Precision.NearlyEqual(1, overlap, 1e-9, 1e-9));
     }

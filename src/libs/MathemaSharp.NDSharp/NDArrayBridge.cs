@@ -4,21 +4,21 @@ using NDSharp;
 namespace MathemaSharp.NDSharp;
 
 /// <summary>
-/// Conversioni fra NDArray (dtype a runtime, semantica NumPy) e i tipi usati dalle librerie Numbers (T[], T[,], Complex&lt;T&gt;[]).
-/// Verso Numbers si copia sempre in ordine C convertendo il dtype: le viste strided di NDSharp non si espongono come Span.
-/// Verso NDSharp, <c>double[]</c> si avvolge senza copia (modificare l'uno modifica l'altro); ogni altro formato passa da double e può perdere cifre:
-/// NDSharp conosce solo i dtype di NumPy (float32, float64, complex128...), non Decimal32/64/128.
+/// Conversions between NDArray (runtime dtype, NumPy semantics) and the types used by the Numbers libraries (T[], T[,], Complex&lt;T&gt;[]).
+/// Towards Numbers it always copies in C order converting the dtype: NDSharp's strided views are not exposed as Span.
+/// Towards NDSharp, <c>double[]</c> is wrapped without copying (modifying one modifies the other); every other format goes through double and may lose digits:
+/// NDSharp only knows NumPy's dtypes (float32, float64, complex128...), not Decimal32/64/128.
 /// </summary>
 public static class NDArrayBridge
 {
-    /// <summary>Array 1-D → double[] (copia, con cast da qualunque dtype numerico).</summary>
+    /// <summary>1-D array → double[] (copy, with a cast from any numeric dtype).</summary>
     public static double[] ToVector(this NDArray array)
     {
         if (array.Ndim != 1) throw new ArgumentException($"Atteso un array 1-D, ricevuto {array.Ndim}-D.");
         return array.ToArray<double>();
     }
 
-    /// <summary>Array 2-D (righe = tempo, colonne = serie per i VAR) → double[,].</summary>
+    /// <summary>2-D array (rows = time, columns = series for the VARs) → double[,].</summary>
     public static double[,] ToMatrix(this NDArray array)
     {
         if (array.Ndim != 2) throw new ArgumentException($"Atteso un array 2-D, ricevuto {array.Ndim}-D.");
@@ -40,7 +40,7 @@ public static class NDArrayBridge
         return result;
     }
 
-    /// <summary>Array 1-D → T[] con Generic Math (copia dal dtype nativo, conversione checked senza intermedi double).</summary>
+    /// <summary>1-D array → T[] with Generic Math (copy from the native dtype, checked conversion without double intermediates).</summary>
     public static T[] ToVector<T>(this NDArray array) where T : INumber<T>
     {
         ArgumentNullException.ThrowIfNull(array);
@@ -48,7 +48,7 @@ public static class NDArrayBridge
         return ReadNative<T>(array);
     }
 
-    /// <summary>Array 2-D → T[,] con Generic Math (copia dal dtype nativo, conversione checked senza intermedi double).</summary>
+    /// <summary>2-D array → T[,] with Generic Math (copy from the native dtype, checked conversion without double intermediates).</summary>
     public static T[,] ToMatrix<T>(this NDArray array) where T : INumber<T>
     {
         ArgumentNullException.ThrowIfNull(array);
@@ -74,7 +74,7 @@ public static class NDArrayBridge
         DType.Float32 => ConvertNative<float, T>(array),
         DType.Float64 => ConvertNative<double, T>(array),
         DType.Bool => array.ToArray<bool>().Select(b => b ? T.One : T.Zero).ToArray(),
-        _ => throw new NotSupportedException($"Conversione reale non disponibile per {array.DType}.")
+        _ => throw new NotSupportedException($"Real conversion not available for {array.DType}.")
     };
 
     private static T[] ConvertNative<TSource, T>(NDArray array)
@@ -86,7 +86,7 @@ public static class NDArrayBridge
         return result;
     }
 
-    /// <summary>double[] → NDArray float64 1-D, senza copia.</summary>
+    /// <summary>double[] → 1-D float64 NDArray, without copying.</summary>
     public static NDArray ToNDArray(this double[] values) => NDArray.FromArray(values);
 
     /// <summary>Complex&lt;double&gt;[] → NDArray complex128 (copia).</summary>
@@ -97,7 +97,7 @@ public static class NDArrayBridge
         return NDArray.FromArray(buffer);
     }
 
-    /// <summary>T[] → NDArray float64 per qualunque formato IEEE di Generic Math (copia, passando da double: Decimal128 perde cifre).</summary>
+    /// <summary>T[] → float64 NDArray for any IEEE Generic Math format (copy, going through double: Decimal128 loses digits).</summary>
     public static NDArray ToNDArray<T>(this T[] values) where T : INumber<T>
     {
         var buffer = new double[values.Length];

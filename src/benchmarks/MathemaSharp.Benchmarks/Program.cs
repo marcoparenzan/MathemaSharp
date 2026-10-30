@@ -18,7 +18,7 @@ public class SumBenchmarks
     [GlobalSetup]
     public void Setup()
     {
-        // Stessi valori rappresentabili esattamente: misurare costo, non rumore da conversione.
+                // The same exactly representable values: measure cost, not conversion noise.
         doubles = Enumerable.Range(0, N).Select(i => (i % 17) * 0.125).ToArray();
         singles = doubles.Select(x => (float)x).ToArray();
         decimals = doubles.Select(x => (decimal)x).ToArray();

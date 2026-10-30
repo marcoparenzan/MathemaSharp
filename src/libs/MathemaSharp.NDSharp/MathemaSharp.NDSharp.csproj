@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Description>Ponte fra NDSharp (ndarray con semantica NumPy) e le librerie Numbers: T[], T[,] e Complex&lt;double&gt;[] per ogni formato IEEE di Generic Math.</Description>
-    <!-- NDSharp.dll accanto al ponte in artifacts/bin: serve ai #r dei notebook. -->
+    <Description>Bridge between NDSharp (ndarray with NumPy semantics) and the Numbers libraries: T[], T[,] and Complex&lt;double&gt;[] for every IEEE Generic Math format.</Description>
+    <!-- NDSharp.dll next to the bridge in artifacts/bin: needed by the notebooks' #r directives. -->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Version>0.2.1-net11-preview.1</Version>
   </PropertyGroup>

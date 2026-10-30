@@ -2,9 +2,9 @@ using System.Numerics;
 
 namespace MathemaSharp.LinearAlgebra;
 
-/// <summary>Fattorizzazione LU reale con pivoting parziale. Calcoli interamente nel formato T.</summary>
-/// <remarks>Input quadrato, non vuoto e finito. La soglia dei pivot è relativa alla scala globale.
-/// Non è una stima del condizionamento; matrici quasi singolari sono rifiutate.</remarks>
+/// <summary>Real LU factorisation with partial pivoting. Computations entirely in the T format.</summary>
+/// <remarks>Square, non-empty, finite input. The pivot threshold is relative to the global scale.
+/// It is not a conditioning estimate; nearly singular matrices are rejected.</remarks>
 public sealed class LuFactorization<T> where T : IFloatingPointIeee754<T>
 {
     private readonly T[,] lu;
@@ -20,11 +20,11 @@ public sealed class LuFactorization<T> where T : IFloatingPointIeee754<T>
     {
         ArgumentNullException.ThrowIfNull(matrix);
         var n = matrix.GetLength(0);
-        if (n == 0 || matrix.GetLength(1) != n) throw new ArgumentException("Serve una matrice quadrata non vuota.", nameof(matrix));
+        if (n == 0 || matrix.GetLength(1) != n) throw new ArgumentException("A non-empty square matrix is required.", nameof(matrix));
         var scale = T.Zero;
         foreach (var value in matrix)
         {
-            if (!T.IsFinite(value)) throw new ArgumentException("La matrice deve contenere valori finiti.", nameof(matrix));
+            if (!T.IsFinite(value)) throw new ArgumentException("The matrix must contain finite values.", nameof(matrix));
             scale = T.Max(scale, T.Abs(value));
         }
         if (scale == T.Zero) throw new ArgumentException("Matrice singolare.", nameof(matrix));
@@ -59,12 +59,12 @@ public sealed class LuFactorization<T> where T : IFloatingPointIeee754<T>
         return new(lu, permutation, sign, scale);
     }
 
-    /// <summary>Risolve Ax=b senza formare l’inversa. Non modifica b.</summary>
+    /// <summary>Solves Ax=b without forming the inverse. Does not modify b.</summary>
     public T[] Solve(ReadOnlySpan<T> b)
     {
         if (b.Length != Order) throw new ArgumentException("Dimensioni incompatibili.", nameof(b));
         foreach (var value in b)
-            if (!T.IsFinite(value)) throw new ArgumentException("Il termine noto deve essere finito.", nameof(b));
+            if (!T.IsFinite(value)) throw new ArgumentException("The right-hand side must be finite.", nameof(b));
         var x = new T[Order];
         for (var i = 0; i < Order; i++)
         {
@@ -81,7 +81,7 @@ public sealed class LuFactorization<T> where T : IFloatingPointIeee754<T>
         return x;
     }
 
-    /// <summary>Determinante della matrice fattorizzata; può eccedere il range di T.</summary>
+    /// <summary>Determinant of the factorised matrix; it can exceed the range of T.</summary>
     public T Determinant()
     {
         var result = T.CreateChecked(sign);
@@ -89,7 +89,7 @@ public sealed class LuFactorization<T> where T : IFloatingPointIeee754<T>
         return result;
     }
 
-    /// <summary>Inversa ottenuta risolvendo per ogni colonna dell’identità.</summary>
+    /// <summary>Inverse obtained by solving for each column of the identity.</summary>
     public T[,] Inverse()
     {
         var result = new T[Order,Order];

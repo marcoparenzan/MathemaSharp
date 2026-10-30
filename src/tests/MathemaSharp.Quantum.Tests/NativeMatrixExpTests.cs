@@ -16,7 +16,7 @@ public class NativeMatrixExpTests
         var exp=QuantumAlgorithms.MatrixExp(diagonal);
         Assert.True(T.Abs(exp[0,0].Real-T.Exp(T.One))<=tolerance*T.Exp(T.One));
         Assert.True(T.Abs(exp[1,1].Real-T.Exp(-T.One))<=tolerance);
-        // Nilpotente: exp(A)=I+A, anche quando il vecchio calcolo del fattore 2^s traboccava su Half.
+        // Nilpotent: exp(A)=I+A, even when the old computation of the factor 2^s overflowed on Half.
         var large=N(32768);
         var nilpotent=new ComplexMatrix<T>(new Complex<T>[,] {{Complex<T>.Zero,new(large,T.Zero)},{Complex<T>.Zero,Complex<T>.Zero}});
         var result=QuantumAlgorithms.MatrixExp(nilpotent);

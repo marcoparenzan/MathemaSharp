@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace MathemaSharp.TimeSeries;
 
-/// <summary>Finestre complete ordinate temporalmente; nessun padding implicito.</summary>
+/// <summary>Complete, time-ordered windows; no implicit padding.</summary>
 public static class HistoryPatches
 {
     public static T[][] Extract<T>(ReadOnlySpan<T> history, int length, int stride = 1)
@@ -17,16 +17,16 @@ public static class HistoryPatches
     }
 }
 
-/// <summary>Origine è l'indice esclusivo del training; Actual e Forecast coprono lo stesso futuro.</summary>
+/// <summary>Origin is the exclusive index of the training set; Actual and Forecast cover the same future.</summary>
 public sealed record ForecastFold<T>(int Origin, T[] Actual, T[] Forecast, T Mae, T Rmse);
 
-/// <summary>Backtest expanding-window, con gap opzionale prima del periodo valutato.</summary>
+/// <summary>Expanding-window backtest, with an optional gap before the evaluated period.</summary>
 public static class RollingOrigin
 {
     /// <summary>
-    /// Il callback riceve una copia del solo passato e deve prevedere gap + horizon passi.
-    /// Deve rifare fit e preprocessing su quel passato, senza catturare dati futuri.
-    /// Con step inferiore a horizon i test si sovrappongono: i punteggi non sono indipendenti.
+    /// The callback receives a copy of the past only and must forecast gap + horizon steps.
+    /// It must redo fit and preprocessing on that past, without capturing future data.
+    /// With a step smaller than horizon the tests overlap: the scores are not independent.
     /// </summary>
     public static ForecastFold<T>[] Evaluate<T>(ReadOnlySpan<T> series, int initialTraining,
         int horizon, Func<T[], int, T[]> fitForecast, int step = 1, int gap = 0)
@@ -39,16 +39,16 @@ public static class RollingOrigin
         ArgumentOutOfRangeException.ThrowIfNegative(gap);
         var predictionLength = checked(gap + horizon);
         if (initialTraining > series.Length || predictionLength > series.Length - initialTraining)
-            throw new ArgumentException("Dati insufficienti per una prima origine completa.", nameof(series));
+            throw new ArgumentException("Insufficient data for a complete first origin.", nameof(series));
         foreach (var value in series)
-            if (!T.IsFinite(value)) throw new ArgumentException("Sono ammessi solo dati finiti.", nameof(series));
+            if (!T.IsFinite(value)) throw new ArgumentException("Only finite data are allowed.", nameof(series));
         var folds = new List<ForecastFold<T>>();
         var lastOrigin = series.Length - predictionLength;
         for (var origin = initialTraining; origin <= lastOrigin;)
         {
             var predicted = fitForecast(series[..origin].ToArray(), predictionLength);
             if (predicted is null || predicted.Length != predictionLength)
-                throw new ArgumentException("Il callback deve restituire gap + horizon previsioni.", nameof(fitForecast));
+                throw new ArgumentException("The callback must return gap + horizon forecasts.", nameof(fitForecast));
             foreach (var value in predicted)
                 if (!T.IsFinite(value)) throw new ArgumentException("Previsioni non finite.", nameof(fitForecast));
             var actual = series.Slice(origin + gap, horizon).ToArray();

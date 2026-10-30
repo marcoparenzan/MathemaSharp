@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace MathemaSharp.Core.Tests;
 
-/// <summary>Controlla gli output salvati dalla riesecuzione; non avvia il kernel.</summary>
+/// <summary>Checks the outputs saved by the re-run; it does not start the kernel.</summary>
 public class CoreNotebookExecutionTests
 {
     [Theory]
@@ -29,7 +29,7 @@ public class CoreNotebookExecutionTests
             Assert.Contains(".NET 11.",text);
             Assert.Contains("0.3333333333333333333333333333333333",text);
             Assert.Contains("Infinity",text);
-            Assert.Contains("consumati=4",text);
+            Assert.Contains("consumed=4",text);
         }
         if(name=="04-performance") Assert.Contains(".NET 11.",text);
     }

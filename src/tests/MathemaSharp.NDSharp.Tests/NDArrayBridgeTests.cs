@@ -22,7 +22,7 @@ public class NDArrayBridgeTests
         var array = m.ToNDArray();
         Assert.Equal([2, 3], array.Shape);
         Assert.Equal(m, array.ToMatrix());
-        // Una vista trasposta (strided) viene materializzata in ordine C.
+        // A transposed (strided) view is materialised in C order.
         Assert.Equal(new double[,] { { 1, 4 }, { 2, 5 }, { 3, 6 } }, np.Transpose(array).ToMatrix());
     }
 

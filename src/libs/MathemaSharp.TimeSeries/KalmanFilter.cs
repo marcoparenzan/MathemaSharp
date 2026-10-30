@@ -4,10 +4,10 @@ using static MathemaSharp.TimeSeries.Num;
 namespace MathemaSharp.TimeSeries;
 
 /// <summary>
-/// Filtro di Kalman (1960) lineare gaussiano con osservazione scalare, generico su <c>T : IFloatingPointIeee754&lt;T&gt;</c>:
+/// Linear Gaussian Kalman filter (1960) with a scalar observation, generic over <c>T : IFloatingPointIeee754&lt;T&gt;</c>:
 /// x_t = F x_{t−1} + w_t, w ~ N(0,Q);  y_t = H x_t + v_t, v ~ N(0,R).
-/// Predict propaga stato e incertezza, Update corregge con il guadagno K = P Hᵀ/S. Con osservazione scalare S è un numero:
-/// nessuna inversione di matrice.
+/// Predict propagates state and uncertainty, Update corrects with the gain K = P Hᵀ/S. With a scalar observation S is a number:
+/// no matrix inversion.
 /// </summary>
 public sealed class KalmanFilter<T> where T : IFloatingPointIeee754<T>
 {
@@ -35,7 +35,7 @@ public sealed class KalmanFilter<T> where T : IFloatingPointIeee754<T>
         Gain = new T[n];
     }
 
-    /// <summary>Predict: x ← F x, P ← F P Fᵀ + Q. Restituisce la previsione di y e la sua varianza S = H P Hᵀ + R.</summary>
+    /// <summary>Predict: x ← F x, P ← F P Fᵀ + Q. Returns the forecast of y and its variance S = H P Hᵀ + R.</summary>
     public (T Prediction, T Variance) Predict()
     {
         State = MatrixAlgebra.Multiply<T>(_f, State);
@@ -47,9 +47,9 @@ public sealed class KalmanFilter<T> where T : IFloatingPointIeee754<T>
     }
 
     /// <summary>
-    /// Update con l'osservazione y: innovazione v = y − Hx, K = P Hᵀ/S, x ← x + K v. Covarianza in forma di Joseph
-    /// P ← (I − KH) P (I − KH)ᵀ + K R Kᵀ: algebricamente uguale a (I − KH)P ma resta simmetrica e semidefinita positiva anche con arrotondamenti.
-    /// Un NaN è un dato mancante: si salta la correzione e lo stato resta la sola previsione (restituisce NaN).
+    /// Update with the observation y: innovation v = y − Hx, K = P Hᵀ/S, x ← x + K v. Covariance in Joseph form
+    /// P ← (I − KH) P (I − KH)ᵀ + K R Kᵀ: algebraically equal to (I − KH)P but it stays symmetric and positive semidefinite even with rounding.
+    /// A NaN is a missing datum: the correction is skipped and the state remains the forecast alone (returns NaN).
     /// </summary>
     public T Update(T y)
     {
@@ -76,8 +76,8 @@ public sealed class KalmanFilter<T> where T : IFloatingPointIeee754<T>
     }
 
     /// <summary>
-    /// Filtra un'intera serie: per ogni t prima Predict poi Update. Il primo passo predice dallo stato iniziale.
-    /// LogLikelihood = −½ Σ (ln 2πS_t + v_t²/S_t) per decomposizione dell'errore di previsione: è ciò che si massimizza per stimare q e r.
+    /// Filters an entire series: for each t first Predict then Update. The first step predicts from the initial state.
+    /// LogLikelihood = −½ Σ (ln 2πS_t + v_t²/S_t) by prediction-error decomposition: this is what is maximised to estimate q and r.
     /// </summary>
     public (T[] Predictions, T[] PredictionVariances, T[] FilteredFirstState, T[] FirstGain, T LogLikelihood) Filter(ReadOnlySpan<T> y)
     {
@@ -99,7 +99,7 @@ public sealed class KalmanFilter<T> where T : IFloatingPointIeee754<T>
         return (predictions, variances, filtered, gains, logLikelihood);
     }
 
-    // Overload con array per i chiamanti senza supporto a ReadOnlySpan (reflection, PySharp: una ref struct non si può passare via reflection).
+    // Overload with arrays for callers without ReadOnlySpan support (reflection, PySharp: a ref struct cannot be passed through reflection).
     public (T[] Predictions, T[] PredictionVariances, T[] FilteredFirstState, T[] FirstGain, T LogLikelihood) Filter(T[] y) => Filter(y.AsSpan());
 
     private static T Dot(ReadOnlySpan<T> a, ReadOnlySpan<T> b)
@@ -110,26 +110,26 @@ public sealed class KalmanFilter<T> where T : IFloatingPointIeee754<T>
     }
 }
 
-/// <summary>Modelli di stato pronti e guadagno stazionario per <see cref="KalmanFilter{T}"/>.</summary>
+/// <summary>Ready-made state models and steady-state gain for <see cref="KalmanFilter{T}"/>.</summary>
 public static class KalmanFilter
 {
     /// <summary>
-    /// Local level (random walk + rumore): ℓ_t = ℓ_{t−1} + η_t, y_t = ℓ_t + ε_t, con varianze q e r.
-    /// Il modello di stato la cui previsione ottima è lo smoothing esponenziale semplice.
+    /// Local level (random walk + noise): ℓ_t = ℓ_{t−1} + η_t, y_t = ℓ_t + ε_t, with variances q and r.
+    /// The state model whose optimal forecast is simple exponential smoothing.
     /// </summary>
     public static KalmanFilter<T> LocalLevel<T>(T q, T r, T initialLevel, T initialVariance) where T : IFloatingPointIeee754<T> =>
         new(new T[,] { { T.One } }, new T[,] { { q } }, [T.One], r, [initialLevel], new T[,] { { initialVariance } });
 
     /// <summary>
-    /// Local linear trend: livello e pendenza, ℓ_t = ℓ_{t−1} + b_{t−1} + η, b_t = b_{t−1} + ζ. Controparte di stato del metodo di Holt.
+    /// Local linear trend: level and slope, ℓ_t = ℓ_{t−1} + b_{t−1} + η, b_t = b_{t−1} + ζ. State counterpart of Holt's method.
     /// </summary>
     public static KalmanFilter<T> LocalLinearTrend<T>(T levelNoise, T slopeNoise, T r, T initialLevel, T initialSlope, T initialVariance) where T : IFloatingPointIeee754<T> =>
         new(new T[,] { { T.One, T.One }, { T.Zero, T.One } }, new T[,] { { levelNoise, T.Zero }, { T.Zero, slopeNoise } }, [T.One, T.Zero], r,
             [initialLevel, initialSlope], new T[,] { { initialVariance, T.Zero }, { T.Zero, initialVariance } });
 
     /// <summary>
-    /// Guadagno stazionario del local level. La covarianza a priori P soddisfa la Riccati P = P − P²/(P+r) + q, cioè P² − qP − qr = 0:
-    /// P = (q + √(q² + 4qr))/2 e K = P/(P + r). Dipende solo dal rapporto segnale/rumore q/r.
+    /// Steady-state gain of the local level. The prior covariance P satisfies the Riccati equation P = P − P²/(P+r) + q, that is P² − qP − qr = 0:
+    /// P = (q + √(q² + 4qr))/2 and K = P/(P + r). It depends only on the signal-to-noise ratio q/r.
     /// </summary>
     public static T LocalLevelSteadyStateGain<T>(T q, T r) where T : IFloatingPointIeee754<T>
     {

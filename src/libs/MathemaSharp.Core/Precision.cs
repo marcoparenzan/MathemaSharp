@@ -5,10 +5,10 @@ namespace MathemaSharp.Core;
 public static class Precision
 {
     /// <summary>
-    /// Confronto con tolleranza assoluta e relativa, generico su <c>T : IFloatingPointIeee754&lt;T&gt;</c> (float, double, Half, Decimal32/64/128).
-    /// Le tolleranze di default sono min(4096 ε, √ε), con ε = ULP a 1 (≈ 9e-13 per double).
-    /// Il limite √ε evita tolleranze maggiori dell'unità nei formati a bassa precisione.
-    /// Per applicazioni sensibili alla scala usare l'overload con tolleranze esplicite.
+    /// Comparison with absolute and relative tolerance, generic over <c>T : IFloatingPointIeee754&lt;T&gt;</c> (float, double, Half, Decimal32/64/128).
+    /// The default tolerances are min(4096 ε, √ε), with ε = ULP at 1 (≈ 9e-13 for double).
+    /// The √ε limit avoids tolerances larger than one in low-precision formats.
+    /// For scale-sensitive applications use the overload with explicit tolerances.
     /// </summary>
     public static bool NearlyEqual<T>(T a, T b) where T : IFloatingPointIeee754<T>
     {

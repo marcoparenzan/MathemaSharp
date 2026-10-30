@@ -13,7 +13,7 @@ public class AlgebraQuantumNotebookTests
         using var document=JsonDocument.Parse(File.ReadAllText(path));
         var cells=document.RootElement.GetProperty("cells").EnumerateArray().ToArray();
         var sources=string.Concat(cells.SelectMany(cell=>cell.GetProperty("source").EnumerateArray()).Select(line=>line.GetString()));
-        Assert.Contains("## Contratti",sources);
+        Assert.Contains("## Contracts",sources);
         Assert.Contains("12-api-reference.ipynb",sources);
         var outputs=cells.Where(cell=>cell.GetProperty("cell_type").GetString()=="code")
             .SelectMany(cell=>cell.GetProperty("outputs").EnumerateArray()).ToArray();

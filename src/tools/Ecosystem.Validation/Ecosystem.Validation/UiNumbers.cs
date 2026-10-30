@@ -3,12 +3,12 @@ using System.Text.RegularExpressions;
 
 namespace Ecosystem.Validation;
 
-/// <summary>Parse the Italian NavierStokes UI's rounded displays; accepts decimal/group separators from either tested culture.</summary>
+/// <summary>Parse the NavierStokes UI's rounded displays; accepts decimal/group separators from either tested culture.</summary>
 public static partial class UiNumbers
 {
     [GeneratedRegex(@"^\s*(\d{1,3}(?:[.,\s]\d{3})+|\d+)\s+N\b", RegexOptions.CultureInvariant)]
     private static partial Regex ForcePattern();
-    [GeneratedRegex(@"^\s*Perdi\s+(\d+(?:[,.]\d+)?)\s+bar\b", RegexOptions.CultureInvariant)]
+    [GeneratedRegex(@"^\s*You\s+lose\s+(\d+(?:[,.]\d+)?)\s+bar\b", RegexOptions.CultureInvariant)]
     private static partial Regex PressurePattern();
     [GeneratedRegex(@"\D", RegexOptions.CultureInvariant)]
     private static partial Regex NonDigits();
@@ -25,7 +25,7 @@ public static partial class UiNumbers
     {
         ArgumentNullException.ThrowIfNull(text);
         var match = PressurePattern().Match(text);
-        if (!match.Success) throw new FormatException("Expected 'Perdi <value> bar'.");
+        if (!match.Success) throw new FormatException("Expected 'You lose <value> bar'.");
         return Finite(match.Groups[1].Value.Replace(',', '.'));
     }
 

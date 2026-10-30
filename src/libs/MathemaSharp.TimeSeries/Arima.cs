@@ -4,15 +4,15 @@ using static MathemaSharp.TimeSeries.Num;
 namespace MathemaSharp.TimeSeries;
 
 /// <summary>
-/// AR(p) di Yule (1927): y_t − μ = Σ φ_i (y_{t−i} − μ) + ε_t. Per Wold (1938) ogni processo stazionario è un MA(∞) di innovazioni
-/// più una parte deterministica: l'AR finito ne è un'approssimazione parsimoniosa.
+/// Yule's AR(p) (1927): y_t − μ = Σ φ_i (y_{t−i} − μ) + ε_t. By Wold (1938) every stationary process is an MA(∞) of innovations
+/// plus a deterministic part: the finite AR is a parsimonious approximation of it.
 /// </summary>
 public sealed record ArModel<T>(T Mean, T[] Phi, T InnovationVariance) where T : IFloatingPointIeee754<T>
 {
-    /// <summary>Previsione ricorsiva: i valori futuri sconosciuti sono sostituiti dalle loro previsioni; converge a μ per h → ∞.</summary>
+    /// <summary>Recursive forecast: the unknown future values are replaced by their forecasts; converges to μ as h → ∞.</summary>
     public T[] Forecast(ReadOnlySpan<T> history, int horizon)
     {
-        if (history.Length < Phi.Length) throw new ArgumentException("Storia più corta dell'ordine.");
+        if (history.Length < Phi.Length) throw new ArgumentException("History shorter than the order.");
         var buffer = new List<T>(history.Length + horizon);
         foreach (var v in history) buffer.Add(v);
         var result = new T[horizon];
@@ -26,14 +26,14 @@ public sealed record ArModel<T>(T Mean, T[] Phi, T InnovationVariance) where T :
         return result;
     }
 
-    // Overload con array per i chiamanti senza supporto a ReadOnlySpan (reflection, PySharp: una ref struct non si può passare via reflection).
+    // Overload with arrays for callers without ReadOnlySpan support (reflection, PySharp: a ref struct cannot be passed through reflection).
     public T[] Forecast(T[] history, int horizon) => Forecast(history.AsSpan(), horizon);
 }
 
-/// <summary>Stima di un <see cref="ArModel{T}"/>.</summary>
+/// <summary>Estimate of an <see cref="ArModel{T}"/>.</summary>
 public static class ArModel
 {
-    /// <summary>Stima con le equazioni di Yule-Walker risolte da Levinson-Durbin: il modello stimato è sempre stazionario.</summary>
+    /// <summary>Estimate with the Yule-Walker equations solved by Levinson-Durbin: the estimated model is always stationary.</summary>
     public static ArModel<T> FitYuleWalker<T>(ReadOnlySpan<T> y, int order) where T : IFloatingPointIeee754<T>
     {
         if (order < 1 || order >= y.Length) throw new ArgumentOutOfRangeException(nameof(order));
@@ -43,14 +43,14 @@ public static class ArModel
 }
 
 /// <summary>
-/// ARIMA(p,d,q) di Box-Jenkins (1970) su w = Δ^d y: w_t = c + Σ φ_i w_{t−i} + e_t + Σ θ_j e_{t−j}.
-/// MA = innovazioni ritardate, non una media mobile. Stazionarietà e invertibilità non sono imposte dalla stima: controllarle se servono.
+/// Box-Jenkins ARIMA(p,d,q) (1970) on w = Δ^d y: w_t = c + Σ φ_i w_{t−i} + e_t + Σ θ_j e_{t−j}.
+/// MA = lagged innovations, not a moving average. Stationarity and invertibility are not imposed by the estimate: check them if needed.
 /// </summary>
 public sealed record ArimaModel<T>(int P, int D, int Q, T Constant, T[] Phi, T[] Theta, T InnovationVariance) where T : IFloatingPointIeee754<T>
 {
     /// <summary>
-    /// Residui condizionali (CSS) sulla serie differenziata: e_t = 0 per t &lt; p, poi e_t = w_t − ŵ_{t|t−1}.
-    /// Lunghezza n − d.
+    /// Conditional residuals (CSS) on the differenced series: e_t = 0 for t &lt; p, then e_t = w_t − ŵ_{t|t−1}.
+    /// Length n − d.
     /// </summary>
     public T[] Residuals(ReadOnlySpan<T> y)
     {
@@ -60,13 +60,13 @@ public sealed record ArimaModel<T>(int P, int D, int Q, T Constant, T[] Phi, T[]
         return e;
     }
 
-    // Overload con array per i chiamanti senza supporto a ReadOnlySpan (reflection, PySharp: una ref struct non si può passare via reflection).
+    // Overload with arrays for callers without ReadOnlySpan support (reflection, PySharp: a ref struct cannot be passed through reflection).
     public T[] Residuals(T[] y) => Residuals(y.AsSpan());
 
-    // Overload con array per i chiamanti senza supporto a ReadOnlySpan (reflection, PySharp: una ref struct non si può passare via reflection).
+    // Overload with arrays for callers without ReadOnlySpan support (reflection, PySharp: a ref struct cannot be passed through reflection).
     public T[] Forecast(T[] y, int horizon) => Forecast(y.AsSpan(), horizon);
 
-    /// <summary>Previsione: ricorsione ARMA con innovazioni future nulle, poi d integrazioni a partire dagli ultimi valori di ogni livello.</summary>
+    /// <summary>Forecast: ARMA recursion with zero future innovations, then d integrations starting from the last values of each level.</summary>
     public T[] Forecast(ReadOnlySpan<T> y, int horizon)
     {
         var levels = ArimaModel.Differences(y, D);
@@ -96,12 +96,12 @@ public sealed record ArimaModel<T>(int P, int D, int Q, T Constant, T[] Phi, T[]
     }
 }
 
-/// <summary>Stima di un <see cref="ArimaModel{T}"/>.</summary>
+/// <summary>Estimate of an <see cref="ArimaModel{T}"/>.</summary>
 public static class ArimaModel
 {
     /// <summary>
-    /// Hannan-Rissanen (1982): (1) AR lungo stimato con OLS per ricostruire le innovazioni ê_t; (2) OLS di w_t su w ritardati e ê ritardati.
-    /// Lineare e senza ottimizzazione: un buon stimatore iniziale, meno efficiente della massima verosimiglianza.
+    /// Hannan-Rissanen (1982): (1) long AR estimated with OLS to reconstruct the innovations ê_t; (2) OLS of w_t on lagged w and lagged ê.
+    /// Linear and optimisation-free: a good initial estimator, less efficient than maximum likelihood.
     /// </summary>
     public static ArimaModel<T> FitHannanRissanen<T>(ReadOnlySpan<T> y, int p, int d, int q, int? longArOrder = null) where T : IFloatingPointIeee754<T>
     {
@@ -140,11 +140,11 @@ public static class ArimaModel
         return levels;
     }
 
-    /// <summary>OLS di w_t su [1, w_{t−1..p}, e_{t−1..q}] per t ≥ start. Restituisce [c, φ..., θ...].</summary>
+    /// <summary>OLS of w_t on [1, w_{t−1..p}, e_{t−1..q}] for t ≥ start. Returns [c, φ..., θ...].</summary>
     private static T[] Regress<T>(T[] w, int p, T[] e, int q, int start) where T : IFloatingPointIeee754<T>
     {
         var rows = w.Length - start;
-        if (rows < 1 + p + q + 1) throw new ArgumentException("Serie troppo corta per gli ordini richiesti.");
+        if (rows < 1 + p + q + 1) throw new ArgumentException("Series too short for the requested orders.");
         var x = new T[rows, 1 + p + q];
         var target = new T[rows];
         for (var r = 0; r < rows; r++)

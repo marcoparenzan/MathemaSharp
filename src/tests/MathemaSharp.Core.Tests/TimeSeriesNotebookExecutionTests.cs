@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace MathemaSharp.Core.Tests;
 
-/// <summary>Valida output salvati dei notebook C# selezionati, senza eseguire kernel o confronti PySharp.</summary>
+/// <summary>Validates the saved outputs of selected C# notebooks, without running a kernel or PySharp comparisons.</summary>
 public class TimeSeriesNotebookExecutionTests
 {
     [Theory]
@@ -24,7 +24,7 @@ public class TimeSeriesNotebookExecutionTests
             .SelectMany(cell=>cell.GetProperty("outputs").EnumerateArray()).ToArray();
         Assert.NotEmpty(outputs);
         Assert.DoesNotContain(outputs,output=>output.GetProperty("output_type").GetString()=="error");
-        // Alcuni notebook producono solo HTML/SVG; separare le celle preserva le etichette a inizio riga.
+        // Some notebooks produce only HTML/SVG; separating the cells preserves the labels at the start of a line.
         var text=string.Join("\n",outputs.Select(output=>
         {
             var data=output.GetProperty("data");

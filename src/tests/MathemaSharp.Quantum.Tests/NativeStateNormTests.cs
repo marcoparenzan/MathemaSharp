@@ -23,7 +23,7 @@ public class NativeStateNormTests
             Assert.Equal(scale,input[0].Real);
             Assert.Equal(scale,input[1].Imaginary);
         }
-        // La norma non è rappresentabile, ma lo stato finito rimane normalizzabile.
+        // The norm is not representable, but the finite state remains normalisable.
         Complex<T>[] enormous = [new(T.MaxValue,T.MaxValue),new(T.MaxValue,T.MaxValue)];
         Assert.True(T.IsPositiveInfinity(QuantumAlgorithms.Norm<T>(enormous)));
         var unit = QuantumAlgorithms.Normalize<T>(enormous);
