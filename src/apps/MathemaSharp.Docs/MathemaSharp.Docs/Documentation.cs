@@ -14,7 +14,7 @@ public sealed class Documentation
     {
         var configured = configuration["Documentation:Root"];
         var directory = new DirectoryInfo(environment.ContentRootPath);
-        while (configured is null && directory is not null && !File.Exists(System.IO.Path.Combine(directory.FullName, "PROMPTS.md"))) directory = directory.Parent;
+        while (configured is null && directory is not null && !File.Exists(System.IO.Path.Combine(directory.FullName, "ROADMAP.md"))) directory = directory.Parent;
         root = System.IO.Path.GetFullPath(configured ?? directory?.FullName ?? throw new InvalidOperationException("Configurare Documentation:Root con il percorso del repository."));
     }
 

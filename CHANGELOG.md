@@ -1,360 +1,360 @@
-# MàthemaSharp — registro delle modifiche
+# MàthemaSharp — change log
 
-Registro ricostruito del lavoro documentato in MathemaSharp e nei repository collegati sotto `D:\Dev\Science`.
+Reconstructed log of the work documented in MathemaSharp and in the linked repositories under `D:\Dev\Science`.
 
-## Come leggere questo documento
+## How to read this document
 
-- Le sezioni seguono l’ordine ricostruibile delle tranche, dalla più recente alla più antica; non sono una cronologia Git certificata.
-- Non sono state inventate date, commit o versioni per le attività prive di questi dati. I timestamp dei report sono identificatori delle esecuzioni, non date assegnate alle funzionalità.
-- **Verificato** significa che è documentata una build, un test o un’esecuzione pertinente. Non significa supporto universale di ogni API o tipo numerico.
-- Un test sugli output salvati di un notebook **non riesegue** il kernel. Le due verifiche sono riportate separatamente.
-- I risultati storici non si sommano: le suite crescono e cambiano perimetro. Il conteggio corrente prevale sui conteggi precedenti.
-- Questo registro descrive risultati e cambiamenti. Le attività future sono in [ROADMAP.md](ROADMAP.md); organizzazione e decisioni in [ARCHITECTURE.md](ARCHITECTURE.md); dettagli della migrazione in [NET11-MIGRATION.md](NET11-MIGRATION.md).
+- The sections follow the reconstructible order of the tranches, from the most recent to the oldest; they are not a certified Git chronology.
+- No dates, commits or versions were invented for the activities that lack such data. The timestamps of the reports are identifiers of the runs, not dates assigned to the features.
+- **Verified** means that a relevant build, test or execution is documented. It does not mean universal support of every API or numeric type.
+- A test on the saved outputs of a notebook **does not rerun** the kernel. The two verifications are reported separately.
+- The historical results do not add up: the suites grow and change perimeter. The current count prevails over the previous counts.
+- This log describes results and changes. Future activities are in [ROADMAP.md](ROADMAP.md); organisation and decisions in [ARCHITECTURE.md](ARCHITECTURE.md); migration details in [NET11-MIGRATION.md](NET11-MIGRATION.md).
 
-## Stato verificato più recente
+## Most recent verified state
 
-| Perimetro | Ultima evidenza disponibile |
+| Perimeter | Latest evidence available |
 |---|---|
-| Gate completo prima delle ultime estensioni | Tutti gli step verdi; 2624 test passati, zero falliti, 13 sospesi PySharp |
-| MathemaSharp in quel gate | 311 test passati |
-| NDSharp in quel gate | 564 test passati |
-| PlotSharp in quel gate | 70 test passati |
-| JupyterSharp in quel gate | 44 test passati |
-| MatSharp dopo l’aggiunta del solver typed | Build riuscita, 133 test passati |
-| PySharp dopo i tipi CLR generici | Build riuscita, 1507 test passati, zero falliti, 13 sospesi |
-| Consumer NuGet dopo le ultime estensioni | Restore, build ed esecuzione riusciti: include solver MatSharp e contenitore CLR generico PySharp |
-| Secondo notebook Ecosystem | Preparato, non ancora eseguito; gate non ancora rieseguito dopo questa aggiunta |
+| Complete gate before the latest extensions | All steps green; 2624 tests passed, zero failed, 13 PySharp suspended |
+| MathemaSharp in that gate | 311 tests passed |
+| NDSharp in that gate | 564 tests passed |
+| PlotSharp in that gate | 70 tests passed |
+| JupyterSharp in that gate | 44 tests passed |
+| MatSharp after adding the typed solver | Build successful, 133 tests passed |
+| PySharp after the generic CLR types | Build successful, 1507 tests passed, zero failed, 13 suspended |
+| NuGet consumer after the latest extensions | Restore, build and execution successful: includes the MatSharp solver and PySharp's generic CLR container |
+| Second Ecosystem notebook | Prepared, not yet run; gate not yet rerun after this addition |
 
-Il gate completo verde è documentato in `D:\Dev\BuildArtifacts\ecosystem-validation\20261027-223603`. Non va presentato come verifica della working tree successiva alla preparazione del secondo notebook.
+The green complete gate is documented in `D:\Dev\BuildArtifacts\ecosystem-validation\20261027-223603`. It must not be presented as a verification of the working tree following the preparation of the second notebook.
 
-## 1. MatSharp: solver di matrici tipizzate
+## 1. MatSharp: typed matrix solvers
 
-**Aggiunto**
-- `A \ b` per matrici reali typed tramite adattatore ai kernel MathemaSharp.
-- LU per sistemi quadrati, con riuso della fattorizzazione per più colonne RHS.
-- QR/minimi quadrati per sistemi sovradeterminati.
-- Copie esplicite tra storage column-major MATLAB e matrici dei kernel, senza passaggio da `double`.
-- Registrazione opt-in del solver nel runtime; la libreria del linguaggio resta separata dai kernel matematici.
+**Added**
+- `A \ b` for typed real matrices through an adapter to the MathemaSharp kernels.
+- LU for square systems, with reuse of the factorisation for multiple RHS columns.
+- QR/least squares for overdetermined systems.
+- Explicit copies between MATLAB column-major storage and kernel matrices, without passing through `double`.
+- Opt-in registration of the solver in the runtime; the language library stays separate from the mathematics kernels.
 
-**Verificato**
-- Tre nuovi test: sei formati, RHS multiple, sistema tall, preservazione dell’input, singolarità e caso sottodeterminato.
-- Esecuzione nel linguaggio con conservazione dell’incremento Decimal128 `1e-25`.
-- Notebook `notebooks/MatSharp/01-decimal-scalars.ipynb` esteso ed eseguito; marker `typed_left_divide_precision: OK` controllato dal test sugli output salvati.
-- Build e 133 test MatSharp passati; consumer NuGet separato eseguito.
+**Verified**
+- Three new tests: six formats, multiple RHS, tall system, preservation of the input, singularity and underdetermined case.
+- Execution in the language with preservation of the Decimal128 increment `1e-25`.
+- Notebook `notebooks/MatSharp/01-decimal-scalars.ipynb` extended and run; marker `typed_left_divide_precision: OK` checked by the saved-outputs test.
+- Build and 133 MatSharp tests passed; separate NuGet consumer run.
 
-**Distribuzione e limiti**
-- Pacchetti MatSharp aggiornati a `0.1.1-net11-preview.3` nel feed comune.
-- Sistemi sottodeterminati rifiutati: non è implementato un solver minimum-norm.
-- Nessun nuovo supporto a complessi typed, N-D o divisione matriciale destra.
+**Distribution and limits**
+- MatSharp packages updated to `0.1.1-net11-preview.3` in the common feed.
+- Underdetermined systems rejected: a minimum-norm solver is not implemented.
+- No new support for typed complex, N-D or right matrix division.
 
-## 2. PySharp: costruzione esplicita dei tipi CLR generici
+## 2. PySharp: explicit construction of generic CLR types
 
-**Aggiunto**
-- Selezione `ClrType[TypeArguments]` per chiudere una definizione CLR generica.
-- Controlli di arità, natura degli argomenti e constraint CLR.
-- Costruzione e uso di `List<Decimal128>` con un tipo aperto iniettato dall’host.
+**Added**
+- Selection `ClrType[TypeArguments]` to close a generic CLR definition.
+- Checks of arity, nature of the arguments and CLR constraints.
+- Construction and use of `List<Decimal128>` with an open type injected by the host.
 
-**Verificato**
-- Due nuovi test su precisione e tipi/constraint invalidi.
-- Incremento `1e-25` conservato attraverso inserimento e lettura del contenitore.
-- Build, 1507 test passati e 13 sospesi; consumer NuGet eseguito sul nuovo binder.
+**Verified**
+- Two new tests on precision and invalid types/constraints.
+- Increment `1e-25` preserved through insertion and reading of the container.
+- Build, 1507 tests passed and 13 suspended; NuGet consumer run on the new binder.
 
-**Distribuzione e limiti**
+**Distribution and limits**
 - `PySharp.Interpreter` `2.6.1-net11-preview.2`.
 - Tool `PySharp` `2.5.1-net11-preview.4`.
 - `JupyterNet.Kernels.PySharp` `0.1.1-net11-preview.3`.
-- Non dimostra inferenza automatica, import di tutte le famiglie generiche, array NumPy typed o supporto `Span`/byref.
+- It does not demonstrate automatic inference, import of all the generic families, typed NumPy arrays or `Span`/byref support.
 
-**Preparato, non verificato**
-- `notebooks/Ecosystem/02-typed-language-interop.ipynb` e `ops/RunLanguageInteropPilot.cs`: notebook C# di embedding dei due linguaggi.
-- Non ancora eseguito né incluso nel gate; non è prova di plugin nativi PySharp/MatSharp per JupyterSharp.
+**Prepared, not verified**
+- `notebooks/Ecosystem/02-typed-language-interop.ipynb` and `ops/RunLanguageInteropPilot.cs`: C# notebook embedding the two languages.
+- Not yet run nor included in the gate; it is not proof of native PySharp/MatSharp plugins for JupyterSharp.
 
-## 3. Chiusura del difetto Matplotlib e del gate completo
+## 3. Closure of the Matplotlib defect and of the complete gate
 
-**Corretto**
-- Tick Y del renderer NDSharp: allineamento `center_baseline` anziché centro geometrico del rettangolo del testo.
-- Misura dei margini e disegno basati su ascent/descent del font.
-- Doppio arrotondamento eliminato nello snippet `P5_layout.py`; golden CPython mantenuto invariato.
-- Test aggiunto sulle coordinate non arrotondate, con tolleranza dichiarata `5e-4` in coordinate normalizzate per differenze subpixel dei renderer.
-- Configurazione artifact PySharp mancante e percorsi dei sample nei test, ora indipendenti dalla posizione delle DLL.
-- Rimossi gli output locali PySharp generati durante l’ispezione; build output conservati nella radice esterna.
+**Fixed**
+- Y ticks of the NDSharp renderer: `center_baseline` alignment instead of the geometric centre of the text rectangle.
+- Margin measurement and drawing based on the font's ascent/descent.
+- Double rounding eliminated in the `P5_layout.py` snippet; CPython golden kept unchanged.
+- Test added on the unrounded coordinates, with a declared tolerance `5e-4` in normalised coordinates for subpixel differences of the renderers.
+- Missing PySharp artifact configuration and sample paths in the tests, now independent of the position of the DLLs.
+- Local PySharp outputs generated during the inspection removed; build outputs kept in the external root.
 
-**Verificato**
-- Errore Y del caso esaminato ridotto da circa `0.00185` a circa `0.00029` normalizzati.
-- Snippet rieseguito con CPython/Matplotlib sullo stesso host.
-- Tutti gli step del gate completati con exit code 0: build/test, audit, baseline, kernel PySharp, notebook PySharp/MatSharp e pilota NuGet.
-- 2624 test passati, zero falliti, 13 sospesi; nessuna deroga introdotta per il layout.
+**Verified**
+- Y error of the examined case reduced from about `0.00185` to about `0.00029` normalised.
+- Snippet rerun with CPython/Matplotlib on the same host.
+- All the gate's steps completed with exit code 0: build/test, audit, baseline, PySharp kernel, PySharp/MatSharp notebooks and NuGet pilot.
+- 2624 tests passed, zero failed, 13 suspended; no waiver introduced for the layout.
 
-**Distribuzione**
+**Distribution**
 - `NDSharp.Plot` `2.6.3-net11-preview.2`.
 - `PySharp.Matplotlib` `2.5.1-net11-preview.2`.
-- Nuove preview dei tool/consumatori interessati; le versioni precedenti non sono state sovrascritte.
+- New previews of the tools/consumers concerned; the previous versions were not overwritten.
 
-Il confronto certifica il caso di regressione, non l’equivalenza completa tra Skia e Matplotlib.
+The comparison certifies the regression case, not the complete equivalence between Skia and Matplotlib.
 
-## 4. Integrazione reale JupyterSharp–MathemaSharp–PlotSharp
+## 4. Real JupyterSharp–MathemaSharp–PlotSharp integration
 
-**Aggiunto**
+**Added**
 - `notebooks/Ecosystem/01-signal-spectrum.ipynb`.
-- Esecuzione tramite CLI JupyterSharp installata localmente dai pacchetti, senza installazione globale.
-- Segnale a cinque cicli, FFT MathemaSharp, grafico del segnale e dello spettro PlotSharp.
-- Due SVG salvati tramite output HTML del kernel.
-- Test degli output salvati; test di struttura esteso ai notebook JupyterSharp.
-- `ops/RunEcosystemPilot.cs` e `ops/ValidateEcosystem.cs`.
+- Execution through the JupyterSharp CLI installed locally from the packages, without global installation.
+- Five-cycle signal, MathemaSharp FFT, PlotSharp chart of the signal and of the spectrum.
+- Two SVGs saved through the kernel's HTML output.
+- Test of the saved outputs; structure test extended to the JupyterSharp notebooks.
+- `ops/RunEcosystemPilot.cs` and `ops/ValidateEcosystem.cs`.
 
-**Verificato**
-- Picco FFT al bin 5 e ampiezza normalizzata 0.5.
-- Due output HTML contenenti SVG e nessun errore di cella.
-- Pilota eseguito con pacchetti ripristinati in cache isolata, senza `ProjectReference` o esecuzione JupyterNet.
+**Verified**
+- FFT peak at bin 5 and normalised amplitude 0.5.
+- Two HTML outputs containing SVG and no cell error.
+- Pilot run with packages restored in an isolated cache, without `ProjectReference` or JupyterNet execution.
 
-**Limiti**
-- Il pilota usa dati e coordinate `double` intenzionalmente.
-- Non certifica plotting Decimal128, tutti i renderer o plugin linguistici nativi.
-- Nessuna verifica visuale nel browser documentata.
+**Limits**
+- The pilot intentionally uses `double` data and coordinates.
+- It does not certify Decimal128 plotting, all the renderers or native language plugins.
+- No visual verification in the browser documented.
 
-## 5. Audit e correzioni delle dipendenze vulnerabili
+## 5. Audit and fixes of vulnerable dependencies
 
 **JupyterSharp**
-- Individuata la catena Microsoft.PowerShell.SDK 7.6.6 → Pkcs/Xml 10.0.10.
-- Riferimenti espliciti `System.Security.Cryptography.Pkcs` e `System.Security.Cryptography.Xml` a 10.0.13 nel kernel PowerShell, verificati contro gli advisory Microsoft/GitHub.
-- Build e 44 test passati; nove pacchetti JupyterSharp `0.3.1-net11-preview.2` generati.
-- Consumer isolato ripristinato, compilato ed eseguito senza warning di audit.
+- Identified the chain Microsoft.PowerShell.SDK 7.6.6 → Pkcs/Xml 10.0.10.
+- Explicit references `System.Security.Cryptography.Pkcs` and `System.Security.Cryptography.Xml` at 10.0.13 in the PowerShell kernel, verified against the Microsoft/GitHub advisories.
+- Build and 44 tests passed; nine JupyterSharp packages `0.3.1-net11-preview.2` generated.
+- Isolated consumer restored, compiled and run without audit warnings.
 
 **PySharp/Pyodbc**
-- Audit esteso: PySharp → Pyodbc → Microsoft.Data.SqlClient 7.0.2 → Pkcs 9.0.13.
-- Riferimento esplicito Pkcs 10.0.13 in Pyodbc.
-- Nuovi pacchetti PySharp/Pyodbc `2.5.1-net11-preview.2` generati in quella tranche; il tool PySharp è stato successivamente versionato ancora.
+- Audit extended: PySharp → Pyodbc → Microsoft.Data.SqlClient 7.0.2 → Pkcs 9.0.13.
+- Explicit Pkcs 10.0.13 reference in Pyodbc.
+- New PySharp/Pyodbc packages `2.5.1-net11-preview.2` generated in that tranche; the PySharp tool was later versioned again.
 
-**Automazione**
-- `ops/AuditSciencePackages.cs` controlla i report JSON delle sei soluzioni.
-- Exit code non zero su vulnerabilità o errori: il solo exit code di `dotnet list package` non costituisce un gate sufficiente.
-- Nessun advisory soppresso. Audit verde con le fonti correnti nell’ultima baseline completa.
+**Automation**
+- `ops/AuditSciencePackages.cs` checks the JSON reports of the six solutions.
+- Non-zero exit code on vulnerabilities or errors: the exit code of `dotnet list package` alone is not a sufficient gate.
+- No advisory suppressed. Audit green with the current sources in the last complete baseline.
 
-L’audit non certifica sicurezza applicativa, runtime installati, vecchi pacchetti nel feed o progetti fuori soluzione.
+The audit does not certify application security, installed runtimes, old packages in the feed or projects outside the solution.
 
-## 6. Migrazione e distribuzione .NET 11
+## 6. .NET 11 migration and distribution
 
-**Modificato**
-- Target dei progetti attivi nei sei repository: MathemaSharp, NDSharp, PlotSharp, JupyterSharp, PySharp e MatSharp → `net11.0`.
-- SDK MathemaSharp fissato a `11.0.100-rc.3.26522.148`.
-- Aggiornati identificatori dei framework negli script operativi pertinenti; snapshot importati esclusi.
-- Portale Blazor: gestione della disconnessione del circuito nelle chiamate JS, richiesta dall’analizzatore BL0016.
+**Changed**
+- Target of the active projects in the six repositories: MathemaSharp, NDSharp, PlotSharp, JupyterSharp, PySharp and MatSharp → `net11.0`.
+- MathemaSharp SDK pinned to `11.0.100-rc.3.26522.148`.
+- Framework identifiers updated in the relevant operational scripts; imported snapshots excluded.
+- Blazor portal: handling of circuit disconnection in JS calls, required by the BL0016 analyser.
 
-**Verificato e distribuito**
-- Build delle sei soluzioni e test, con correzioni successive dei gap PySharp descritte sotto.
-- Baseline di 24 notebook, nove esecuzioni C#/PySharp aggiuntive e notebook MatSharp di embedding rieseguiti; alcune esecuzioni si sovrappongono, non sono conteggi di notebook tutti distinti.
-- Prima raccolta di 37 pacchetti preview generata in `D:\Dev\NuGetLocalFeed`, con incrementi di versione e suffisso `net11-preview`.
-- Consumer NuGet senza riferimenti sorgente: Decimal128, NDArray, FFT Bluestein, solver del ponte e PySharp verificati; poi esteso alle nuove funzionalità.
-- Log di pack e consumer in `D:\Dev\BuildArtifacts\net11-pack`.
+**Verified and distributed**
+- Build of the six solutions and tests, with later fixes of the PySharp gaps described below.
+- Baseline of 24 notebooks, nine additional C#/PySharp runs and the MatSharp embedding notebook rerun; some runs overlap, they are not counts of all-distinct notebooks.
+- First collection of 37 preview packages generated in `D:\Dev\NuGetLocalFeed`, with version increments and the `net11-preview` suffix.
+- NuGet consumer without source references: Decimal128, NDArray, Bluestein FFT, bridge solvers and PySharp verified; then extended to the new features.
+- Pack and consumer logs in `D:\Dev\BuildArtifacts\net11-pack`.
 
-Le preview non sono un rilascio GA o una certificazione di produzione. Alcuni sample/tool fuori soluzione hanno il target aggiornato ma richiedono verifica dedicata.
+The previews are not a GA release or a production certification. Some samples/tools outside the solution have the target updated but require dedicated verification.
 
-## 7. PySharp: recupero della compatibilità Python richiesta da FastAPI/AnyIO
+## 7. PySharp: recovery of the Python compatibility required by FastAPI/AnyIO
 
-**Aggiunto progressivamente**
-- `sys._getframe` sullo stack reale thread-local: globals, snapshot locals, nome/file/linea e catena `f_back`.
-- `inspect.getsource` per moduli, funzioni e metodi con file reale; errori espliciti quando il sorgente manca.
-- `compile` di stringhe exec/eval in oggetti con AST riutilizzabile; integrazione con exec/eval e inspect.iscode.
-- AST pubblico mutabile e flag `PyCF_ONLY_AST`: inizialmente assegnazioni/espressioni, poi import/alias, controllo di flusso, chiamate, collezioni, funzioni e classi nei casi supportati.
-- Ricompilazione dai campi modificati dei nodi, non semplice riesecuzione del sorgente originale.
-- PEP 562: lookup lazy tramite `__getattr__` dei moduli anche per `from ... import ...`.
-- Nomi relativi in `importlib.import_module`, con package esplicito e identità dei moduli conservata nella cache.
+**Added progressively**
+- `sys._getframe` on the real thread-local stack: globals, snapshot locals, name/file/line and the `f_back` chain.
+- `inspect.getsource` for modules, functions and methods with a real file; explicit errors when the source is missing.
+- `compile` of exec/eval strings into objects with a reusable AST; integration with exec/eval and inspect.iscode.
+- Public mutable AST and `PyCF_ONLY_AST` flag: initially assignments/expressions, then import/alias, control flow, calls, collections, functions and classes in the supported cases.
+- Recompilation from the modified fields of the nodes, not a simple rerun of the original source.
+- PEP 562: lazy lookup through the modules' `__getattr__` also for `from ... import ...`.
+- Relative names in `importlib.import_module`, with explicit package and module identity preserved in the cache.
 
-**Corretto nei test**
-- Aspettativa KeyError: CPython conferma gli apici; modificata l’aspettativa, non il runtime.
-- Collisione del CSV temporaneo Pandas: nome univoco per esecuzione.
-- Collezione oracle isolata dal parallelismo, perché il runner modifica la working directory di processo.
+**Fixed in the tests**
+- KeyError expectation: CPython confirms the quotes; the expectation was changed, not the runtime.
+- Collision of the temporary Pandas CSV: unique name per run.
+- Oracle collection isolated from parallelism, because the runner modifies the process working directory.
 
-**Evidenze e limiti**
-- Regressioni per frame, sorgente, codice compilato, mutazione AST, export lazy e import relativi.
-- I nove fallimenti FastAPI/AnyIO iniziali sono stati recuperati.
-- Evidenza della fixture AnyIO 4.15.1 conservata fuori dal repository.
-- AST, introspezione e compile restano parziali: non equivalgono a una completa implementazione CPython; visitor, generatori/comprensioni, varianti sintattiche e semantiche non coperte restano dichiarati.
+**Evidence and limits**
+- Regressions for frames, source, compiled code, AST mutation, lazy exports and relative imports.
+- The nine initial FastAPI/AnyIO failures were recovered.
+- Evidence of the AnyIO 4.15.1 fixture kept outside the repository.
+- AST, introspection and compile remain partial: they are not equivalent to a complete CPython implementation; visitors, generators/comprehensions, uncovered syntactic and semantic variants remain declared.
 
-## 8. MatSharp: primo percorso Generic Math nel linguaggio MATLAB
+## 8. MatSharp: first Generic Math path in the MATLAB language
 
-**Aggiunto**
-- Collegamento iniziale `mathema_solve`/`mathema_rcond` in double ai kernel condivisi, senza modificare il precedente operatore backslash.
-- `GenericScalar<T>`: storage reale typed, inizialmente scalare e poi matriciale 2D column-major.
-- Costruttori decimal32/64/128; operatori e confronti senza conversioni intermedie a double.
-- Concatenazione, indicizzazione e assegnazione, copie, trasposta, broadcasting e prodotti.
-- Rifiuto delle conversioni implicite fra formati Decimal o da double frazionari nei percorsi verificati.
-- Notebook C# che esegue MATLAB attraverso MatEngine, non un kernel MATLAB dedicato.
+**Added**
+- Initial link `mathema_solve`/`mathema_rcond` in double to the shared kernels, without modifying the previous backslash operator.
+- `GenericScalar<T>`: typed real storage, initially scalar and then 2D column-major matrix.
+- decimal32/64/128 constructors; operators and comparisons without intermediate conversions to double.
+- Concatenation, indexing and assignment, copies, transpose, broadcasting and products.
+- Rejection of implicit conversions between Decimal formats or from fractional doubles in the verified paths.
+- C# notebook that runs MATLAB through MatEngine, not a dedicated MATLAB kernel.
 
-Questa base è stata estesa dal solver typed descritto nella sezione 1. Il nome GenericScalar<T> resta da normalizzare perché il contenitore ospita anche matrici.
+This base was extended by the typed solver described in section 1. The name GenericScalar<T> remains to be normalised because the container also hosts matrices.
 
-## 9. PySharp: interoperabilità numerica con MathemaSharp
+## 9. PySharp: numerical interoperability with MathemaSharp
 
-**Recuperato**
-- Kernel e loader dopo rinomina/spostamento.
-- Tour TimeSeries e scenari frigorifero/fotovoltaico eseguiti nelle coppie C#/PySharp.
-- Percorsi CSV corretti; tre test di concordanza riattivati.
+**Recovered**
+- Kernel and loader after renaming/moving.
+- TimeSeries tour and refrigerator/photovoltaic scenarios run in the C#/PySharp pairs.
+- CSV paths fixed; three agreement tests reactivated.
 
-**Esteso**
-- Prima facciata Decimal128Interop: roundtrip scalar/array e Complex<Decimal128> hermitiano con differenze `1e-25`.
-- Dispatch degli operatori CLR: aritmetica, confronti e operatori unari nei casi verificati.
-- Modulo builtin `mathema`, con costruttori decimal32/64/128 da stringhe, interi e valori CLR dello stesso tipo.
-- Binding esplicito dei metodi CLR generici: `method[ClrType](args)` e applicazione dei constraint.
-- Notebook precisione, operatori e metodi generici realmente eseguiti.
+**Extended**
+- First Decimal128Interop facade: scalar/array roundtrip and Hermitian Complex<Decimal128> with differences `1e-25`.
+- CLR operator dispatch: arithmetic, comparisons and unary operators in the verified cases.
+- Builtin module `mathema`, with decimal32/64/128 constructors from strings, integers and CLR values of the same type.
+- Explicit binding of generic CLR methods: `method[ClrType](args)` and application of the constraints.
+- Precision, operators and generic-methods notebooks actually run.
 
-**Limiti**
-- Facciata TimeSeries legacy intenzionalmente double.
-- I literal float già arrotondati non recuperano cifre decimali perse.
-- Nessuna garanzia generale su marshalling di ogni tipo CLR, NumPy typed, inferenza e Span/byref.
+**Limits**
+- Legacy TimeSeries facade intentionally double.
+- Float literals already rounded do not recover lost decimal digits.
+- No general guarantee on the marshalling of every CLR type, typed NumPy, inference and Span/byref.
 
-## 10. FFT/IFFT Generic Math e prime misure
+## 10. Generic Math FFT/IFFT and first measurements
 
-**Aggiunto in MathemaSharp.Core**
-- FFT radix-2 per potenze di due.
-- Bluestein per altre lunghezze, con convoluzione radix-2 e fasi ridotte mediante aritmetica intera.
-- Forward non normalizzata, inversa divisa per N; input preservato e controlli di finitezza/rappresentabilità.
+**Added in MathemaSharp.Core**
+- Radix-2 FFT for powers of two.
+- Bluestein for other lengths, with radix-2 convolution and phases reduced through integer arithmetic.
+- Unnormalised forward, inverse divided by N; input preserved and finiteness/representability checks.
 
-**Verificato**
-- Sei formati: confronto DFT, roundtrip, impulso/costante e casi Decimal128.
-- Riferimenti analitici indipendenti: trasformata di [1,2,3,4], tono complesso e Parseval.
-- Fixture mpmath a 200 cifre per segnali complessi di lunghezza 7, 16, 31 e 64 su float, double, Decimal64 e Decimal128.
-- Roundtrip double su 1024 punti radix-2 e 1009 punti Bluestein.
-- `notebooks/Core/06-fft.ipynb` eseguito e incluso nella baseline.
+**Verified**
+- Six formats: DFT comparison, roundtrip, impulse/constant and Decimal128 cases.
+- Independent analytic references: transform of [1,2,3,4], complex tone and Parseval.
+- 200-digit mpmath fixture for complex signals of length 7, 16, 31 and 64 on float, double, Decimal64 and Decimal128.
+- Double roundtrip on 1024 radix-2 points and 1009 Bluestein points.
+- `notebooks/Core/06-fft.ipynb` run and included in the baseline.
 
-**Misurato, non ottimizzato**
-- Sei benchmark forward/inverse double su 64, 1009 e 1024 punti.
-- BenchmarkDotNet ShortRun in-process per il limite della toolchain .NET 11 RC: misure preliminari, non benchmark definitivi.
-- Costo elevato dei buffer Bluestein osservato; ottimizzazioni rimandate su richiesta.
+**Measured, not optimised**
+- Six double forward/inverse benchmarks on 64, 1009 and 1024 points.
+- BenchmarkDotNet ShortRun in-process because of the limit of the .NET 11 RC toolchain: preliminary measurements, not definitive benchmarks.
+- High cost of the Bluestein buffers observed; optimisations postponed on request.
 
-Fixture/generatore: `ops/oracles/fft-mpmath.json`, `ops/generate-fft-oracles.py`. Non certificano ogni lunghezza o Half/Decimal32 sugli oracoli generali.
+Fixture/generator: `ops/oracles/fft-mpmath.json`, `ops/generate-fft-oracles.py`. They do not certify every length or Half/Decimal32 against the general oracles.
 
-## 11. NDSharp: storage generico e ponte
+## 11. NDSharp: generic storage and bridge
 
-**Aggiunto/corretto**
-- Lettura dei dtype runtime nativi verso T senza intermedi double.
-- Eliminato Convert.ToDouble dalle identità delle riduzioni, con regressioni su interi oltre 2^53 e ulong.MaxValue.
-- NDArray<T> affiancato al contenitore runtime: shape, stride, indicizzazione e copie in ordine logico.
-- Trasposizione e slicing come viste, inclusi passi negativi.
-- Broadcasting Add sugli assi finali, scalari e dimensioni vuote.
-- Sum, Dot e MatMul 2D, con rispetto degli stride e risultati indipendenti.
-- Conversioni typed verso il ponte LU, QR e diagnostica MathemaSharp, senza duplicare decomposizioni.
-- Notebook `notebooks/NDSharp/01-generic-math.ipynb` eseguito e incluso nella baseline.
+**Added/fixed**
+- Reading of the native runtime dtypes towards T without double intermediates.
+- Convert.ToDouble eliminated from the identities of the reductions, with regressions on integers beyond 2^53 and ulong.MaxValue.
+- NDArray<T> alongside the runtime container: shape, strides, indexing and copies in logical order.
+- Transposition and slicing as views, including negative steps.
+- Add broadcasting on trailing axes, scalars and empty dimensions.
+- Sum, Dot and 2D MatMul, respecting the strides and with independent results.
+- Typed conversions towards the MathemaSharp LU bridge, QR and diagnostics, without duplicating decompositions.
+- Notebook `notebooks/NDSharp/01-generic-math.ipynb` run and included in the baseline.
 
-**Verificato**
-- Test di precisione Decimal128 `1e-25`, viste/copie, input invalidi e sei formati nei percorsi coperti.
-- Ponte verificato anche tramite pacchetti; mapping del feed MathemaSharp.* corretto.
+**Verified**
+- Decimal128 precision tests `1e-25`, views/copies, invalid inputs and six formats in the paths covered.
+- Bridge also verified through packages; mapping of the MathemaSharp.* feed corrected.
 
-NDSharp non è completamente convertita. Storage runtime, algoritmi importati, complessi e prodotti batched restano distinti dal percorso NDArray<T> implementato.
+NDSharp is not completely converted. Runtime storage, imported algorithms, complex numbers and batched products remain distinct from the implemented NDArray<T> path.
 
-## 12. Notebook e baseline riproducibile
+## 12. Notebooks and reproducible baseline
 
-**Creato ed eseguito**
-- Quattro notebook di consolidamento Usage/Reference, uno per Core, LinearAlgebra, TimeSeries e Quantum.
-- Quattro cataloghi API da reflection con firme e constraint.
-- Riesecuzione dei notebook Core precedenti, LU, Quantum e TimeSeries C# selezionati.
-- Notebook oracoli numerici, diagnostica, NDSharp, FFT e integrazioni linguistiche.
+**Created and run**
+- Four Usage/Reference consolidation notebooks, one each for Core, LinearAlgebra, TimeSeries and Quantum.
+- Four API catalogues from reflection with signatures and constraints.
+- Rerun of the previous Core notebooks, LU, Quantum and selected C# TimeSeries.
+- Numerical oracle, diagnostics, NDSharp, FFT and language integration notebooks.
 
-**Automazione**
-- Runner selettivi e manifest esplicito per evitare esecuzioni involontarie di notebook fuori perimetro.
-- Baseline inizialmente di 22, poi 23 e 24 notebook; log/report esterni, SDK/runtime ed esclusioni registrati.
-- Modalità rapida build/test separata dall’esecuzione del kernel.
-- Test degli output salvati, distinti dalla reale riesecuzione dei notebook.
-- Gate ecosistema aggiunto successivamente, con controlli per tutti i repository e pilota NuGet.
+**Automation**
+- Selective runners and explicit manifest to avoid involuntary runs of notebooks outside the perimeter.
+- Baseline initially of 22, then 23 and 24 notebooks; external logs/reports, SDK/runtime and exclusions recorded.
+- Quick build/test mode separate from the kernel execution.
+- Tests of the saved outputs, distinct from the real rerun of the notebooks.
+- Ecosystem gate added later, with checks for all the repositories and the NuGet pilot.
 
-I cataloghi reflection non sostituiscono contratti ed esempi API-per-API. I notebook non selezionati non sono automaticamente certificati.
+The reflection catalogues do not replace API-by-API contracts and examples. The notebooks not selected are not automatically certified.
 
-## 13. Oracoli indipendenti e diagnostica dei sistemi lineari
+## 13. Independent oracles and diagnostics of linear systems
 
-**Validazione**
-- Fixture mpmath a 200 cifre per gamma, log-gamma e code equivalenti del chi-quadro, fino all’ordine di 1e-306 sui tipi appropriati.
-- Sistemi di Hilbert 3, 5 e 8 per LU/QR: soluzione, residuo e determinante.
-- Controesempio Hilbert 12 double: residuo circa 1.31e-16 ma errore della soluzione circa 0.00595; il controllo dei pivot non certifica il condizionamento.
-- MatrixExp su cinque matrici, incluse non normali e complesse; tre spettri hermitiani sbilanciati.
+**Validation**
+- 200-digit mpmath fixture for gamma, log-gamma and equivalent chi-square tails, down to the order of 1e-306 on the appropriate types.
+- Hilbert systems 3, 5 and 8 for LU/QR: solution, residual and determinant.
+- Hilbert 12 double counterexample: residual about 1.31e-16 but solution error about 0.00595; the pivot check does not certify the conditioning.
+- MatrixExp on five matrices, including non-normal and complex ones; three unbalanced Hermitian spectra.
 
-**Correzione**
-- Autovalore 1e-40 perso su diag(1,1e-40): diagonali trattate direttamente; recupero del piccolo autovalore dal determinante e dall’altro autovalore, con FMA per ridurre cancellazione.
+**Fix**
+- Eigenvalue 1e-40 lost on diag(1,1e-40): diagonals handled directly; recovery of the small eigenvalue from the determinant and the other eigenvalue, with FMA to reduce cancellation.
 
-**Nuova API**
-- LinearSystemDiagnostics.Solve<T>: soluzione, residuo relativo, errore backward normwise, stima del condizionamento infinito e reciproco, avviso IsIllConditioned.
-- Diagnostica opt-in, più costosa del semplice solve; non è certificazione dell’errore forward e non include refinement.
-- Notebook oracoli e diagnostica eseguiti, reference aggiornata.
+**New API**
+- LinearSystemDiagnostics.Solve<T>: solution, relative residual, normwise backward error, estimate of the infinity condition number and reciprocal, IsIllConditioned warning.
+- Opt-in diagnostics, more expensive than the plain solve; it is not a certification of the forward error and does not include refinement.
+- Oracle and diagnostics notebooks run, reference updated.
 
-## 14. Consolidamento numerico dei kernel attivi
+## 14. Numerical consolidation of the active kernels
 
 **Core**
-- NearlyEqual: default limitato a min(4096 × epsilon, sqrt(epsilon)), correggendo la tolleranza eccessiva su Half.
-- Test nativi in T per confronti, valori speciali, somme/Kahan, Horner, prodotti e DFT.
+- NearlyEqual: default limited to min(4096 × epsilon, sqrt(epsilon)), fixing the excessive tolerance on Half.
+- Native tests in T for comparisons, special values, sums/Kahan, Horner, products and DFT.
 
 **TimeSeries**
-- LOESS: ascisse centrate, soglie legate alla precisione di T, costanti in T e validazione dati/pesi.
-- GARCH: griglia con indici interi per evitare mancato avanzamento e accumulo floating-point; validazione e likelihood finita.
-- Simulation: overload con Func<Random,T> per innovazioni native; default Random/Box–Muller precedente conservato.
-- Funzioni speciali: coefficienti Lanczos letti direttamente in T, dominio/valori speciali e mancata convergenza espliciti. Non è un algoritmo accurato a 34 cifre per ogni input.
+- LOESS: centred abscissae, thresholds tied to the precision of T, constants in T and validation of data/weights.
+- GARCH: grid with integer indices to avoid lack of progress and floating-point accumulation; validation and finite likelihood.
+- Simulation: overload with Func<Random,T> for native innovations; previous Random/Box–Muller default preserved.
+- Special functions: Lanczos coefficients read directly in T, explicit domain/special values and non-convergence. It is not a 34-digit accurate algorithm for every input.
 
 **LinearAlgebra**
-- QR/minimi quadrati: normalizzazione, norme Hypot, riflettori unitari e soglie per tipo.
+- QR/least squares: normalisation, Hypot norms, unit reflectors and per-type thresholds.
 
 **Quantum**
-- Norm e Normalize robuste tramite Hypot/scaling.
-- Diagonalizzazione hermitiana 2×2 normalizzata e autovettori stabili.
-- CheckEigenstate tramite residuo relativo e scaling separato.
-- MatrixExp con Hypot, copia e dimezzamenti nello scaling, validazione termini/intermedi; controlli TimeEvolution.
+- Norm and Normalize robust through Hypot/scaling.
+- Normalised 2×2 Hermitian diagonalisation and stable eigenvectors.
+- CheckEigenstate through relative residual and separate scaling.
+- MatrixExp with Hypot, copy and halvings in the scaling, validation of terms/intermediates; TimeEvolution checks.
 
-Ogni intervento è accompagnato da test multiformato/casi limite documentati. Una prima passata di consolidamento non certifica matrici arbitrarie, tutte le code o ogni algoritmo.
+Each intervention is accompanied by documented multi-format tests/edge cases. A first consolidation pass does not certify arbitrary matrices, all the tails or every algorithm.
 
-## 15. Identità, struttura e confini delle librerie
+## 15. Identity, structure and boundaries of the libraries
 
-**Riorganizzato**
-- Numbers → MathemaNet → MathemaSharp per progetti, namespace, riferimenti e notebook.
-- Marchio MàthemaSharp con accento sulla prima a; nomi tecnici senza accento.
-- Notebook spostati nella root, suddivisi per libreria; output inizialmente azzerati e poi rieseguiti nelle tranche documentate.
-- Algebra lineare estratta da TimeSeries in libreria indipendente.
-- LU generica con pivoting, solver, determinante e inversa; operazioni di base ampliate ai constraint numerici appropriati.
+**Reorganised**
+- Numbers → MathemaNet → MathemaSharp for projects, namespaces, references and notebooks.
+- MàthemaSharp brand with an accent on the first a; technical names without accent.
+- Notebooks moved to the root, split by library; outputs initially cleared and then rerun in the documented tranches.
+- Linear algebra extracted from TimeSeries into an independent library.
+- Generic LU with pivoting, solver, determinant and inverse; basic operations widened to the appropriate numeric constraints.
 
-**Confini**
-- MathemaSharp: kernel matematici.
-- NDSharp: array/storage/viste.
-- PySharp e MatSharp: semantiche dei linguaggi.
-- PlotSharp: visualizzazione.
-- JupyterSharp: notebook/kernel/output.
+**Boundaries**
+- MathemaSharp: mathematics kernels.
+- NDSharp: arrays/storage/views.
+- PySharp and MatSharp: language semantics.
+- PlotSharp: visualisation.
+- JupyterSharp: notebooks/kernel/output.
 
-**Import e preparazione**
-- Copia selettiva iniziale di 68 file NDSharp, con licenza e materiali numerici, fuori soluzione.
-- Raccolta iniziale PlotSharp di 148 file dai quattro contesti, con provenienza e hash; non equivalente a migrazione attiva dei consumer.
-- PlotSharp successivamente verificata come libreria compilabile con test, Gallery e Inventory.
-- Repository spostati nella radice comune D:\Dev\Science.
+**Import and preparation**
+- Initial selective copy of 68 NDSharp files, with licence and numerical materials, outside the solution.
+- Initial PlotSharp collection of 148 files from the four contexts, with provenance and hash; not equivalent to an active consumer migration.
+- PlotSharp subsequently verified as a compilable library with tests, Gallery and Inventory.
+- Repositories moved to the common root D:\Dev\Science.
 
-**Operatività**
-- Feed pacchetti D:\Dev\NuGetLocalFeed.
-- Build, test, benchmark e report personalizzati portati progressivamente sotto D:\Dev\BuildArtifacts.
-- Correzioni dei loader e dei test che dipendevano dalla vecchia posizione delle DLL.
-- Script temporanei di importazione rimossi nella tranche di pulizia documentata; sorgenti, fixture, notebook e snapshot conservati.
+**Operations**
+- Package feed D:\Dev\NuGetLocalFeed.
+- Build, test, benchmark and custom reports progressively moved under D:\Dev\BuildArtifacts.
+- Fixes of the loaders and of the tests that depended on the old position of the DLLs.
+- Temporary import scripts removed in the documented clean-up tranche; sources, fixtures, notebooks and snapshots kept.
 
-La rinomina Numbers → MathemaSharp è una breaking change. Il logo grafico rinominato conservava il marchio precedente: non risulta documentata qui una sua rigenerazione definitiva.
+The Numbers → MathemaSharp renaming is a breaking change. The renamed graphic logo kept the previous brand (MàthemaNet); it was replaced on 2026-10-30 by the ScienceSharp logo set.
 
-## 16. Documentazione matematica, infografiche e portale
+## 16. Mathematical documentation, infographics and portal
 
-**Documentato/implementato**
-- Analisi delle infografiche TimeSeries: patch, decomposizioni, attenzione temporale/fra variabili e foundation model, distinguendo concetti da API implementate.
-- HistoryPatches.Extract<T> e backtest RollingOrigin.Evaluate<T>, con isolamento del passato e gap opzionale.
-- Infografica di algebra lineare per AI integrata in LINEAR-ALGEBRA.md; norme, determinante e inversa 2×2 aggiunti prima dell’estrazione della libreria.
-- Portale Docs Blazor con interattività Server, Markdown, ricerca, immagini/link interni e protezione dei percorsi.
-- CSS per tipografia, codice, immagini, stampa e tabelle con righe alternate, header in grassetto e padding.
-- Indice dei titoli e funzioni JavaScript del browser.
+**Documented/implemented**
+- Analysis of the TimeSeries infographics: patches, decompositions, temporal/cross-variable attention and foundation models, distinguishing concepts from implemented APIs.
+- HistoryPatches.Extract<T> and RollingOrigin.Evaluate<T> backtest, with isolation of the past and optional gap.
+- Linear algebra for AI infographic integrated into LINEAR-ALGEBRA.md; norms, determinant and 2×2 inverse added before the extraction of the library.
+- Blazor Docs portal with Server interactivity, Markdown, search, images/internal links and path protection.
+- CSS for typography, code, images, print and tables with alternating rows, bold headers and padding.
+- Table of contents of the headings and browser JavaScript functions.
 
-**Non dichiarato come completato**
-- Transformer/foundation model completi, autovalori/SVD generali o accuratezza dei modelli dedotta dalle infografiche.
-- Fonti cronologiche delle immagini non tutte verificate su fonti primarie.
-- Tailwind compilato per produzione, rendering formule, audit accessibilità e verifica visuale completa del sito.
+**Not declared as completed**
+- Complete Transformers/foundation models, general eigenvalues/SVD or accuracy of the models deduced from the infographics.
+- Chronological sources of the images not all verified against primary sources.
+- Tailwind compiled for production, formula rendering, accessibility audit and complete visual verification of the site.
 
-## Dove trovare le prove e come mantenere il registro
+## Where to find the evidence and how to maintain the log
 
-| Prova | Posizione |
+| Evidence | Location |
 |---|---|
-| Obiettivi ricevuti | PROMPTS.md, gestito automaticamente; non è prova di completamento |
-| Stato e priorità | ROADMAP.md, prima sezione corrente |
-| Decisioni/API/constraint | ARCHITECTURE.md e ops/api-declarations.csv |
-| Migrazione .NET 11 e correzioni | NET11-MIGRATION.md |
-| Notebook eseguiti | Output salvati in notebooks/*, con i limiti indicati sopra |
-| Baseline MathemaSharp | D:\Dev\BuildArtifacts\MathemaSharp\baseline |
-| Gate ecosistema | D:\Dev\BuildArtifacts\ecosystem-validation |
+| Objectives received | PROMPTS.md, managed automatically; not proof of completion. Removed from the repository on 2026-10-30 (kept in the git history) |
+| State and priorities | ROADMAP.md, first current section |
+| Decisions/API/constraints | ARCHITECTURE.md and ops/api-declarations.csv |
+| .NET 11 migration and fixes | NET11-MIGRATION.md |
+| Notebooks run | Saved outputs in notebooks/*, with the limits indicated above |
+| MathemaSharp baseline | D:\Dev\BuildArtifacts\MathemaSharp\baseline |
+| Ecosystem gate | D:\Dev\BuildArtifacts\ecosystem-validation |
 | Audit | D:\Dev\BuildArtifacts\security-audit |
-| Pack e consumer isolato | D:\Dev\BuildArtifacts\net11-pack |
-| Pacchetti versionati | D:\Dev\NuGetLocalFeed |
+| Pack and isolated consumer | D:\Dev\BuildArtifacts\net11-pack |
+| Versioned packages | D:\Dev\NuGetLocalFeed |
 
-Per ogni nuova tranche aggiungere una sezione in alto con: progetto/API, cambiamento osservabile, test o notebook realmente eseguiti, versione dei pacchetti, report disponibile e limiti. Non trasformare attività preparate in attività completate; non sovrascrivere risultati storici con quelli nuovi.
+For each new tranche add a section at the top with: project/API, observable change, tests or notebooks actually run, package version, available report and limits. Do not turn prepared activities into completed ones; do not overwrite historical results with new ones.

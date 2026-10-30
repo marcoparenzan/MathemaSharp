@@ -1,22 +1,22 @@
-# MathemaSharp.TimeSeries — fondamenti statistici del forecasting
+# MathemaSharp.TimeSeries — statistical foundations of forecasting
 
-> **Questa pagina è un riassunto.** La trattazione completa — formule, realizzazione, uso funzione per funzione, overlap con NumPy in PySharp, esempi in C# e PySharp, scenari industriali — è nel **[libro](refs/timeseries/README.md)**.
+> **This page is a summary.** The complete treatment — formulas, realisation, use function by function, overlap with NumPy in PySharp, examples in C# and PySharp, industrial scenarios — is in the **[book](refs/timeseries/README.md)**.
 
-Libreria (pacchetto NuGet) in `src/libs/MathemaSharp.TimeSeries`. Dipende solo da `MathemaSharp.Core`, target net11.0, **generica su `T : IFloatingPointIeee754<T>`** (float, double, Half, Decimal32/64/128). Segue la cronologia di refs/timeseries/time-series-forecasting-0-01/time-series-forecasting-0-01.jpg: *una cronologia di idee, non una classifica di modelli*. Ogni tappa ha un'implementazione, test che ne verificano le proprietà matematiche e un notebook eseguito.
+Library (NuGet package) in `src/libs/MathemaSharp.TimeSeries`. It depends only on `MathemaSharp.Core`, target net11.0, **generic over `T : IFloatingPointIeee754<T>`** (float, double, Half, Decimal32/64/128). It follows the chronology of refs/timeseries/time-series-forecasting-0-01/time-series-forecasting-0-01.jpg: *a chronology of ideas, not a ranking of models*. Each stage has an implementation, tests that verify its mathematical properties and an executed notebook.
 
-## Analisi delle infografiche 03–05 e nuovi mattoni
+## Analysis of infographics 03–05 and new building blocks
 
-Analisi visiva delle tre immagini originali in `refs/timeseries/`:
+Visual analysis of the three original images in `refs/timeseries/`:
 
-- **03 — Transformer e baseline forti:** Informer seleziona query e distilla la sequenza; Autoformer separa componenti e aggrega ritardi; N-HiTS combina risoluzioni. DLinear applica due mappe lineari a trend e resto (non è STL seguito da ARIMA). PatchTST usa una finestra di un canale come token, iTransformer la storia di una variabile. Cambia quindi l'asse dell'attenzione, non solo la lunghezza della finestra.
-- **04 — Linguaggio e pre-addestramento:** Time-LLM adatta ingressi a un LLM congelato; LLMTime serializza numeri in testo. TimeGPT, TimesFM, Moirai e Chronos apprendono da serie temporali. L'immagine distingue patch continue, encoder mascherato e quantizzazione in token: non sono pipeline intercambiabili. Zero-shot richiede comunque validazione locale.
-- **05 — Efficienza e multivariato:** routing sparso (Time-MoE), quantili diretti (Chronos-Bolt), contesto condiviso (Chronos-2), decoder semplificato (Moirai 2.0) e attenzione temporale/fra variabili (TimesFM-3). Le date e le etichette sono quelle della figura, **non verificate qui su fonti primarie**; i diagrammi non dimostrano superiorità prestazionale.
+- **03 — Transformers and strong baselines:** Informer selects queries and distils the sequence; Autoformer separates components and aggregates lags; N-HiTS combines resolutions. DLinear applies two linear maps to trend and remainder (it is not STL followed by ARIMA). PatchTST uses a window of one channel as a token, iTransformer the history of one variable. So it is the axis of attention that changes, not just the window length.
+- **04 — Language and pre-training:** Time-LLM adapts inputs to a frozen LLM; LLMTime serialises numbers into text. TimeGPT, TimesFM, Moirai and Chronos learn from time series. The image distinguishes continuous patches, masked encoder and quantisation into tokens: they are not interchangeable pipelines. Zero-shot still requires local validation.
+- **05 — Efficiency and multivariate:** sparse routing (Time-MoE), direct quantiles (Chronos-Bolt), shared context (Chronos-2), simplified decoder (Moirai 2.0) and temporal/cross-variable attention (TimesFM-3). The dates and labels are those of the figure, **not verified here against primary sources**; the diagrams do not prove performance superiority.
 
-### Implementazione verificabile
+### Verifiable implementation
 
-`HistoryPatches.Extract<T>(history, length, stride)` estrae copie di finestre complete, senza padding. È il mattone di rappresentazione illustrato da PatchTST, **non** implementa embedding, attenzione o addestramento.
+`HistoryPatches.Extract<T>(history, length, stride)` extracts copies of complete windows, without padding. It is the representation building block illustrated by PatchTST, it does **not** implement embedding, attention or training.
 
-`RollingOrigin.Evaluate<T>` rifà fit/previsione a origini successive con training espandente. Ogni callback riceve solo una copia del passato. Il gap richiede di prevedere anche i passi intermedi, che vengono esclusi dal punteggio. Restituisce MAE/RMSE per origine; con finestre sovrapposte i punteggi sono dipendenti. Il callback deve stimare anche normalizzazione e iperparametri esclusivamente sul training (eventuale selezione in validazione interna).
+`RollingOrigin.Evaluate<T>` redoes fit/forecast at successive origins with expanding training. Each callback receives only a copy of the past. The gap requires forecasting the intermediate steps too, which are excluded from the score. It returns MAE/RMSE per origin; with overlapping windows the scores are dependent. The callback must also estimate normalisation and hyperparameters exclusively on the training data (any selection in an inner validation).
 
 ```csharp
 var patches = HistoryPatches.Extract<double>(series, length: 24, stride: 12);
@@ -24,57 +24,57 @@ var folds = RollingOrigin.Evaluate<double>(series, initialTraining: 168,
     horizon: 24, fitForecast: (past, h) =>
         ReferenceForecasts.SeasonalNaive<double>(past, 24, h), step: 24);
 foreach (var fold in folds)
-    Console.WriteLine($"Origine {fold.Origin}: MAE={fold.Mae}, RMSE={fold.Rmse}");
+    Console.WriteLine($"Origin {fold.Origin}: MAE={fold.Mae}, RMSE={fold.Rmse}");
 ```
 
-Confrontare baseline e modello sulle **stesse origini**, mantenendo un test finale intatto. Questo backtest non è un test di significatività e non dà garanzie di copertura. Test automatici: patch complete e indipendenti, isolamento del passato, allineamento del gap, errori analitici di drift/naive e input invalidi. Transformer, DLinear addestrato e foundation model restano non implementati; nessun benchmark di accuratezza è stato prodotto da questa analisi.
+Compare baseline and model on the **same origins**, keeping a final test untouched. This backtest is not a significance test and gives no coverage guarantees. Automated tests: complete and independent patches, isolation of the past, gap alignment, analytic errors of drift/naive and invalid inputs. Transformer, trained DLinear and foundation models remain not implemented; no accuracy benchmark was produced by this analysis.
 
-## Dalla cronologia all'API
+## From the chronology to the API
 
-| Anni | Idea | API | Notebook |
+| Years | Idea | API | Notebook |
 |---|---|---|---|
 | — | Mean, naive, seasonal naive, drift; MAE/RMSE/MAPE/MASE | `ReferenceForecasts`, `Accuracy` | 06 |
-| 1927–1938 | AR di Yule, decomposizione di Wold | `SeriesStatistics` (ACF, PACF, Levinson-Durbin, Ljung-Box), `ArModel.FitYuleWalker` | 06 |
+| 1927–1938 | Yule's AR, Wold decomposition | `SeriesStatistics` (ACF, PACF, Levinson-Durbin, Ljung-Box), `ArModel.FitYuleWalker` | 06 |
 | 1950s–1960 | SES, Holt (1957), Holt-Winters (1960) | `ExponentialSmoothing.Ses/Holt/HoltWinters`, `FitSesAlpha` | 07 |
-| 1960 | Filtro di Kalman | `KalmanFilter` (`LocalLevel`, `LocalLinearTrend`, `LocalLevelSteadyStateGain`) | 07 |
-| 1985 | Damped trend | parametro `phi` di `Holt`/`HoltWinters` | 07 |
+| 1960 | Kalman filter | `KalmanFilter` (`LocalLevel`, `LocalLinearTrend`, `LocalLevelSteadyStateGain`) | 07 |
+| 1985 | Damped trend | parameter `phi` of `Holt`/`HoltWinters` | 07 |
 | 1970 | Box-Jenkins / ARIMA | `ArimaModel.FitHannanRissanen`, `Residuals`, `Forecast` | 08 |
 | 1980 | VAR | `VarModel.Fit/Forecast` | 08 |
-| 1982/1986 | ARCH/GARCH | `Garch11` (varianze condizionali, log-verosimiglianza, previsione, `FitVarianceTargeting`) | 08 |
+| 1982/1986 | ARCH/GARCH | `Garch11` (conditional variances, log-likelihood, forecast, `FitVarianceTargeting`) | 08 |
 | 1990 | STL | `Stl.Decompose`, `Stl.Loess` | 09 |
 
-Di supporto: `MatrixAlgebra.LeastSquares` (QR di Householder), `SpecialFunctions` (log Γ di Lanczos, gamma incompleta, sopravvivenza χ²), `Simulation` (ARMA, random walk, GARCH, VAR con seme esplicito).
+In support: `MatrixAlgebra.LeastSquares` (Householder QR), `SpecialFunctions` (Lanczos log Γ, incomplete gamma, χ² survival), `Simulation` (ARMA, random walk, GARCH, VAR with explicit seed).
 
-## Identità verificate dai test
+## Identities verified by the tests
 
-Sono il cuore didattico: le famiglie di modelli non sono isole.
+They are the didactic core: the model families are not islands.
 
-- **SES ≡ ARIMA(0,1,1) con θ = α − 1.** Da ℓ_t = y_t − (1−α)e_t segue ŷ_{t+1} = y_t + (α−1)e_t. Previsioni identiche a 1e-9.
-- **SES ≡ filtro di Kalman stazionario del local level.** La Riccati P = P − P²/(P+r) + q dà P* = (q + √(q²+4qr))/2 e K* = P*/(P*+r). Dopo il transitorio le previsioni coincidono a 1e-9; α dipende solo da q/r.
-- **Levinson-Durbin ≡ soluzione diretta di Yule-Walker** Γφ = γ. Sull'ACF teorica di un AR(1), la PACF vale φ al lag 1 ed è esattamente 0 dopo.
-- **Damped trend**: le previsioni convergono a ℓ_T + φ b_T/(1−φ); con φ = 1 è Holt lineare, che riproduce le rette con SSE nullo.
-- **Holt-Winters esatto su retta + stagionalità a media nulla**, grazie all'inizializzazione centrata: la media del primo ciclo è il livello al tempo (m−1)/2, non a m−1.
-- **STL esatta su retta + stagionalità periodica a media nulla**: il LOESS lineare riproduce le rette (anche estrapolando) e la media mobile di un periodo annulla la stagionalità. Con le iterazioni robuste un outlier finisce nel resto con peso ≈ 0.
-- **GARCH**: la previsione di σ² decade verso ω/(1−α−β) con ragione esattamente α + β.
-- **VAR(1)**: le previsioni convergono a (I − A)⁻¹c.
-- **Stime su dati simulati** con parametri noti: Yule-Walker per AR(2), Hannan-Rissanen per ARMA(1,1) (residui bianchi secondo Ljung-Box), OLS per VAR(1), variance targeting per GARCH(1,1).
+- **SES ≡ ARIMA(0,1,1) with θ = α − 1.** From ℓ_t = y_t − (1−α)e_t follows ŷ_{t+1} = y_t + (α−1)e_t. Identical forecasts to 1e-9.
+- **SES ≡ stationary Kalman filter of the local level.** The Riccati P = P − P²/(P+r) + q gives P* = (q + √(q²+4qr))/2 and K* = P*/(P*+r). After the transient the forecasts coincide to 1e-9; α depends only on q/r.
+- **Levinson-Durbin ≡ direct solution of Yule-Walker** Γφ = γ. On the theoretical ACF of an AR(1), the PACF equals φ at lag 1 and is exactly 0 afterwards.
+- **Damped trend**: the forecasts converge to ℓ_T + φ b_T/(1−φ); with φ = 1 it is linear Holt, which reproduces straight lines with zero SSE.
+- **Holt-Winters exact on a line + zero-mean seasonality**, thanks to the centred initialisation: the mean of the first cycle is the level at time (m−1)/2, not at m−1.
+- **STL exact on a line + zero-mean periodic seasonality**: the linear LOESS reproduces lines (even when extrapolating) and the one-period moving average cancels the seasonality. With robust iterations an outlier ends up in the remainder with weight ≈ 0.
+- **GARCH**: the forecast of σ² decays towards ω/(1−α−β) with ratio exactly α + β.
+- **VAR(1)**: the forecasts converge to (I − A)⁻¹c.
+- **Estimates on simulated data** with known parameters: Yule-Walker for AR(2), Hannan-Rissanen for ARMA(1,1) (white residuals according to Ljung-Box), OLS for VAR(1), variance targeting for GARCH(1,1).
 
-## Contratti e scelte
+## Contracts and choices
 
-- Serie come `ReadOnlySpan<double>`; più serie (VAR) come `double[tempo, serie]`. Per dati NDSharp: `MathemaSharp.NDSharp` (`ToVector`, `ToMatrix`).
-- Autocovarianza con divisore n: matrice di Toeplitz semidefinita positiva, quindi |PACF| ≤ 1 e AR di Yule-Walker sempre stazionario.
-- `ArimaModel`: residui condizionali (CSS), con e_t = 0 prima del primo valore stimabile. Hannan-Rissanen è lineare, senza ottimizzazione e consistente, ma meno efficiente della massima verosimiglianza. Stazionarietà e invertibilità **non** sono imposte.
-- Smoothing: parametri in [0,1] (`ArgumentOutOfRangeException` altrimenti), inizializzazioni deterministiche non stimate. `FitSesAlpha` usa la sezione aurea e presuppone un SSE unimodale.
-- `KalmanFilter`: osservazione scalare (S è un numero, nessuna inversione); covarianza in forma di Joseph; `NaN` = dato mancante (si salta l'update); log-verosimiglianza per decomposizione dell'errore di previsione.
-- `Garch11`: shock a media nulla; σ²_0 = media di ε²; la stima per griglia raffinata con variance targeting è robusta ma non efficiente.
-- `Stl`: fedele all'algoritmo di Cleveland et al., non al Fortran (niente *jump*, solo LOESS di grado 1); n_s dispari, almeno due periodi.
-- Regressioni con QR di Householder: colonne dipendenti → `ArgumentException`.
+- Series as `ReadOnlySpan<double>`; multiple series (VAR) as `double[time, series]`. For NDSharp data: `MathemaSharp.NDSharp` (`ToVector`, `ToMatrix`).
+- Autocovariance with divisor n: positive semi-definite Toeplitz matrix, hence |PACF| ≤ 1 and the Yule-Walker AR always stationary.
+- `ArimaModel`: conditional residuals (CSS), with e_t = 0 before the first estimable value. Hannan-Rissanen is linear, without optimisation and consistent, but less efficient than maximum likelihood. Stationarity and invertibility are **not** imposed.
+- Smoothing: parameters in [0,1] (`ArgumentOutOfRangeException` otherwise), deterministic initialisations that are not estimated. `FitSesAlpha` uses the golden section and presupposes a unimodal SSE.
+- `KalmanFilter`: scalar observation (S is a number, no inversion); covariance in Joseph form; `NaN` = missing datum (the update is skipped); log-likelihood by prediction-error decomposition.
+- `Garch11`: zero-mean shocks; σ²_0 = mean of ε²; the estimate by refined grid with variance targeting is robust but not efficient.
+- `Stl`: faithful to the algorithm of Cleveland et al., not to the Fortran (no *jump*, only degree-1 LOESS); n_s odd, at least two periods.
+- Regressions with Householder QR: dependent columns → `ArgumentException`.
 
-## Non incluso
+## Not included
 
-Massima verosimiglianza esatta per ARIMA, smoother di Kalman, ETS moltiplicativo e intervalli di previsione, selezione automatica degli ordini, VAR strutturali, GARCH asimmetrici. Vedi [ROADMAP.md](ROADMAP.md).
+Exact maximum likelihood for ARIMA, Kalman smoother, multiplicative ETS and prediction intervals, automatic order selection, structural VARs, asymmetric GARCH. See [ROADMAP.md](ROADMAP.md).
 
-## Esecuzione
+## Running
 
 ```sh
 dotnet test src/tests/MathemaSharp.TimeSeries.Tests -c Release
@@ -82,4 +82,4 @@ dotnet run --project src/apps/MathemaSharp.Lab -- --topic timeseries
 pwsh scripts/run-notebooks.ps1 -Filter '0[6-9]*'
 ```
 
-Riferimenti: Hyndman & Athanasopoulos, *Forecasting: Principles and Practice* (2ª ed.), più le pubblicazioni originali (Yule 1927, Wold 1938, Holt 1957, Winters 1960, Kalman 1960, Box & Jenkins 1970, Sims 1980, Engle 1982, Hannan & Rissanen 1982, Gardner & McKenzie 1985, Bollerslev 1986, Cleveland et al. 1990).
+References: Hyndman & Athanasopoulos, *Forecasting: Principles and Practice* (2nd ed.), plus the original publications (Yule 1927, Wold 1938, Holt 1957, Winters 1960, Kalman 1960, Box & Jenkins 1970, Sims 1980, Engle 1982, Hannan & Rissanen 1982, Gardner & McKenzie 1985, Bollerslev 1986, Cleveland et al. 1990).

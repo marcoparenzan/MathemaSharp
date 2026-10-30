@@ -13,36 +13,36 @@
 | [README](README.md) | [USAGE](USAGE.md) (install first) | [ARCHITECTURE](ARCHITECTURE.md) | [ROADMAP](ROADMAP.md) | [OPENPOINTS](OPENPOINTS.md) |
 | --- | --- | --- | --- | --- |
 
-Una famiglia di librerie matematiche basate su Generic Math. Il marchio si scrive **MàthemaSharp**, con accento grave sulla prima a; pacchetti, assembly e namespace usano **MathemaSharp** senza accento.
+A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
-## Documentazione e storico
+## Documentation and history
 
-- [CHANGELOG.md](CHANGELOG.md): registro ricostruito delle modifiche, verifiche, pacchetti e limiti.
-- [ROADMAP.md](ROADMAP.md): stato corrente e attività ancora da completare.
-- [NET11-MIGRATION.md](NET11-MIGRATION.md): dettaglio della migrazione e delle verifiche dell’ecosistema.
-- [ARCHITECTURE.md](ARCHITECTURE.md): struttura, decisioni e inventario delle API.
+- [CHANGELOG.md](CHANGELOG.md): reconstructed log of the changes, checks, packages and limits.
+- [ROADMAP.md](ROADMAP.md): current state and activities still to be completed.
+- [NET11-MIGRATION.md](NET11-MIGRATION.md): detail of the migration and of the ecosystem checks.
+- [ARCHITECTURE.md](ARCHITECTURE.md): structure, decisions and API inventory.
 
-Per lo stato aggiornato prevale la prima sezione della roadmap; i conteggi storici riportati più avanti descrivono verifiche precedenti.
+For the up-to-date state the first section of the roadmap prevails; the historical counts reported further on describe earlier checks.
 
-## Verifica completa
+## Full verification
 
 ```sh
 dotnet msbuild ops/validate.proj -t:Baseline
 ```
 
-Su Windows: build Release, 22 notebook selezionati e test, con report/log in `ops/artifacts/baseline/`. Ultima verifica: **272 test passati, 3 sospesi**. Esclusioni esplicite: notebook NDSharp, PySharp e scenari. Dettagli in [USAGE.md](USAGE.md#baseline-completa--un-comando). Il logo grafico conserva ancora il marchio precedente e resta da aggiornare.
+On Windows: Release build, 22 selected notebooks and tests, with reports/logs in `ops/artifacts/baseline/`. Last verification: **272 tests passed, 3 suspended**. Explicit exclusions: NDSharp, PySharp and scenario notebooks. Details in [USAGE.md](USAGE.md#full-baseline--one-command).
 
-## Librerie
+## Libraries
 
-| Libreria | Contenuto | Usage | Reference |
+| Library | Contents | Usage | Reference |
 |---|---|---|---|
-| MathemaSharp.Core | Generic Math, precisione, SIMD e DFT | [Usage](USAGE.md#mathemasharpcore--usage) | [Reference](ARCHITECTURE.md#mathemasharpcore--reference) |
-| MathemaSharp.LinearAlgebra | Matrici, QR, LU, norme e sistemi lineari | [Usage](USAGE.md#mathemasharplinearalgebra--usage) | [Reference](ARCHITECTURE.md#mathemasharplinearalgebra--reference) |
-| MathemaSharp.Quantum | Stati e operatori complessi generici | [Usage](USAGE.md#mathemasharpquantum--usage) | [Reference](ARCHITECTURE.md#mathemasharpquantum--reference) |
-| MathemaSharp.TimeSeries | Statistica e previsione temporale | [Usage](USAGE.md#mathemasharptimeseries--usage) | [Reference](ARCHITECTURE.md#mathemasharptimeseries--reference) |
-| MathemaSharp.NDSharp | Ponte ndarray, non ancora completamente generico | [Usage](USAGE.md#mathemasharpndsharp--usage) | [Reference](ARCHITECTURE.md#mathemasharpndsharp--reference) |
+| MathemaSharp.Core | Generic Math, precision, SIMD and DFT | [Usage](USAGE.md#mathemasharpcore--usage) | [Reference](ARCHITECTURE.md#mathemasharpcore--reference) |
+| MathemaSharp.LinearAlgebra | Matrices, QR, LU, norms and linear systems | [Usage](USAGE.md#mathemasharplinearalgebra--usage) | [Reference](ARCHITECTURE.md#mathemasharplinearalgebra--reference) |
+| MathemaSharp.Quantum | Generic complex states and operators | [Usage](USAGE.md#mathemasharpquantum--usage) | [Reference](ARCHITECTURE.md#mathemasharpquantum--reference) |
+| MathemaSharp.TimeSeries | Statistics and time-series forecasting | [Usage](USAGE.md#mathemasharptimeseries--usage) | [Reference](ARCHITECTURE.md#mathemasharptimeseries--reference) |
+| MathemaSharp.NDSharp | ndarray bridge, not yet fully generic | [Usage](USAGE.md#mathemasharpndsharp--usage) | [Reference](ARCHITECTURE.md#mathemasharpndsharp--reference) |
 
-## Struttura
+## Structure
 
 ```text
 src/MathemaSharp.slnx
@@ -56,9 +56,9 @@ notebooks/shared/
 refs/branding/
 ```
 
-Usage e Reference sono organizzate per libreria nei documenti root, senza duplicare il catalogo. Lo snapshot `src/imports/NDSharp` resta invariato e fuori dalla soluzione.
+Usage and Reference are organised by library in the root documents, without duplicating the catalogue. The `src/imports/NDSharp` snapshot remains unchanged and outside the solution.
 
-## Avvio
+## Getting started
 
 ```sh
 dotnet build src/MathemaSharp.slnx -c Release
@@ -67,9 +67,9 @@ pwsh scripts/run-notebooks.ps1
 dotnet run --project src/apps/MathemaSharp.Docs/MathemaSharp.Docs/MathemaSharp.Docs.csproj
 ```
 
-L'ambiente richiede l'SDK .NET 11 indicato da `global.json` e i feed di `nuget.config`. I kernel già .NET 11 supportano i nuovi Decimal32/64/128 secondo i rispettivi vincoli. Alcuni progetti restano net10.0: questa riorganizzazione non ne cambia il target. Non tutti i kernel importati sono convertiti a Generic Math.
+The environment requires the .NET 11 SDK indicated by `global.json` and the feeds in `nuget.config`. The kernels already on .NET 11 support the new Decimal32/64/128 according to their respective constraints. A few projects remain net10.0: this reorganisation does not change their target. Not all the imported kernels are converted to Generic Math.
 
-La rinomina è una **breaking change**: aggiornare `using Numbers.*`, riferimenti ai progetti e nomi degli assembly a `MathemaSharp.*`. I notebook sono stati spostati e gli output precedenti azzerati: devono essere rieseguiti. Il logo è stato generato e controllato visivamente per l'accento; il sito non è stato verificato nel browser.
+The renaming is a **breaking change**: update `using Numbers.*`, project references and assembly names to `MathemaSharp.*`. The notebooks were moved and the previous outputs cleared: they must be rerun. The documentation site has not been verified in the browser.
 
 ## License
 

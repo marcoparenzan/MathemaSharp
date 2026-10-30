@@ -1,82 +1,82 @@
-# Migrazione dell’ecosistema a .NET 11
+# Migration of the ecosystem to .NET 11
 
-I progetti attivi di MathemaSharp, NDSharp, PlotSharp, JupyterSharp, PySharp e MatSharp sono stati aggiornati a `net11.0`, compresi i progetti di test e gli script operativi contenenti target precedenti. Gli snapshot `imports` sono esclusi. SDK disponibile e selezionato in MathemaSharp: `11.0.100-rc.3.26522.148` (prerelease, non GA).
+The active projects of MathemaSharp, NDSharp, PlotSharp, JupyterSharp, PySharp and MatSharp were updated to `net11.0`, including the test projects and the operational scripts containing earlier targets. The `imports` snapshots are excluded. SDK available and selected in MathemaSharp: `11.0.100-rc.3.26522.148` (prerelease, not GA).
 
-## Verifica Release
+## Release verification
 
-| Repository | Build soluzione | Test |
+| Repository | Solution build | Tests |
 |---|---|---|
-| MathemaSharp | OK | 310 passati |
-| NDSharp | OK | 563 passati |
-| PlotSharp | OK | 70 passati |
-| JupyterSharp | OK | 44 passati |
-| PySharp | OK | 1503 passati, 1 fallito, 13 sospesi |
-| MatSharp | OK | 130 passati |
+| MathemaSharp | OK | 310 passed |
+| NDSharp | OK | 563 passed |
+| PlotSharp | OK | 70 passed |
+| JupyterSharp | OK | 44 passed |
+| PySharp | OK | 1503 passed, 1 failed, 13 suspended |
+| MatSharp | OK | 130 passed |
 
-La verifica riguarda la soluzione principale di ciascun repository; i sample o tool non inclusi nelle soluzioni hanno il target aggiornato ma non sono certificati da questa esecuzione.
+The verification concerns the main solution of each repository; samples or tools not included in the solutions have the target updated but are not certified by this run.
 
-Corretto in Blazor il requisito BL0016: le chiamate JS gestiscono ora la disconnessione del circuito.
+The BL0016 requirement was fixed in Blazor: the JS calls now handle the disconnection of the circuit.
 
-## Punti aperti
+## Open points
 
-- PySharp: implementato `sys._getframe` usando lo stack thread-local reale già mantenuto dall’interprete. Esposti globals del modulo, snapshot dei locals delle funzioni, nome/file/linea e catena f_back. Due nuovi test verificano chiamanti annidati, locals/globals reali e profondità/argomenti invalidi. La rappresentazione è uno snapshot al momento della richiesta (non una certificazione della completa semantica CPython dei frame persistenti, lambda, class body o async).
-- Implementato `inspect.getsource` per moduli, funzioni e metodi Python con file reale. I builtin producono TypeError, il sorgente indisponibile OSError. Due nuovi test verificano contenuto effettivo e errori. L’estrazione di funzioni è per blocchi di indentazione: lambda, classi come oggetto diretto, decorator multilinea, stringhe multilinea e continuazioni complesse restano non certificati; non è una completa implementazione CPython.
-- Implementato `compile` di stringhe per modalità exec/eval: oggetto PyCompiledCode con AST reale riutilizzabile, accettato dai rispettivi exec/eval e riconosciuto da inspect.iscode. Due test verificano namespace distinti, locals espliciti, riuso ed errori di sintassi/flag. Modalità single, input AST/bytes, flag, optimize e semantica completa dei code object restano esclusi; le forme non supportate sono rifiutate. Non equivale alla compilazione in bytecode CPython.
-- Aggiunto un primo AST pubblico mutabile: AST, Module, Expression, Assign, Expr, Name, Constant, BinOp, Load/Store e operatori Add/Sub/Mult/Div. `ast.parse` e `compile(..., ast.PyCF_ONLY_AST)` producono nodi reali; `compile` riconverte i campi attuali dei nodi in AST eseguibile. Test di modifica di costanti dimostra che exec/eval usano le modifiche e non il sorgente originale. Non è un modello completo: mancano visite, validazione completa di contesti/posizioni e gran parte dei nodi.
-- Aggiunti Import, ImportFrom e alias, con esportazione e ricompilazione di nomi, alias e livello relativo. Il nuovo test modifica gli alias nel tree, esegue il codice compilato e verifica le nuove chiavi nel namespace. La semantica dei livelli relativi e star import non è ancora coperta da test dedicati.
-- Inventario preliminare eseguito sui file disponibili sotto site-packages/fastapi, starlette, anyio e pydantic: 26 file parsati, nessun errore di parsing. Il report è in D:\Dev\BuildArtifacts\net11-migration\ast-inventory.txt. Sono conteggi dei nodi del parser, non una verifica della compatibilità con l’AST CPython né una scansione di tutte le installazioni delle fixture.
-- Aggiunto gruppo controllo di flusso/espressioni: If, While, For sincrono, Return, Pass, Break, Continue, Attribute, Call senza unpacking, Compare, BoolOp, UnaryOp, List, Tuple e Subscript. Il test verifica roundtrip di cicli e confronti, modifica della condizione e chiamata in un’espressione booleana; non ogni variante è certificata.
-- Aggiunti Dict, Set, Slice, IfExp, FunctionDef/AsyncFunctionDef non generatori, ClassDef e arguments/arg. Il roundtrip preserva i parametri/default/annotation supportati, corpi e decorator; generatori e parametri positional-only restano esclusi. Test reale modifica un default e un valore di dizionario, ricompila e invoca funzione/metodo, verificando anche slice e condizionale. Non è una certificazione delle varianti async/decorator/kwargs.
-- Verificata la versione realmente installata dalla fixture non pinned: AnyIO 4.15.1, con lazy exports. Sorgenti e metadati di evidenza vengono conservati fuori dal repository in D:\Dev\BuildArtifacts\PySharp\dependency-evidence\anyio.
-- Implementato PEP 562 per il lookup dei moduli e `from ... import ...`: viene chiamato il vero __getattr__ del modulo dopo il lookup normale; AttributeError indica assenza, altre eccezioni propagano. Test indipendente verifica export lazy, precedenza di attributi esistenti e propagazione degli errori.
-- Implementati nomi relativi in importlib.import_module, con package esplicito, risoluzione dei livelli e riuso della cache dell’Importer. Test verifica identità dei moduli, livelli relativi ed errori oltre il package.
-- Verificato l’intero snippet MutableMapping con CPython: KeyError stampa correttamente gli apici. Corretta soltanto l’aspettativa del test. Evidenza in D:\Dev\BuildArtifacts\net11-migration\keyerror-cpython.txt.
-- Eseguito anche P5_layout con CPython/Matplotlib sullo stesso host: l’oracolo salvato è confermato. Probe non arrotondato: PySharp Y=0.1531963984, Matplotlib Y=0.1550479917. Il doppio arrotondamento della fixture amplifica la differenza a 0.1/0.2; non è stata applicata una correzione numerica arbitraria né alterato il golden. Il renderer di PySharp usa ancora NDSharp.Plot 2.6.2 via NuGet.
-- Risolta una collisione intermittente nel CSV temporaneo Pandas: nome univoco per l’esecuzione oracle. La collezione oracle è ora non parallela, perché il runner modifica la working directory di processo.
-- Ultima build Release riuscita; suite completa 1503 passati, 1 fallito (Matplotlib P5_layout), 13 sospesi. FastAPI/AnyIO e MutableMapping passano. Il totale dei test è aumentato anche rispetto alle esecuzioni precedenti; non viene attribuito tutto ai test aggiunti in queste tranche.
-- Restano AST per eccezioni/comprensioni/generatori, visitor e validazione completa. Il rapporto dei gap precedenti con la migrazione .NET non è stato dimostrato.
-- Il confronto Matplotlib `P5_layout` fallisce nella posizione verticale dell’asse immagine dopo colorbar e tight_layout (atteso 0.2, ottenuto 0.1, con arrotondamento della fixture). Una prova su `get_position` non ha risolto il difetto ed è stata annullata; l’oracolo non è stato modificato.
-- Dopo l’annullamento è stata rieseguita la verifica completa: tutte le build passano, PySharp mantiene 1416 passati, 10 falliti e 13 sospesi. Nessun test è stato disabilitato.
-- Restano warning nei repository JupyterSharp e PySharp; la prima compilazione NDSharp ha riportato 15 warning.
-- Rieseguiti 24 notebook della baseline principale, 9 esecuzioni aggiuntive C#/PySharp (tour/scenari/precisione/operatori/generics) e il notebook MatSharp di embedding. Il tour C# è presente anche nella baseline. Kernel PySharp ricompilato su .NET 11. Queste esecuzioni precedono il cambio delle versioni dei pacchetti; build e test sono stati riconfermati dopo il cambio.
-- Generati 37 pacchetti nei sei repository con nuove versioni `-net11-preview.1`, senza sovrascrivere le versioni precedenti. MathemaSharp 0.2.1-net11-preview.1, NDSharp 2.8.1-net11-preview.1; gli altri incrementano il patch della versione precedente. Aggiornati riferimenti NuGet interni alle versioni generate.
-- Consumatorе separato senza ProjectReference e con cache isolata: restore, build ed esecuzione riusciti. Verificati Decimal128, NDArray typed, FFT Bluestein, solver del ponte e PySharp operatori/compile. MatSharp, PlotSharp e JupyterSharp sono ripristinati nello stesso consumer ma il loro comportamento non è esercitato da questo smoke.
-- Risolti gli advisory NuGet del consumer: Microsoft.PowerShell.SDK 7.6.6 introduceva Pkcs/Xml 10.0.10. Il progetto JupyterSharp.Kernels.PowerShell ora richiede esplicitamente entrambi a 10.0.13, versione corretta secondo gli advisory GitHub/Microsoft GHSA-846f-f764-76mx, GHSA-7hqp-7c5m-4vq6, GHSA-c399-9853-6jmj e GHSA-r955-8q5j-3h83 (controllato anche GHSA-2fmv-rv2c-59x7).
-- JupyterSharp rigenerato in nove pacchetti 0.3.1-net11-preview.2, senza sovrascrivere preview.1. Build Release e 44 test passati. Consumer aggiornato: restore/build/run riusciti, zero warning; `dotnet list ... package --vulnerable --include-transitive` non trova vulnerabilità con le fonti correnti. Nessuna soppressione audit.
-- La verifica riguarda il grafo dei pacchetti del consumer: non certifica sicurezza completa dell’applicazione, SDK/runtime o altri consumatori. I pacchetti restano preview, non un rilascio produzione certificato. Le preview.1 precedenti rimangono nel feed per riproducibilità e non vanno preferite ai nuovi pacchetti JupyterSharp.
-- Verificare separatamente sample/tool esterni alle soluzioni e supporto del runtime nei kernel dinamici.
+- PySharp: implemented `sys._getframe` using the real thread-local stack already maintained by the interpreter. Exposed module globals, snapshot of the functions' locals, name/file/line and the f_back chain. Two new tests verify nested callers, real locals/globals and invalid depth/arguments. The representation is a snapshot at the time of the request (not a certification of the complete CPython semantics of persistent frames, lambdas, class bodies or async).
+- Implemented `inspect.getsource` for modules, functions and methods of Python with a real file. Builtins produce TypeError, unavailable source OSError. Two new tests verify actual content and errors. The extraction of functions is by indentation blocks: lambdas, classes as a direct object, multi-line decorators, multi-line strings and complex continuations remain uncertified; it is not a complete CPython implementation.
+- Implemented `compile` of strings for exec/eval modes: PyCompiledCode object with a real reusable AST, accepted by the respective exec/eval and recognised by inspect.iscode. Two tests verify distinct namespaces, explicit locals, reuse and syntax/flag errors. Single mode, AST/bytes input, flags, optimize and the complete semantics of code objects remain excluded; unsupported forms are rejected. It is not equivalent to compilation into CPython bytecode.
+- Added a first public mutable AST: AST, Module, Expression, Assign, Expr, Name, Constant, BinOp, Load/Store and the operators Add/Sub/Mult/Div. `ast.parse` and `compile(..., ast.PyCF_ONLY_AST)` produce real nodes; `compile` converts the current fields of the nodes back into an executable AST. A test that modifies constants shows that exec/eval use the modifications and not the original source. It is not a complete model: visits, complete validation of contexts/positions and most of the nodes are missing.
+- Added Import, ImportFrom and alias, with export and recompilation of names, aliases and relative level. The new test modifies the aliases in the tree, runs the compiled code and verifies the new keys in the namespace. The semantics of relative levels and star import are not yet covered by dedicated tests.
+- Preliminary inventory run on the files available under site-packages/fastapi, starlette, anyio and pydantic: 26 files parsed, no parsing error. The report is in D:\Dev\BuildArtifacts\net11-migration\ast-inventory.txt. These are parser node counts, not a verification of compatibility with the CPython AST nor a scan of all the installations of the fixtures.
+- Added the control-flow/expressions group: If, While, synchronous For, Return, Pass, Break, Continue, Attribute, Call without unpacking, Compare, BoolOp, UnaryOp, List, Tuple and Subscript. The test verifies roundtrip of loops and comparisons, modification of the condition and a call in a boolean expression; not every variant is certified.
+- Added Dict, Set, Slice, IfExp, non-generator FunctionDef/AsyncFunctionDef, ClassDef and arguments/arg. The roundtrip preserves the supported parameters/defaults/annotations, bodies and decorators; generators and positional-only parameters remain excluded. A real test modifies a default and a dictionary value, recompiles and invokes the function/method, also verifying slice and conditional. It is not a certification of the async/decorator/kwargs variants.
+- Verified the version actually installed by the non-pinned fixture: AnyIO 4.15.1, with lazy exports. Sources and evidence metadata are kept outside the repository in D:\Dev\BuildArtifacts\PySharp\dependency-evidence\anyio.
+- Implemented PEP 562 for module lookup and `from ... import ...`: the module's real __getattr__ is called after the normal lookup; AttributeError indicates absence, other exceptions propagate. An independent test verifies lazy exports, precedence of existing attributes and propagation of errors.
+- Implemented relative names in importlib.import_module, with explicit package, level resolution and reuse of the Importer's cache. A test verifies module identity, relative levels and errors beyond the package.
+- Verified the whole MutableMapping snippet with CPython: KeyError prints the quotes correctly. Only the test's expectation was corrected. Evidence in D:\Dev\BuildArtifacts\net11-migration\keyerror-cpython.txt.
+- P5_layout also run with CPython/Matplotlib on the same host: the saved oracle is confirmed. Unrounded probe: PySharp Y=0.1531963984, Matplotlib Y=0.1550479917. The fixture's double rounding amplifies the difference to 0.1/0.2; no arbitrary numerical correction was applied nor was the golden altered. PySharp's renderer still uses NDSharp.Plot 2.6.2 via NuGet.
+- Resolved an intermittent collision in the temporary Pandas CSV: unique name for the oracle run. The oracle collection is now non-parallel, because the runner modifies the process working directory.
+- Last Release build successful; full suite 1503 passed, 1 failed (Matplotlib P5_layout), 13 suspended. FastAPI/AnyIO and MutableMapping pass. The total number of tests also increased compared with the previous runs; not all of it is attributed to the tests added in these tranches.
+- AST for exceptions/comprehensions/generators, visitor and complete validation remain. The relationship of the previous gaps with the .NET migration has not been demonstrated.
+- The Matplotlib comparison `P5_layout` fails on the vertical position of the image axis after colorbar and tight_layout (expected 0.2, obtained 0.1, with fixture rounding). A test on `get_position` did not resolve the defect and was cancelled; the oracle was not modified.
+- After the cancellation the complete verification was rerun: all builds pass, PySharp keeps 1416 passed, 10 failed and 13 suspended. No test was disabled.
+- Warnings remain in the JupyterSharp and PySharp repositories; the first NDSharp compilation reported 15 warnings.
+- Reran 24 notebooks of the main baseline, 9 additional C#/PySharp runs (tour/scenarios/precision/operators/generics) and the MatSharp embedding notebook. The C# tour is also present in the baseline. PySharp kernel recompiled on .NET 11. These runs precede the change of the package versions; build and tests were reconfirmed after the change.
+- Generated 37 packages in the six repositories with new `-net11-preview.1` versions, without overwriting the previous versions. MathemaSharp 0.2.1-net11-preview.1, NDSharp 2.8.1-net11-preview.1; the others increment the patch of the previous version. Internal NuGet references updated to the generated versions.
+- Separate consumer without ProjectReference and with an isolated cache: restore, build and execution successful. Verified Decimal128, typed NDArray, Bluestein FFT, bridge solvers and PySharp operators/compile. MatSharp, PlotSharp and JupyterSharp are restored in the same consumer but their behaviour is not exercised by this smoke test.
+- Resolved the consumer's NuGet advisories: Microsoft.PowerShell.SDK 7.6.6 introduced Pkcs/Xml 10.0.10. The JupyterSharp.Kernels.PowerShell project now explicitly requires both at 10.0.13, the corrected version according to the GitHub/Microsoft advisories GHSA-846f-f764-76mx, GHSA-7hqp-7c5m-4vq6, GHSA-c399-9853-6jmj and GHSA-r955-8q5j-3h83 (GHSA-2fmv-rv2c-59x7 also checked).
+- JupyterSharp regenerated into nine packages 0.3.1-net11-preview.2, without overwriting preview.1. Release build and 44 tests passed. Consumer updated: restore/build/run successful, zero warnings; `dotnet list ... package --vulnerable --include-transitive` finds no vulnerabilities with the current sources. No audit suppression.
+- The verification concerns the consumer's package graph: it does not certify the complete security of the application, SDK/runtime or other consumers. The packages remain previews, not a certified production release. The previous preview.1 packages remain in the feed for reproducibility and are not to be preferred over the new JupyterSharp packages.
+- Verify separately the samples/tools outside the solutions and the runtime support in the dynamic kernels.
 
-## Audit esteso alle sei soluzioni
+## Audit extended to the six solutions
 
-L’audit globale ha individuato anche PySharp/Pyodbc → Microsoft.Data.SqlClient 7.0.2 → Pkcs 9.0.13, non presente nel precedente consumer. Aggiunto riferimento esplicito Pkcs 10.0.13 in PySharp.Pyodbc. Nuovi pacchetti PySharp e PySharp.Pyodbc 2.5.1-net11-preview.2 generati nel feed; versioni precedenti non sovrascritte.
+The global audit also found PySharp/Pyodbc → Microsoft.Data.SqlClient 7.0.2 → Pkcs 9.0.13, not present in the previous consumer. Added an explicit Pkcs 10.0.13 reference in PySharp.Pyodbc. New PySharp and PySharp.Pyodbc packages 2.5.1-net11-preview.2 generated in the feed; previous versions not overwritten.
 
-Build Release PySharp riuscita; suite 1503 passati, 1 fallito (layout), 13 sospesi. Audit finale delle sei soluzioni: zero pacchetti vulnerabili rilevati dalle fonti correnti e nessun errore di report. Report in D:\Dev\BuildArtifacts\security-audit\20261027-210253. I progetti fuori soluzione e i vecchi pacchetti conservati nel feed non sono inclusi in questa verifica.
+PySharp Release build successful; suite 1503 passed, 1 failed (layout), 13 suspended. Final audit of the six solutions: zero vulnerable packages found from the current sources and no report errors. Report in D:\Dev\BuildArtifacts\security-audit\20261027-210253. Projects outside the solution and the old packages kept in the feed are not included in this verification.
 
 ```sh
 dotnet run --file ops/AuditSciencePackages.cs
 ```
 
-Il gate controlla il JSON NuGet e restituisce exit code 1 su vulnerabilità o errori, perché l’exit code del solo comando `dotnet list package` non basta. Non disabilita né sopprime l’audit.
+The gate checks the NuGet JSON and returns exit code 1 on vulnerabilities or errors, because the exit code of the `dotnet list package` command alone is not enough. It does not disable or suppress the audit.
 
-## Pilota e gate end-to-end
+## Pilot and end-to-end gate
 
-Eseguito `notebooks/Ecosystem/01-signal-spectrum.ipynb` con la CLI JupyterSharp 0.3.1-net11-preview.2 installata localmente sotto BuildArtifacts, non come tool globale. Carica MathemaSharp.Core e PlotSharp dai pacchetti ripristinati in cache isolata, calcola un segnale a 5 cicli e la FFT e salva due SVG tramite Display.Html. Verificati picco FFT, ampiezza e due output HTML/SVG. Nessun ProjectReference né esecuzione JupyterNet in questo pilota; nessuna verifica visuale nel browser.
+Run `notebooks/Ecosystem/01-signal-spectrum.ipynb` with the JupyterSharp CLI 0.3.1-net11-preview.2 installed locally under BuildArtifacts, not as a global tool. It loads MathemaSharp.Core and PlotSharp from the packages restored in an isolated cache, computes a 5-cycle signal and the FFT and saves two SVGs through Display.Html. Verified FFT peak, amplitude and two HTML/SVG outputs. No ProjectReference nor JupyterNet execution in this pilot; no visual verification in the browser.
 
-Aggiunto test degli output salvati; non esegue il kernel. MathemaSharp ora ha 311 test passati. La baseline principale conserva i 24 notebook precedenti; il pilota viene eseguito separatamente dal gate.
+Added a test of the saved outputs; it does not run the kernel. MathemaSharp now has 311 passing tests. The main baseline keeps the 24 previous notebooks; the pilot is run separately from the gate.
 
 ```sh
 dotnet run --file ops/RunEcosystemPilot.cs
 dotnet run --file ops/ValidateEcosystem.cs
 ```
 
-Gate completo rieseguito dopo le correzioni ai test di struttura/output: sicurezza, baseline, kernel PySharp, notebook PySharp/MatSharp e pilota NuGet passano. Lo step build/test resta non zero a causa del test Matplotlib legacy; non viene ignorato né classificato come successo. Report sotto D:\Dev\BuildArtifacts\ecosystem-validation. Il gate non esegue pack automatico né modifica versioni. I progetti/package PlotSharp/JupyterSharp sono integrati sul percorso C#; il plugin PySharp per JupyterSharp non è certificato dal pilota.
+Complete gate rerun after the fixes to the structure/output tests: security, baseline, PySharp kernel, PySharp/MatSharp notebooks and NuGet pilot pass. The build/test step remains non-zero because of the legacy Matplotlib test; it is not ignored nor classified as a success. Report under D:\Dev\BuildArtifacts\ecosystem-validation. The gate does not run an automatic pack nor change versions. The PlotSharp/JupyterSharp projects/packages are integrated on the C# path; the PySharp plugin for JupyterSharp is not certified by the pilot.
 
-## Ripetibilità
+## Repeatability
 
 ```sh
 dotnet run --file ops/UpgradeNet11.cs -- --verify
 ```
 
-Lo script restituisce un codice non zero se una build o suite di test fallisce. `--apply` applica l’aggiornamento dei target; non va usato per correggere automaticamente incompatibilità del codice.
+The script returns a non-zero code if a build or test suite fails. `--apply` applies the target update; it must not be used to automatically fix code incompatibilities.
 
-Log e backup esterni: `D:\Dev\BuildArtifacts\net11-migration`. Output di compilazione e destinazione dei pacchetti rimangono centralizzati come già configurato.
+External logs and backups: `D:\Dev\BuildArtifacts\net11-migration`. Compilation output and package destination remain centralised as already configured.
