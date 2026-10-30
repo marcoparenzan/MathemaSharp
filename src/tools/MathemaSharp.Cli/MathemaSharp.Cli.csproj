@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <PackAsTool>true</PackAsTool>
+    <IsPackable>true</IsPackable>
+    <ToolCommandName>mathema</ToolCommandName>
+    <PackageId>MathemaSharp.Cli</PackageId>
+    <Version>0.1.0-net11-preview.1</Version>
+    <Authors>Marco Parenzan</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>mathema — command-line tool for MàthemaSharp: statistics, autocorrelation, differencing and reference forecasts on a CSV column.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
+    <ProjectReference Include="../../libs/MathemaSharp.TimeSeries/MathemaSharp.TimeSeries.csproj" />
+  </ItemGroup>
+</Project>
