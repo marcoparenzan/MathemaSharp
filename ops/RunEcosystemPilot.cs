@@ -13,7 +13,9 @@ int Run(string name,string command,params string[] args)
 if(Run("packages","dotnet","run","--file","ops/VerifyNet11Packages.cs")!=0)return 1;
 var tools=Path.Combine(artifacts,"tools");
 var executable=Path.Combine(tools,"jupytersharp.exe");
-if(!File.Exists(executable)&&Run("install-cli","dotnet","tool","install","JupyterSharp.Cli","--version","0.3.1-net11-preview.2","--tool-path",tools,"--configfile",@"D:\Dev\BuildArtifacts\net11-pack\consumer\NuGet.Config")!=0)return 1;
+// install the pinned CLI, or move an existing pilot copy to it (an old copy would otherwise stay for ever and keep writing notebooks its old way)
+var cliVerb=File.Exists(executable)?"update":"install";
+if(Run("install-cli","dotnet","tool",cliVerb,"JupyterSharp.Cli","--version","0.3.1-net11-preview.5","--tool-path",tools,"--configfile",@"D:\Dev\BuildArtifacts\net11-pack\consumer\NuGet.Config")!=0)return 1;
 var notebook=Path.Combine(repo,"notebooks","Ecosystem","01-signal-spectrum.ipynb");
 if(Run("execute",executable,"run",notebook,"--in-place","--fail-fast")!=0)return 1;
 using var doc=JsonDocument.Parse(File.ReadAllText(notebook));
