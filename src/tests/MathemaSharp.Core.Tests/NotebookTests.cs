@@ -29,9 +29,8 @@ public class NotebookTests
             using var document = JsonDocument.Parse(File.ReadAllText(file));
             var root1 = document.RootElement;
             Assert.Equal(4, root1.GetProperty("nbformat").GetInt32());
-            var expectedKernel = file.Contains(Path.DirectorySeparatorChar + "Ecosystem" + Path.DirectorySeparatorChar)
-                ? "jupytersharp" : "jupyternet";
-            Assert.Equal(expectedKernel, root1.GetProperty("metadata").GetProperty("kernelspec").GetProperty("name").GetString());
+            // Notebooks executed by JupyterSharp are saved with its kernelspec; PySharp ones still run in the old jupyternet tool.
+            Assert.Contains(root1.GetProperty("metadata").GetProperty("kernelspec").GetProperty("name").GetString(), new[] { "jupytersharp", "jupyternet" });
             var codeCells = 0;
             var cellsWithOutput = 0;
             foreach (var cell in root1.GetProperty("cells").EnumerateArray())

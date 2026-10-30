@@ -2,7 +2,7 @@
 .SYNOPSIS
     Compila la soluzione in Release ed esegue i notebook JupyterNet salvando gli output nei file (--in-place).
 .DESCRIPTION
-    Le librerie sono net11.0 e il tool jupyternet è un'app net10: tutti i notebook girano sul runtime .NET 11
+    Le librerie sono net11.0 e il CLI JupyterSharp gira su .NET 11: tutti i notebook girano sul runtime .NET 11
     tramite roll-forward (LatestMajor, anche su prerelease finché .NET 11 è RC).
     I notebook C# stanno in notebooks/ e negli scenari; quelli PySharp in una cartella pysharp/ e usano il kernel PySharp,
     che serve pubblicato di recente (deve avere il modulo `clr`): il percorso si prende, nell'ordine, da -PySharpKernel,
@@ -50,7 +50,7 @@ try {
         Write-Host "=== $relative (.NET 11$(if ($isPySharp) { ', PySharp' }))" -ForegroundColor Cyan
         $arguments = @('run', $notebook.FullName, '--in-place', '--fail-fast')
         if ($isPySharp) { $arguments += @('--kernel-paths', (Resolve-PySharpKernel)) }
-        dotnet tool run jupyternet @arguments | Out-Null
+        dotnet run --project (Join-Path $root ../JupyterSharp/src/JupyterSharp.Cli) -c Release -- @arguments | Out-Null
         if ($LASTEXITCODE -ne 0) { $failed += $relative; Write-Host '    FALLITO' -ForegroundColor Red } else { Write-Host '    ok' -ForegroundColor Green }
         Remove-Item Env:DOTNET_ROLL_FORWARD, Env:DOTNET_ROLL_FORWARD_TO_PRERELEASE -ErrorAction SilentlyContinue
     }

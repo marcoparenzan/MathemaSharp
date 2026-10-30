@@ -28,7 +28,7 @@ var document=JsonNode.Parse(File.ReadAllText(notebook))!;
 foreach(var cell in document["cells"]!.AsArray().Where(c=>c!["cell_type"]!.GetValue<string>()=="code")){cell!["outputs"]=new JsonArray();cell["execution_count"]=null;}
 File.WriteAllText(notebook,document.ToJsonString());
 var psi=new ProcessStartInfo("dotnet") { UseShellExecute=false,RedirectStandardOutput=true,RedirectStandardError=true };
-foreach(var a in new[]{"tool","run","jupyternet","run",notebook,"--in-place","--fail-fast","--kernel-paths",kernel})psi.ArgumentList.Add(a);
+foreach(var a in new[]{"run","--project",Path.GetFullPath("../JupyterSharp/src/JupyterSharp.Cli"),"-c","Release","--","run",notebook,"--in-place","--fail-fast","--kernel-paths",kernel})psi.ArgumentList.Add(a);
 psi.Environment["DOTNET_ROLL_FORWARD"]="LatestMajor";psi.Environment["DOTNET_ROLL_FORWARD_TO_PRERELEASE"]="1";
 using var process=Process.Start(psi)!;var stdout=process.StandardOutput.ReadToEndAsync();var stderr=process.StandardError.ReadToEndAsync();process.WaitForExit();
 var log=await stdout+await stderr;File.WriteAllText(Path.Combine(output,"execution.log"),log);

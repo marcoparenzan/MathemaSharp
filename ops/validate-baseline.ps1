@@ -49,7 +49,7 @@ try {
   foreach($path in $paths) {
    $index++
    Write-Host "=== [$index/$($paths.Count)] $path"
-   $exit=Invoke-Step ('notebook-'+$index.ToString('D2')) @('tool','run','jupyternet','run',(Join-Path $root $path),'--in-place','--fail-fast')
+   $exit=Invoke-Step ('notebook-'+$index.ToString('D2')) @('run','--project',(Join-Path $root '../JupyterSharp/src/JupyterSharp.Cli'),'-c','Release','--','run',(Join-Path $root $path),'--in-place','--fail-fast')
    $notebookResults.Add([pscustomobject]@{Path=$path;Status=$(if($exit -eq 0){'Executed'}else{'Failed'});ExitCode=$exit})
   }
  } else {

@@ -15,7 +15,7 @@ var clean=System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(notebook))!;
 foreach(var cell in clean["cells"]!.AsArray().Where(c=>c!["cell_type"]!.GetValue<string>()=="code")) { cell!["outputs"]=new System.Text.Json.Nodes.JsonArray(); cell["execution_count"]=null; }
 File.WriteAllText(notebook,clean.ToJsonString());
 var psi=new ProcessStartInfo("dotnet"){UseShellExecute=false,RedirectStandardOutput=true,RedirectStandardError=true};
-foreach(var arg in new[]{"tool","run","jupyternet","run",notebook,"--in-place","--fail-fast"})psi.ArgumentList.Add(arg);
+foreach(var arg in new[]{"run","--project",Path.GetFullPath("../JupyterSharp/src/JupyterSharp.Cli"),"-c","Release","--","run",notebook,"--in-place","--fail-fast"})psi.ArgumentList.Add(arg);
 psi.Environment["DOTNET_ROLL_FORWARD"]="LatestMajor";
 psi.Environment["DOTNET_ROLL_FORWARD_TO_PRERELEASE"]="1";
 using var process=Process.Start(psi)!;
@@ -42,4 +42,4 @@ if(entry.TryGetProperty("expectedQuotes",out var eq)&&quotes!=eq.GetInt32())thro
 if(entry.GetProperty("requireTable").GetBoolean() && !observedTable)throw new Exception("No required HTML table found in migrated notebook.");
 if(smoothing && !observedGap)throw new Exception("No split line path found in missing-observation notebook.");
 if(svg!=expected)throw new Exception($"Expected {expected} migrated SVGs, got {svg}");
-Console.WriteLine($"Migrated notebook {notebook}: real execution, {svg} PlotSharp SVGs XML validated. JupyterNet host; visual review pending.");return 0;
+Console.WriteLine($"Migrated notebook {notebook}: real execution, {svg} PlotSharp SVGs XML validated. JupyterSharp host; visual review pending.");return 0;
