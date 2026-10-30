@@ -1,8 +1,8 @@
 # VAR: modello vettoriale autoregressivo
 
-![quinta riga dell'infografica (1980)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-01`](../time-series-forecasting-0-01.jpg) · quinta riga dell'infografica (1980) · **1980** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-01` · quinta riga dell'infografica (1980) · **1980** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

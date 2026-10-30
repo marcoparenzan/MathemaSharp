@@ -1,6 +1,6 @@
 # time-series forecasting · 01 · fondamenti statistici
 
-![infografica completa](time-series-forecasting-0-01.jpg)
+*(Reference image not included in the repository: third-party material.)*
 
 *Una cronologia di idee, non una classifica di modelli.* Riferimenti dell'infografica: Hyndman & Athanasopoulos (FPP2) e le pubblicazioni originali. Gli schemi sono illustrativi.
 

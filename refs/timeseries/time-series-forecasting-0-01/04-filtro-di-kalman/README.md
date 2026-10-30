@@ -1,8 +1,8 @@
 # Filtro di Kalman
 
-![terza riga dell'infografica (1960)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-01`](../time-series-forecasting-0-01.jpg) · terza riga dell'infografica (1960) · **1960** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-01` · terza riga dell'infografica (1960) · **1960** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

@@ -1,8 +1,8 @@
 # Previsioni di riferimento: mean, naive, seasonal naive
 
-![banda «Reference forecasts» in testa all'infografica](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-01`](../time-series-forecasting-0-01.jpg) · banda «Reference forecasts» in testa all'infografica · **sempre valide** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-01` · banda «Reference forecasts» in testa all'infografica · **sempre valide** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

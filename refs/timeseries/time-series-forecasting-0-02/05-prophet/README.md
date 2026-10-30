@@ -1,8 +1,8 @@
 # Prophet
 
-![quinta riga dell'infografica (2017)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-02`](../time-series-forecasting-0-02.jpg) · quinta riga dell'infografica (2017) · **2017** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-02` · quinta riga dell'infografica (2017) · **2017** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

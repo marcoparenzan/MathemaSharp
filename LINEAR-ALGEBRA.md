@@ -1,8 +1,10 @@
 # Algebra lineare per AI — guida all’infografica
 
+> **Immagini di riferimento non incluse.** L'infografica su cui si basa questa guida è attribuita a Greg Coquillo ed è materiale di terzi: non è inclusa nel repository (la guida ne riporta formule e API in testo). Il rimando alle immagini `1793027138639.jpg` e `infografica.png` va letto in questo senso.
+
 L’immagine `1793027138639.jpg`, attribuita nell’immagine a Greg Coquillo, è una mappa didattica, non un benchmark. Questa guida ne traduce i nove riquadri in formule leggibili e API C#. L’immagine originale rimane invariata.
 
-![Linear Algebra Formulas for AI — infografica di riferimento](refs/linear-algebra/infografica.png)
+*(Reference image not included in the repository: third-party material.)*
 
 ## 01 — Vettori
 

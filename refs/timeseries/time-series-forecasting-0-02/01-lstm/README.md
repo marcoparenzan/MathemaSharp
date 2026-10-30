@@ -1,8 +1,8 @@
 # LSTM: memoria con porte
 
-![prima riga dell'infografica (1997)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-02`](../time-series-forecasting-0-02.jpg) · prima riga dell'infografica (1997) · **1997** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-02` · prima riga dell'infografica (1997) · **1997** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

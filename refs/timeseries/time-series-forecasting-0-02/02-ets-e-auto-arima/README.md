@@ -1,8 +1,8 @@
 # Quadro ETS e Auto ARIMA
 
-![seconda riga dell'infografica (2002 / 2008)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-02`](../time-series-forecasting-0-02.jpg) · seconda riga dell'infografica (2002 / 2008) · **2002 / 2008** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-02` · seconda riga dell'infografica (2002 / 2008) · **2002 / 2008** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

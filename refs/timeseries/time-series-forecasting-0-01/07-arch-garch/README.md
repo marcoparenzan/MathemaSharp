@@ -1,8 +1,8 @@
 # ARCH e GARCH
 
-![sesta riga dell'infografica (1982 / 1986)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-01`](../time-series-forecasting-0-01.jpg) · sesta riga dell'infografica (1982 / 1986) · **1982 / 1986** · stato ◐ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-01` · sesta riga dell'infografica (1982 / 1986) · **1982 / 1986** · stato ◐ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

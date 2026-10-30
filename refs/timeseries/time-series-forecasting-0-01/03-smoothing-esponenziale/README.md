@@ -1,8 +1,8 @@
 # Smoothing esponenziale: SES, Holt, Holt-Winters
 
-![seconda riga dell'infografica (anni '50 – 1960)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-01`](../time-series-forecasting-0-01.jpg) · seconda riga dell'infografica (anni '50 – 1960) · **anni '50 – 1960** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-01` · seconda riga dell'infografica (anni '50 – 1960) · **anni '50 – 1960** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

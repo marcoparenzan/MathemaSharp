@@ -1,8 +1,8 @@
 # TBATS: stagionalità lunghe, multiple e non intere
 
-![terza riga dell'infografica (2011)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-02`](../time-series-forecasting-0-02.jpg) · terza riga dell'infografica (2011) · **2011** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-02` · terza riga dell'infografica (2011) · **2011** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

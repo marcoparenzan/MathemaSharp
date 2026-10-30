@@ -2,7 +2,7 @@
 
 > **Questa pagina è un riassunto.** La trattazione completa — formule, realizzazione, uso funzione per funzione, overlap con NumPy in PySharp, esempi in C# e PySharp, scenari industriali — è nel **[libro](refs/timeseries/README.md)**.
 
-Libreria (pacchetto NuGet) in `src/libs/MathemaSharp.TimeSeries`. Dipende solo da `MathemaSharp.Core`, target net11.0, **generica su `T : IFloatingPointIeee754<T>`** (float, double, Half, Decimal32/64/128). Segue la cronologia di [refs/timeseries/time-series-forecasting-0-01/time-series-forecasting-0-01.jpg](refs/timeseries/time-series-forecasting-0-01/time-series-forecasting-0-01.jpg): *una cronologia di idee, non una classifica di modelli*. Ogni tappa ha un'implementazione, test che ne verificano le proprietà matematiche e un notebook eseguito.
+Libreria (pacchetto NuGet) in `src/libs/MathemaSharp.TimeSeries`. Dipende solo da `MathemaSharp.Core`, target net11.0, **generica su `T : IFloatingPointIeee754<T>`** (float, double, Half, Decimal32/64/128). Segue la cronologia di refs/timeseries/time-series-forecasting-0-01/time-series-forecasting-0-01.jpg: *una cronologia di idee, non una classifica di modelli*. Ogni tappa ha un'implementazione, test che ne verificano le proprietà matematiche e un notebook eseguito.
 
 ## Analisi delle infografiche 03–05 e nuovi mattoni
 

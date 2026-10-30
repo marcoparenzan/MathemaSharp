@@ -1,5 +1,7 @@
 # Previsione di serie temporali: dalle idee alla fabbrica
 
+> **Immagini di riferimento non incluse.** Le infografiche da cui nascono questi capitoli, e i loro ritagli (`riga.png`, `sintesi.png`), sono materiale di terzi di cui non è nota la provenienza: sono state rimosse dal repository. Restano le descrizioni e le schede in testo.
+
 > Una storia delle idee del forecasting, dalle previsioni di riferimento ai *foundation model*, con le formule delle tecniche classiche, la loro realizzazione in .NET 11 con **Generic Math** (`float`, `double`, `Half`, `Decimal32/64/128`), e scenari di **IoT industriale**: persone che acquisiscono dati e segnali da automazioni e devono produrre KPI, dashboard e risposte ai clienti.
 
 Scritto in italiano. Le formule usano KaTeX (`$…$`), che VS Code e GitHub visualizzano. Il sommario in formato mdBook è in [SUMMARY.md](SUMMARY.md).

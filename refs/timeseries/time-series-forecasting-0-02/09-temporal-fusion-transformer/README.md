@@ -1,8 +1,8 @@
 # Temporal Fusion Transformer
 
-![nona riga dell'infografica (2019)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-02`](../time-series-forecasting-0-02.jpg) · nona riga dell'infografica (2019) · **2019** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-02` · nona riga dell'infografica (2019) · **2019** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

@@ -1,8 +1,8 @@
 # Alberi di decisione su feature di ritardo
 
-![quarta riga dell'infografica (anni 2010)](riga.png)
+*(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** [`time-series-forecasting-0-02`](../time-series-forecasting-0-02.jpg) · quarta riga dell'infografica (anni 2010) · **anni 2010** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infografica** `time-series-forecasting-0-02` · quarta riga dell'infografica (anni 2010) · **anni 2010** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
 
 ## Descrizione teorica
 

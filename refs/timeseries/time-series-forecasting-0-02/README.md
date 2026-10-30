@@ -1,6 +1,6 @@
 # time-series forecasting · 02 · automazione e modelli neurali
 
-![infografica completa](time-series-forecasting-0-02.jpg)
+*(Reference image not included in the repository: third-party material.)*
 
 *1997–2019: nuove architetture e apprendimento condiviso.* Le date indicano pubblicazioni di riferimento o prime anteprime; gli schemi sono illustrativi. Fonti dell'infografica: FPP2, Hyndman & Khandakar, DeepAR, N-BEATS, TFT.
 
@@ -20,7 +20,7 @@ Legenda: ✅ implementata · ◐ in parte · ⬜ non implementata ([atlante](../
 
 ## «Due cambiamenti diversi»
 
-![riquadro finale dell'infografica](sintesi.png)
+*(Reference image not included in the repository: third-party material.)*
 
 L'infografica chiude distinguendo due cose che spesso si confondono:
 
