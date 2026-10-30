@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Net;
 using System.Text;
 
-/// <summary>Tabella HTML semplice: utile per confrontare modelli e per la vista tabellare dei grafici.</summary>
+/// <summary>Simple HTML table: useful for comparing models and for the tabular view of charts.</summary>
 public static class Table
 {
     public static void Show(string[] headers, IEnumerable<object[]> rows)
@@ -26,17 +26,17 @@ public static class Table
     }
 }
 
-/// <summary>Un indicatore: etichetta, valore grande, nota e stato. Lo stato si legge SEMPRE da simbolo e parola, mai dal solo colore.</summary>
+/// <summary>An indicator: label, large value, note and status. The status is ALWAYS read from symbol and word, never from colour alone.</summary>
 public sealed record Tile(string Label, string Value, string Note = "", string Status = "");
 
-/// <summary>Riga di tile KPI per le dashboard dei notebook (stat tile): valore in evidenza, contesto sotto, stato con simbolo e parola.</summary>
+/// <summary>Row of KPI tiles for notebook dashboards (stat tiles): highlighted value, context below, status with symbol and word.</summary>
 public static class Kpi
 {
     static string StatusText(string status) => status switch
     {
-        "ok" => "✓ nella norma",
-        "warn" => "▲ attenzione",
-        "alarm" => "✖ allarme",
+        "ok" => "✓ normal",
+        "warn" => "▲ warning",
+        "alarm" => "✖ alarm",
         _ => "",
     };
 
@@ -56,7 +56,7 @@ public static class Kpi
         Display.Html(html.Append("</div>").ToString());
     }
 
-    /// <summary>Riquadro di testo (es. la risposta al cliente), con il testo già composto dai numeri calcolati.</summary>
+    /// <summary>Text box (e.g. the answer to the customer), with the text already composed from the computed numbers.</summary>
     public static void Quote(string title, string text) =>
         Display.Html($"<div class=\"mathema-quote\" style=\"background:#fcfcfb;border-left:4px solid #2a78d6;padding:10px 14px;margin:8px 0;font-family:system-ui,sans-serif;color:#0b0b0b\"><div style=\"font-size:12px;color:#52514e\">{WebUtility.HtmlEncode(title)}</div><div style=\"font-size:14px\">{WebUtility.HtmlEncode(text)}</div></div>");
 }

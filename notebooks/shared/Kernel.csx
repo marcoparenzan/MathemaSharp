@@ -1,6 +1,6 @@
-// Impostazioni comuni del kernel C# di JupyterNet (≥ 0.3.0, che cattura già Console.Out e risolve i percorsi relativi).
-// Ogni cella può girare su un thread diverso: la cultura invariante va impostata anche come default dei thread,
-// altrimenti con cultura italiana i numeri uscirebbero come "0,2".
+// Common settings of the C# kernel (≥ 0.3.0, which already captures Console.Out and resolves relative paths).
+// Each cell may run on a different thread: the invariant culture must also be set as the threads' default,
+// otherwise with an Italian culture numbers would come out as "0,2".
 using System.Globalization;
 
 CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;

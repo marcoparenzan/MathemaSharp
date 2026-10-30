@@ -1,11 +1,11 @@
 #load "Presentation.csx"
-// Grafici SVG statici per l'output HTML dei notebook (Show.Html). Nessuna dipendenza: stili inline, superficie chiara esplicita,
-// palette categoriale validata (slot in ordine fisso), linee 2px, griglia hairline, tooltip nativi <title> su ogni punto.
+// Static SVG charts for the notebooks' HTML output (Show.Html). No dependencies: inline styles, explicit light surface,
+// validated categorical palette (slots in fixed order), 2px lines, hairline grid, native <title> tooltips on every point.
 using System.Globalization;
 using System.Net;
 using System.Text;
 
-/// <summary>Una serie: Y[i] è disegnato all'ascissa Start + i. Dashed per le previsioni.</summary>
+/// <summary>A series: Y[i] is drawn at abscissa Start + i. Dashed for forecasts.</summary>
 public sealed record Line(string Name, double[] Y, int Start = 0, bool Dashed = false);
 
 public static class Chart
@@ -17,10 +17,10 @@ public static class Chart
     static string F(double v) => v.ToString("0.##", CultureInfo.InvariantCulture);
     static string Esc(string s) => WebUtility.HtmlEncode(s);
 
-    /// <summary>Linee su un unico asse y. Legenda sopra il grafico quando le serie sono almeno due.</summary>
+    /// <summary>Lines on a single y axis. Legend above the chart when there are at least two series.</summary>
     public static void Lines(string title, params Line[] lines) => Display.Html(LinesSvg(title, 260, lines));
 
-    /// <summary>Small multiples: un pannello per serie, ognuno con la propria scala y (es. componenti STL).</summary>
+    /// <summary>Small multiples: one panel per series, each with its own y scale (e.g. STL components).</summary>
     public static void Panels(string title, params Line[] lines)
     {
         var html = new StringBuilder($"<div style=\"font:600 15px system-ui,sans-serif;color:{TextPrimary};margin:4px 0\">{Esc(title)}</div>");
@@ -28,7 +28,7 @@ public static class Chart
         Display.Html(html.ToString());
     }
 
-    /// <summary>Correlogramma: aste per lag 1..n con banda ±band (es. 1.96/√n) come riferimento di rumore bianco.</summary>
+    /// <summary>Correlogram: stems for lags 1..n with a ±band (e.g. 1.96/√n) as the white-noise reference.</summary>
     public static void Stems(string title, double[] values, double band = double.NaN, int firstLag = 1)
     {
         const int height = 220;
