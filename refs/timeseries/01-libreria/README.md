@@ -1,68 +1,68 @@
-# Parte II — La libreria
+# Part II — The library
 
-> **Numbers**: una famiglia di librerie .NET 11 per la matematica numerica, scritte come **Generic Math** (`T : IFloatingPointIeee754<T>`): gli stessi algoritmi funzionano con `float`, `double`, `Half` e i formati decimali `Decimal32`, `Decimal64`, `Decimal128`.
+> **Numbers**: a family of .NET 11 libraries for numerical mathematics, written as **Generic Math** (`T : IFloatingPointIeee754<T>`): the same algorithms work with `float`, `double`, `Half` and the decimal formats `Decimal32`, `Decimal64`, `Decimal128`.
 
-Questa parte risponde a quattro domande, in quest'ordine:
+This part answers four questions, in this order:
 
-| | Domanda | Dove |
+| | Question | Where |
 |---|---|---|
-| 1 | **Qual è la libreria?** Pacchetti, dipendenze, come si usa | questa pagina |
-| 2 | **Come si usa, funzione per funzione?** | [02 · Uso e funzioni](02-uso-e-funzioni.md) |
-| 3 | **Cosa si sovrappone a NumPy in PySharp?** | [03 · Overlap con NumPy](03-overlap-numpy.md) |
-| 4 | **Esempi in C# e in PySharp** | [04 · Esempi](04-esempi.md) |
+| 1 | **What is the library?** Packages, dependencies, how to use it | this page |
+| 2 | **How is it used, function by function?** | [02 · Use and functions](02-uso-e-funzioni.md) |
+| 3 | **What overlaps with NumPy in PySharp?** | [03 · Overlap with NumPy](03-overlap-numpy.md) |
+| 4 | **Examples in C# and in PySharp** | [04 · Examples](04-esempi.md) |
 
-## 1 · Indicazione della libreria
+## 1 · The library at a glance
 
-### I pacchetti
+### The packages
 
-| Pacchetto | Cosa contiene | Dipende da | Documentazione |
+| Package | What it contains | Depends on | Documentation |
 |---|---|---|---|
-| **`MathemaSharp.Core`** | `NumericAlgorithms` (somma, Kahan, Horner, GCD, fattoriale), `Precision` (confronti con tolleranza, arrotondamenti `decimal`), `Signals` (DFT, prodotto hermitiano, prodotto scalare SIMD) | — | [ARCHITECTURE](../../../ARCHITECTURE.md) |
-| **`MathemaSharp.TimeSeries`** | statistiche, previsioni di riferimento, AR/ARIMA, smoothing, Kalman, VAR, GARCH, STL, simulazione, **`Interop`** | `MathemaSharp.Core` | [Parte I](../00-formule-e-libreria/README.md) |
-| **`MathemaSharp.Quantum`** | ket, operatori, Pauli, evoluzione temporale, matrice densità | `MathemaSharp.Core` | [QUANTUM](../../../QUANTUM.md) |
-| **`MathemaSharp.NDSharp`** | ponte fra `NDArray` (NumPy di PySharp) e `T[]`, `T[,]`, `Complex<T>[]` | pacchetto `NDSharp` 2.5.0 | questa parte |
+| **`MathemaSharp.Core`** | `NumericAlgorithms` (sum, Kahan, Horner, GCD, factorial), `Precision` (comparisons with tolerance, `decimal` roundings), `Signals` (DFT, Hermitian product, SIMD dot product) | — | [ARCHITECTURE](../../../ARCHITECTURE.md) |
+| **`MathemaSharp.TimeSeries`** | statistics, baseline forecasts, AR/ARIMA, smoothing, Kalman, VAR, GARCH, STL, simulation, **`Interop`** | `MathemaSharp.Core` | [Part I](../00-formule-e-libreria/README.md) |
+| **`MathemaSharp.Quantum`** | kets, operators, Pauli, time evolution, density matrix | `MathemaSharp.Core` | [QUANTUM](../../../QUANTUM.md) |
+| **`MathemaSharp.NDSharp`** | bridge between `NDArray` (PySharp's NumPy) and `T[]`, `T[,]`, `Complex<T>[]` | `NDSharp` package 2.5.0 | this part |
 
-Versione **0.1.0**, target **net11.0** (SDK e runtime 11 RC2, `global.json`), documentazione XML inclusa nei pacchetti. Il libro tratta soprattutto `MathemaSharp.TimeSeries`.
+Version **0.1.0**, target **net11.0** (SDK and runtime 11 RC2, `global.json`), XML documentation included in the packages. The book mainly covers `MathemaSharp.TimeSeries`.
 
-### I vincoli di tipo
+### The type constraints
 
-| Dove | Vincolo su `T` |
+| Where | Constraint on `T` |
 |---|---|
 | `MathemaSharp.TimeSeries`, `Precision`, `Signals.VectorDot` | `IFloatingPointIeee754<T>` |
-| `Signals.Dft`, `Signals.HermitianDot`, `MathemaSharp.Quantum` | `IFloatingPointIeee754<T>, IMinMaxValue<T>` (quelli di `Complex<T>`) |
+| `Signals.Dft`, `Signals.HermitianDot`, `MathemaSharp.Quantum` | `IFloatingPointIeee754<T>, IMinMaxValue<T>` (those of `Complex<T>`) |
 
-Formati ammessi: `float`, `double`, `Half`, `Decimal32`, `Decimal64`, `Decimal128`. **`System.Decimal` non è ammesso** (non implementa `IFloatingPointIeee754`). Quale scegliere: [cap. 1](../00-formule-e-libreria/01-generic-math.md).
+Allowed formats: `float`, `double`, `Half`, `Decimal32`, `Decimal64`, `Decimal128`. **`System.Decimal` is not allowed** (it does not implement `IFloatingPointIeee754`). Which to choose: [ch. 1](../00-formule-e-libreria/01-generic-math.md).
 
-### Come si ottiene
+### How to get it
 
 ```powershell
-dotnet build src/MathemaSharp.slnx -c Release          # artifacts/bin/<progetto>/release/*.dll
+dotnet build src/MathemaSharp.slnx -c Release          # artifacts/bin/<project>/release/*.dll
 pwsh scripts/pack.ps1                              # artifacts/package/release/*.nupkg
-pwsh scripts/pack.ps1 -Publish                     # copia anche nel feed locale D:\Dev\NuGetLocalFeed
+pwsh scripts/pack.ps1 -Publish                     # also copies into the local feed D:\Dev\NuGetLocalFeed
 ```
 
 ```xml
 <PackageReference Include="MathemaSharp.TimeSeries" Version="0.1.0" />
 ```
 
-(con il feed locale in `nuget.config`). Da un notebook JupyterNet, `#load "shared/MathemaSharp.csx"` referenzia le DLL di `artifacts/` (vedi [USAGE](../../../USAGE.md#notebook-jupyternet)).
+(with the local feed in `nuget.config`). From a JupyterNet notebook, `#load "shared/MathemaSharp.csx"` references the DLLs in `artifacts/` (see [USAGE](../../../USAGE.md#notebooks-jupyternet)).
 
-### Due modi di usarla
+### Two ways of using it
 
-| | **API generica** | **Facciata `Interop`** |
+| | **Generic API** | **`Interop` facade** |
 |---|---|---|
-| Per chi | C# (e F#) | PySharp, PowerShell, qualunque host con reflection |
-| Tipi | `T` a scelta; `ReadOnlySpan<T>` | solo `double[]`; matrici appiattite |
+| For whom | C# (and F#) | PySharp, PowerShell, any host with reflection |
+| Types | `T` of your choice; `ReadOnlySpan<T>` | only `double[]`; flattened matrices |
 | Namespace | `MathemaSharp.TimeSeries` | `MathemaSharp.TimeSeries.Interop` |
-| Perché esiste | il modo naturale in .NET | la reflection di PySharp non passa `ReadOnlySpan<T>` né risolve i metodi generici |
-| Cosa si perde | — | gli altri formati: l'`Interop` è `double` |
+| Why it exists | the natural way in .NET | PySharp's reflection does not pass `ReadOnlySpan<T>` nor resolve generic methods |
+| What is lost | — | the other formats: `Interop` is `double` |
 
-I due livelli producono **numeri identici**: lo verifica il test `LibraryTourNotebooksAgreeAcrossLanguages` sul [giro della libreria](04-esempi.md).
+The two levels produce **identical numbers**: the test `LibraryTourNotebooksAgreeAcrossLanguages` verifies it on the [library tour](04-esempi.md).
 
-### Cosa la libreria **non** è
+### What the library is **not**
 
-- Non è una libreria di algebra lineare ad alte prestazioni (niente BLAS, niente SIMD per i decimali): per array N-dimensionali c'è NDSharp, tramite `MathemaSharp.NDSharp`.
-- Non è `statsmodels`: ARIMA è per **Hannan-Rissanen** (non massima verosimiglianza), il Kalman ha osservazione scalare, il GARCH è (1,1) gaussiano. I limiti di ogni algoritmo stanno nel suo capitolo della Parte I.
-- Nessuna misura di prestazione è stata raccolta: **non si dedurrà nessun rapporto di velocità** fra formati o fra librerie.
+- It is not a high-performance linear-algebra library (no BLAS, no SIMD for the decimals): for N-dimensional arrays there is NDSharp, through `MathemaSharp.NDSharp`.
+- It is not `statsmodels`: ARIMA is by **Hannan-Rissanen** (not maximum likelihood), the Kalman has scalar observation, the GARCH is Gaussian (1,1). The limits of each algorithm are in its chapter of Part I.
+- No performance measurement was collected: **no speed ratio will be deduced** between formats or between libraries.
 
-→ [02 · Uso e funzioni](02-uso-e-funzioni.md)
+→ [02 · Use and functions](02-uso-e-funzioni.md)

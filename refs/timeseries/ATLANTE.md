@@ -1,220 +1,220 @@
-# Atlante delle teorie
+# Atlas of theories
 
-> Le **91 teorie** delle 18 infografiche di [`refs/timeseries`](.), con **che cosa esiste nel repository** per ciascuna. Le infografiche descrivono idee e cronologia, non una classifica di modelli: qui si dice solo cosa è stato **realizzato**.
+> The **91 theories** of the 18 infographics in [`refs/timeseries`](.), with **what exists in the repository** for each. The infographics describe ideas and chronology, not a ranking of models: here we say only what has been **realised**.
 
-## Legenda dello stato
+## Status legend
 
-| | Significato |
+| | Meaning |
 |---|---|
-| ✅ | **implementata** nella libreria, con test che ne verificano le proprietà |
-| ◐ | **in parte**: un sottoinsieme, un mattone di base, o soltanto nel codice di un notebook |
-| ⬜ | **non implementata**. Se compare un testo, è quello della Parte I solo per ciò che serve a capirla; la scheda di approfondimento della teoria è **ancora da scrivere** |
+| ✅ | **implemented** in the library, with tests that verify its properties |
+| ◐ | **in part**: a subset, a basic building block, or only in a notebook's code |
+| ⬜ | **not implemented**. If a text appears, it is that of Part I only for what is needed to understand it; the in-depth card of the theory is **still to be written** |
 
-Colonna **Testo**: il capitolo del libro che spiega formule e realizzazione ([Parte I](00-formule-e-libreria/README.md)). Colonne **C#** e **PySharp**: i notebook che la mostrano in funzione ([`notebooks/`](../../notebooks/), [`scenari/`](../../scenari/README.md)). Colonna **Libreria**: la classe o la funzione ([API](01-libreria/02-uso-e-funzioni.md)).
+**Text** column: the chapter of the book that explains formulas and realisation ([Part I](00-formule-e-libreria/README.md)). **C#** and **PySharp** columns: the notebooks that show it at work ([`notebooks/`](../../notebooks/), [`scenari/`](../../scenari/README.md)). **Library** column: the class or function ([API](01-libreria/02-uso-e-funzioni.md)).
 
-Abbreviazioni dei notebook: **06–09** = [`notebooks/06…09`](../../notebooks/) (C#); **10** = il [giro della libreria](01-libreria/04-esempi.md), in C# e in PySharp; **A1**, **D1** = scenari [A](../../scenari/A-magazzino-frigorifero/README.md) (magazzino frigorifero) e [D](../../scenari/D-fotovoltaico/README.md) (fotovoltaico), in C# e in PySharp.
+Notebook abbreviations: **06–09** = [`notebooks/06…09`](../../notebooks/) (C#); **10** = the [library tour](01-libreria/04-esempi.md), in C# and in PySharp; **A1**, **D1** = scenarios [A](../../scenari/A-magazzino-frigorifero/README.md) (cold-storage warehouse) and [D](../../scenari/D-fotovoltaico/README.md) (photovoltaic), in C# and in PySharp.
 
-**Riepilogo:** 13 ✅ · 12 ◐ · 66 ⬜ (su 91, contati sulle tabelle di questa pagina).
+**Summary:** 13 ✅ · 12 ◐ · 66 ⬜ (out of 91, counted on the tables of this page).
 
 ---
 
-## Fondamenti statistici — [`time-series-forecasting-0-01`](time-series-forecasting-0-01/README.md)
+## Statistical foundations — [`time-series-forecasting-0-01`](time-series-forecasting-0-01/README.md)
 
-**Schede complete** (descrizione teorica + racconto a fumetti) per tutte e 9 le teorie. Per le altre infografiche l'atlante è ancora l'unico indice.
+**Complete cards** (theoretical description + comic-strip story) for all 9 theories. For the other infographics the atlas is still the only index.
 
-| Teoria | Anni | Stato | Testo | C# | PySharp | Libreria |
+| Theory | Years | Status | Text | C# | PySharp | Library |
 |---|---|---|---|---|---|---|
-| [Previsioni di riferimento: mean, naive, seasonal naive](time-series-forecasting-0-01/01-previsioni-di-riferimento/README.md) | — | ✅ | [cap. 3](00-formule-e-libreria/03-riferimenti-e-metriche.md) | 06, 07, A1, D1 | 10, A1, D1 | `ReferenceForecasts`, `Accuracy` |
-| [Autoregressione e innovazioni (Yule; Wold)](time-series-forecasting-0-01/02-autoregressione-e-innovazioni/README.md) | 1927–38 | ✅ | [cap. 2](00-formule-e-libreria/02-statistica-di-base.md), [4](00-formule-e-libreria/04-ar-arima.md) | 06 | 10 | `ArModel`, `SeriesStatistics` |
-| [Smoothing esponenziale: SES, Holt, Holt-Winters](time-series-forecasting-0-01/03-smoothing-esponenziale/README.md) | 1950s–60 | ✅ | [cap. 5](00-formule-e-libreria/05-smoothing.md) | 07, A1 | 10, A1 | `ExponentialSmoothing` |
-| [Filtro di Kalman](time-series-forecasting-0-01/04-filtro-di-kalman/README.md) | 1960 | ✅ | [cap. 6](00-formule-e-libreria/06-kalman.md) | 07, A1 | 10, A1 | `KalmanFilter` |
-| [Box-Jenkins / ARIMA](time-series-forecasting-0-01/05-box-jenkins-arima/README.md) | 1970 | ◐ solo Hannan-Rissanen, non la massima verosimiglianza esatta | [cap. 4](00-formule-e-libreria/04-ar-arima.md) | 08 | 10 | `ArimaModel` |
-| [VAR in macroeconomia](time-series-forecasting-0-01/06-var/README.md) | 1980 | ✅ | [cap. 7](00-formule-e-libreria/07-var.md) | 08, A1 | 10, A1 | `VarModel` |
-| [ARCH / GARCH](time-series-forecasting-0-01/07-arch-garch/README.md) | 1982/86 | ◐ solo GARCH(1,1) gaussiano (ARCH(1) = β = 0) | [cap. 8](00-formule-e-libreria/08-garch.md) | 08, A1 | 10, A1 | `Garch11` |
-| [Damped trend](time-series-forecasting-0-01/08-damped-trend/README.md) | 1985 | ✅ | [cap. 5](00-formule-e-libreria/05-smoothing.md) | 07 | 10 | `ExponentialSmoothing.Holt(…, phi)` |
-| [Decomposizione STL](time-series-forecasting-0-01/09-stl/README.md) | 1990 | ✅ | [cap. 9](00-formule-e-libreria/09-stl-loess.md) | 09 | 10 | `Stl` |
+| [Baseline forecasts: mean, naive, seasonal naive](time-series-forecasting-0-01/01-previsioni-di-riferimento/README.md) | — | ✅ | [ch. 3](00-formule-e-libreria/03-riferimenti-e-metriche.md) | 06, 07, A1, D1 | 10, A1, D1 | `ReferenceForecasts`, `Accuracy` |
+| [Autoregression and innovations (Yule; Wold)](time-series-forecasting-0-01/02-autoregressione-e-innovazioni/README.md) | 1927–38 | ✅ | [ch. 2](00-formule-e-libreria/02-statistica-di-base.md), [4](00-formule-e-libreria/04-ar-arima.md) | 06 | 10 | `ArModel`, `SeriesStatistics` |
+| [Exponential smoothing: SES, Holt, Holt-Winters](time-series-forecasting-0-01/03-smoothing-esponenziale/README.md) | 1950s–60 | ✅ | [ch. 5](00-formule-e-libreria/05-smoothing.md) | 07, A1 | 10, A1 | `ExponentialSmoothing` |
+| [Kalman filter](time-series-forecasting-0-01/04-filtro-di-kalman/README.md) | 1960 | ✅ | [ch. 6](00-formule-e-libreria/06-kalman.md) | 07, A1 | 10, A1 | `KalmanFilter` |
+| [Box-Jenkins / ARIMA](time-series-forecasting-0-01/05-box-jenkins-arima/README.md) | 1970 | ◐ only Hannan-Rissanen, not exact maximum likelihood | [ch. 4](00-formule-e-libreria/04-ar-arima.md) | 08 | 10 | `ArimaModel` |
+| [VAR in macroeconomics](time-series-forecasting-0-01/06-var/README.md) | 1980 | ✅ | [ch. 7](00-formule-e-libreria/07-var.md) | 08, A1 | 10, A1 | `VarModel` |
+| [ARCH / GARCH](time-series-forecasting-0-01/07-arch-garch/README.md) | 1982/86 | ◐ only Gaussian GARCH(1,1) (ARCH(1) = β = 0) | [ch. 8](00-formule-e-libreria/08-garch.md) | 08, A1 | 10, A1 | `Garch11` |
+| [Damped trend](time-series-forecasting-0-01/08-damped-trend/README.md) | 1985 | ✅ | [ch. 5](00-formule-e-libreria/05-smoothing.md) | 07 | 10 | `ExponentialSmoothing.Holt(…, phi)` |
+| [STL decomposition](time-series-forecasting-0-01/09-stl/README.md) | 1990 | ✅ | [ch. 9](00-formule-e-libreria/09-stl-loess.md) | 09 | 10 | `Stl` |
 
-## Automazione e modelli neurali — [`time-series-forecasting-0-02`](time-series-forecasting-0-02/README.md)
+## Automation and neural models — [`time-series-forecasting-0-02`](time-series-forecasting-0-02/README.md)
 
-**Schede complete** (descrizione teorica + racconto a fumetti) per tutte e 9 le teorie.
+**Complete cards** (theoretical description + comic-strip story) for all 9 theories.
 
-| Teoria | Anni | Stato | Note |
+| Theory | Years | Status | Notes |
 |---|---|---|---|
-| [LSTM](time-series-forecasting-0-02/01-lstm/README.md) | 1997 | ⬜ | rete ricorrente a memoria con porte |
-| [Quadro ETS e Auto ARIMA](time-series-forecasting-0-02/02-ets-e-auto-arima/README.md) | 2002/08 | ⬜ | Holt-Winters additivo coincide con ETS(A,A,A) nelle previsioni puntuali; manca la stima per verosimiglianza e la selezione automatica (nel notebook 08 il confronto fra ordini è manuale, con AIC) |
-| [TBATS](time-series-forecasting-0-02/03-tbats/README.md) | 2011 | ⬜ | stagionalità multiple e non intere |
-| [Alberi su feature di ritardo](time-series-forecasting-0-02/04-alberi-su-feature-di-ritardo/README.md) | anni 2010 | ⬜ | la regressione su ritardi e covariate esiste (`MatrixAlgebra.LeastSquares`, usata in D1) ma non gli alberi |
-| [Prophet](time-series-forecasting-0-02/05-prophet/README.md) | 2017 | ⬜ | trend + stagionalità + festività; STL è la parte "decomposizione" |
+| [LSTM](time-series-forecasting-0-02/01-lstm/README.md) | 1997 | ⬜ | recurrent network with gated memory |
+| [ETS framework and Auto ARIMA](time-series-forecasting-0-02/02-ets-e-auto-arima/README.md) | 2002/08 | ⬜ | additive Holt-Winters coincides with ETS(A,A,A) in the point forecasts; missing are likelihood estimation and automatic selection (in notebook 08 the comparison between orders is manual, with AIC) |
+| [TBATS](time-series-forecasting-0-02/03-tbats/README.md) | 2011 | ⬜ | multiple and non-integer seasonalities |
+| [Trees on lag features](time-series-forecasting-0-02/04-alberi-su-feature-di-ritardo/README.md) | 2010s | ⬜ | regression on lags and covariates exists (`MatrixAlgebra.LeastSquares`, used in D1) but not the trees |
+| [Prophet](time-series-forecasting-0-02/05-prophet/README.md) | 2017 | ⬜ | trend + seasonality + holidays; STL is the "decomposition" part |
 | [DeepAR](time-series-forecasting-0-02/06-deepar/README.md) | 2017 | ⬜ | |
 | [Transformer](time-series-forecasting-0-02/07-transformer/README.md) | 2017 | ⬜ | |
 | [N-BEATS](time-series-forecasting-0-02/08-n-beats/README.md) | 2019 | ⬜ | |
 | [Temporal Fusion Transformer](time-series-forecasting-0-02/09-temporal-fusion-transformer/README.md) | 2019 | ⬜ | |
 
-## Transformer e baseline forti — `time-series-forecasting-0-03`
+## Transformers and strong baselines — `time-series-forecasting-0-03`
 
-| Teoria | Anni | Stato | Note |
+| Theory | Years | Status | Notes |
 |---|---|---|---|
 | Informer | 2020 | ⬜ | |
-| Autoformer | 2021 | ⬜ | usa una decomposizione tendenza/stagionalità come STL, ma dentro la rete |
+| Autoformer | 2021 | ⬜ | uses a trend/seasonality decomposition like STL, but inside the network |
 | N-HiTS | 2022 | ⬜ | |
-| DLinear | 2022 | ⬜ | decomposizione + due mappe lineari: i mattoni (`Stl`, `LeastSquares`) ci sono, il modello no |
+| DLinear | 2022 | ⬜ | decomposition + two linear maps: the building blocks (`Stl`, `LeastSquares`) are there, the model is not |
 | PatchTST | 2022 | ⬜ | |
 | iTransformer | 2023 | ⬜ | |
 
-## Modelli linguistici e pre-addestramento — `time-series-forecasting-0-04`
+## Language models and pre-training — `time-series-forecasting-0-04`
 
-| Teoria | Data | Stato |
+| Theory | Date | Status |
 |---|---|---|
-| Time-LLM | ott 2023 | ⬜ |
-| TimeGPT-1 | ott 2023 | ⬜ |
-| LLMTime | ott 2023 | ⬜ |
-| TimesFM | ott 2023 | ⬜ |
-| Moirai | feb 2024 | ⬜ |
-| Chronos | mar 2024 | ⬜ |
+| Time-LLM | Oct 2023 | ⬜ |
+| TimeGPT-1 | Oct 2023 | ⬜ |
+| LLMTime | Oct 2023 | ⬜ |
+| TimesFM | Oct 2023 | ⬜ |
+| Moirai | Feb 2024 | ⬜ |
+| Chronos | Mar 2024 | ⬜ |
 
-## Modelli efficienti e multivariati — `time-series-forecasting-0-05`
+## Efficient and multivariate models — `time-series-forecasting-0-05`
 
-| Teoria | Data | Stato |
+| Theory | Date | Status |
 |---|---|---|
-| Time-MoE | set 2024 | ⬜ |
-| Chronos-Bolt | nov 2024 | ⬜ |
-| Chronos-2 | ott 2025 | ⬜ (il suo uso di covariate è il tema dello scenario D, con una regressione) |
-| Moirai 2.0 | nov 2025 | ⬜ |
-| TimesFM-3 | ago 2026 | ⬜ |
+| Time-MoE | Sep 2024 | ⬜ |
+| Chronos-Bolt | Nov 2024 | ⬜ |
+| Chronos-2 | Oct 2025 | ⬜ (its use of covariates is the theme of scenario D, with a regression) |
+| Moirai 2.0 | Nov 2025 | ⬜ |
+| TimesFM-3 | Aug 2026 | ⬜ |
 
-## Diagnostica: punti di cambiamento — `time-series-diagnostic-01`
+## Diagnostics: change points — `time-series-diagnostic-01`
 
-| Teoria | Stato | Note |
+| Theory | Status | Notes |
 |---|---|---|
 | PELT (offline) | ⬜ | |
 | BOCPD (online) | ⬜ | |
 | ClaSP (offline) | ⬜ | |
 
-*Il cambiamento non è l'allarme*: il concetto (ritardo di rilevazione, falsi allarmi) è mostrato con il GARCH nello scenario A (allarme 71 minuti dopo il cambio vero): ◐ come dimostrazione, non come algoritmo.
+*The change is not the alarm*: the concept (detection delay, false alarms) is shown with GARCH in scenario A (alarm 71 minutes after the true change): ◐ as a demonstration, not as an algorithm.
 
-## Diagnostica: matrix profile — `time-series-diagnostic-02`
+## Diagnostics: matrix profile — `time-series-diagnostic-02`
 
-| Teoria | Stato |
+| Theory | Status |
 |---|---|
 | Nearest neighbor (matrix profile) | ⬜ |
-| Motif e discord | ⬜ |
+| Motif and discord | ⬜ |
 | FLUSS / FLOSS | ⬜ |
 
-## Validazione delle previsioni, 1982–2000 — `time-series-forecast-validation-01`
+## Validation of forecasts, 1982–2000 — `time-series-forecast-validation-01`
 
-| Teoria | Anni | Stato | Note |
+| Theory | Years | Status | Notes |
 |---|---|---|---|
-| Competizione M | 1982 | ◐ | benchmark di riferimento e MASE (`ReferenceForecasts`, `Accuracy.Mase`) |
-| Principio prequenziale | 1984 | ⬜ | |
-| Competizione M2 | 1987–89 | ⬜ | |
+| M competition | 1982 | ◐ | baseline benchmarks and MASE (`ReferenceForecasts`, `Accuracy.Mase`) |
+| Prequential principle | 1984 | ⬜ | |
+| M2 competition | 1987–89 | ⬜ | |
 | h-block CV | 1994 | ⬜ | |
 | hv-block CV | 2000 | ⬜ | |
-| Rolling-origin | 2000 | ✅ | `RollingOrigin.Evaluate`: training espandente, gap, MAE/RMSE per origine e test di isolamento del passato. Gli scenari esistenti non sono ancora migrati al backtest multiplo |
+| Rolling-origin | 2000 | ✅ | `RollingOrigin.Evaluate`: expanding training, gap, MAE/RMSE per origin and test of the isolation of the past. The existing scenarios are not yet migrated to the multiple backtest |
 
-## Validazione: confronto fra previsioni, 2000–2012 — `time-series-forecast-validation-02`
+## Validation: comparison between forecasts, 2000–2012 — `time-series-forecast-validation-02`
 
-| Teoria | Anni | Stato |
+| Theory | Years | Status |
 |---|---|---|
 | Reality Check (White) | 2000 | ⬜ |
-| Test SPA (Hansen) | 2005 | ⬜ |
-| Capacità condizionale (Giacomini-White) | 2006 | ⬜ |
+| SPA test (Hansen) | 2005 | ⬜ |
+| Conditional ability (Giacomini-White) | 2006 | ⬜ |
 | Clark-West | 2007 | ⬜ |
 | Model Confidence Set | 2011 | ⬜ |
-| CV per serie temporali (Bergmeir-Benítez) | 2012 | ⬜ |
+| CV for time series (Bergmeir-Benítez) | 2012 | ⬜ |
 
-## Validazione: oltre un singolo punteggio, 2012–2025 — `time-series-forecast-validation-03`
+## Validation: beyond a single score, 2012–2025 — `time-series-forecast-validation-03`
 
-| Teoria | Anni | Stato | Note |
+| Theory | Years | Status | Notes |
 |---|---|---|---|
-| Test robusti alla finestra | 2012 | ⬜ | |
-| Diagrammi di Murphy | 2016 | ⬜ | `Accuracy.PinballLoss` è la perdita elementare dei quantili: ◐ come mattone |
-| LFO approssimato | 2019/20 | ⬜ | |
-| Confronto sempre valido (*anytime-valid*) | 2021 | ⬜ | |
-| Instabilità di breve durata | 2024 | ⬜ | |
-| Model prediction set (conforme) | 2025 | ⬜ | |
+| Window-robust tests | 2012 | ⬜ | |
+| Murphy diagrams | 2016 | ⬜ | `Accuracy.PinballLoss` is the elementary quantile loss: ◐ as a building block |
+| Approximate LFO | 2019/20 | ⬜ | |
+| Always-valid comparison (*anytime-valid*) | 2021 | ⬜ | |
+| Short-lived instability | 2024 | ⬜ | |
+| Model prediction set (conformal) | 2025 | ⬜ | |
 
-## Valutare i modelli pre-addestrati, 2024–2026 — `time-series-forecast-validation-04`
+## Evaluating pre-trained models, 2024–2026 — `time-series-forecast-validation-04`
 
-| Teoria | Anni | Stato |
+| Theory | Years | Status |
 |---|---|---|
 | GIFT-Eval | 2024 | ⬜ |
 | fev-bench | 2025 | ⬜ |
 | TIME | 2026 | ⬜ |
 
-## Mappa delle architetture — `time-series-forecasting-1-01-a map of model architectures`
+## Map of the architectures — `time-series-forecasting-1-01-a map of model architectures`
 
-| Teoria | Stato | Note |
+| Theory | Status | Notes |
 |---|---|---|
-| Lineare / MLP | ◐ | una mappa lineare dalla finestra al futuro è una regressione: `MatrixAlgebra.LeastSquares` (scenario D), non un MLP |
-| CNN temporale | ⬜ | |
+| Linear / MLP | ◐ | a linear map from the window to the future is a regression: `MatrixAlgebra.LeastSquares` (scenario D), not an MLP |
+| Temporal CNN | ⬜ | |
 | RNN / LSTM | ⬜ | |
 | Transformer | ⬜ | |
-| Modello in spazio degli stati | ◐ | il filtro di Kalman è il caso lineare (`KalmanFilter`); non quelli con dinamica appresa |
-| Rete neurale su grafo | ⬜ | |
+| State-space model | ◐ | the Kalman filter is the linear case (`KalmanFilter`); not those with learned dynamics |
+| Graph neural network | ⬜ | |
 
-## Rappresentare la storia — `time-series-forecasting-1-02-representing the history`
+## Representing the history — `time-series-forecasting-1-02-representing the history`
 
-| Teoria | Stato | Testo | Libreria |
+| Theory | Status | Text | Library |
 |---|---|---|---|
-| Valori singoli | ✅ | — | la serie stessa (`T[]`) |
-| Patch | ◐ | [Analisi e uso](../../TIMESERIES.md) | `HistoryPatches.Extract`: finestre complete con stride, senza padding o embedding appreso |
-| Componenti (trend + stagionale + resto) | ✅ | [cap. 9](00-formule-e-libreria/09-stl-loess.md) | `Stl` |
-| Dominio della frequenza | ◐ | | `Signals.Dft` (didattica, $O(N^2)$); in PySharp `np.fft` |
-| Scale multiple | ⬜ | | |
+| Single values | ✅ | — | the series itself (`T[]`) |
+| Patch | ◐ | [Analysis and use](../../TIMESERIES.md) | `HistoryPatches.Extract`: complete windows with stride, without padding or learned embedding |
+| Components (trend + seasonal + remainder) | ✅ | [ch. 9](00-formule-e-libreria/09-stl-loess.md) | `Stl` |
+| Frequency domain | ◐ | | `Signals.Dft` (didactic, $O(N^2)$); in PySharp `np.fft` |
+| Multiple scales | ⬜ | | |
 
-## Come il passato arriva alla previsione — `time-series-forecasting-1-03-how the past reaches the forecast`
+## How the past reaches the forecast — `time-series-forecasting-1-03-how the past reaches the forecast`
 
-| Teoria | Stato | Note |
+| Theory | Status | Notes |
 |---|---|---|
-| Convoluzione temporale | ◐ | la media mobile (filtro passa-basso di STL) è una convoluzione; non c'è una CNN |
-| Stato ricorrente | ◐ | lo stato del Kalman e le ricorsioni di AR/ARIMA portano l'informazione nel tempo; non una RNN |
-| Auto-attenzione | ⬜ | |
+| Temporal convolution | ◐ | the moving average (STL's low-pass filter) is a convolution; there is no CNN |
+| Recurrent state | ◐ | the Kalman state and the AR/ARIMA recursions carry the information through time; not an RNN |
+| Self-attention | ⬜ | |
 
-## Un passo o l'intero orizzonte — `time-series-forecasting-1-one step or the whole horizon`
+## One step or the whole horizon — `time-series-forecasting-1-one step or the whole horizon`
 
-| Teoria | Stato | Note |
+| Theory | Status | Notes |
 |---|---|---|
-| Ricorsiva | ✅ | `ArModel.Forecast`, `ArimaModel.Forecast`, smoothing: le previsioni a $h$ passi sono ricorsive |
-| Diretta | ⬜ | si può fare con una `LeastSquares` per orizzonte, ma non è una funzione della libreria |
+| Recursive | ✅ | `ArModel.Forecast`, `ArimaModel.Forecast`, smoothing: the $h$-step forecasts are recursive |
+| Direct | ⬜ | it can be done with a `LeastSquares` per horizon, but it is not a function of the library |
 | MIMO | ⬜ | |
 | Rectify | ⬜ | |
 
-## Oltre ricorsivo contro diretto — `time-series-forecasting-1-beyond recursive vs direct`
+## Beyond recursive versus direct — `time-series-forecasting-1-beyond recursive vs direct`
 
-| Teoria | Anno | Stato |
+| Theory | Year | Status |
 |---|---|---|
 | Stratify | 2025 | ⬜ |
 | QDF | 2026 | ⬜ |
 | FlowTime | 2025 | ⬜ |
 | TSFlow | 2025 | ⬜ |
 
-## Condizionare a un futuro incerto — `time-series-forecasting-1-conditioning on an uncertain future`
+## Conditioning on an uncertain future — `time-series-forecasting-1-conditioning on an uncertain future`
 
-| Teoria | Stato | Note |
+| Theory | Status | Notes |
 |---|---|---|
-| Condizionare a un input noto | ◐ | scenario D: regressione sull'irraggiamento previsto (`LeastSquares`) |
-| Propagare l'incertezza dell'input | ⬜ | nello scenario D l'errore meteo è assorbito dai residui, non modellato a parte |
-| Intervenire (osservare ≠ fare) | ⬜ | |
+| Conditioning on a known input | ◐ | scenario D: regression on the forecast irradiance (`LeastSquares`) |
+| Propagating the input uncertainty | ⬜ | in scenario D the weather error is absorbed by the residuals, not modelled separately |
+| Intervening (observing ≠ doing) | ⬜ | |
 
-## Dai punti ai futuri possibili — `time-series-forecasting-1-from points to possible futures`
+## From points to possible futures — `time-series-forecasting-1-from points to possible futures`
 
-| Teoria | Stato | Testo | Libreria / note |
+| Theory | Status | Text | Library / notes |
 |---|---|---|---|
-| Previsione puntuale | ✅ | tutta la Parte I | tutte le previsioni |
-| Quantili e intervalli | ✅ | [API](01-libreria/02-uso-e-funzioni.md) | `SeriesStatistics.Quantile`, `Accuracy.PinballLoss`, `Accuracy.IntervalCoverage`; D1 |
-| Distribuzione predittiva | ◐ | | l'insieme delle traiettorie campionate di D1 la approssima |
-| Traiettorie campionate | ◐ | | ricampionamento di blocchi di residui in D1 (nel codice del notebook, non una funzione della libreria) |
+| Point forecast | ✅ | all of Part I | all the forecasts |
+| Quantiles and intervals | ✅ | [API](01-libreria/02-uso-e-funzioni.md) | `SeriesStatistics.Quantile`, `Accuracy.PinballLoss`, `Accuracy.IntervalCoverage`; D1 |
+| Predictive distribution | ◐ | | the set of sampled trajectories of D1 approximates it |
+| Sampled trajectories | ◐ | | resampling of blocks of residuals in D1 (in the notebook's code, not a function of the library) |
 
 ---
 
-## Prossime implementazioni naturali
+## Next natural implementations
 
-Per rapporto fra utilità negli scenari e costo, in ordine:
+By ratio of usefulness in the scenarios to cost, in order:
 
-1. **Rolling origin** e **Diebold-Mariano / Clark-West**: servono a dire se un modello batte davvero un altro (A e D usano una sola settimana di prova).
-2. **Previsione conforme** e **intervalli per ARIMA/VAR**: intervalli con copertura garantita (oggi per quantili dei residui, senza garanzia).
-3. **Matrix profile (STOMP)**: cicli di sbrinamento, anomalie del ciclo di lavorazione.
-4. **PELT** e **BOCPD**: datare cambi di setpoint o di regime.
-5. **ETS in spazio degli stati con selezione AIC** e ARIMA per massima verosimiglianza esatta.
+1. **Rolling origin** and **Diebold-Mariano / Clark-West**: they serve to say whether a model really beats another (A and D use a single test week).
+2. **Conformal prediction** and **intervals for ARIMA/VAR**: intervals with guaranteed coverage (today from quantiles of the residuals, without guarantee).
+3. **Matrix profile (STOMP)**: defrost cycles, anomalies of the machining cycle.
+4. **PELT** and **BOCPD**: date setpoint or regime changes.
+5. **State-space ETS with AIC selection** and ARIMA by exact maximum likelihood.
 
-I modelli neurali, i *foundation model* e i benchmark (una quarantina di voci di questo atlante) richiedono addestramento e dati che questa libreria non intende fornire: restano descritti, non implementati.
+The neural models, the *foundation models* and the benchmarks (about forty entries of this atlas) require training and data that this library does not intend to provide: they remain described, not implemented.

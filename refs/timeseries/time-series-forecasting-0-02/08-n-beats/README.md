@@ -2,55 +2,55 @@
 
 *(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** `time-series-forecasting-0-02` · ottava riga dell'infografica (2019) · **2019** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infographic** `time-series-forecasting-0-02` · eighth row of the infographic (2019) · **2019** · status ⬜ (legend in the [atlas](../../ATLANTE.md))
 
-## Descrizione teorica
+## Theoretical description
 
-**L'idea.** Una **catena di blocchi completamente connessi** che si passano il residuo. L'infografica: *«Stack fully connected blocks with backcast and forecast outputs»* e *«No recurrence or attention required»*.
+**The idea.** A **chain of fully connected blocks** that pass the residual to each other. The infographic: *"Stack fully connected blocks with backcast and forecast outputs"* and *"No recurrence or attention required"*.
 
-**Il blocco.** Riceve un segmento di storia $x$ e produce **due** uscite:
+**The block.** It receives a segment of history $x$ and produces **two** outputs:
 
-- una **retrocessione** (*backcast*) $\hat x$: la parte della storia che il blocco riesce a spiegare;
-- una **previsione** (*forecast*) $\hat y$: il contributo del blocco al futuro.
+- a **backcast** $\hat x$: the part of the history that the block manages to explain;
+- a **forecast** $\hat y$: the block's contribution to the future.
 
-**La catena (*doubly residual stacking*).** Il blocco successivo riceve ciò che il precedente **non ha spiegato**: $x_{\ell+1}=x_\ell-\hat x_\ell$. La previsione finale è la **somma** delle previsioni di tutti i blocchi:
+**The chain (*doubly residual stacking*).** The next block receives what the previous one **did not explain**: $x_{\ell+1}=x_\ell-\hat x_\ell$. The final forecast is the **sum** of the forecasts of all the blocks:
 
 $$\hat y=\sum_{\ell}\hat y_\ell.$$
 
-**Perché interessa.**
+**Why it is interesting.**
 
-- è una rete *profonda ma semplice*: nessuna ricorrenza, nessuna attenzione;
-- nella versione **interpretabile** le uscite dei blocchi sono vincolate a **basi di polinomi** (trend) e **di Fourier** (stagionalità): la previsione si scompone in trend + stagionalità, come fa STL, ma **appresa**;
-- gli autori hanno riportato risultati superiori ai vincitori della competizione M4.
+- it is a *deep but simple* network: no recurrence, no attention;
+- in the **interpretable** version the blocks' outputs are constrained to **polynomial bases** (trend) and **Fourier bases** (seasonality): the forecast decomposes into trend + seasonality, as STL does, but **learned**;
+- the authors reported results superior to the winners of the M4 competition.
 
-**Limiti.** Orizzonte e finestra di ingresso fissati al momento dell'addestramento; serie univariata; richiede addestramento su molti dati.
+**Limits.** Horizon and input window fixed at training time; univariate series; requires training on a lot of data.
 
-## Il racconto
+## The story
 
-*Storyboard per un breve video a fumetti. Le battute sono del [cast ricorrente](../../PERSONAGGI.md); i personaggi storici compaiono solo nelle didascalie.*
+*Storyboard for a short comic-strip video. The lines belong to the [recurring cast](../../PERSONAGGI.md); historical figures appear only in the captions.*
 
-**Titolo:** *La catena dei correttori* · **Durata:** ~80 s · **Personaggi:** Anguria, Giulia, Tommaso · [cast](../../PERSONAGGI.md)
+**Title:** *The chain of correctors* · **Duration:** ~80 s · **Characters:** Anguria, Giulia, Tommaso · [cast](../../PERSONAGGI.md)
 
-| # | Inquadratura | Testo | Cosa fa capire |
+| # | Shot | Text | What it conveys |
 |---|---|---|---|
-| 1 | Una catena di montaggio con cinque ispettori in fila. Sul nastro, un foglio con la storia degli ultimi giorni. | **Anguria:** «Ogni ispettore guarda il foglio e dice cosa capisce.» | blocchi in serie |
-| 2 | Il primo ispettore ha due vaschette: «cosa ho spiegato del passato» e «cosa ne deduco per il futuro». | **Anguria:** «Spiegazione e previsione. Due uscite.» | backcast e forecast |
-| 3 | Il primo ispettore sottrae ciò che ha spiegato dal foglio e passa il foglio ridotto al secondo. | **Giulia:** «Il secondo vede solo ciò che il primo non ha capito.» | il residuo passa al blocco successivo |
-| 4 | Il foglio si fa sempre più vuoto lungo la catena. | **Anguria:** «Sempre meno da spiegare.» | residuo che si riduce |
-| 5 | In fondo alla catena, tutte le vaschette «futuro» vengono versate in un unico imbuto. | **Anguria:** «La previsione è la somma dei contributi di tutti.» | somma delle previsioni |
-| 6 | La versione interpretabile: il primo ispettore ha una sola matita che disegna polinomi (curve lente), il secondo una che disegna onde. | **Tommaso:** «Mi ricorda il mixer.» — **Anguria:** «Sì: trend e stagionalità. Ma qui i pezzi li impara la rete.» | analogia con STL ([0-01, scheda 09](../../time-series-forecasting-0-01/09-stl/README.md)) |
-| 7 | Un cartello: «niente memoria, niente attenzione». Gli ispettori sono tutti uguali. | *Didascalia:* «2019. Una rete semplice che nelle prove degli autori batte i vincitori di M4.» | semplicità e risultati (secondo gli autori) |
+| 1 | An assembly line with five inspectors in a row. On the belt, a sheet with the history of the last days. | **Anguria:** "Each inspector looks at the sheet and says what they understand." | blocks in series |
+| 2 | The first inspector has two trays: "what I explained of the past" and "what I deduce for the future". | **Anguria:** "Explanation and forecast. Two outputs." | backcast and forecast |
+| 3 | The first inspector subtracts what they explained from the sheet and passes the reduced sheet to the second. | **Giulia:** "The second sees only what the first did not understand." | the residual passes to the next block |
+| 4 | The sheet becomes emptier and emptier along the chain. | **Anguria:** "Less and less to explain." | shrinking residual |
+| 5 | At the end of the chain, all the "future" trays are poured into a single funnel. | **Anguria:** "The forecast is the sum of everyone's contributions." | sum of the forecasts |
+| 6 | The interpretable version: the first inspector has a single pencil that draws polynomials (slow curves), the second one that draws waves. | **Tommaso:** "It reminds me of the mixer." — **Anguria:** "Yes: trend and seasonality. But here the pieces are learned by the network." | analogy with STL ([0-01, card 09](../../time-series-forecasting-0-01/09-stl/README.md)) |
+| 7 | A sign: "no memory, no attention". The inspectors are all the same. | *Caption:* "2019. A simple network that in the authors' tests beats the M4 winners." | simplicity and results (according to the authors) |
 
-**Morale:** *se ogni correttore spiega un pezzo e passa il resto, il futuro è la somma dei pezzi.*
+**Moral:** *if each corrector explains a piece and passes on the rest, the future is the sum of the pieces.*
 
-## Nel repository
+## In the repository
 
 | | |
 |---|---|
-| **Stato** | ⬜ **non implementata** |
-| **Cosa c'è di vicino** | la **scomposizione in componenti** (trend + stagionalità + resto) esiste con `Stl.Decompose` ([cap. 9](../../00-formule-e-libreria/09-stl-loess.md)): STL scompone con filtri fissi, N-BEATS interpretabile con basi apprese. Il [notebook 09](../../../../notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb) prevede per componenti e confronta con Holt-Winters |
-| **Cosa manca** | rete profonda, addestramento, basi polinomiali e di Fourier apprese |
+| **Status** | ⬜ **not implemented** |
+| **What is close** | the **decomposition into components** (trend + seasonality + remainder) exists with `Stl.Decompose` ([ch. 9](../../00-formule-e-libreria/09-stl-loess.md)): STL decomposes with fixed filters, interpretable N-BEATS with learned bases. [Notebook 09](../../../../notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb) forecasts by components and compares with Holt-Winters |
+| **What is missing** | deep network, training, learned polynomial and Fourier bases |
 
-## Riferimenti
+## References
 
-- Oreshkin, B. N., Carpov, D., Chapados, N. & Bengio, Y. (2020). *N-BEATS: neural basis expansion analysis for interpretable time series forecasting.* ICLR (anteprima arXiv del 2019).
+- Oreshkin, B. N., Carpov, D., Chapados, N. & Bengio, Y. (2020). *N-BEATS: neural basis expansion analysis for interpretable time series forecasting.* ICLR (arXiv preview of 2019).

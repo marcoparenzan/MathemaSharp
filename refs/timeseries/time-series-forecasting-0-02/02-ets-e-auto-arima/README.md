@@ -1,60 +1,60 @@
-# Quadro ETS e Auto ARIMA
+# ETS framework and Auto ARIMA
 
 *(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** `time-series-forecasting-0-02` · seconda riga dell'infografica (2002 / 2008) · **2002 / 2008** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infographic** `time-series-forecasting-0-02` · second row of the infographic (2002 / 2008) · **2002 / 2008** · status ⬜ (legend in the [atlas](../../ATLANTE.md))
 
-## Descrizione teorica
+## Theoretical description
 
-**L'idea.** Rendere i modelli statistici **facili da stimare e da scegliere su larga scala**. L'infografica la riassume con due scatole: *ETS (2002) → verosimiglianza + intervalli* e *Auto ARIMA (2008) → seleziona gli ordini + stima*.
+**The idea.** Make the statistical models **easy to estimate and to choose at scale**. The infographic summarises it with two boxes: *ETS (2002) → likelihood + intervals* and *Auto ARIMA (2008) → selects the orders + estimation*.
 
-**Il quadro ETS (Hyndman, Koehler, Snyder, Grose, 2002).** Ogni metodo di smoothing esponenziale (cap. 5) diventa un **modello in spazio degli stati con errore innovativo**, con una verosimiglianza. Il nome è la tripla (**E**rrore, **T**rend, **S**tagione):
+**The ETS framework (Hyndman, Koehler, Snyder, Grose, 2002).** Each exponential-smoothing method (ch. 5) becomes a **state-space model with innovations error**, with a likelihood. The name is the triple (**E**rror, **T**rend, **S**eason):
 
-| Componente | Opzioni |
+| Component | Options |
 |---|---|
-| Errore | additivo (A), moltiplicativo (M) |
-| Trend | nessuno (N), additivo (A), additivo smorzato (A$_d$), moltiplicativo (M), moltiplicativo smorzato (M$_d$) |
-| Stagione | nessuna (N), additiva (A), moltiplicativa (M) |
+| Error | additive (A), multiplicative (M) |
+| Trend | none (N), additive (A), additive damped (A$_d$), multiplicative (M), multiplicative damped (M$_d$) |
+| Season | none (N), additive (A), multiplicative (M) |
 
-cioè $2\times5\times3=30$ combinazioni. Per ciascuna si stimano parametri **e stati iniziali** per massima verosimiglianza, e si scelgono con un criterio di informazione (AICc). Il guadagno rispetto allo smoothing «a ricetta»: **intervalli di previsione** e un modo oggettivo di scegliere.
+that is $2\times5\times3=30$ combinations. For each, parameters **and initial states** are estimated by maximum likelihood, and chosen with an information criterion (AICc). The gain compared with "recipe" smoothing: **prediction intervals** and an objective way of choosing.
 
-*Esempio:* ETS(A,A$_d$,A) è Holt-Winters additivo con trend smorzato.
+*Example:* ETS(A,A$_d$,A) is additive Holt-Winters with damped trend.
 
-**Auto ARIMA (Hyndman & Khandakar, 2008).** Automatizza il metodo di Box-Jenkins (cap. 4): sceglie $d$ (e $D$) con test di radice unitaria (KPSS), poi cerca $(p,q,P,Q)$ con una **ricerca a gradini** che minimizza l'AICc, e stima per massima verosimiglianza.
+**Auto ARIMA (Hyndman & Khandakar, 2008).** Automates the Box-Jenkins method (ch. 4): chooses $d$ (and $D$) with unit-root tests (KPSS), then looks for $(p,q,P,Q)$ with a **stepwise search** that minimises the AICc, and estimates by maximum likelihood.
 
-**Attenzione.** L'AICc confronta modelli **sulla stessa serie differenziata**: non si può confrontare ARIMA con $d$ diversi, né ETS con ARIMA, con l'AICc. L'automazione non sostituisce il controllo dei residui.
+**Warning.** The AICc compares models **on the same differenced series**: one cannot compare ARIMA with different $d$, nor ETS with ARIMA, with the AICc. Automation does not replace the checking of the residuals.
 
-**Limiti.** Previsioni *locali*: un modello per serie, nessuna condivisione fra serie (il tema dell'altra metà dell'infografica, vedi DeepAR).
+**Limits.** *Local* forecasts: one model per series, no sharing among series (the theme of the other half of the infographic, see DeepAR).
 
-## Il racconto
+## The story
 
-*Storyboard per un breve video a fumetti. Le battute sono del [cast ricorrente](../../PERSONAGGI.md); i personaggi storici compaiono solo nelle didascalie.*
+*Storyboard for a short comic-strip video. The lines belong to the [recurring cast](../../PERSONAGGI.md); historical figures appear only in the captions.*
 
-**Titolo:** *Il catalogo e il sommelier* · **Durata:** ~90 s · **Personaggi:** Giulia, Tommaso, Anguria, voce narrante · [cast](../../PERSONAGGI.md)
+**Title:** *The catalogue and the sommelier* · **Duration:** ~90 s · **Characters:** Giulia, Tommaso, Anguria, narrator · [cast](../../PERSONAGGI.md)
 
-| # | Inquadratura | Testo | Cosa fa capire |
+| # | Shot | Text | What it conveys |
 |---|---|---|---|
-| 1 | Giulia davanti a un muro di 200 grafici, uno per ogni compressore e cella dello stabilimento. | **Giulia:** «Duecento serie. Non posso scegliere il modello a mano per ognuna.» | il problema della scala |
-| 2 | Anguria porta un catalogo con tre colonne a tendina: ERRORE, TREND, STAGIONE. | *Didascalia:* «2002. Hyndman e colleghi: trenta combinazioni, ognuna con la sua verosimiglianza.» | il quadro ETS: 2 × 5 × 3 |
-| 3 | Anguria sfoglia: «piatto, senza stagione» fino a «trend smorzato, stagione additiva». | **Anguria:** «Sono i metodi dello smoothing, ma adesso ognuno è un modello vero.» | smoothing → modello in spazio degli stati |
-| 4 | Un sommelier con il calice: assaggia un modello, dà un punteggio che premia l'aderenza e punisce la complicazione. | **Tommaso:** «Rispetto a cosa?» — **Anguria:** «Rispetto al punteggio AICc: più è basso, meglio è.» | selezione con criterio di informazione |
-| 5 | Un secondo catalogo: ordini ARIMA. Il sommelier prova una combinazione, poi la vicina, e si sposta dove il punteggio scende. | *Didascalia:* «2008. Auto ARIMA: cerca a gradini fra gli ordini e sceglie il migliore.» | ricerca a gradini |
-| 6 | Il sommelier mostra due calici su tavoli diversi, uno con un cartello «una differenza», l'altro «due differenze». Un cartello rosso: «non confrontabili». | **Tommaso:** «Non puoi mettere a confronto modelli con differenze diverse.» — **Anguria:** «Giusto. Le differenze si scelgono prima, con un test.» | l'AICc non confronta tutto |
-| 7 | Sul tavolo di Giulia, 200 previsioni con la fascia di incertezza. Tommaso ne guarda una: i residui. | **Tommaso:** «Le ho guardate lo stesso.» | l'automazione non toglie il controllo |
+| 1 | Giulia in front of a wall of 200 charts, one for each compressor and chamber of the plant. | **Giulia:** "Two hundred series. I cannot choose the model by hand for each." | the problem of scale |
+| 2 | Anguria brings a catalogue with three drop-down columns: ERROR, TREND, SEASON. | *Caption:* "2002. Hyndman and colleagues: thirty combinations, each with its own likelihood." | the ETS framework: 2 × 5 × 3 |
+| 3 | Anguria leafs through: "flat, no season" up to "damped trend, additive season". | **Anguria:** "They are the smoothing methods, but now each one is a real model." | smoothing → state-space model |
+| 4 | A sommelier with a glass: tastes a model, gives a score that rewards fit and punishes complication. | **Tommaso:** "Compared to what?" — **Anguria:** "Compared to the AICc score: the lower, the better." | selection with an information criterion |
+| 5 | A second catalogue: ARIMA orders. The sommelier tries one combination, then the neighbouring one, and moves where the score drops. | *Caption:* "2008. Auto ARIMA: searches stepwise among the orders and chooses the best." | stepwise search |
+| 6 | The sommelier shows two glasses on different tables, one with a sign "one difference", the other "two differences". A red sign: "not comparable". | **Tommaso:** "You cannot compare models with different differences." — **Anguria:** "Right. The differences are chosen beforehand, with a test." | the AICc does not compare everything |
+| 7 | On Giulia's table, 200 forecasts with the uncertainty band. Tommaso looks at one: the residuals. | **Tommaso:** "I looked at them anyway." | automation does not remove the checking |
 
-**Morale:** *automatizzare la scelta non vuol dire smettere di guardare i residui.*
+**Moral:** *automating the choice does not mean ceasing to look at the residuals.*
 
-## Nel repository
+## In the repository
 
 | | |
 |---|---|
-| **Stato** | ⬜ **non implementata**, ma con una parentela stretta |
-| **Cosa c'è di vicino** | `ExponentialSmoothing.HoltWinters` (additivo, con $\phi$) dà le **stesse previsioni puntuali di ETS(A,A,A)** e di ETS(A,A$_d$,A), ma con parametri **passati a mano**, inizializzazione deterministica e **senza intervalli**. Nel [notebook 08](../../../../notebooks/TimeSeries/08-ts-arima-var-garch.ipynb) il confronto fra ordini ARIMA si fa **a mano** con un AIC approssimato |
-| **Cosa manca** | verosimiglianza esatta in spazio degli stati, stima degli stati iniziali, selezione automatica (AICc), test KPSS, ricerca a gradini |
-| **Capitoli** | [5 · Smoothing](../../00-formule-e-libreria/05-smoothing.md), [4 · AR e ARIMA](../../00-formule-e-libreria/04-ar-arima.md) |
+| **Status** | ⬜ **not implemented**, but with a close kinship |
+| **What is close** | `ExponentialSmoothing.HoltWinters` (additive, with $\phi$) gives the **same point forecasts as ETS(A,A,A)** and ETS(A,A$_d$,A), but with parameters **passed by hand**, deterministic initialisation and **no intervals**. In [notebook 08](../../../../notebooks/TimeSeries/08-ts-arima-var-garch.ipynb) the comparison between ARIMA orders is done **by hand** with an approximate AIC |
+| **What is missing** | exact state-space likelihood, estimation of the initial states, automatic selection (AICc), KPSS test, stepwise search |
+| **Chapters** | [5 · Smoothing](../../00-formule-e-libreria/05-smoothing.md), [4 · AR and ARIMA](../../00-formule-e-libreria/04-ar-arima.md) |
 
-## Riferimenti
+## References
 
 - Hyndman, R. J., Koehler, A. B., Snyder, R. D. & Grose, S. (2002). *A state space framework for automatic forecasting using exponential smoothing methods.* International Journal of Forecasting.
 - Hyndman, R. J. & Khandakar, Y. (2008). *Automatic time series forecasting: the forecast package for R.* Journal of Statistical Software.
-- Hyndman, R. J. & Athanasopoulos, G. *Forecasting: Principles and Practice* (2ª ed.), cap. 7 e 8.
+- Hyndman, R. J. & Athanasopoulos, G. *Forecasting: Principles and Practice* (2nd ed.), ch. 7 and 8.

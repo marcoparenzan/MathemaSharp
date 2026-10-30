@@ -2,54 +2,54 @@
 
 *(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** `time-series-forecasting-0-02` · quinta riga dell'infografica (2017) · **2017** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infographic** `time-series-forecasting-0-02` · fifth row of the infographic (2017) · **2017** · status ⬜ (legend in the [atlas](../../ATLANTE.md))
 
-## Descrizione teorica
+## Theoretical description
 
-**L'idea.** Un modello **decomponibile** e *configurabile da un analista*: la serie è la somma di tre componenti più rumore,
+**The idea.** A **decomposable** model, *configurable by an analyst*: the series is the sum of three components plus noise,
 
 $$y(t)=g(t)+s(t)+h(t)+\varepsilon_t.$$
 
-L'infografica lo precisa: *«A decomposable model, not a neural network»*.
+The infographic specifies: *"A decomposable model, not a neural network"*.
 
-| Componente | Che cos'è |
+| Component | What it is |
 |---|---|
-| **Trend** $g(t)$ | lineare a tratti (o logistico, con una capacità) con **punti di cambio** (*changepoints*): la pendenza può cambiare in certi istanti, e il numero e la flessibilità dei cambi si regolano |
-| **Stagionalità** $s(t)$ | somma di **serie di Fourier**: $s(t)=\sum_{n=1}^{N}\big(a_n\cos\frac{2\pi nt}{P}+b_n\sin\frac{2\pi nt}{P}\big)$, con $P$ = 7 giorni, 365.25 giorni… |
-| **Festività ed eventi** $h(t)$ | un effetto per ogni evento (Natale, la chiusura di agosto, una promozione), con una finestra attorno alla data |
+| **Trend** $g(t)$ | piecewise linear (or logistic, with a capacity) with **change points** (*changepoints*): the slope can change at certain instants, and the number and flexibility of the changes can be tuned |
+| **Seasonality** $s(t)$ | sum of **Fourier series**: $s(t)=\sum_{n=1}^{N}\big(a_n\cos\frac{2\pi nt}{P}+b_n\sin\frac{2\pi nt}{P}\big)$, with $P$ = 7 days, 365.25 days… |
+| **Holidays and events** $h(t)$ | an effect for each event (Christmas, the August closure, a promotion), with a window around the date |
 
-Si stima in modo bayesiano (stima MAP o campionamento con Stan) e si **ottengono intervalli** simulando.
+It is estimated in a Bayesian way (MAP estimate or sampling with Stan) and **intervals are obtained** by simulation.
 
-**Perché è popolare.** Pensato per analisti non specialisti con serie di *business*: tollera dati mancanti e outlier, si **regola con parametri leggibili** («quanto cambia il trend», «quanto è forte la stagionalità») e si possono **inserire a mano** conoscenze di dominio (le date dei fermi).
+**Why it is popular.** Designed for non-specialist analysts with *business* series: it tolerates missing data and outliers, is **tuned with readable parameters** ("how much the trend changes", "how strong the seasonality is") and domain knowledge can be **entered by hand** (the dates of the shutdowns).
 
-**Limiti.** Non modella la dipendenza a breve termine (nessun termine autoregressivo): i residui possono essere autocorrelati; la configurabilità non è una garanzia di accuratezza: va sempre confrontato con un benchmark ([0-01, scheda 01](../../time-series-forecasting-0-01/01-previsioni-di-riferimento/README.md)).
+**Limits.** It does not model short-term dependence (no autoregressive term): the residuals may be autocorrelated; configurability is not a guarantee of accuracy: it must always be compared with a benchmark ([0-01, card 01](../../time-series-forecasting-0-01/01-previsioni-di-riferimento/README.md)).
 
-## Il racconto
+## The story
 
-*Storyboard per un breve video a fumetti. Le battute sono del [cast ricorrente](../../PERSONAGGI.md); i personaggi storici compaiono solo nelle didascalie.*
+*Storyboard for a short comic-strip video. The lines belong to the [recurring cast](../../PERSONAGGI.md); historical figures appear only in the captions.*
 
-**Titolo:** *Il lego del trend, della stagione e delle feste* · **Durata:** ~80 s · **Personaggi:** Anguria, Giulia, Tommaso · [cast](../../PERSONAGGI.md)
+**Title:** *The Lego of trend, season and holidays* · **Duration:** ~80 s · **Characters:** Anguria, Giulia, Tommaso · [cast](../../PERSONAGGI.md)
 
-| # | Inquadratura | Testo | Cosa fa capire |
+| # | Shot | Text | What it conveys |
 |---|---|---|---|
-| 1 | Lo stabilimento: un calendario con Ferragosto cerchiato e un cartello «chiuso per ferie». Il grafico della produzione ha una buca. | **Giulia:** «Ogni agosto la linea si ferma. E ogni agosto i modelli sbagliano.» | gli eventi di calendario rompono la previsione |
-| 2 | Anguria apre una scatola di mattoncini: tre colori, TREND, STAGIONE, FESTE. | **Anguria:** «Costruisco la serie con tre mattoncini.» | decomposizione additiva |
-| 3 | Il mattoncino TREND: una linea spezzata. Su un punto, Giulia mette una bandierina: «qui è cambiata la pendenza». | **Giulia:** «Qui abbiamo aggiunto un secondo turno.» | punti di cambio del trend |
-| 4 | Il mattoncino STAGIONE: una curva liscia fatta sommando poche onde. | **Anguria:** «Settimana e anno: poche onde sommate.» | serie di Fourier |
-| 5 | Il mattoncino FESTE: picchi verticali, uno per ogni data cerchiata. Giulia li aggiunge a mano. | **Giulia:** «Questo lo so io, non lo può imparare il modello.» | conoscenza di dominio inserita a mano |
-| 6 | I tre mattoncini si incastrano e la somma imita la produzione. Anguria alza il cartello «non è una rete neurale». | **Anguria:** «È un lego. Ogni pezzo si guarda e si regola da solo.» | trasparenza |
-| 7 | Tommaso con un metro in mano: misura lo scarto rispetto a «come la settimana scorsa». | **Tommaso:** «Bello da vedere. Ma batte il banale?» — **Anguria:** «Questa domanda si fa a ogni modello.» | confronto con il benchmark |
+| 1 | The plant: a calendar with the mid-August holiday circled and a sign "closed for holidays". The production chart has a hole. | **Giulia:** "Every August the line stops. And every August the models get it wrong." | calendar events break the forecast |
+| 2 | Anguria opens a box of bricks: three colours, TREND, SEASON, HOLIDAYS. | **Anguria:** "I build the series with three bricks." | additive decomposition |
+| 3 | The TREND brick: a broken line. On one point, Giulia puts a flag: "here the slope changed". | **Giulia:** "Here we added a second shift." | trend change points |
+| 4 | The SEASON brick: a smooth curve made by summing a few waves. | **Anguria:** "Week and year: a few waves summed." | Fourier series |
+| 5 | The HOLIDAYS brick: vertical peaks, one for each circled date. Giulia adds them by hand. | **Giulia:** "This I know, the model cannot learn it." | domain knowledge entered by hand |
+| 6 | The three bricks fit together and the sum imitates the production. Anguria raises the sign "it is not a neural network". | **Anguria:** "It is a Lego. Each piece can be looked at and tuned on its own." | transparency |
+| 7 | Tommaso with a tape measure in hand: measures the gap with respect to "like last week". | **Tommaso:** "Nice to look at. But does it beat the banal?" — **Anguria:** "This question is asked of every model." | comparison with the benchmark |
 
-**Morale:** *un modello che puoi smontare in tre pezzi è un modello di cui ti puoi fidare, o dubitare, con cognizione.*
+**Moral:** *a model you can take apart into three pieces is a model you can trust, or doubt, with knowledge.*
 
-## Nel repository
+## In the repository
 
 | | |
 |---|---|
-| **Stato** | ⬜ **non implementata** |
-| **Cosa c'è di vicino** | la parte «decomposizione» è `Stl.Decompose` ([cap. 9](../../00-formule-e-libreria/09-stl-loess.md)); trend e stagionalità di Fourier si potrebbero stimare con `MatrixAlgebra.LeastSquares` aggiungendo colonne seno/coseno e variabili indicatrici per le festività, come nello [scenario D](../../../../scenari/D-fotovoltaico/README.md) si aggiungono covariate |
-| **Cosa manca** | trend lineare a tratti con punti di cambio, stima bayesiana, intervalli per simulazione |
+| **Status** | ⬜ **not implemented** |
+| **What is close** | the "decomposition" part is `Stl.Decompose` ([ch. 9](../../00-formule-e-libreria/09-stl-loess.md)); trend and Fourier seasonality could be estimated with `MatrixAlgebra.LeastSquares` by adding sine/cosine columns and indicator variables for the holidays, as covariates are added in [scenario D](../../../../scenari/D-fotovoltaico/README.md) |
+| **What is missing** | piecewise linear trend with change points, Bayesian estimation, intervals by simulation |
 
-## Riferimenti
+## References
 
-- Taylor, S. J. & Letham, B. (2018). *Forecasting at scale.* The American Statistician (anteprima del 2017).
+- Taylor, S. J. & Letham, B. (2018). *Forecasting at scale.* The American Statistician (preview of 2017).

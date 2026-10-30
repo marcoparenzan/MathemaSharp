@@ -1,24 +1,24 @@
-# I personaggi dei racconti
+# The characters of the stories
 
-Ogni scheda di teoria ha due descrizioni: la **descrizione teorica** e il **racconto**, scritto come lo storyboard di un video a fumetti. I racconti hanno lo stesso piccolo cast, che vive negli [scenari](../../scenari/README.md).
+Each theory card has two descriptions: the **theoretical description** and the **story**, written like the storyboard of a comic-strip video. The stories share the same small cast, who live in the [scenarios](../../scenari/README.md).
 
-| Personaggio | Chi è | Come parla |
+| Character | Who they are | How they speak |
 |---|---|---|
-| **Anguria** | la mascotte delle infografiche (la faccina con la fetta di anguria). Curiosa e ingenua: fa le domande che chi legge si sta facendo | frasi brevi, molte domande, disegna con un pennarello sulla lavagna |
-| **Giulia** | manutentrice del magazzino frigorifero (scenario A). Pratica, vede i segnali dell'impianto ogni giorno | concreta: «guarda la curva», «il sensore ha perso il segnale» |
-| **Tommaso** | responsabile qualità. Scettico per mestiere: chiede sempre «come lo sai?» e «rispetto a cosa?» | domande secche, timbro «verificato» sui risultati |
-| **La voce narrante** | racconta la storia delle idee, con date e luoghi, nelle didascalie | tono sobrio, in terza persona |
+| **Anguria** (Watermelon) | the mascot of the infographics (the little face with the slice of watermelon). Curious and naive: asks the questions the reader is asking | short sentences, many questions, draws with a marker on the board |
+| **Giulia** | maintenance technician of the cold-storage warehouse (scenario A). Practical, sees the plant's signals every day | concrete: "look at the curve", "the sensor lost the signal" |
+| **Tommaso** | quality manager. Sceptical by profession: always asks "how do you know?" and "compared to what?" | curt questions, "verified" stamp on the results |
+| **The narrator** | tells the history of the ideas, with dates and places, in the captions | sober tone, third person |
 
-## Regole di scrittura dei racconti
+## Writing rules for the stories
 
-1. **Personaggi storici solo nelle didascalie.** Yule, Kalman, Box e gli altri compaiono come fatti («1927, Londra…»), **mai con battute inventate**: le battute sono del cast.
-2. **Ogni racconto spiega una sola idea**, con una vignetta che la mostra in formula e una che la mostra su un impianto.
-3. **I numeri dei racconti sono veri**: quando una vignetta cita un valore (un MASE, un ritardo di allarme, un coefficiente), viene da un notebook eseguito del repository.
-4. **Durata**: 60–90 secondi per teoria, 6–8 vignette.
-5. **Finale**: ogni racconto chiude con una *morale* di una frase.
+1. **Historical figures only in the captions.** Yule, Kalman, Box and the others appear as facts ("1927, London…"), **never with invented lines**: the lines belong to the cast.
+2. **Each story explains a single idea**, with one panel that shows it as a formula and one that shows it on a plant.
+3. **The numbers in the stories are true**: when a panel quotes a value (a MASE, an alarm delay, a coefficient), it comes from an executed notebook of the repository.
+4. **Duration**: 60–90 seconds per theory, 6–8 panels.
+5. **Ending**: every story closes with a one-sentence *moral*.
 
-## Formato di una vignetta
+## Format of a panel
 
-| # | Inquadratura | Testo (didascalia · dialogo) | Cosa fa capire |
+| # | Shot | Text (caption · dialogue) | What it conveys |
 |---|---|---|---|
-| 1 | dove siamo e cosa si vede | didascalia in *corsivo*, battute con il nome di chi parla | l'idea che la vignetta porta |
+| 1 | where we are and what is seen | caption in *italics*, lines with the name of who speaks | the idea the panel carries |

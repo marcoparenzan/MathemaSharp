@@ -1,49 +1,49 @@
-# TBATS: stagionalità lunghe, multiple e non intere
+# TBATS: long, multiple and non-integer seasonalities
 
 *(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** `time-series-forecasting-0-02` · terza riga dell'infografica (2011) · **2011** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infographic** `time-series-forecasting-0-02` · third row of the infographic (2011) · **2011** · status ⬜ (legend in the [atlas](../../ATLANTE.md))
 
-## Descrizione teorica
+## Theoretical description
 
-**Il problema.** Holt-Winters e STL gestiscono **una** stagionalità, di periodo **intero** e non troppo lungo. Ma molte serie ne hanno più d'una (un ciclo giornaliero e uno settimanale) e a volte con periodo **non intero**: un anno ha 365.25 giorni, non 365.
+**The problem.** Holt-Winters and STL handle **one** seasonality, of **integer** period and not too long. But many series have more than one (a daily cycle and a weekly one) and sometimes with a **non-integer** period: a year has 365.25 days, not 365.
 
-**L'idea (De Livera, Hyndman, Snyder, 2011).** Il nome è l'elenco dei componenti: **T**rigonometric seasonality, **B**ox-Cox transform, **A**RMA errors, **T**rend, **S**easonal components. La stagionalità non è una tabella di $m$ valori da ricordare, ma una **somma di sinusoidi**,
+**The idea (De Livera, Hyndman, Snyder, 2011).** The name is the list of components: **T**rigonometric seasonality, **B**ox-Cox transform, **A**RMA errors, **T**rend, **S**easonal components. The seasonality is not a table of $m$ values to remember, but a **sum of sinusoids**,
 
 $$s_t^{(i)}=\sum_{j=1}^{k_i}s_{j,t}^{(i)},\qquad s_{j,t}^{(i)}=s_{j,t-1}^{(i)}\cos\lambda_j+s^{*(i)}_{j,t-1}\sin\lambda_j+\gamma\,d_t,$$
 
-(e l'analoga per la componente gemella $s^{*}$, sfasata di un quarto di giro), con frequenza $\lambda_j=2\pi j/m_i$ **che può essere un numero reale qualunque**, e ampiezza e fase che **evolvono nel tempo** (gli *stati stagionali* dell'infografica). La trasformazione di **Box-Cox** stabilizza la varianza; gli errori seguono un **ARMA**.
+(and the analogous one for the twin component $s^{*}$, shifted by a quarter turn), with frequency $\lambda_j=2\pi j/m_i$ **which can be any real number**, and amplitude and phase that **evolve over time** (the *seasonal states* of the infographic). The **Box-Cox** transformation stabilises the variance; the errors follow an **ARMA**.
 
-**Perché una sinusoide e non una tabella.** Con periodo 365.25 una tabella da 365 valori sarebbe sbagliata, e per periodi lunghi sarebbe una quantità enorme di stati: poche armoniche ($k_i$ piccolo) bastano.
+**Why a sinusoid and not a table.** With period 365.25 a table of 365 values would be wrong, and for long periods it would be an enormous number of states: a few harmonics ($k_i$ small) are enough.
 
-**Limiti.** Stima lenta su serie lunghe; le stagionalità devono essere indicate dall'analista; fornisce intervalli di previsione gaussiani.
+**Limits.** Slow estimation on long series; the seasonalities must be indicated by the analyst; it provides Gaussian prediction intervals.
 
-## Il racconto
+## The story
 
-*Storyboard per un breve video a fumetti. Le battute sono del [cast ricorrente](../../PERSONAGGI.md); i personaggi storici compaiono solo nelle didascalie.*
+*Storyboard for a short comic-strip video. The lines belong to the [recurring cast](../../PERSONAGGI.md); historical figures appear only in the captions.*
 
-**Titolo:** *Il calendario con due orologi* · **Durata:** ~80 s · **Personaggi:** Anguria, Giulia, voce narrante · [cast](../../PERSONAGGI.md)
+**Title:** *The calendar with two clocks* · **Duration:** ~80 s · **Characters:** Anguria, Giulia, narrator · [cast](../../PERSONAGGI.md)
 
-| # | Inquadratura | Testo | Cosa fa capire |
+| # | Shot | Text | What it conveys |
 |---|---|---|---|
-| 1 | I consumi orari del magazzino: onde che si ripetono ogni giorno, ma l'altezza delle onde cambia da lunedì a domenica. | **Giulia:** «C'è il ritmo del giorno e c'è il ritmo della settimana.» | due stagionalità |
-| 2 | Anguria tiene in mano un orologio con una sola lancetta. | **Anguria:** «Holt-Winters ha un solo orologio. Sceglie giorno o settimana.» | un solo periodo |
-| 3 | Un secondo orologio, grande come una ruota, con sette spicchi. | **Anguria:** «Qui servono due: la lancetta delle ore e la ruota dei giorni.» | periodi multipli |
-| 4 | Il calendario: un anno è un cerchio con un piccolo spazio che non si chiude. | *Didascalia:* «Un anno ha 365 giorni e un quarto. Nessuna tabella intera lo contiene.» | periodo non intero |
-| 5 | Una sinusoide sul tavolo. Anguria la fa girare con un angolo che non è un numero tondo. | **Anguria:** «Una sinusoide gira a qualunque velocità. Anche a una che non torna a casa in un numero intero di passi.» | stagionalità trigonometrica |
-| 6 | Due sinusoidi sommate: il risultato imita il ciclo giornaliero con le sue gobbe. | **Anguria:** «Poche sinusoidi bastano per fare una forma complicata. E ampiezza e fase possono cambiare piano piano.» | poche armoniche, stati che evolvono |
-| 7 | Il nome TBATS scritto su cinque tessere: T, B, A, T, S. Anguria le gira una alla volta. | *Didascalia:* «2011. Sinusoidi, trasformazione di Box-Cox, errori ARMA, trend, componenti stagionali.» | l'acronimo |
+| 1 | The hourly consumption of the warehouse: waves that repeat every day, but the height of the waves changes from Monday to Sunday. | **Giulia:** "There is the rhythm of the day and there is the rhythm of the week." | two seasonalities |
+| 2 | Anguria holds a clock with a single hand. | **Anguria:** "Holt-Winters has one clock. It chooses day or week." | a single period |
+| 3 | A second clock, big as a wheel, with seven slices. | **Anguria:** "Here two are needed: the hour hand and the wheel of the days." | multiple periods |
+| 4 | The calendar: a year is a circle with a small gap that does not close. | *Caption:* "A year has 365 days and a quarter. No integer table contains it." | non-integer period |
+| 5 | A sinusoid on the table. Anguria makes it turn with an angle that is not a round number. | **Anguria:** "A sinusoid turns at any speed. Even one that does not come home in a whole number of steps." | trigonometric seasonality |
+| 6 | Two sinusoids summed: the result imitates the daily cycle with its humps. | **Anguria:** "A few sinusoids are enough to make a complicated shape. And amplitude and phase can change slowly." | few harmonics, evolving states |
+| 7 | The name TBATS written on five tiles: T, B, A, T, S. Anguria turns them one at a time. | *Caption:* "2011. Sinusoids, Box-Cox transformation, ARMA errors, trend, seasonal components." | the acronym |
 
-**Morale:** *quando il calendario non si divide in parti uguali, le sinusoidi non hanno bisogno di farlo.*
+**Moral:** *when the calendar does not divide into equal parts, the sinusoids do not need to either.*
 
-## Nel repository
+## In the repository
 
 | | |
 |---|---|
-| **Stato** | ⬜ **non implementata** |
-| **Cosa c'è di vicino** | una stagionalità per volta con `ExponentialSmoothing.HoltWinters` ([cap. 5](../../00-formule-e-libreria/05-smoothing.md)) e con `Stl.Decompose` ([cap. 9](../../00-formule-e-libreria/09-stl-loess.md)); nello [scenario A](../../../../scenari/A-magazzino-frigorifero/README.md) il ciclo giornaliero (24 h) e quello settimanale (168 h) vengono provati **separatamente**, e il periodo 168 batte il 24 per MASE (0.918 contro 1.871) |
-| **Cosa manca** | stagionalità trigonometrica con periodi reali, stagionalità multiple nello stesso modello, trasformazione di Box-Cox, errori ARMA nello spazio degli stati |
+| **Status** | ⬜ **not implemented** |
+| **What is close** | one seasonality at a time with `ExponentialSmoothing.HoltWinters` ([ch. 5](../../00-formule-e-libreria/05-smoothing.md)) and with `Stl.Decompose` ([ch. 9](../../00-formule-e-libreria/09-stl-loess.md)); in [scenario A](../../../../scenari/A-magazzino-frigorifero/README.md) the daily (24 h) and weekly (168 h) cycles are tried **separately**, and period 168 beats 24 by MASE (0.918 against 1.871) |
+| **What is missing** | trigonometric seasonality with real periods, multiple seasonalities in the same model, Box-Cox transformation, ARMA errors in the state space |
 
-## Riferimenti
+## References
 
 - De Livera, A. M., Hyndman, R. J. & Snyder, R. D. (2011). *Forecasting time series with complex seasonal patterns using exponential smoothing.* Journal of the American Statistical Association.

@@ -1,61 +1,61 @@
-# ARCH e GARCH
+# ARCH and GARCH
 
 *(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** `time-series-forecasting-0-01` · sesta riga dell'infografica (1982 / 1986) · **1982 / 1986** · stato ◐ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infographic** `time-series-forecasting-0-01` · sixth row of the infographic (1982 / 1986) · **1982 / 1986** · status ◐ (legend in the [atlas](../../ATLANTE.md))
 
-## Descrizione teorica
+## Theoretical description
 
-**L'idea.** I modelli precedenti descrivono la **media**. Molte serie hanno una media quasi costante e una **varianza che cambia**: periodi calmi, periodi agitati, a grappoli (*volatility clustering*). Gli shock sono quasi incorrelati, ma i loro **quadrati** no.
+**The idea.** The previous models describe the **mean**. Many series have an almost constant mean and a **variance that changes**: calm periods, agitated periods, in clusters (*volatility clustering*). The shocks are almost uncorrelated, but their **squares** are not.
 
-**ARCH (Engle, 1982)** e **GARCH (Bollerslev, 1986):**
+**ARCH (Engle, 1982)** and **GARCH (Bollerslev, 1986):**
 
 $$\varepsilon_t=\sigma_t z_t,\;z_t\sim\mathcal N(0,1)\qquad \sigma_t^2=\omega+\alpha\,\varepsilon_{t-1}^2+\beta\,\sigma_{t-1}^2.$$
 
-- $\alpha$: reazione allo shock di ieri (la parte ARCH); $\beta$: memoria della varianza di ieri (la parte GARCH); **ARCH(1) è il caso $\beta=0$**.
-- Stazionario in covarianza se $\alpha+\beta<1$; la varianza ritorna a $\bar\sigma^2=\omega/(1-\alpha-\beta)$.
+- $\alpha$: reaction to yesterday's shock (the ARCH part); $\beta$: memory of yesterday's variance (the GARCH part); **ARCH(1) is the case $\beta=0$**.
+- Covariance-stationary if $\alpha+\beta<1$; the variance returns to $\bar\sigma^2=\omega/(1-\alpha-\beta)$.
 
-**Previsione della varianza.** Decade geometricamente con ragione $\alpha+\beta$:
+**Variance forecast.** It decays geometrically with ratio $\alpha+\beta$:
 
 $$\hat\sigma^2_{T+h}=\bar\sigma^2+(\alpha+\beta)^{h-1}\big(\hat\sigma^2_{T+1}-\bar\sigma^2\big).$$
 
-**Stima.** Massima verosimiglianza gaussiana con *variance targeting* ($\omega=s^2(1-\alpha-\beta)$) su una griglia raffinata.
+**Estimation.** Gaussian maximum likelihood with *variance targeting* ($\omega=s^2(1-\alpha-\beta)$) on a refined grid.
 
-**Cosa NON fa.** *«Volatility, not the mean»*, come dice l'infografica: non prevede il valore, prevede **quanto sarà incerto**.
+**What it does NOT do.** *"Volatility, not the mean"*, as the infographic says: it does not predict the value, it predicts **how uncertain it will be**.
 
-**Stato: ◐ parziale.** Solo GARCH(1,1) con innovazioni gaussiane: niente GARCH($p,q$), code spesse (Student-$t$), effetti di leva (GJR, EGARCH).
+**Status: ◐ partial.** Only GARCH(1,1) with Gaussian innovations: no GARCH($p,q$), fat tails (Student-$t$), leverage effects (GJR, EGARCH).
 
-## Il racconto
+## The story
 
-*Storyboard per un breve video a fumetti. Le battute sono del [cast ricorrente](../../PERSONAGGI.md); i personaggi storici compaiono solo nelle didascalie.*
+*Storyboard for a short comic-strip video. The lines belong to the [recurring cast](../../PERSONAGGI.md); historical figures appear only in the captions.*
 
-**Titolo:** *Il mare calmo e il mare mosso* · **Durata:** ~90 s · **Personaggi:** Giulia, Anguria, Tommaso, voce narrante · [cast](../../PERSONAGGI.md)
+**Title:** *The calm sea and the rough sea* · **Duration:** ~90 s · **Characters:** Giulia, Anguria, Tommaso, narrator · [cast](../../PERSONAGGI.md)
 
-| # | Inquadratura | Testo | Cosa fa capire |
+| # | Shot | Text | What it conveys |
 |---|---|---|---|
-| 1 | Il porto di una città. Il mare è piatto, poi, a tratti, si increspa, poi torna piatto. | *Didascalia:* «Il valore medio dell'onda non cambia. Cambia quanto si agita.» | media costante, varianza che cambia |
-| 2 | Sul monitor di Giulia: la vibrazione del compressore. Le oscillazioni piccole, poi un gruppo di oscillazioni grandi, poi di nuovo piccole. | **Giulia:** «Le scosse grandi vengono insieme. Dopo una scossa grande ne arriva un'altra.» | volatility clustering |
-| 3 | Anguria disegna due code: «ieri è stata agitata» e «ieri era tranquilla». Il termometro dell'agitazione di oggi dipende dalle due. | **Anguria:** «L'agitazione di oggi = un po' di base + la scossa di ieri + la memoria dell'agitazione di ieri.» | $\sigma_t^2=\omega+\alpha\varepsilon^2+\beta\sigma^2$ |
-| 4 | Una molla che si carica quando c'è uno shock e poi si distende lentamente. | *Didascalia:* «Uno shock ci mette tempo a spegnersi: dipende da $\alpha+\beta$.» | persistenza |
-| 5 | Didascalia con due date: 1982 e 1986. Una mano disegna una piccola «A» e poi una «G». | *Didascalia:* «1982, Engle: l'agitazione di ieri. 1986, Bollerslev: anche la sua memoria.» | ARCH → GARCH |
-| 6 | Tre giorni di vibrazione compressa in un fotogramma. Le prime 48 ore: il mare calmo. Poi qualcosa cambia. | **Anguria:** «Il cuscinetto sta cedendo. Ma nessuno lo sa ancora.» | cambio di regime (scenario A) |
-| 7 | Un campanello. Un orologio mostra 71 minuti dopo l'inizio del cambiamento. | **Tommaso:** «Il cambiamento è iniziato a mezzanotte. L'allarme?» — **Giulia:** «71 minuti dopo. Nessun falso allarme prima.» | **il momento del cambiamento non è il momento dell'allarme** |
-| 8 | Il grafico dell'allarme: lo 0.5 % dei minuti il primo giorno, il 23 % l'ultimo. | **Anguria:** «Non dice cosa si rompe. Dice che è cambiato.» | il GARCH come campanello |
+| 1 | The harbour of a city. The sea is flat, then, at times, it ripples, then goes flat again. | *Caption:* "The mean value of the wave does not change. What changes is how much it churns." | constant mean, changing variance |
+| 2 | On Giulia's monitor: the vibration of the compressor. Small oscillations, then a group of large oscillations, then small again. | **Giulia:** "The big shocks come together. After a big shock another one arrives." | volatility clustering |
+| 3 | Anguria draws two tails: "yesterday was agitated" and "yesterday was calm". Today's agitation thermometer depends on both. | **Anguria:** "Today's agitation = a bit of base + yesterday's shock + the memory of yesterday's agitation." | $\sigma_t^2=\omega+\alpha\varepsilon^2+\beta\sigma^2$ |
+| 4 | A spring that loads when there is a shock and then relaxes slowly. | *Caption:* "A shock takes time to die out: it depends on $\alpha+\beta$." | persistence |
+| 5 | Caption with two dates: 1982 and 1986. A hand draws a small "A" and then a "G". | *Caption:* "1982, Engle: yesterday's agitation. 1986, Bollerslev: also its memory." | ARCH → GARCH |
+| 6 | Three days of vibration compressed in a frame. The first 48 hours: the calm sea. Then something changes. | **Anguria:** "The bearing is failing. But nobody knows yet." | regime change (scenario A) |
+| 7 | A bell. A clock shows 71 minutes after the start of the change. | **Tommaso:** "The change started at midnight. The alarm?" — **Giulia:** "71 minutes later. No false alarms before." | **the moment of the change is not the moment of the alarm** |
+| 8 | The alarm chart: 0.5% of the minutes on the first day, 23% on the last. | **Anguria:** "It does not say what is breaking. It says that it has changed." | the GARCH as a bell |
 
-**Morale:** *a volte il segnale non è il valore, ma quanto trema.*
+**Moral:** *sometimes the signal is not the value, but how much it trembles.*
 
-## Nel repository
+## In the repository
 
 | | |
 |---|---|
-| **Stato** | ◐ parziale: solo GARCH(1,1) gaussiano (ARCH(1) è il caso β = 0) |
-| **Capitolo** | [8 · ARCH e GARCH](../../00-formule-e-libreria/08-garch.md) |
-| **Libreria** | [`Garch11`](../../../../src/libs/MathemaSharp.TimeSeries/Garch.cs): `ConditionalVariances`, `LogLikelihood`, `ForecastVariance`, `FitVarianceTargeting` |
-| **Notebook C#** | [08](../../../../notebooks/TimeSeries/08-ts-arima-var-garch.ipynb), [10](../../../../notebooks/TimeSeries/10-ts-libreria-tour.ipynb), [A1](../../../../notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-csharp.ipynb) |
-| **Notebook PySharp** | [10](../../../../notebooks/TimeSeries/pysharp/10-ts-libreria-tour.ipynb), [A1](../../../../notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-pysharp.ipynb) |
-| **In fabbrica** | scenario A, sezione 4: stima $(0.0019,\,0.083,\,0.809)$ contro i veri $(0.002,\,0.10,\,0.80)$; allarme in 0.5 % dei minuti il primo giorno e 22.7 % l'ultimo; scatta 71 minuti dopo il cambio vero |
+| **Status** | ◐ partial: only Gaussian GARCH(1,1) (ARCH(1) is the case β = 0) |
+| **Chapter** | [8 · ARCH and GARCH](../../00-formule-e-libreria/08-garch.md) |
+| **Library** | [`Garch11`](../../../../src/libs/MathemaSharp.TimeSeries/Garch.cs): `ConditionalVariances`, `LogLikelihood`, `ForecastVariance`, `FitVarianceTargeting` |
+| **C# notebook** | [08](../../../../notebooks/TimeSeries/08-ts-arima-var-garch.ipynb), [10](../../../../notebooks/TimeSeries/10-ts-libreria-tour.ipynb), [A1](../../../../notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-csharp.ipynb) |
+| **PySharp notebook** | [10](../../../../notebooks/TimeSeries/pysharp/10-ts-libreria-tour.ipynb), [A1](../../../../notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-pysharp.ipynb) |
+| **In the factory** | scenario A, section 4: estimate $(0.0019,\,0.083,\,0.809)$ against the true $(0.002,\,0.10,\,0.80)$; alarm in 0.5% of the minutes on the first day and 22.7% on the last; it goes off 71 minutes after the true change |
 
-## Riferimenti
+## References
 
 - Engle, R. F. (1982). *Autoregressive conditional heteroscedasticity with estimates of the variance of United Kingdom inflation.* Econometrica.
 - Bollerslev, T. (1986). *Generalized autoregressive conditional heteroskedasticity.* Journal of Econometrics.

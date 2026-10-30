@@ -1,45 +1,45 @@
-# Previsione di serie temporali: dalle idee alla fabbrica
+# Time-series forecasting: from ideas to the factory
 
-> **Immagini di riferimento non incluse.** Le infografiche da cui nascono questi capitoli, e i loro ritagli (`riga.png`, `sintesi.png`), sono materiale di terzi di cui non è nota la provenienza: sono state rimosse dal repository. Restano le descrizioni e le schede in testo.
+> **Reference images not included.** The infographics these chapters come from, and their crops (`riga.png`, `sintesi.png`), are third-party material of unknown provenance: they were removed from the repository. The descriptions and the text cards remain.
 
-> Una storia delle idee del forecasting, dalle previsioni di riferimento ai *foundation model*, con le formule delle tecniche classiche, la loro realizzazione in .NET 11 con **Generic Math** (`float`, `double`, `Half`, `Decimal32/64/128`), e scenari di **IoT industriale**: persone che acquisiscono dati e segnali da automazioni e devono produrre KPI, dashboard e risposte ai clienti.
+> A history of the ideas of forecasting, from baseline forecasts to *foundation models*, with the formulas of the classic techniques, their realisation in .NET 11 with **Generic Math** (`float`, `double`, `Half`, `Decimal32/64/128`), and **industrial IoT** scenarios: people who acquire data and signals from automation and must produce KPIs, dashboards and answers to customers.
 
-Scritto in italiano. Le formule usano KaTeX (`$…$`), che VS Code e GitHub visualizzano. Il sommario in formato mdBook è in [SUMMARY.md](SUMMARY.md).
+Written in English (translated from the Italian original on 2026-10-30; the Italian text is in the git history). The formulas use KaTeX (`$…$`), which VS Code and GitHub render. The mdBook-format summary is in [SUMMARY.md](SUMMARY.md). The file and folder names are still the Italian ones, so that the links keep working.
 
-## Come è organizzato
+## How it is organised
 
-| Parte | Contenuto | Dove |
+| Part | Contents | Where |
 |---|---|---|
-| **I · Le formule e la loro realizzazione** | per ogni tecnica: formula, codice, test, limiti. 10 capitoli | [`00-formule-e-libreria/`](00-formule-e-libreria/README.md) |
-| **II · La libreria** | quale libreria, uso funzione per funzione, **overlap con NumPy in PySharp**, esempi in C# e PySharp | [`01-libreria/`](01-libreria/README.md) |
-| **III · Gli scenari** | la teoria sul campo: A magazzino frigorifero, D parco fotovoltaico (B, C, E più avanti) | [`scenari/`](../../scenari/README.md) |
-| **IV · L'atlante delle teorie** | le **91 teorie** delle 18 infografiche, con lo stato di implementazione | [ATLANTE.md](ATLANTE.md) |
+| **I · The formulas and their realisation** | for each technique: formula, code, test, limits. 10 chapters | [`00-formule-e-libreria/`](00-formule-e-libreria/README.md) |
+| **II · The library** | which library, use function by function, **overlap with NumPy in PySharp**, examples in C# and PySharp | [`01-libreria/`](01-libreria/README.md) |
+| **III · The scenarios** | theory in the field: A cold-storage warehouse, D photovoltaic park (B, C, E later) | [`scenari/`](../../scenari/README.md) |
+| **IV · The atlas of theories** | the **91 theories** of the 18 infographics, with the implementation status | [ATLANTE.md](ATLANTE.md) |
 
-## Per chi legge
+## For the reader
 
-- **Chi vuole capire la matematica**: Parte I, in ordine. I capitoli si possono leggere anche separatamente.
-- **Chi vuole usare la libreria**: Parte II, poi il [giro della libreria](01-libreria/04-esempi.md) in C# e in PySharp.
-- **Chi lavora su un impianto**: gli [scenari](../../scenari/README.md). Ognuno parte da segnali di PLC e finisce con KPI, dashboard e la risposta a una domanda del cliente.
-- **Chi vuole sapere cosa c'è e cosa no**: l'[atlante](ATLANTE.md). Dice con onestà che **la maggior parte delle teorie delle infografiche non è implementata**.
+- **Whoever wants to understand the mathematics**: Part I, in order. The chapters can also be read separately.
+- **Whoever wants to use the library**: Part II, then the [library tour](01-libreria/04-esempi.md) in C# and in PySharp.
+- **Whoever works on a plant**: the [scenarios](../../scenari/README.md). Each starts from PLC signals and ends with KPIs, dashboard and the answer to a customer's question.
+- **Whoever wants to know what exists and what does not**: the [atlas](ATLANTE.md). It says honestly that **most of the theories of the infographics are not implemented**.
 
-## Le infografiche
+## The infographics
 
-Le immagini originali stanno in questa cartella; quella già lavorata è stata spostata nella propria sottocartella. Descrivono idee e cronologia, *non una classifica di modelli*.
+The original images are in this folder; the one already worked on was moved into its own subfolder. They describe ideas and chronology, *not a ranking of models*.
 
-| Infografica | Tema |
+| Infographic | Theme |
 |---|---|
-| `time-series-forecasting-0-01` … `0-05` | cronologia: fondamenti statistici, automazione e modelli neurali, transformer, modelli linguistici, modelli efficienti |
-| `time-series-forecasting-1-…` (7 immagini) | architetture, rappresentazioni della storia, ricorsivo/diretto, previsioni probabilistiche, condizionamento a un futuro incerto |
-| `time-series-diagnostic-01`, `02` | punti di cambiamento, matrix profile |
-| `time-series-forecast-validation-01` … `04` | validazione e confronto fra previsioni, valutazione dei modelli pre-addestrati |
+| `time-series-forecasting-0-01` … `0-05` | chronology: statistical foundations, automation and neural models, transformers, language models, efficient models |
+| `time-series-forecasting-1-…` (7 images) | architectures, representations of the history, recursive/direct, probabilistic forecasts, conditioning on an uncertain future |
+| `time-series-diagnostic-01`, `02` | change points, matrix profile |
+| `time-series-forecast-validation-01` … `04` | validation and comparison of forecasts, evaluation of pre-trained models |
 
-## Cosa non è ancora fatto
+## What is not yet done
 
-- **La divisione in sottocartelle, il ritaglio delle righe e le schede di teoria (descrizione teorica + racconto a fumetti) sono fatti per 2 infografiche su 18**: [`0-01`](time-series-forecasting-0-01/README.md) e [`0-02`](time-series-forecasting-0-02/README.md), con 18 teorie. Le altre 16 (73 teorie) sono nell'[atlante](ATLANTE.md) come solo indice; si procede una infografica alla volta. Il cast dei racconti è in [PERSONAGGI.md](PERSONAGGI.md).
-- Gli scenari **B, C ed E** sono solo descritti nell'[indice degli scenari](../../scenari/README.md).
-- **68 delle 91 teorie** dell'atlante (⬜) non hanno nessun codice; 11 ne hanno una parte (◐); 12 sono complete (✅).
+- **The split into subfolders, the cropping of the rows and the theory cards (theoretical description + comic-strip story) are done for 2 infographics out of 18**: [`0-01`](time-series-forecasting-0-01/README.md) and [`0-02`](time-series-forecasting-0-02/README.md), with 18 theories. The other 16 (73 theories) are in the [atlas](ATLANTE.md) as an index only; the work proceeds one infographic at a time. The cast of the stories is in [PERSONAGGI.md](PERSONAGGI.md).
+- Scenarios **B, C and E** are only described in the [scenario index](../../scenari/README.md).
+- **68 of the 91 theories** of the atlas (⬜) have no code at all; 11 have part of it (◐); 12 are complete (✅).
 
-## Verifiche automatiche
+## Automatic verifications
 
-- `dotnet test src/MathemaSharp.slnx -c Release`: i test sulle identità matematiche in ogni formato, e quelli che i notebook C# e PySharp **stampino gli stessi numeri**.
-- `pwsh scripts/run-notebooks.ps1`: ricostruisce ed esegue tutti i notebook.
+- `dotnet test src/MathemaSharp.slnx -c Release`: the tests on the mathematical identities in every format, and those that the C# and PySharp notebooks **print the same numbers**.
+- `pwsh scripts/run-notebooks.ps1`: rebuilds and runs all the notebooks.

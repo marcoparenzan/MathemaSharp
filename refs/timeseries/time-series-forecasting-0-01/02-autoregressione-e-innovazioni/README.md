@@ -1,57 +1,57 @@
-# Autoregressione e innovazioni
+# Autoregression and innovations
 
 *(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** `time-series-forecasting-0-01` · prima riga dell'infografica (1927–1938) · **1927–1938** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infographic** `time-series-forecasting-0-01` · first row of the infographic (1927–1938) · **1927–1938** · status ✅ (legend in the [atlas](../../ATLANTE.md))
 
-## Descrizione teorica
+## Theoretical description
 
-**L'idea (Yule, 1927).** Predire un valore dai valori precedenti, più uno shock casuale:
+**The idea (Yule, 1927).** Predict a value from the previous values, plus a random shock:
 
-$$y_t-\mu=\sum_{i=1}^{p}\phi_i\,(y_{t-i}-\mu)+\varepsilon_t,\qquad \varepsilon_t\sim\text{rumore bianco}(0,\sigma^2).$$
+$$y_t-\mu=\sum_{i=1}^{p}\phi_i\,(y_{t-i}-\mu)+\varepsilon_t,\qquad \varepsilon_t\sim\text{white noise}(0,\sigma^2).$$
 
-Yule studiò i numeri delle macchie solari di Wolfer, che oscillano con un periodo di circa 11 anni. Il metodo dell'epoca cercava una sinusoide nascosta più rumore. L'idea nuova: **un ciclo può nascere dalla sola dinamica**, senza nessuna sinusoide, se ogni valore dipende dai due precedenti e viene spinto da shock casuali.
+Yule studied Wolfer's sunspot numbers, which oscillate with a period of about 11 years. The method of the time looked for a hidden sinusoid plus noise. The new idea: **a cycle can arise from the dynamics alone**, without any sinusoid, if every value depends on the two previous ones and is pushed by random shocks.
 
-**Il ciclo nelle radici (AR(2)).** Con $\phi_1^2+4\phi_2<0$ le radici del polinomio $1-\phi_1z-\phi_2z^2$ sono complesse: l'autocorrelazione è una sinusoide smorzata di periodo $2\pi/\theta$, con $\cos\theta=\phi_1/(2\sqrt{-\phi_2})$. Con $\phi=(1.6,-0.9)$ il periodo è ≈ 11.07 passi.
+**The cycle in the roots (AR(2)).** With $\phi_1^2+4\phi_2<0$ the roots of the polynomial $1-\phi_1z-\phi_2z^2$ are complex: the autocorrelation is a damped sinusoid of period $2\pi/\theta$, with $\cos\theta=\phi_1/(2\sqrt{-\phi_2})$. With $\phi=(1.6,-0.9)$ the period is ≈ 11.07 steps.
 
-**Stazionarietà.** Le radici devono stare **fuori** dal cerchio unitario. La stima di Yule-Walker (con Levinson-Durbin) la garantisce.
+**Stationarity.** The roots must lie **outside** the unit circle. The Yule-Walker estimate (with Levinson-Durbin) guarantees it.
 
-**Le innovazioni.** $\varepsilon_t$ è la parte di $y_t$ **non prevedibile** dal passato: la sorpresa.
+**The innovations.** $\varepsilon_t$ is the part of $y_t$ that is **not predictable** from the past: the surprise.
 
-**Wold (1938): un teorema, non un modello.** Ogni processo stazionario a media nulla si scrive come somma di shock passati, $y_t=\sum_{j\ge0}\psi_j\varepsilon_{t-j}$ più una parte deterministica. L'AR finito ne è un'approssimazione parsimoniosa. L'infografica lo dice: *«AR illustration; Wold is a theorem»*.
+**Wold (1938): a theorem, not a model.** Every zero-mean stationary process can be written as a sum of past shocks, $y_t=\sum_{j\ge0}\psi_j\varepsilon_{t-j}$ plus a deterministic part. The finite AR is a parsimonious approximation of it. The infographic says so: *"AR illustration; Wold is a theorem"*.
 
-**Limiti.** Lineare; assume stazionarietà (serve differenziare se c'è trend); l'ordine $p$ va scelto.
+**Limits.** Linear; assumes stationarity (differencing is needed if there is a trend); the order $p$ must be chosen.
 
-## Il racconto
+## The story
 
-*Storyboard per un breve video a fumetti. Le battute sono del [cast ricorrente](../../PERSONAGGI.md); i personaggi storici compaiono solo nelle didascalie.*
+*Storyboard for a short comic-strip video. The lines belong to the [recurring cast](../../PERSONAGGI.md); historical figures appear only in the captions.*
 
-**Titolo:** *Il pendolo e i piselli* · **Durata:** ~90 s · **Personaggi:** Anguria, Giulia, voce narrante · [cast](../../PERSONAGGI.md)
+**Title:** *The pendulum and the peas* · **Duration:** ~90 s · **Characters:** Anguria, Giulia, narrator · [cast](../../PERSONAGGI.md)
 
-| # | Inquadratura | Testo | Cosa fa capire |
+| # | Shot | Text | What it conveys |
 |---|---|---|---|
-| 1 | Sepia. Un registro di numeri: le macchie solari, anno per anno, che salgono e scendono. | *Didascalia:* «1927. Gli astronomi contano le macchie del Sole: ogni 11 anni circa, tornano.» | un ciclo osservato |
-| 2 | Una lavagna con una sinusoide e, sopra, puntini di rumore. | *Didascalia:* «Il metodo di allora: cercare un'onda perfetta nascosta nel disturbo.» | l'idea precedente: segnale periodico + rumore |
-| 3 | Anguria disegna un pendolo. Intorno, ragazzini con una cerbottana sparano piselli a caso. | **Anguria:** «E se nessuna onda fosse nascosta? Se fosse solo il pendolo, spinto a caso?» *Didascalia:* «L'immagine, secondo la tradizione, è dello stesso Yule.» | **un ciclo senza sinusoide**: nasce dalla dinamica |
-| 4 | Il pendolo oscilla con un ritmo suo, anche se i piselli arrivano a caso. | **Anguria:** «Il ritmo è del pendolo. Gli spintoni sono casuali.» | memoria + spinta casuale |
-| 5 | Magazzino frigorifero. Giulia guarda la temperatura della cella: sale, scende, sale. Una porta si apre, un compressore parte. | **Giulia:** «Anche la mia cella è un pendolo. La porta e il termostato la spingono.» | stesso schema su un impianto |
-| 6 | Sulla lavagna compare la formula, con due caselle «memoria» e un fulmine «spinta». | **Anguria:** «$y(t)=\phi_1\,y(t-1)+\phi_2\,y(t-2)+\varepsilon(t)$. Due memorie e una spinta.» | la formula dell'AR(2) |
-| 7 | Un orologio gira a 1938. Un cassetto con scritto «tutto ciò che è stazionario». | *Didascalia:* «1938. Wold dimostra: qualunque processo stazionario è una somma di spinte passate.» | Wold è un **teorema**, non un modello |
-| 8 | Anguria con il pennarello su un grafico di una stima: «0.5995 e −0.2008». | **Anguria:** «Stimati da 580 punti. I veri erano 0.6 e −0.2.» | la stima ritrova i parametri (numeri veri del notebook 10) |
+| 1 | Sepia. A register of numbers: the sunspots, year by year, rising and falling. | *Caption:* "1927. Astronomers count the spots on the Sun: about every 11 years, they return." | an observed cycle |
+| 2 | A board with a sinusoid and, above it, dots of noise. | *Caption:* "The method of the time: look for a perfect wave hidden in the disturbance." | the previous idea: periodic signal + noise |
+| 3 | Anguria draws a pendulum. Around it, kids with a blowpipe shoot peas at random. | **Anguria:** "What if no wave were hidden? What if it were just the pendulum, pushed at random?" *Caption:* "The image, according to tradition, is Yule's own." | **a cycle without a sinusoid**: it arises from the dynamics |
+| 4 | The pendulum swings with a rhythm of its own, even though the peas arrive at random. | **Anguria:** "The rhythm belongs to the pendulum. The pushes are random." | memory + random push |
+| 5 | Cold-storage warehouse. Giulia looks at the chamber temperature: it goes up, down, up. A door opens, a compressor starts. | **Giulia:** "My chamber is a pendulum too. The door and the thermostat push it." | the same scheme on a plant |
+| 6 | The formula appears on the board, with two "memory" boxes and a "push" lightning bolt. | **Anguria:** "$y(t)=\phi_1\,y(t-1)+\phi_2\,y(t-2)+\varepsilon(t)$. Two memories and a push." | the AR(2) formula |
+| 7 | A clock turns to 1938. A drawer labelled "everything that is stationary". | *Caption:* "1938. Wold proves: any stationary process is a sum of past pushes." | Wold is a **theorem**, not a model |
+| 8 | Anguria with the marker on a chart of an estimate: "0.5995 and −0.2008". | **Anguria:** "Estimated from 580 points. The true ones were 0.6 and −0.2." | the estimate recovers the parameters (true numbers of notebook 10) |
 
-**Morale:** *un ritmo può nascere dalla sola memoria, spinta da shock casuali.*
+**Moral:** *a rhythm can arise from memory alone, pushed by random shocks.*
 
-## Nel repository
+## In the repository
 
 | | |
 |---|---|
-| **Stato** | ✅ implementata (Yule-Walker); Wold è un teorema, non una funzione |
-| **Capitoli** | [2 · Statistica di base](../../00-formule-e-libreria/02-statistica-di-base.md) (ACF, PACF, Levinson-Durbin), [4 · AR e ARIMA](../../00-formule-e-libreria/04-ar-arima.md) |
-| **Libreria** | [`ArModel.FitYuleWalker`](../../../../src/libs/MathemaSharp.TimeSeries/Arima.cs), `SeriesStatistics.Acf/Pacf/LevinsonDurbin` |
-| **Notebook C#** | [06](../../../../notebooks/TimeSeries/06-ts-reference-autoregression.ipynb), [10](../../../../notebooks/TimeSeries/10-ts-libreria-tour.ipynb) |
-| **Notebook PySharp** | [10](../../../../notebooks/TimeSeries/pysharp/10-ts-libreria-tour.ipynb) |
+| **Status** | ✅ implemented (Yule-Walker); Wold is a theorem, not a function |
+| **Chapters** | [2 · Basic statistics](../../00-formule-e-libreria/02-statistica-di-base.md) (ACF, PACF, Levinson-Durbin), [4 · AR and ARIMA](../../00-formule-e-libreria/04-ar-arima.md) |
+| **Library** | [`ArModel.FitYuleWalker`](../../../../src/libs/MathemaSharp.TimeSeries/Arima.cs), `SeriesStatistics.Acf/Pacf/LevinsonDurbin` |
+| **C# notebook** | [06](../../../../notebooks/TimeSeries/06-ts-reference-autoregression.ipynb), [10](../../../../notebooks/TimeSeries/10-ts-libreria-tour.ipynb) |
+| **PySharp notebook** | [10](../../../../notebooks/TimeSeries/pysharp/10-ts-libreria-tour.ipynb) |
 
-## Riferimenti
+## References
 
 - Yule, G. U. (1927). *On a method of investigating periodicities in disturbed series, with special reference to Wolfer's sunspot numbers.* Philosophical Transactions of the Royal Society A.
 - Wold, H. (1938). *A study in the analysis of stationary time series.* Uppsala.

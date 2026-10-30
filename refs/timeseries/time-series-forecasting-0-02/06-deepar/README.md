@@ -2,49 +2,49 @@
 
 *(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** `time-series-forecasting-0-02` · sesta riga dell'infografica (2017) · **2017** · stato ⬜ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infographic** `time-series-forecasting-0-02` · sixth row of the infographic (2017) · **2017** · status ⬜ (legend in the [atlas](../../ATLANTE.md))
 
-## Descrizione teorica
+## Theoretical description
 
-**L'idea.** Addestrare **un solo modello ricorrente su molte serie correlate**, invece di un modello per serie. L'infografica: *«Train one recurrent model on many related series»*, con *«Shared weights across series»*.
+**The idea.** Train **a single recurrent model on many related series**, instead of one model per series. The infographic: *"Train one recurrent model on many related series"*, with *"Shared weights across series"*.
 
-**Come funziona.**
+**How it works.**
 
-- Una rete ricorrente (LSTM) elabora, passo dopo passo, il valore precedente $y_{t-1}$, le covariate $x_t$ e un'**identità** della serie.
-- A ogni passo non emette un numero ma i **parametri di una distribuzione**: per esempio media e deviazione standard di una gaussiana, o i parametri di una binomiale negativa per i conteggi.
-- Si addestra massimizzando la **verosimiglianza** di tutte le serie.
-- Per prevedere si **campionano traiettorie**: si estrae $\hat y_{t}$ dalla distribuzione, lo si riusa come ingresso del passo successivo, e si ripete molte volte. Dai campioni si ottengono quantili e intervalli (*«Predictive distribution»*).
+- A recurrent network (LSTM) processes, step by step, the previous value $y_{t-1}$, the covariates $x_t$ and an **identity** of the series.
+- At each step it emits not a number but the **parameters of a distribution**: for example mean and standard deviation of a Gaussian, or the parameters of a negative binomial for counts.
+- It is trained by maximising the **likelihood** of all the series.
+- To forecast one **samples trajectories**: $\hat y_{t}$ is drawn from the distribution, reused as input of the next step, and repeated many times. From the samples quantiles and intervals are obtained (*"Predictive distribution"*).
 
-**Il vantaggio dell'apprendimento globale.** Le serie con poca storia (un nuovo impianto, un nuovo prodotto) beneficiano di ciò che il modello ha imparato dalle altre: si parla di *cold-start*. Le serie hanno scale diverse: il modello riscala per serie.
+**The advantage of global learning.** Series with little history (a new plant, a new product) benefit from what the model has learned from the others: this is called *cold-start*. The series have different scales: the model rescales per series.
 
-**Limiti.** Serve un parco di serie *davvero correlate* e abbastanza lungo; addestramento costoso; le previsioni non hanno garanzia di copertura.
+**Limits.** A pool of *really related* and long enough series is needed; costly training; the forecasts have no coverage guarantee.
 
-## Il racconto
+## The story
 
-*Storyboard per un breve video a fumetti. Le battute sono del [cast ricorrente](../../PERSONAGGI.md); i personaggi storici compaiono solo nelle didascalie.*
+*Storyboard for a short comic-strip video. The lines belong to the [recurring cast](../../PERSONAGGI.md); historical figures appear only in the captions.*
 
-**Titolo:** *Un solo allievo, cento maestri* · **Durata:** ~85 s · **Personaggi:** Giulia, Anguria, Tommaso · [cast](../../PERSONAGGI.md)
+**Title:** *One student, a hundred teachers* · **Duration:** ~85 s · **Characters:** Giulia, Anguria, Tommaso · [cast](../../PERSONAGGI.md)
 
-| # | Inquadratura | Testo | Cosa fa capire |
+| # | Shot | Text | What it conveys |
 |---|---|---|---|
-| 1 | Lo stabilimento ha 200 celle frigorifere. Ogni cella è un piccolo grafico. | **Giulia:** «Ho 200 serie. Una per cella.» | molte serie correlate |
-| 2 | Un esperto per ogni cella, ognuno chiuso nel suo ufficio, a studiare solo la sua serie. | **Anguria:** «Duecento esperti, ognuno impara da solo. Si ripetono gli stessi errori.» | un modello per serie: non condivide nulla |
-| 3 | Una sola aula con un solo allievo. Sul banco, le 200 serie una dopo l'altra. | **Anguria:** «Un allievo solo. Studia tutte le celle. I suoi pesi sono gli stessi per tutte.» | pesi condivisi |
-| 4 | Arriva una cella nuova, installata da due giorni. Un grafico quasi vuoto. | **Giulia:** «Questa non ha storia. Cosa prevediamo?» | cold-start |
-| 5 | L'allievo guarda la cella nuova e la riconosce: «somiglia a quelle del lato nord». | **Anguria:** «Non parte da zero: ha già visto celle così.» | l'apprendimento globale aiuta le serie corte |
-| 6 | L'allievo non risponde con un numero ma con una campana: più larga dove è incerto. Anguria la fa girare e ne estrae un punto, poi un altro. | **Anguria:** «A ogni passo dà la forma dell'incertezza. Poi ne estraggo un esempio e vado avanti.» | uscita probabilistica e campionamento |
-| 7 | Tanti futuri possibili come fili colorati che si aprono a ventaglio. | **Tommaso:** «E la fascia che mi mostri, dove l'hai verificata?» — **Anguria:** «Sulle sue prove. Si controlla sempre.» | traiettorie campionate, copertura da verificare |
+| 1 | The plant has 200 cold chambers. Each chamber is a small chart. | **Giulia:** "I have 200 series. One per chamber." | many related series |
+| 2 | An expert for each chamber, each closed in their own office, studying only their series. | **Anguria:** "Two hundred experts, each learns alone. The same mistakes are repeated." | one model per series: shares nothing |
+| 3 | A single classroom with a single student. On the desk, the 200 series one after the other. | **Anguria:** "One student only. They study all the chambers. Their weights are the same for all." | shared weights |
+| 4 | A new chamber arrives, installed two days ago. An almost empty chart. | **Giulia:** "This one has no history. What do we forecast?" | cold-start |
+| 5 | The student looks at the new chamber and recognises it: "it looks like those on the north side". | **Anguria:** "It does not start from zero: it has already seen chambers like this." | global learning helps short series |
+| 6 | The student does not answer with a number but with a bell: wider where it is uncertain. Anguria spins it and draws a point from it, then another. | **Anguria:** "At each step it gives the shape of the uncertainty. Then I draw an example and go on." | probabilistic output and sampling |
+| 7 | Many possible futures as coloured threads that fan out. | **Tommaso:** "And the band you show me, where did you verify it?" — **Anguria:** "On its tests. It is always checked." | sampled trajectories, coverage to be verified |
 
-**Morale:** *se le serie si somigliano, imparare insieme è più rapido che imparare da soli.*
+**Moral:** *if the series resemble each other, learning together is faster than learning alone.*
 
-## Nel repository
+## In the repository
 
 | | |
 |---|---|
-| **Stato** | ⬜ **non implementata** |
-| **Cosa c'è di vicino** | l'**uscita probabilistica** e le **traiettorie campionate** si vedono, con un metodo molto più semplice, nello [scenario D](../../../../scenari/D-fotovoltaico/README.md): quantili dei residui per ora, traiettorie ricampionando blocchi di residui, `Accuracy.PinballLoss`, `Accuracy.IntervalCoverage`. Non c'è né una rete né un apprendimento fra molte serie |
-| **Cosa manca** | rete ricorrente addestrata su più serie, uscite parametriche, campionamento autoregressivo |
+| **Status** | ⬜ **not implemented** |
+| **What is close** | the **probabilistic output** and the **sampled trajectories** are seen, with a much simpler method, in [scenario D](../../../../scenari/D-fotovoltaico/README.md): quantiles of the residuals per hour, trajectories by resampling blocks of residuals, `Accuracy.PinballLoss`, `Accuracy.IntervalCoverage`. There is neither a network nor learning across many series |
+| **What is missing** | recurrent network trained on several series, parametric outputs, autoregressive sampling |
 
-## Riferimenti
+## References
 
-- Salinas, D., Flunkert, V., Gasthaus, J. & Januschowski, T. (2020). *DeepAR: probabilistic forecasting with autoregressive recurrent networks.* International Journal of Forecasting (anteprima arXiv del 2017).
+- Salinas, D., Flunkert, V., Gasthaus, J. & Januschowski, T. (2020). *DeepAR: probabilistic forecasting with autoregressive recurrent networks.* International Journal of Forecasting (arXiv preview of 2017).

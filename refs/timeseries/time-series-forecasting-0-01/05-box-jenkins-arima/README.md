@@ -1,60 +1,60 @@
-# Box-Jenkins e ARIMA
+# Box-Jenkins and ARIMA
 
 *(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** `time-series-forecasting-0-01` · quarta riga dell'infografica (1970) · **1970** · stato ◐ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infographic** `time-series-forecasting-0-01` · fourth row of the infographic (1970) · **1970** · status ◐ (legend in the [atlas](../../ATLANTE.md))
 
-## Descrizione teorica
+## Theoretical description
 
-**L'idea.** Non un modello, ma un **metodo sistematico**: identificare, stimare, controllare i residui, e ripetere finché i residui sono rumore bianco.
+**The idea.** Not a model, but a **systematic method**: identify, estimate, check the residuals, and repeat until the residuals are white noise.
 
-**Il modello.** Si differenzia $d$ volte per togliere la non stazionarietà, $w=\Delta^d y$, e si adatta un ARMA:
+**The model.** One differences $d$ times to remove the non-stationarity, $w=\Delta^d y$, and fits an ARMA:
 
 $$w_t=c+\sum_{i=1}^{p}\phi_i\,w_{t-i}+e_t+\sum_{j=1}^{q}\theta_j\,e_{t-j}.$$
 
-> **MA = innovazioni ritardate, non una media mobile.** Il termine $\theta_j e_{t-j}$ è lo *shock* di $j$ passi fa (una quantità non osservata), non una media dei dati. L'infografica lo ricorda: *«MA = lagged innovations, not a rolling average»*.
+> **MA = lagged innovations, not a moving average.** The term $\theta_j e_{t-j}$ is the *shock* of $j$ steps ago (an unobserved quantity), not an average of the data. The infographic reminds us: *"MA = lagged innovations, not a rolling average"*.
 
-**I tre passi.**
+**The three steps.**
 
-1. **Identificazione**: ACF e PACF suggeriscono gli ordini (un AR($p$) ha PACF che si annulla dopo $p$; un MA($q$) ha ACF che si annulla dopo $q$).
-2. **Stima**: qui con **Hannan-Rissanen** (due regressioni lineari: AR lungo per ricostruire le innovazioni, poi OLS su ritardi e innovazioni).
-3. **Controllo**: i residui devono essere rumore bianco; il test di **Ljung-Box** lo verifica.
+1. **Identification**: ACF and PACF suggest the orders (an AR($p$) has a PACF that vanishes after $p$; an MA($q$) has an ACF that vanishes after $q$).
+2. **Estimation**: here with **Hannan-Rissanen** (two linear regressions: a long AR to reconstruct the innovations, then OLS on lags and innovations).
+3. **Checking**: the residuals must be white noise; the **Ljung-Box** test verifies it.
 
-**Previsione.** Si estende l'ARMA con innovazioni future nulle e si **integra** $d$ volte.
+**Forecast.** The ARMA is extended with zero future innovations and **integrated** $d$ times.
 
-**Stato: ◐ parziale.** La libreria stima con Hannan-Rissanen, che è un ottimo stimatore iniziale ma **non la massima verosimiglianza esatta**; stazionarietà e invertibilità **non sono imposte**; nessuna selezione automatica dell'ordine.
+**Status: ◐ partial.** The library estimates with Hannan-Rissanen, which is an excellent initial estimator but **not exact maximum likelihood**; stationarity and invertibility are **not imposed**; no automatic selection of the order.
 
-## Il racconto
+## The story
 
-*Storyboard per un breve video a fumetti. Le battute sono del [cast ricorrente](../../PERSONAGGI.md); i personaggi storici compaiono solo nelle didascalie.*
+*Storyboard for a short comic-strip video. The lines belong to the [recurring cast](../../PERSONAGGI.md); historical figures appear only in the captions.*
 
-**Titolo:** *I tre atti del metodo* · **Durata:** ~85 s · **Personaggi:** Tommaso, Giulia, Anguria, voce narrante · [cast](../../PERSONAGGI.md)
+**Title:** *The three acts of the method* · **Duration:** ~85 s · **Characters:** Tommaso, Giulia, Anguria, narrator · [cast](../../PERSONAGGI.md)
 
-| # | Inquadratura | Testo | Cosa fa capire |
+| # | Shot | Text | What it conveys |
 |---|---|---|---|
-| 1 | Un sipario. Sul palco, un cartello: «Atto 1 · Identificare». | *Didascalia:* «1970. Box e Jenkins scrivono un libro: previsione come mestiere, non come intuizione.» | un metodo, non un trucco |
-| 2 | Giulia mostra una serie che sale senza fermarsi, come una rampa. | **Anguria:** «Non sta ferma: prima la rendiamo piatta. Differenza: oggi meno ieri.» | differenziare per rendere stazionaria |
-| 3 | Due istogrammi, ACF e PACF, come impronte digitali. Anguria li legge. | **Anguria:** «Questa si ferma dopo due barre: ricorda due passi.» | l'identificazione |
-| 4 | «Atto 2 · Stimare». Una bilancia mette insieme i coefficienti. | *Didascalia:* «Due regressioni: la prima ricostruisce gli shock passati, la seconda li usa.» | Hannan-Rissanen |
-| 5 | Un fantasma sul palco con la scritta «eco dell'errore di ieri». | **Anguria:** «Il "MA" non è una media mobile. È l'eco degli errori di ieri.» | MA = innovazioni ritardate |
-| 6 | «Atto 3 · Controllare». Tommaso con il timbro in mano guarda i residui: devono essere monotoni come il rumore di un frigorifero. | **Tommaso:** «Se nei residui c'è ancora una melodia, il modello non ha capito tutto.» | residui bianchi, Ljung-Box |
-| 7 | Una tabella di cinque modelli. Il (1,1,1) ha un p-value di 0.034, il (2,1,2) 0.015. | **Giulia:** «Anche il migliore non è perfetto.» | scelta dell'ordine con AIC e Ljung-Box (notebook 08) |
-| 8 | Il sipario si richiude, poi si riapre sull'«Atto 1». | **Anguria:** «È un ciclo: si ricomincia finché i residui tacciono.» | il metodo è iterativo |
+| 1 | A curtain. On the stage, a sign: "Act 1 · Identify". | *Caption:* "1970. Box and Jenkins write a book: forecasting as a craft, not as intuition." | a method, not a trick |
+| 2 | Giulia shows a series that rises without stopping, like a ramp. | **Anguria:** "It does not stay still: first we make it flat. Difference: today minus yesterday." | differencing to make it stationary |
+| 3 | Two histograms, ACF and PACF, like fingerprints. Anguria reads them. | **Anguria:** "This one stops after two bars: it remembers two steps." | the identification |
+| 4 | "Act 2 · Estimate". A scale puts the coefficients together. | *Caption:* "Two regressions: the first reconstructs the past shocks, the second uses them." | Hannan-Rissanen |
+| 5 | A ghost on the stage with the sign "echo of yesterday's error". | **Anguria:** "The 'MA' is not a moving average. It is the echo of yesterday's errors." | MA = lagged innovations |
+| 6 | "Act 3 · Check". Tommaso with the stamp in hand looks at the residuals: they must be monotonous like the noise of a refrigerator. | **Tommaso:** "If there is still a melody in the residuals, the model has not understood everything." | white residuals, Ljung-Box |
+| 7 | A table of five models. The (1,1,1) has a p-value of 0.034, the (2,1,2) 0.015. | **Giulia:** "Even the best is not perfect." | choice of order with AIC and Ljung-Box (notebook 08) |
+| 8 | The curtain closes again, then reopens on "Act 1". | **Anguria:** "It is a cycle: you start over until the residuals fall silent." | the method is iterative |
 
-**Morale:** *un modello non si fida: si interroga, e si ascoltano i residui.*
+**Moral:** *a model is not trusted: it is interrogated, and the residuals are listened to.*
 
-## Nel repository
+## In the repository
 
 | | |
 |---|---|
-| **Stato** | ◐ parziale: Hannan-Rissanen, non la massima verosimiglianza esatta; nessuna selezione automatica |
-| **Capitolo** | [4 · AR e ARIMA](../../00-formule-e-libreria/04-ar-arima.md) |
-| **Libreria** | [`ArimaModel.FitHannanRissanen`](../../../../src/libs/MathemaSharp.TimeSeries/Arima.cs), `Residuals`, `Forecast`; `SeriesStatistics.LjungBox` |
-| **Notebook C#** | [08](../../../../notebooks/TimeSeries/08-ts-arima-var-garch.ipynb), [10](../../../../notebooks/TimeSeries/10-ts-libreria-tour.ipynb) |
-| **Notebook PySharp** | [10](../../../../notebooks/TimeSeries/pysharp/10-ts-libreria-tour.ipynb) |
-| **Risultato** | notebook 08: ARIMA(1,1,1) su 400 punti, RMSE fuori campione 3.81 contro 10.63 del naive e 5.36 del drift. Con 400 punti i parametri singoli sono rumorosi ($\hat\phi=0.40$, $\hat\theta=0.54$ contro 0.5 e 0.4 veri) |
+| **Status** | ◐ partial: Hannan-Rissanen, not exact maximum likelihood; no automatic selection |
+| **Chapter** | [4 · AR and ARIMA](../../00-formule-e-libreria/04-ar-arima.md) |
+| **Library** | [`ArimaModel.FitHannanRissanen`](../../../../src/libs/MathemaSharp.TimeSeries/Arima.cs), `Residuals`, `Forecast`; `SeriesStatistics.LjungBox` |
+| **C# notebook** | [08](../../../../notebooks/TimeSeries/08-ts-arima-var-garch.ipynb), [10](../../../../notebooks/TimeSeries/10-ts-libreria-tour.ipynb) |
+| **PySharp notebook** | [10](../../../../notebooks/TimeSeries/pysharp/10-ts-libreria-tour.ipynb) |
+| **Result** | notebook 08: ARIMA(1,1,1) on 400 points, out-of-sample RMSE 3.81 against 10.63 of the naive and 5.36 of the drift. With 400 points the single parameters are noisy ($\hat\phi=0.40$, $\hat\theta=0.54$ against the true 0.5 and 0.4) |
 
-## Riferimenti
+## References
 
 - Box, G. E. P. & Jenkins, G. M. (1970). *Time Series Analysis: Forecasting and Control.* Holden-Day.
 - Hannan, E. J. & Rissanen, J. (1982). *Recursive estimation of mixed autoregressive-moving average order.* Biometrika.

@@ -1,58 +1,58 @@
-# Filtro di Kalman
+# Kalman filter
 
 *(Reference image not included in the repository: third-party material.)*
 
-> **Infografica** `time-series-forecasting-0-01` · terza riga dell'infografica (1960) · **1960** · stato ✅ (legenda nell'[atlante](../../ATLANTE.md))
+> **Infographic** `time-series-forecasting-0-01` · third row of the infographic (1960) · **1960** · status ✅ (legend in the [atlas](../../ATLANTE.md))
 
-## Descrizione teorica
+## Theoretical description
 
-**L'idea.** *Predici uno stato nascosto; correggilo con le nuove osservazioni.* Lo stato $x_t$ evolve linearmente e si vede solo attraverso una misura rumorosa:
+**The idea.** *Predict a hidden state; correct it with the new observations.* The state $x_t$ evolves linearly and is seen only through a noisy measurement:
 
 $$x_t=F\,x_{t-1}+w_t,\;w_t\sim\mathcal N(0,Q)\qquad y_t=H\,x_t+v_t,\;v_t\sim\mathcal N(0,R).$$
 
-**Predict** (propaga stato e incertezza): $\hat x^-=F\hat x$, $\;P^-=FPF^\top+Q$.
+**Predict** (propagates state and uncertainty): $\hat x^-=F\hat x$, $\;P^-=FPF^\top+Q$.
 
-**Update** (corregge con l'osservazione): $v=y-H\hat x^-$, $\;K=P^-H^\top/S$, $\;\hat x=\hat x^-+Kv$, con $S=HP^-H^\top+R$.
+**Update** (corrects with the observation): $v=y-H\hat x^-$, $\;K=P^-H^\top/S$, $\;\hat x=\hat x^-+Kv$, with $S=HP^-H^\top+R$.
 
-Il **guadagno** $K$ è la fiducia data all'osservazione: alto se la misura è affidabile ($R$ piccolo) o se lo stato è incerto ($P^-$ grande).
+The **gain** $K$ is the trust given to the observation: high if the measurement is reliable ($R$ small) or if the state is uncertain ($P^-$ large).
 
-**Dati mancanti.** Se $y_t$ manca, si salta l'update: lo stato resta la sola previsione e l'incertezza **cresce** di $Q$ a ogni passo. È il vantaggio sul smoothing «a ricetta».
+**Missing data.** If $y_t$ is missing, the update is skipped: the state remains the forecast alone and the uncertainty **grows** by $Q$ at every step. This is the advantage over "recipe" smoothing.
 
-**Equivalenza con SES.** Nel *local level* il guadagno converge a $K^*=P^*/(P^*+r)$, con $P^*=(q+\sqrt{q^2+4qr})/2$ (equazione di Riccati). L'update diventa una riga di SES con $\alpha=K^*$.
+**Equivalence with SES.** In the *local level* the gain converges to $K^*=P^*/(P^*+r)$, with $P^*=(q+\sqrt{q^2+4qr})/2$ (Riccati equation). The update becomes one line of SES with $\alpha=K^*$.
 
-**Limiti.** Lineare e gaussiano; qui con osservazione scalare e $Q$, $R$ **non stimati** (si passano). *Non indovina ciò che non vede*: durante un buco predice, non scopre.
+**Limits.** Linear and Gaussian; here with scalar observation and $Q$, $R$ **not estimated** (they are passed in). *It does not guess what it does not see*: during a gap it predicts, it does not discover.
 
-## Il racconto
+## The story
 
-*Storyboard per un breve video a fumetti. Le battute sono del [cast ricorrente](../../PERSONAGGI.md); i personaggi storici compaiono solo nelle didascalie.*
+*Storyboard for a short comic-strip video. The lines belong to the [recurring cast](../../PERSONAGGI.md); historical figures appear only in the captions.*
 
-**Titolo:** *Il detective e l'indizio* · **Durata:** ~90 s · **Personaggi:** Anguria, Giulia, Tommaso, voce narrante · [cast](../../PERSONAGGI.md)
+**Title:** *The detective and the clue* · **Duration:** ~90 s · **Characters:** Anguria, Giulia, Tommaso, narrator · [cast](../../PERSONAGGI.md)
 
-| # | Inquadratura | Testo | Cosa fa capire |
+| # | Shot | Text | What it conveys |
 |---|---|---|---|
-| 1 | Anguria in impermeabile e cappello da detective. Davanti a lei, una cella frigorifera sullo sfondo, nel buio. | **Anguria:** «Sono certa che la cella sia a 2 gradi. Ma il sensore mente un po'.» | stato nascosto + misura rumorosa |
-| 2 | Giulia porge un foglio: la lettura del sensore, 2.16, poi 2.10, poi 2.09: a scatti. | **Giulia:** «Rumore. Il sensore sbaglia di 0.08 gradi.» | il rumore di misura $R$ |
-| 3 | Anguria disegna una freccia: «dove dovrebbe essere ora, secondo me». | *Didascalia:* «**Prevedi.** Dal punto di prima, e da come si muove la cella.» | predict |
-| 4 | Arriva un indizio, la nuova lettura. Il detective confronta freccia e indizio. | *Didascalia:* «**Correggi.** Quanto ti fidi dell'indizio dipende da quanto sei sicura di te.» | update e guadagno $K$ |
-| 5 | Una manopola «fiducia» con due estremi: «mi fido solo di me» / «mi fido solo del sensore». | **Anguria:** «Il guadagno gira da solo. Se il rumore del processo è un quarto di quello di misura, a regime si ferma a 0.39.» | guadagno stazionario |
-| 6 | Il gateway perde il segnale: il quadro dei dati diventa vuoto per 12 minuti. Anguria continua a disegnare frecce, ma le frecce diventano sempre più sfocate. | **Anguria:** «Senza indizi posso solo dedurre. E più passa il tempo, meno sono sicura.» | dati mancanti: l'incertezza cresce |
-| 7 | Il segnale torna: la temperatura è saltata a 4.5 gradi. Anguria guarda la freccia, ferma a 2.6. | **Tommaso:** «Quando è salita sopra i 4?» — **Anguria:** «Non lo so. Era dentro il buio. Dico: tra 7 e 19 minuti.» | **non si indovina ciò che non si vede**; il KPI come intervallo (scenario A: verità 11) |
-| 8 | Didascalia con una piccola capsula spaziale sullo sfondo. | *Didascalia:* «1960, Kalman. Lo stesso metodo ha poi guidato le missioni Apollo.» | importanza storica |
+| 1 | Anguria in a raincoat and detective hat. In front of her, a cold chamber in the background, in the dark. | **Anguria:** "I am sure the chamber is at 2 degrees. But the sensor lies a little." | hidden state + noisy measurement |
+| 2 | Giulia hands over a sheet: the sensor reading, 2.16, then 2.10, then 2.09: jerky. | **Giulia:** "Noise. The sensor is off by 0.08 degrees." | the measurement noise $R$ |
+| 3 | Anguria draws an arrow: "where it should be now, in my opinion". | *Caption:* "**Predict.** From the previous point, and from how the chamber moves." | predict |
+| 4 | A clue arrives, the new reading. The detective compares arrow and clue. | *Caption:* "**Correct.** How much you trust the clue depends on how sure you are of yourself." | update and gain $K$ |
+| 5 | A "trust" knob with two extremes: "I only trust myself" / "I only trust the sensor". | **Anguria:** "The gain turns by itself. If the process noise is a quarter of the measurement noise, at steady state it stops at 0.39." | steady-state gain |
+| 6 | The gateway loses the signal: the data panel goes empty for 12 minutes. Anguria keeps drawing arrows, but the arrows become more and more blurred. | **Anguria:** "Without clues I can only deduce. And the more time passes, the less sure I am." | missing data: the uncertainty grows |
+| 7 | The signal returns: the temperature has jumped to 4.5 degrees. Anguria looks at the arrow, stuck at 2.6. | **Tommaso:** "When did it go above 4?" — **Anguria:** "I don't know. It was inside the dark. I say: between 7 and 19 minutes." | **you cannot guess what you cannot see**; the KPI as an interval (scenario A: truth 11) |
+| 8 | Caption with a small space capsule in the background. | *Caption:* "1960, Kalman. The same method later guided the Apollo missions." | historical importance |
 
-**Morale:** *prevedi, poi correggi: e quando non vedi, dillo.*
+**Moral:** *predict, then correct: and when you cannot see, say so.*
 
-## Nel repository
+## In the repository
 
 | | |
 |---|---|
-| **Stato** | ✅ implementata (osservazione scalare, local level, local linear trend, forma di Joseph, dati mancanti) |
-| **Capitolo** | [6 · Il filtro di Kalman](../../00-formule-e-libreria/06-kalman.md) |
-| **Libreria** | [`KalmanFilter`](../../../../src/libs/MathemaSharp.TimeSeries/KalmanFilter.cs): `LocalLevel`, `LocalLinearTrend`, `LocalLevelSteadyStateGain`, `Filter` |
-| **Notebook C#** | [07](../../../../notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb), [10](../../../../notebooks/TimeSeries/10-ts-libreria-tour.ipynb), [A1](../../../../notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-csharp.ipynb) |
-| **Notebook PySharp** | [10](../../../../notebooks/TimeSeries/pysharp/10-ts-libreria-tour.ipynb), [A1](../../../../notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-pysharp.ipynb) |
-| **In fabbrica** | scenario A: temperatura con 6 buchi di comunicazione; osservati 7 minuti sopra +4 °C, Kalman 8, intervallo onesto 7–19, verità 11 |
+| **Status** | ✅ implemented (scalar observation, local level, local linear trend, Joseph form, missing data) |
+| **Chapter** | [6 · The Kalman filter](../../00-formule-e-libreria/06-kalman.md) |
+| **Library** | [`KalmanFilter`](../../../../src/libs/MathemaSharp.TimeSeries/KalmanFilter.cs): `LocalLevel`, `LocalLinearTrend`, `LocalLevelSteadyStateGain`, `Filter` |
+| **C# notebook** | [07](../../../../notebooks/TimeSeries/07-ts-smoothing-kalman.ipynb), [10](../../../../notebooks/TimeSeries/10-ts-libreria-tour.ipynb), [A1](../../../../notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-csharp.ipynb) |
+| **PySharp notebook** | [10](../../../../notebooks/TimeSeries/pysharp/10-ts-libreria-tour.ipynb), [A1](../../../../notebooks/TimeSeries/Scenarios/A-magazzino-frigorifero/A1-magazzino-frigorifero-pysharp.ipynb) |
+| **In the factory** | scenario A: temperature with 6 communication gaps; observed 7 minutes above +4 °C, Kalman 8, honest interval 7–19, truth 11 |
 
-## Riferimenti
+## References
 
 - Kalman, R. E. (1960). *A new approach to linear filtering and prediction problems.* Journal of Basic Engineering.
 - Durbin, J. & Koopman, S. J. *Time Series Analysis by State Space Methods.* Oxford University Press.
