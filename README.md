@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="branding/logo-dark.svg">
+    <img alt="MàthemaSharp" src="branding/logo.svg" height="72">
+  </picture>
+</p>
+
 # MàthemaSharp
 
 > **Part of [ScienceSharp](../ScienceSharp)** — the Science suite. Targets **.NET 11**. Status: preview, not published. License: MIT.
@@ -5,8 +12,6 @@
 
 | [README](README.md) | [USAGE](USAGE.md) (install first) | [ARCHITECTURE](ARCHITECTURE.md) | [ROADMAP](ROADMAP.md) | [OPENPOINTS](OPENPOINTS.md) |
 | --- | --- | --- | --- | --- |
-
-![Logo MàthemaSharp](refs/branding/mathemasharp-logo.png)
 
 Una famiglia di librerie matematiche basate su Generic Math. Il marchio si scrive **MàthemaSharp**, con accento grave sulla prima a; pacchetti, assembly e namespace usano **MathemaSharp** senza accento.
 
