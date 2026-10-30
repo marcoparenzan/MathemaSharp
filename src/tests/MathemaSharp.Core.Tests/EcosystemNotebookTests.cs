@@ -28,7 +28,11 @@ public class EcosystemNotebookTests
             Assert.Equal(320u, System.Buffers.Binary.BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(16, 4)));
             Assert.Equal(240u, System.Buffers.Binary.BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(20, 4)));
         }
-        using var report = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "ops", "validation", "ndsharp-contour-notebook", "report.json")));
+        // The gate step ndsharp-contour-notebook writes this report and validates it itself. It is generated (ignored by git, not tracked), so a
+        // fresh checkout has none until the gate has run: the notebook checks above always run, the report cross-check only when the report exists.
+        var reportPath = Path.Combine(root, "ops", "validation", "ndsharp-contour-notebook", "report.json");
+        if (!File.Exists(reportPath)) return;
+        using var report = JsonDocument.Parse(File.ReadAllText(reportPath));
         Assert.True(report.RootElement.GetProperty("Success").GetBoolean());
         Assert.False(report.RootElement.GetProperty("ReviewImageFilesSaved").GetBoolean());
     }
