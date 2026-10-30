@@ -1,484 +1,483 @@
 # MàthemaSharp — roadmap
 
-MathemaSharp è il codice e il nome dei pacchetti; **MàthemaSharp** è il marchio. Obiettivo: una libreria matematica modulare basata su Generic Math, con .NET 11 e supporto ai nuovi Decimal32/64/128 dove compatibili con gli algoritmi.
+MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the brand. Objective: a modular mathematics library based on Generic Math, with .NET 11 and support for the new Decimal32/64/128 where compatible with the algorithms.
 
-Questa roadmap sostituisce le precedenti voci aggregate che davano per completate migrazione e verifica dei notebook. Una build riuscita non dimostra che ogni API supporti ogni formato.
+This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Roadmap corrente — stato aggiornato
+## Current roadmap — updated state
 
-Questa sezione prevale su tutti i quadri e conteggi storici riportati più avanti. Non attribuisce alle ultime modifiche una baseline completa che non è stata ancora rieseguita. Ottimizzazioni di performance rimandate: prima correttezza, contratti, notebook, interoperabilità e distribuzione.
+This section prevails over all the historical tables and counts reported further on. It does not attribute to the latest changes a complete baseline that has not yet been rerun. Performance optimisations postponed: first correctness, contracts, notebooks, interoperability and distribution.
 
-### Baseline riconfermata — 2026-10-29
+### Baseline reconfirmed — 2026-10-29
 
-Gate `--no-images` rieseguito senza modifiche al codice: 31 passi più `skip-report`, tutti exit 0, report `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-230541`. PySharp: 1507 passati, 0 falliti, 13 sospesi (12 PostgreSQL non raggiungibile, 1 download pretrained opt-in); i sospesi non sono contati come passati. `PlotSharp.Tests` riverificato a parte: 227/227. Il gate richiede oltre 10 minuti: eseguirlo ai punti di consolidamento. Il repository è sotto git dal 2026-10-29 (commit di baseline `13341d3`). Questa riconferma prevale sulla baseline `20261028-215324` qui sotto, che resta valida come storia. Il perimetro e i residui del consolidamento grafico sono nella `ROADMAP.md` di `Science` (R01–R16).
+`--no-images` gate rerun without code changes: 31 steps plus `skip-report`, all exit 0, report `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-230541`. PySharp: 1507 passed, 0 failed, 13 suspended (12 PostgreSQL unreachable, 1 opt-in pretrained download); the suspended ones are not counted as passed. `PlotSharp.Tests` reverified separately: 227/227. The gate takes over 10 minutes: run it at the consolidation points. The repository has been under git since 2026-10-29 (baseline commit `13341d3`). This reconfirmation prevails over the baseline `20261028-215324` below, which remains valid as history. The perimeter and the leftovers of the graphics consolidation are in `Science`'s `ROADMAP.md` (R01–R16).
 
-### Baseline completa precedente — NDSharp filled sampler/bands
+### Previous complete baseline — NDSharp filled sampler/bands
 
-Gate --no-images D:\Dev\BuildArtifacts\ecosystem-validation\20261028-215324: 31/31 exit0 dopo le ultime estrazioni. Solution build/test/audit, kernel package e source isolati, notebook linee/bande, browser/UI/cancellazione e selftest numerico completo rieseguiti. Suite shared227 casi, ND19 e fixture/query compatibilità riconfermate nel gate; test sospesi e warning restano dichiarati.
-Zero nuovi file review/screenshot, notebook output PNG incorporati come previsti e encoding QA in memoria. Cartelle no-images solo JSON, report recenti/politica verificati e archiviati. Prevale sulle note di full gate non rieseguito. D03 resta parziale (palette/alpha/Skia/altre categorie/consumer/distribuzione), accessibilità completa e native JupyterSharp non certificati. Nessuna release.
+Gate --no-images D:\Dev\BuildArtifacts\ecosystem-validation\20261028-215324: 31/31 exit0 after the latest extractions. Solution build/test/audit, isolated package and source kernels, lines/bands notebook, browser/UI/cancellation and complete numerical selftest rerun. Shared suite227 cases, ND19 and compatibility fixtures/queries reconfirmed in the gate; suspended tests and warnings remain declared.
+Zero new review files/screenshots, notebook output PNGs embedded as expected and QA encoding in memory. no-images folders only JSON, recent reports/policy verified and archived. It prevails over the notes of full gate not rerun. D03 remains partial (palette/alpha/Skia/other categories/consumers/distribution), complete accessibility and native JupyterSharp not certified. No release.
 
-### Verifica mirata precedente — selezione bande contourf
+### Previous targeted verification — contourf band selection
 
-ContourBands delegato da DrawFilled: indici/bordi inclusivi e duplicati conservati, esterni/non-finiti senza banda, singleton senza bande. Snapshot livelli finiti non decrescenti, normalizzazione midpoint con ordine originale e overflow non riassociato. Palette/alpha/bitmap/Skia restano ND.
-Build/suite shared227/227, ND19/19 verdi; kernel source ricostruito, metadata ContourBands verificato e notebook linee/bande320×240 ricontrollato. Zero file immagine di revisione; warning kernel noti visibili. Non full gate/publicazione, D03 parziale e baseline completa31 precedente da riconfermare.
+ContourBands delegated by DrawFilled: indices/inclusive edges and duplicates preserved, external/non-finite without a band, singleton without bands. Snapshot of finite non-decreasing levels, midpoint normalisation with the original order and non-reassociated overflow. Palette/alpha/bitmap/Skia remain ND.
+Build/suite shared227/227, ND19/19 green; kernel source rebuilt, ContourBands metadata verified and lines/bands320×240 notebook rechecked. Zero review image files; known kernel warnings visible. Not a full gate/publication, D03 partial and the previous complete baseline31 to be reconfirmed.
 
-### Verifica precedente mirata — sampler dei contour riempiti NDSharp
+### Previous verification — NDSharp filled-contour sampler
 
-Condivisa solo Sample fisica in RectilinearFieldSampler: binary search e quattro termini invariati, 81 query prima della modifica congelate e tutte uguali. Snapshot assi/dati, assi crescenti/finite min2×2, shape coerente/query finite; dati non finiti propagano. Mutazione durante draw e input invalidi non garantiti. Line-contour discendenti separati non modificati; bande/palette/alpha/Skia locali.
-Build e suite shared211/211, NDSharp.Plot19/19 passate. Kernel source-plots ricostruito, metadata sampler nuovo verificato e notebook reale linee/bande produce due PNG320×240 incorporati; niente review file/screenshot. Warning kernel preesistenti restano. Non nuovo full gate o release; baseline31 precedente da riconfermare.
+Only the physical Sample shared in RectilinearFieldSampler: binary search and four terms unchanged, 81 queries frozen before the change and all equal. Snapshot of axes/data, increasing/finite axes min2×2, consistent shape/finite queries; non-finite data propagate. Mutation during draw and invalid inputs not guaranteed. Separate descending line-contours not modified; bands/palette/alpha/Skia local.
+Build and suite shared211/211, NDSharp.Plot19/19 passed. Kernel source-plots rebuilt, new sampler metadata verified and the real lines/bands notebook produces two embedded PNGs320×240; no review file/screenshot. Pre-existing kernel warnings remain. Not a new full gate or release; previous baseline31 to be reconfirmed.
 
-### Baseline completa precedente — contour NDSharp nel kernel reale
+### Previous complete baseline — NDSharp contour in the real kernel
 
-Gate --no-images D:\Dev\BuildArtifacts\ecosystem-validation\20261028-203820: 31/31 passi exit0 dopo nuovo notebook e profilo source. Build kernel predefinito a pacchetti e variante source separata, metadata nuove DLL verificati, notebook realmente eseguito con JupyterNet/PySharp su .NET11. Linee e bande: due output PNG320×240 incorporati, non file di review/screenshot. Report recente archiviato insieme agli altri JSON/log.
-Prima il binding usava ancora pacchetto NDSharp.Plot precedente: introdotto ScienceUseSourcePlots opt-in, default compatibile e kernel-source-plots distinto da kernel. Notebook sotto NDSharp/pysharp perché Ecosystem è riservato ai piloti JupyterSharp; test non indebolito. Due nuovi test, Core100/100 verificato separatamente e nel gate; warning PySharp preesistenti non soppressi.
-Questa baseline prevale sulle note non-full-gate precedenti. D03 resta parziale (contourf/stili/Skia/altri consumer/distribuzione), native JupyterSharp e pixel-oracle CPython non dimostrati. Nessuna pubblicazione.
+Gate --no-images D:\Dev\BuildArtifacts\ecosystem-validation\20261028-203820: 31/31 steps exit0 after the new notebook and source profile. Default package kernel build and separate source variant, new DLL metadata verified, notebook really run with JupyterNet/PySharp on .NET11. Lines and bands: two embedded PNG320×240 outputs, not review/screenshot files. Recent report archived together with the other JSON/logs.
+Before, the binding still used the previous NDSharp.Plot package: introduced the opt-in ScienceUseSourcePlots, compatible default and kernel-source-plots distinct from kernel. Notebook under NDSharp/pysharp because Ecosystem is reserved for the JupyterSharp pilots; test not weakened. Two new tests, Core100/100 verified separately and in the gate; pre-existing PySharp warnings not suppressed.
+This baseline prevails over the previous non-full-gate notes. D03 remains partial (contourf/styles/Skia/other consumers/distribution), native JupyterSharp and CPython pixel-oracle not demonstrated. No publication.
 
-### Verifica mirata precedente — migrazione contour-line NDSharp
+### Previous targeted verification — NDSharp contour-line migration
 
-Geometria di ContourArtist.DrawLines effettivamente delegata a PlotSharp.RectilinearContours e kernel comune. Convenzioni distinte preservate: ND usa coordinate fisiche/nonuniformi, edge top/left forward, segmenti nulli e skip somma corner non finita; core a indici mantiene propria convenzione/default/mask/bounds. Livelli, Skia/paint/Axes e contourf ND non modificati.
-Nuovo riferimento NDSharp.Plot→PlotSharp; build e18/18 test ND passati, shared204/204 passati con geometria confrontata esattamente con aritmetica pre-migrazione. Nessuna immagine. Report hashes/deps aggiornato con geometry delegated/family incomplete. Non nuovo full gate, notebook end-to-end o pubblicazione; D03 ora parziale, baseline completa precedente distinta.
+Geometry of ContourArtist.DrawLines effectively delegated to PlotSharp.RectilinearContours and the common kernel. Distinct conventions preserved: ND uses physical/non-uniform coordinates, forward top/left edges, null segments and skip of the non-finite corner sum; the index-based core keeps its own convention/default/mask/bounds. Levels, Skia/paint/Axes and ND contourf not modified.
+New reference NDSharp.Plot→PlotSharp; build and e18/18 ND tests passed, shared204/204 passed with geometry compared exactly with pre-migration arithmetic. No image. Hashes/deps report updated with geometry delegated/family incomplete. Not a new full gate, end-to-end notebook or publication; D03 now partial, previous complete baseline distinct.
 
-### Verifica precedente mirata — inventario NDSharp.Plot
+### Previous verification — NDSharp.Plot inventory
 
-Sorgente attiva NDSharp/src/NDSharp.Plot ispezionata, non snapshot: net11.0, NDSharp + Skia/native3.119.0, Figure/Axes/Artists e font DejaVu. Report hashes/dipendenze in ops/inventory/ndsharp-plot-contract.json. Candidata la sola geometria contour lineare, che usa Xs/Ys fisici/nonuniformi, skip celle non finite e suppression dei livelli estremi; non conversione globale di indici PlotSharp.
-Quattro baseline test aggiunti senza renderer changes, PNG solo in memoria. Build e suite NDSharp.Plot18/18 passate, inventario tool compilato/eseguito. Contourf/AutoLevels/Ticks/stili/Skia/raster devono restare separati fino a verifica. Nessuna migrazione/dipendenza PlotSharp/immagine/pubblicazione, non nuovo full gate.
+Active source NDSharp/src/NDSharp.Plot inspected, not snapshot: net11.0, NDSharp + Skia/native3.119.0, Figure/Axes/Artists and DejaVu fonts. Hashes/dependencies report in ops/inventory/ndsharp-plot-contract.json. Only the linear contour geometry is a candidate, which uses physical/non-uniform Xs/Ys, skip of non-finite cells and suppression of extreme levels; not a global conversion of PlotSharp indices.
+Four baseline tests added without renderer changes, PNG in memory only. Build and NDSharp.Plot18/18 suite passed, inventory tool compiled/run. Contourf/AutoLevels/Ticks/styles/Skia/raster must stay separate until verified. No migration/PlotSharp dependency/image/publication, not a new full gate.
 
-### Baseline completa precedente — dopo consolidamento FieldPlot
+### Previous complete baseline — after FieldPlot consolidation
 
-ops/ValidateEcosystem.cs -- --no-images, D:\Dev\BuildArtifacts\ecosystem-validation\20261028-185732: 29/29 passi exit 0. Tutte le verifiche di soluzione, audit, notebook/piloti, CLI/Web, UI calcolatori/mobile, cancellazione quadro/fischio, selftest numerico originale completo, raster in memoria e browser rieseguite dopo le estrazioni. Nessun skip dei controlli, test sospesi sempre dichiarati nelle suite/TRX.
-Renderer FieldPlot ora source-shared con facade Navier; fixture strutturali/pixel e suite PlotSharp198 casi riconfermate nel gate. Output notebook aggiornati; nessuna nuova immagine di revisione/screenshot. Tre cartelle *no-images contengono solo JSON; sette report recenti/politica immagini verificati e archiviati con log.
-Questa baseline prevale sulle note precedenti di gate non rieseguito. Non chiude tutte le famiglie, consumer notebook Navier/originali, accessibilità completa, licenze o distribuzione. Nessun pacchetto pubblicato/sovrascritto.
+ops/ValidateEcosystem.cs -- --no-images, D:\Dev\BuildArtifacts\ecosystem-validation\20261028-185732: 29/29 steps exit 0. All the verifications of solution, audit, notebooks/pilots, CLI/Web, calculator/mobile UI, quadro/whistle cancellation, complete original numerical selftest, in-memory raster and browser rerun after the extractions. No skip of the checks, suspended tests always declared in the suites/TRX.
+FieldPlot renderer now source-shared with the Navier facade; structural/pixel fixtures and PlotSharp suite198 cases reconfirmed in the gate. Notebook outputs updated; no new review image/screenshot. Three *no-images folders contain only JSON; seven recent reports/image policy verified and archived with logs.
+This baseline prevails over the previous notes of gate not rerun. It does not close all the families, Navier/original notebook consumers, complete accessibility, licences or distribution. No package published/overwritten.
 
-### Verifica mirata precedente — assemblaggio FieldPlot condiviso
+### Previous targeted verification — shared FieldPlot assembly
 
-Charts.NodeFieldPlot compone header/stili e componenti consolidati; Navier mantiene FieldPlotOptions/firma tramite facade e rimuove helper privati inutilizzati. Numerica/scenario/UI non spostati; Heatmap a celle distinta. Quattro output di produzione congelati prima: markup strutturale e hash pixel RGB coincidono (solo GUID e PNG nel confronto normalizzati).
-Nuova validation overlay same-shape, contour0–32, ostacoli finiti/raggio≥0, incompatibilità input fuori contratto dichiarate. Build/suite PlotSharp198/198 passate; Web Release/quadro/smoke --no-images ricontrollati. Zero immagini, non nuovo full gate o release. D02 richiede ancora verifica complessiva/consumer notebook/licenze; baseline full29 precedente da riconfermare.
+Charts.NodeFieldPlot composes header/styles and consolidated components; Navier keeps FieldPlotOptions/signature through a facade and removes unused private helpers. Numerics/scenario/UI not moved; cell-based Heatmap distinct. Four production outputs frozen before: structural markup and RGB pixel hashes coincide (only GUID and PNG normalised in the comparison).
+New overlay validation same-shape, contour0–32, finite obstacles/radius≥0, out-of-contract input incompatibilities declared. Build/suite PlotSharp198/198 passed; Web Release/quadro/smoke --no-images rechecked. Zero images, not a new full gate or release. D02 still requires overall verification/notebook consumers/licences; full29 baseline to be reconfirmed.
 
-### Verifica precedente mirata — frame/proiezione nodi
+### Previous verification — node frame/projection
 
-NodeFieldLayout condiviso per proporzioni/margini, colorbar position e contour X/Y. Math.Round altezza to-even, origine bottom e indici frazionari preservati, non cell-center; extrapolazioni finite non clippate. Create valida shape min2×2/max100k, larghezza/altezza1–10000 e collassi prima del raster.
-Build/suite PlotSharp 192/192 passate, fixture precedenti e nuovi corner/rounding/proporzioni; Web Release/quadro/smoke --no-images ricontrollati, zero immagini. Assemblaggio/header/stili FieldPlot restano locali. Non nuovo full gate, benchmark o pubblicazione; baseline completa precedente da riconfermare.
+NodeFieldLayout shared for proportions/margins, colorbar position and contour X/Y. Math.Round height to-even, bottom origin and fractional indices preserved, not cell-centre; finite extrapolations not clipped. Create validates shape min2×2/max100k, width/height1–10000 and collapses before the raster.
+Build/suite PlotSharp 192/192 passed, previous fixtures and new corner/rounding/proportions; Web Release/quadro/smoke --no-images rechecked, zero images. FieldPlot assembly/header/styles remain local. Not a new full gate, benchmark or publication; previous complete baseline to be reconfirmed.
 
-### Verifica precedente mirata — colorbar a gradiente
+### Previous targeted verification — gradient colorbar
 
-Frammento colorbar Navier condiviso in GradientColorbar: campioni k/10, 3 tick, rect/gradiente/anchor/escaping preservati, inclusa metà altezza intera legacy. Tre markup di produzione frozen prima della migrazione coincidono, normalizzati solo GUID. Default Heatmap a strisce invariato; input validati (limiti/proiezione finiti, colori #RRGGBB).
-Build/suite PlotSharp 178/178 passate, Web Release/quadro/smoke --no-images ricontrollati. Zero immagini e nessun full gate/pubblicazione. FieldPlot posizionamento/frame e proiezione contour ancora locali, D02 parziale. Baseline full29 precedente alle ultime estrazioni da riconfermare.
+Navier colorbar fragment shared in GradientColorbar: k/10 samples, 3 ticks, rect/gradient/anchor/escaping preserved, including the legacy integer half height. Three production markups frozen before the migration coincide, normalised only for GUIDs. Default striped Heatmap unchanged; inputs validated (finite limits/projection, #RRGGBB colours).
+Build/suite PlotSharp 178/178 passed, Web Release/quadro/smoke --no-images rechecked. Zero images and no full gate/publication. FieldPlot positioning/frame and contour projection still local, D02 partial. Full29 baseline earlier than the latest extractions to be reconfirmed.
 
-### Verifica precedente mirata — geometria frecce Navier
+### Previous targeted verification — Navier arrow geometry
 
-Geometria vettoriale NodeVectorOverlay condivisa con normalizzazione globale, stride/soglia/proiezione nodi e teste aperte legacy. Quiver Heatmap precedente invariato; stile e frame locali. Quattro path FieldPlot frozen prima della migrazione coincidono. Nuova validation finita/max100k/shapes/stride/proiezione esplicita, input prima non validati non garantiti.
-Build e suite PlotSharp 168/168 passate: quattro direzioni, massimo non campionato, zero/soglia, input immutati e report pressione reale. Web Release/quadro e smoke --no-images ricontrollati, zero immagini. Non nuovo full gate o benchmark, nessuna pubblicazione. Proiezione contour/rendering colorbar e D02 completa restano aperti; baseline full29 precedente da riconfermare.
+NodeVectorOverlay vector geometry shared with global normalisation, stride/threshold/node projection and legacy open heads. Previous Heatmap quiver unchanged; style and frame local. Four FieldPlot paths frozen before the migration coincide. New explicit finite/max100k/shapes/stride/projection validation, previously unvalidated inputs not guaranteed.
+Build and PlotSharp suite 168/168 passed: four directions, unsampled maximum, zero/threshold, unchanged inputs and real pressure report. Web Release/quadro and smoke --no-images rechecked, zero images. Not a new full gate or benchmark, no publication. Contour projection/colorbar rendering and complete D02 remain open; full29 baseline to be reconfirmed.
 
-### Verifica precedente mirata — limiti colore dei campi
+### Previous targeted verification — field colour limits
 
-Min/max, floor-index percentili, simmetria e fallback legacy min+1 condivisi in FieldColorLimits.Resolve; ColorScale default costante invariato. Otto fixture dai label FieldPlot originale congelate prima della migrazione. NaN omessi; tutto NaN con limiti espliciti supportato. Resolve ora rifiuta input fuori contratto (vuoti/max100k, infinito/±1e12, clip [0,0.5], limiti invertiti); comportamento input prima non validati non garantito. Normalizzazione diretta legacy conserva aritmetica dei chiamanti.
-Build e suite PlotSharp 154/154 passate, inclusi zero/simmetria, clipping, quasi-costanti, NaN e bordo espanso. Web Release/quadro/smoke adozione --no-images ricontrollati, zero immagini. Non nuovo full gate/pubblicazione; layout/proiezione/render colorbar/frecce locali. Baseline completa a 29 passi precedente alle ultime estrazioni, da riconfermare.
+Min/max, floor-index percentiles, symmetry and legacy min+1 fallback shared in FieldColorLimits.Resolve; ColorScale constant default unchanged. Eight fixtures from the original FieldPlot labels frozen before the migration. NaN omitted; all-NaN with explicit limits supported. Resolve now rejects out-of-contract inputs (empty/max100k, infinity/±1e12, clip [0,0.5], inverted limits); behaviour of previously unvalidated inputs not guaranteed. Direct legacy normalisation keeps the callers' arithmetic.
+Build and PlotSharp suite 154/154 passed, including zero/symmetry, clipping, near-constants, NaN and expanded edge. Web Release/quadro/smoke adoption --no-images rechecked, zero images. Not a new full gate/publication; layout/projection/colorbar rendering/arrows local. 29-step complete baseline earlier than the latest extractions, to be reconfirmed.
 
-### Verifica precedente mirata — campionamento bilineare RGB
+### Previous targeted verification — bilinear RGB sampling
 
-Sampler di nodi condiviso in PlotSharp, facade Navier FieldToPng conserva normalizzazione/ColorMap e maschera grigia. Centri pixel, orientamento top-down e ordine bilineare originali preservati; campi min 2×2 espliciti, callback gestisce valori non finiti, maschere in coordinate campione con colore richiesto.
-Build e suite PlotSharp 138/138 passate, inclusi fixture PNG frozen (scanline/dimensioni sempre, hash compressi sulla piattaforma registrata) e casi del sampler. Web Release e quadro smoke ricontrollati, nessuna immagine o benchmark completo. Normalizzazione/proiezione/colorbar/frecce restano locali, D02 parziale.
-Non nuovo full gate o release; baseline completa a 29 passi è precedente alle ultime estrazioni e va riconfermata.
+Node sampler shared in PlotSharp, Navier FieldToPng facade keeps normalisation/ColorMap and grey mask. Original pixel centres, top-down orientation and bilinear order preserved; fields min 2×2 explicit, callback handles non-finite values, masks in sample coordinates with required colour.
+Build and PlotSharp suite 138/138 passed, including frozen PNG fixtures (scanline/dimensions always, compressed hashes on the recorded platform) and sampler cases. Web Release and quadro smoke rechecked, no image or complete benchmark. Normalisation/projection/colorbar/arrows remain local, D02 partial.
+Not a new full gate or release; the 29-step complete baseline is earlier than the latest extractions and must be reconfirmed.
 
-### Verifica precedente mirata — encoder RGB PNG
+### Previous targeted verification — RGB PNG encoder
 
-Solo encoding RGB8/filter-0 condiviso in PlotSharp: Navier conserva campionamento/masking e firma FieldToPng, delega chunk/CRC/ZLib e usa dimensionamento buffer anti-overflow. Tre fixture pre-encoder congelate come raw hex/hash, non immagini. Test confrontano sempre scanline/dimensioni/CRC, hash compressi sul runtime/OS registrato; input invalidi e concorrenza verificati. Non nuovo backend raster completo.
-Build e suite PlotSharp 127/127 passate; Web Release costruita, quadro con due cicli e smoke adozione --no-images exit 0. Nessuna immagine di revisione o benchmark completo. La baseline a 29 passi è precedente a contour/palette/encoder e non riconfermata su tutte queste ultime modifiche. Proiezione, campionamento, normalizzazione/colorbar/frecce restano locali; nessuna pubblicazione.
+Only RGB8/filter-0 encoding shared in PlotSharp: Navier keeps sampling/masking and the FieldToPng signature, delegates chunk/CRC/ZLib and uses anti-overflow buffer sizing. Three pre-encoder fixtures frozen as raw hex/hash, not images. Tests always compare scanline/dimensions/CRC, compressed hashes on the recorded runtime/OS; invalid inputs and concurrency verified. Not a complete raster backend.
+Build and PlotSharp suite 127/127 passed; Web Release built, quadro with two cycles and adoption smoke --no-images exit 0. No review image or complete benchmark. The 29-step baseline is earlier than contour/palette/encoder and not reconfirmed on all these latest changes. Projection, sampling, normalisation/colorbar/arrows remain local; no publication.
 
-### Verifica precedente mirata — palette RGB condivise
+### Previous targeted verification — shared RGB palettes
 
-ColorPalette immutabile centralizza RGB con preset 4/8/9 stop; default PlotSharp 4 e Navier 8/9 restano distinti. Spacing/troncamento storici conservati, facade ColorMap mantiene NaN/infinito legacy, API condivisa strict sui non finiti. PNG/normalizzazione/colorbar/proiezione/frecce non migrate.
-Prima della modifica: 323 input e hash dei due sorgenti congelati in ops/compatibility/palette-baseline.json, inclusi adiacenze agli stop e campioni colorbar. Estensione consentita solo prima della modifica con hash corrispondenti; fixture copiata nei test, non rigenerata. Tutte e tre le palette coincidono sui byte attesi.
-Build e suite PlotSharp 117/117 passate; Web Release costruita e quadro smoke exit 0 con due cicli. Nessuna immagine, nuovo full gate o pubblicazione. Baseline completa a 29 passi precedente a contour/palette, da riconfermare prima di attribuirla all'intera working tree.
+Immutable ColorPalette centralises RGB with 4/8/9-stop presets; PlotSharp default 4 and Navier 8/9 remain distinct. Historical spacing/truncation preserved, ColorMap facade keeps legacy NaN/infinity, shared API strict on non-finite. PNG/normalisation/colorbar/projection/arrows not migrated.
+Before the change: 323 inputs and hashes of the two sources frozen in ops/compatibility/palette-baseline.json, including adjacent stops and colorbar samples. Extension allowed only before the change with matching hashes; fixture copied into the tests, not regenerated. All three palettes coincide on the expected bytes.
+Build and PlotSharp suite 117/117 passed; Web Release built and quadro smoke exit 0 with two cycles. No image, new full gate or publication. 29-step complete baseline earlier than contour/palette, to be reconfirmed before attributing it to the whole working tree.
 
-### Verifica precedente mirata — geometria contour NavierStokes
+### Previous targeted verification — NavierStokes contour geometry
 
-Consolidata solo MarchingSquares: facade tuple Navier → core PlotSharp con modalità di compatibilità per segmenti nulli ai vertici. Coordinate, ordine delle righe e pairing fisso a sella conservati; default core precedente invariato. Limiti espliciti del core (campo non vuoto, max100000 campioni, finiti/livello ±1e12) applicati, senza promessa di compatibilità per input unbounded. Segmenti bufferizzati per livello.
-Build PlotSharp e suite 109/109 riuscite: 16 configurazioni binarie confrontate con geometria attesa, uguaglianza, coordinate rettangolari, limiti e path SVG esatto. Web Release costruita, --quadro ricontrollato con due cicli, exit 0. Nessuna immagine e nessun full gate rieseguito dopo questa modifica al kernel grafico.
-PNG, FieldPlot/proiezione, colorbar e frecce restano locali; D02 parziale e nessuna pubblicazione. La baseline completa a 29 passi sotto è precedente e va riconfermata prima di attribuirla a queste ultime modifiche.
+Only MarchingSquares consolidated: Navier tuple facade → PlotSharp core with a compatibility mode for null segments at the vertices. Coordinates, row order and fixed saddle pairing preserved; previous core default unchanged. Explicit core limits (non-empty field, max100000 samples, finite/level ±1e12) applied, without a promise of compatibility for unbounded inputs. Segments buffered per level.
+PlotSharp build and suite 109/109 successful: 16 binary configurations compared with expected geometry, equality, rectangular coordinates, limits and exact SVG path. Web Release built, --quadro rechecked with two cycles, exit 0. No image and no full gate rerun after this change to the graphics kernel.
+PNG, FieldPlot/projection, colorbar and arrows remain local; D02 partial and no publication. The 29-step complete baseline below is earlier and must be reconfirmed before attributing it to these latest changes.
 
-### Verifica completa precedente — consolidamento senza nuove immagini
+### Previous complete verification — consolidation without new images
 
-`ops/ValidateEcosystem.cs -- --no-images`, report D:\Dev\BuildArtifacts\ecosystem-validation\20261028-150530: 29/29 passi exit 0 dopo tutte le modifiche. Build/test, audit, notebook, NuGet pilot, CLI/Web, UI calcolatori/mobile, cancellazione quadro/fischio e selftest numerico completo rieseguiti. Nessuna verifica saltata o fallimento ignorato; test sospesi ancora registrati nelle suite/TRX.
-La modalità impedisce salvataggio screenshot e SVG/PNG nei tre tool visuali, ma mantiene rasterizzazione/encoding PNG in memoria, XML/DOM/check browser reali. Solo JSON nelle cartelle *no-images; notebook output aggiornati, vecchie immagini preservate e non dichiarate rigenerate. Eventuali immagini temporanee necessarie ai test non sono soppresse.
-Sei test di politica immagini e dieci di report temporali aggiunti: suite operational 66/66 verificata separatamente. Il gate rifiuta report mancanti, obsoleti/futuri, malformati o con SaveImages incoerente e archivia sette JSON recenti insieme ai log. Default legacy dei singoli tool preservato; uso consigliato con --no-images.
-Questa baseline completa prevale sulle note mirate precedenti. Non chiude distribuzione, renderer di campo, altre famiglie o accessibilità completa; nessun pacchetto pubblicato/sovrascritto e nessuna nuova revisione visiva manuale.
+`ops/ValidateEcosystem.cs -- --no-images`, report D:\Dev\BuildArtifacts\ecosystem-validation\20261028-150530: 29/29 steps exit 0 after all the changes. Build/test, audit, notebooks, NuGet pilot, CLI/Web, calculator/mobile UI, quadro/whistle cancellation and complete numerical selftest rerun. No verification skipped or failure ignored; suspended tests still recorded in the suites/TRX.
+The mode prevents saving of screenshots and SVG/PNG in the three visual tools, but keeps in-memory rasterisation/PNG encoding and real XML/DOM/browser checks. Only JSON in the *no-images folders; notebook outputs updated, old images preserved and not declared regenerated. Any temporary images needed by the tests are not suppressed.
+Six image-policy tests and ten time-report tests added: operational suite 66/66 verified separately. The gate rejects missing, obsolete/future, malformed reports or with inconsistent SaveImages and archives seven recent JSONs together with the logs. Legacy default of the single tools preserved; recommended use with --no-images.
+This complete baseline prevails over the previous targeted notes. It does not close distribution, field renderers, other families or complete accessibility; no package published/overwritten and no new manual visual review.
 
-### Verifica precedente mirata — contrasto testi di supporto/accento
+### Previous targeted verification — contrast of support/accent texts
 
-Misure CSS reali in Edge per campioni HTML diretti su sfondi solidi: accenti prima 4.05–4.30:1, testi attenuati sotto 4.5. Correzione di soli --accent e --ink-3 Web; serie SVG e algoritmi non modificati. Dopo build Release Web, --mobile exit 0 con 17 campioni home/tubo/vento, min circa 4.97:1. Layout, controllo tastiera e calcoli continuano a passare; desktop ricontrollato, zero immagini.
-Sette nuovi casi del calcolo sRGB di contrasto: build riuscita e suite operational 50/50. Report/log in ops/validation/navier-mobile-smoke. Testi selezionati soltanto, non audit completo WCAG o SVG/stati/telefoni; sfondi con immagini/gradienti e opacità di gruppo sono fuori supporto e generano segnalazione. Gate futuro 29 passi non rieseguito completamente, baseline completa precedente distinta.
+Real CSS measurements in Edge for direct HTML samples on solid backgrounds: accents before 4.05–4.30:1, muted texts below 4.5. Fix of --accent and --ink-3 of the Web only; SVG series and algorithms not modified. After Web Release build, --mobile exit 0 with 17 samples home/pipe/wind, min about 4.97:1. Layout, keyboard check and calculations keep passing; desktop rechecked, zero images.
+Seven new cases of the sRGB contrast calculation: build successful and operational suite 50/50. Report/log in ops/validation/navier-mobile-smoke. Selected texts only, not a complete WCAG audit or of SVG/states/phones; backgrounds with images/gradients and group opacity are unsupported and generate a flag. Future 29-step gate not completely rerun, previous complete baseline distinct.
 
-### Verifica precedente mirata — dimensione controlli e tastiera
+### Previous targeted verification — controls size and keyboard
 
-Misura iniziale min 16 px negli input/select tubo/vento. Correzione CSS della Web NavierStokes sotto 600 px: altezza minima 44 px e focus visibile. Build Release riuscita; --mobile exit 0 a 360×800: min altezza 44 px, no overflow documento, testi SVG min 11 px; freccia destra nativa ha aggiornato vento 180→181 km/h, forza 1926→1948 N, indicatore di focus presente. Desktop ricontrollato, exit 0. Zero immagini e nessuna simulazione.
-Otto nuovi casi per altezza minima: build riuscita, suite operational 43/43. Report/log in ops/validation/navier-mobile-smoke. Non certifica touch/hit-testing reale, contrasto, completa accessibilità o simulazioni mobile. Gate futuro 29 passi non rieseguito completamente, baseline completa precedente distinta.
+Initial measurement min 16 px in the pipe/wind inputs/selects. CSS fix of the NavierStokes Web below 600 px: minimum height 44 px and visible focus. Release build successful; --mobile exit 0 at 360×800: min height 44 px, no document overflow, SVG texts min 11 px; native right arrow updated wind 180→181 km/h, force 1926→1948 N, focus indicator present. Desktop rechecked, exit 0. Zero images and no simulation.
+Eight new cases for minimum height: build successful, operational suite 43/43. Report/log in ops/validation/navier-mobile-smoke. Does not certify real touch/hit-testing, contrast, complete accessibility or mobile simulations. Future 29-step gate not completely rerun, previous complete baseline distinct.
 
-### Verifica precedente mirata — dimensione testi SVG e scorrimento
+### Previous targeted verification — SVG text size and scrolling
 
-Misura iniziale dei grafici tubo/vento a 360×800: min 5.85 px effettivi. Correzione locale nella Web NavierStokes: sotto 600 px SVG nativi/min 560 px in contenitore scrollabile, grid con min-width sicuro, Chart focusabile con nome e focus visibile. Core PlotSharp e dati non modificati.
-Build Release Web riuscita; controllo mobile exit 0 con min 11 px, nessun overflow documento, tastiera freccia destra e bordo finale dei tre grafici raggiunti. Desktop tubo/vento ricontrollato, exit 0. Zero immagini. Otto nuovi casi del criterio di dimensione testo: build riuscita e suite operational 35/35 passata. Report/log in ops/validation/navier-mobile-smoke.
-Soglia test di 10 px non equivale a leggibilità/accessibilità completa, contrasto, screen reader o touch; simulazioni mobile escluse. Gate futuro 29 passi invariato e full gate non rieseguito; baseline completa precedente resta distinta.
+Initial measurement of the pipe/wind charts at 360×800: min 5.85 effective px. Local fix in the NavierStokes Web: below 600 px native SVGs/min 560 px in a scrollable container, grid with safe min-width, focusable Chart with name and visible focus. PlotSharp core and data not modified.
+Web Release build successful; mobile check exit 0 with min 11 px, no document overflow, keyboard right arrow and end edge of the three charts reached. Desktop pipe/wind rechecked, exit 0. Zero images. Eight new cases of the text-size criterion: build successful and operational suite 35/35 passed. Report/log in ops/validation/navier-mobile-smoke.
+The 10 px test threshold is not equivalent to complete readability/accessibility, contrast, screen reader or touch; mobile simulations excluded. Future 29-step gate unchanged and full gate not rerun; previous complete baseline remains distinct.
 
-### Verifica precedente mirata — viewport stretto, senza immagini
+### Previous targeted verification — narrow viewport, without images
 
-ops/VerifyNavierWeb.cs -- --mobile exit 0, Kestrel+Edge a 360×800: home/tubo/vento, documento 360 px senza overflow e controlli/pannelli/grafici entro i limiti orizzontali. Cinque controlli tubo e tre vento, aggiornamenti numerici verificati. Nessuna modifica CSS necessaria e zero immagini. Desktop tubo/vento ricontrollato, exit 0.
-Validatore dei limiti con otto nuovi casi xUnit (inclusa tolleranza 1 px e overflow intero): build riuscita, suite operational 27/27 passata. Report/log in ops/validation/navier-mobile-smoke. Gate futuro 29 passi compilato, non nuovo full gate eseguito; baseline completa precedente a 25 resta distinta. Non certifica telefoni reali, touch, testi dei grafici, simulazioni mobile o deployment.
+ops/VerifyNavierWeb.cs -- --mobile exit 0, Kestrel+Edge at 360×800: home/pipe/wind, 360 px document without overflow and controls/panels/charts within the horizontal limits. Five pipe controls and three wind, numerical updates verified. No CSS change needed and zero images. Desktop pipe/wind rechecked, exit 0.
+Limits validator with eight new xUnit cases (including 1 px tolerance and whole overflow): build successful, operational suite 27/27 passed. Report/log in ops/validation/navier-mobile-smoke. Future 29-step gate compiled, not a new full gate run; previous 25-step complete baseline remains distinct. Does not certify real phones, touch, chart texts, mobile simulations or deployment.
 
-### Verifica precedente mirata — cancellazione fischio, senza immagini
+### Previous targeted verification — whistle cancellation, without images
 
-ops/VerifyNavierWeb.cs -- --fischio exit 0: Kestrel/Edge, griglia LBM minima 140×50, due cicli con progresso osservato, stop e comandi ripristinati. Modalità --quadro ricontrollata dopo la condivisione della logica, exit 0. Zero immagini generate, report/log separati in ops/validation/navier-fischio-smoke.
-Due test unit di cancellazione/ripresa CylinderLbm aggiunti: build riuscita e PlotSharp 98/98 test passati. Nessuna modifica agli algoritmi o ai renderer. Il gate prevede ora 28 passi, compilazione verificata ma full gate non rieseguito (baseline completa precedente a 25 resta distinta). Periodicità/Strouhal, convergenza/accuratezza, mobile, popup nativi e deployment non certificati.
+ops/VerifyNavierWeb.cs -- --fischio exit 0: Kestrel/Edge, minimum LBM grid 140×50, two cycles with observed progress, stop and controls restored. --quadro mode rechecked after the sharing of the logic, exit 0. Zero images generated, separate report/log in ops/validation/navier-fischio-smoke.
+Two CylinderLbm cancellation/resumption unit tests added: build successful and PlotSharp 98/98 tests passed. No change to the algorithms or the renderers. The gate now plans 28 steps, compilation verified but full gate not rerun (previous 25-step complete baseline remains distinct). Periodicity/Strouhal, convergence/accuracy, mobile, native popups and deployment not certified.
 
-### Verifica precedente mirata — cancellazione quadro
+### Previous targeted verification — quadro cancellation
 
-ops/VerifyNavierWeb.cs -- --quadro exit 0: Kestrel/Edge reali, griglia 31, due cicli con progresso osservato, parametri disabilitati durante l'esecuzione, stop e comandi ripristinati. Nessuna immagine generata; log/report in ops/validation/navier-quadro-smoke. Parser/calcolatori precedente tubo/vento rieseguito, exit 0. Due test di cancellazione core aggiunti: PlotSharp 96/96 con build riuscita.
-Tool integrato nel gate, ora 27 passi previsti; full gate non rieseguito in questa tranche (ultima baseline completa resta a 25). Nessuna prova di convergenza/accuratezza della simulazione, fischio, mobile o deploy. Il server temporaneo è chiuso dal tool.
+ops/VerifyNavierWeb.cs -- --quadro exit 0: real Kestrel/Edge, grid 31, two cycles with observed progress, parameters disabled during the execution, stop and controls restored. No image generated; log/report in ops/validation/navier-quadro-smoke. Previous pipe/wind parser/calculators rerun, exit 0. Two core cancellation tests added: PlotSharp 96/96 with successful build.
+Tool integrated into the gate, now 27 planned steps; full gate not rerun in this tranche (last complete baseline remains the 25-step one). No proof of convergence/accuracy of the simulation, whistle, mobile or deploy. The temporary server is closed by the tool.
 
-### Verifica precedente mirata — Web NavierStokes, senza immagini
+### Previous targeted verification — NavierStokes Web, without images
 
-Build Release Web riuscita, suite Ecosystem.Validation.Tests 19/19 (13 nuovi casi parser UI) passata; ops/VerifyNavierWeb.cs exit 0. Server Kestrel reale su loopback ed Edge: navigazione home/tubo/vento, range input e aggiornamento Blazor, SVG condivisi e assenza di errori. Osservati tramite DOM: pressione 0.42 → 0.84 bar; forza 963 → 3853 → 1926 N per velocità raddoppiata e area dimezzata, entro le tolleranze dei display arrotondati.
-Nessuna immagine generata. Report/log in ops/validation/navier-web-smoke; server/browser chiusi dal tool. Un eventuale --screenshot produce una sola immagine. Tool aggiunto al gate: 26 passi previsti, **non rieseguito completamente in questa tranche**; baseline completa precedente a 25 passi resta distinta. Questa prova non copre quadro/fischio, mobile, popup nativi, contenuti editoriali o deployment.
+Web Release build successful, Ecosystem.Validation.Tests suite 19/19 (13 new UI parser cases) passed; ops/VerifyNavierWeb.cs exit 0. Real Kestrel server on loopback and Edge: navigation home/pipe/wind, range inputs and Blazor update, shared SVGs and absence of errors. Observed through the DOM: pressure 0.42 → 0.84 bar; force 963 → 3853 → 1926 N for doubled speed and halved area, within the tolerances of the rounded displays.
+No image generated. Report/log in ops/validation/navier-web-smoke; server/browser closed by the tool. A possible --screenshot produces a single image. Tool added to the gate: 26 planned steps, **not completely rerun in this tranche**; previous 25-step complete baseline remains distinct. This test does not cover quadro/whistle, mobile, native popups, editorial content or deployment.
 
-### Ultima verifica completa precedente — nuovo consumatore NavierStokes, 2026-10-28
+### Last previous complete verification — new NavierStokes consumer, 2026-10-28
 
-Gate completo dopo le modifiche: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-104324`, 25/25 passi exit 0. PlotSharp 94/94 test passati separatamente (sette nuovi casi NavierStokes); CLI/Web NavierStokes costruite e selftest numerico originale completo passato. Tre report lineari su fixture ridotte verificati in Edge e screenshot osservati; fixture smoke non sono una prova di accuratezza di regime.
+Complete gate after the changes: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-104324`, 25/25 steps exit 0. PlotSharp 94/94 tests passed separately (seven new NavierStokes cases); NavierStokes CLI/Web built and the complete original numerical selftest passed. Three linear reports on reduced fixtures verified in Edge and screenshots observed; smoke fixtures are not a proof of regime accuracy.
 
-NavierStokes.Core → PlotSharp per line/scatter tramite facade con API preservata. Campo/PNG/contour e utility locali restano invariati e non migrati. Nuova validazione rigorosa, clip/layout differenze dichiarate e report Ghia più largo; UI Web e notebook dell'articolo ancora da verificare E2E. D02 parziale, non completata.
+NavierStokes.Core → PlotSharp for line/scatter through a facade with preserved API. Field/PNG/contour and local utilities remain unchanged and not migrated. New strict validation, clip/layout differences declared and wider Ghia report; Web UI and the article's notebook still to be verified E2E. D02 partial, not completed.
 
-Inventario app MathemaSharp: 2 file Lab e 11 Docs .cs/.razor senza renderer SVG locale; non sono state aggiunte dipendenze fittizie. Lab console numerica e Docs viewer Markdown/asset. Scan lessicale, non certificazione di ogni asset. D01 resta parziale per inventario/API/asset, altre famiglie e distribuzione restano aperte. Nessun pacchetto pubblicato o sovrascritto.
+MathemaSharp app inventory: 2 Lab files and 11 Docs .cs/.razor without a local SVG renderer; no fictitious dependencies added. Lab numerical console and Docs Markdown/asset viewer. Lexical scan, not a certification of every asset. D01 remains partial for inventory/API/assets, other families and distribution remain open. No package published or overwritten.
 
-### Verifica precedente — scenari e dashboard, 2026-10-28
+### Previous verification — scenarios and dashboards, 2026-10-28
 
-Gate dopo tutte le modifiche: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-101452`, 21/21 passi exit 0. Core MathemaSharp: 98/98 verificati separatamente, poi riconfermati nel gate; concordanza numerica degli scenari A/D C#/PySharp protetta dai test esistenti.
+Gate after all the changes: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-101452`, 21/21 steps exit 0. MathemaSharp Core: 98/98 verified separately, then reconfirmed in the gate; numerical agreement of the A/D C#/PySharp scenarios protected by the existing tests.
 
-Migrati A1 magazzino e D1 fotovoltaico: 3/2 SVG e un gruppo KPI/due risposte ciascuno. Otto notebook, 43 SVG eseguiti e XML validati. Il manifest dichiara gap richiesto per magazzino, conteggi KPI/quote; runner e test li controllano. Presentation.csx aggiunge classi semantiche senza cambiare stili/testi o introdurre dipendenze host in PlotSharp.
+A1 warehouse and D1 photovoltaic migrated: 3/2 SVGs and one KPI group/two answers each. Eight notebooks, 43 SVGs run and XML-validated. The manifest declares the required gap for the warehouse, KPI/quote counts; runner and tests check them. Presentation.csx adds semantic classes without changing styles/texts or introducing host dependencies into PlotSharp.
 
-Edge: 43 grafici individuali e due dashboard di output HTML assemblati a larghezza desktop 1280 px, cinque tile/due risposte non vuote ciascuna e nessun overflow orizzontale. Due screenshot completi osservati. Non include markdown, celle, UI VS Code, layout mobile o popup tooltip OS; target sovrapposti mantengono il limite dichiarato. D01 resta parziale per app/altri percorsi, altre famiglie ancora aperte. Nessuna preview pubblicata o sovrascritta.
+Edge: 43 individual charts and two HTML-output dashboards assembled at 1280 px desktop width, five tiles/two non-empty answers each and no horizontal overflow. Two full screenshots observed. It does not include markdown, cells, VS Code UI, mobile layout or OS tooltip popup; overlapping targets keep the declared limit. D01 remains partial for apps/other paths, other families still open. No preview published or overwritten.
 
-### Verifica precedente — STL/tour e manifest, 2026-10-28
+### Previous verification — STL/tour and manifest, 2026-10-28
 
-Gate dopo tutte le modifiche: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-075021`, 19/19 passi exit 0. Core MathemaSharp verificato separatamente: 96/96. PlotSharp non modificato in questa tranche, suite confermata nel gate. Test di concordanza del tour C#/PySharp attivi e verdi.
+Gate after all the changes: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-075021`, 19/19 steps exit 0. MathemaSharp Core verified separately: 96/96. PlotSharp not modified in this tranche, suite confirmed in the gate. C#/PySharp tour agreement tests active and green.
 
-Migrati TimeSeries/09 (STL/NDSharp, 6 SVG e tabelle preservate) e 10 (tour, 5 SVG); sei notebook applicativi, 38 SVG eseguiti realmente in JupyterNet e validati XML. Manifest condiviso esteso con requireTable; il gate genera automaticamente i passi migrati e runner/test verificano SVG e tabelle richieste. Browser e rasterizer ricavano lo stesso perimetro dal manifest. Edge ha verificato 38 grafici; osservati gli 11 nuovi screenshot, pannelli/outlier/legende leggibili.
+Migrated TimeSeries/09 (STL/NDSharp, 6 SVGs and tables preserved) and 10 (tour, 5 SVGs); six application notebooks, 38 SVGs really run in JupyterNet and XML-validated. Shared manifest extended with requireTable; the gate automatically generates the migrated steps and runner/tests verify SVGs and required tables. Browser and rasteriser derive the same perimeter from the manifest. Edge verified 38 charts; the 11 new screenshots observed, panels/outliers/legends readable.
 
-D01 rimane parziale: scenari, app e altri consumatori non tutti migrati. Nessuna equivalenza completa del notebook intero/VS Code o garanzia di hit target individuali nei grafici densi; popup OS e altre famiglie aperti. Source-build locale, nessun pacchetto preview pubblicato o sovrascritto.
+D01 remains partial: scenarios, apps and other consumers not all migrated. No complete equivalence of the whole notebook/VS Code or guarantee of individual hit targets in dense charts; OS popups and other families open. Local source-build, no preview package published or overwritten.
 
-### Verifica precedente — browser e revisione, 2026-10-28
+### Previous verification — browser and review, 2026-10-28
 
-Gate dopo tutte le modifiche: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-065717`, 17/17 passi exit 0. PlotSharp 87/87 test, MathemaSharp Core 94/94, verificati separatamente. Nuovo test sul report browser salvato, distinto dall'esecuzione reale.
+Gate after all the changes: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-065717`, 17/17 steps exit 0. PlotSharp 87/87 tests, MathemaSharp Core 94/94, verified separately. New test on the saved browser report, distinct from the real execution.
 
-Il rasterizer segue tutto il manifest (27 PNG). Osservati i 19 nuovi raster 06/08; Edge Chromium ha rilevato tre collisioni titolo/legenda su 27 SVG. Corrette tramite SeparateLegendRow opt-in, attivo in IndexedCharts; aggiunti tooltip alle aste. Rerun Edge: 27/27 con testi nel viewport SVG, nessuna collisione titolo/testi, almeno un title hit target raggiungibile per grafico. Tre screenshot browser dei casi corretti osservati. Screenshot/report in ops/visual/browser, browser nel gate, richiede Edge installato.
+The rasteriser follows the whole manifest (27 PNGs). The 19 new 06/08 rasters observed; Edge Chromium detected three title/legend collisions on 27 SVGs. Fixed through opt-in SeparateLegendRow, active in IndexedCharts; tooltips added to the stems. Edge rerun: 27/27 with texts in the SVG viewport, no title/text collision, at least one reachable title hit target per chart. Three browser screenshots of the corrected cases observed. Screenshots/report in ops/visual/browser, browser in the gate, requires Edge installed.
 
-Raggiungibilità individuale di tutti i target sovrapposti, popup nativi OS, renderer VS Code e altri browser non verificati. Le verifiche DOM non sostituiscono una review visiva esaustiva dell'intera UI. Distribuzione, altre famiglie e completamento D01 rimangono aperti; nessuna preview pubblicata o sovrascritta.
+Individual reachability of all overlapping targets, native OS popups, VS Code renderer and other browsers not verified. The DOM checks do not replace an exhaustive visual review of the whole UI. Distribution, other families and completion of D01 remain open; no preview published or overwritten.
 
-### Tranche precedente — marker e manifest, 2026-10-28
+### Previous tranche — markers and manifest, 2026-10-28
 
-Questo riepilogo prevale sui conteggi storici più avanti. Gate completo: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-061520`, 16/16 passi exit 0, dopo tutte le modifiche. PlotSharp verificato separatamente: 83/83 test; MathemaSharp Core: 93/93 test. Test sospesi PySharp ancora registrati nel TRX, non trasformati in passati.
+This summary prevails over the historical counts further on. Complete gate: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-061520`, 16/16 steps exit 0, after all the changes. PlotSharp verified separately: 83/83 tests; MathemaSharp Core: 93/93 tests. PySharp suspended tests still recorded in the TRX, not turned into passed.
 
-Quattro notebook applicativi source-build migrati: Core/03 e TimeSeries/06,07,08. Rispettivamente 2/6/6/13 SVG eseguiti nel vero host JupyterNet e validati XML (27 totali); tabelle preservate. Runner e test leggono `ops/migrated-notebooks.json`; smoothing mantiene la verifica del gap. Piloti JupyterSharp su pacchetti restano separati.
+Four source-build application notebooks migrated: Core/03 and TimeSeries/06,07,08. Respectively 2/6/6/13 SVGs run in the real JupyterNet host and XML-validated (27 in total); tables preserved. Runner and tests read `ops/migrated-notebooks.json`; smoothing keeps the gap verification. JupyterSharp pilots on packages remain separate.
 
-Clipping dei marker campione corretto tramite PreserveBoundaryMarkers opt-in: overlay solo per centri finiti nel dominio chiuso, clip geometrico/scale invariati; default core legacy preservato. IndexedCharts abilita la correzione. Due spettri rigenerati e osservati mostrano marker interi a zero e ai massimi. Highlight non modificati. Review 06/08 e browser ancora aperti; niente promesse di interazione tooltip o backend PNG.
+Clipping of the sample markers fixed through opt-in PreserveBoundaryMarkers: overlay only for finite centres in the closed domain, geometric clip/scales unchanged; legacy core default preserved. IndexedCharts enables the fix. Two regenerated and observed spectra show whole markers at zero and at the maxima. Highlights not modified. Review of 06/08 and browser still open; no promises of tooltip interaction or PNG backend.
 
-D01 MathemaSharp resta parziale: quattro notebook non equivalgono a una famiglia completamente migrata. Nuove API solo nei sorgenti locali, nessun package preview sovrascritto o pubblicato. I progetti operativi Ecosystem.Validation restano net10.0; librerie scientifiche esistenti net11.0.
+D01 MathemaSharp remains partial: four notebooks are not equivalent to a completely migrated family. New APIs only in the local sources, no preview package overwritten or published. The Ecosystem.Validation operational projects remain net10.0; existing scientific libraries net11.0.
 
-### Completato e verificato
+### Completed and verified
 
-- [x] Target net11.0 per i progetti attivi dei sei repository; SDK .NET 11 RC3, non GA. Snapshot importati esclusi. Eccezione verificata il 2026-10-29: i soli `Ecosystem.Validation` e `Ecosystem.Validation.Tests` (tool operativi del gate) restano `net10.0`; mantenere o migrare è una decisione aperta (R06), non un retargeting implicito.
-- [x] Kernel MathemaSharp consolidati e validati su casi multiformato e oracoli indipendenti: Core, LinearAlgebra, TimeSeries e Quantum.
-- [x] NDArray<T>: storage typed, viste, slicing, broadcasting Add, Sum, Dot e MatMul; ponte LU/QR/diagnostica senza double intermedio.
-- [x] PySharp: costruttori Decimal32/64/128, operatori CLR, binding esplicito dei metodi generici, recupero dei notebook gemelli e compatibilità FastAPI/AnyIO nei test.
-- [x] PySharp: chiusura esplicita dei tipi CLR generici (esempio host-injected List<Decimal128>), vincoli e arità verificati. Non equivale a inferenza, import di tutte le famiglie generiche o NumPy typed.
-- [x] MatSharp: scalari e matrici reali typed 2D column-major, indicizzazione, copie, trasposta, concatenazione e prodotti.
-- [x] MatSharp: A \\ b typed tramite adattatore opt-in: LU su quadrate, QR su sovradeterminate, più colonne RHS; test sui sei formati e conservazione di 1e-25 in Decimal128. Sistemi sottodeterminati esplicitamente rifiutati.
-- [x] Pilota JupyterSharp reale → MathemaSharp FFT → PlotSharp SVG, eseguito tramite pacchetti NuGet: notebooks/Ecosystem/01-signal-spectrum.ipynb.
-- [x] Pacchetti preview generati nel feed comune senza sovrascrittura; consumer isolato verificato anche sulle ultime API PySharp e sul solver MatSharp.
-- [x] Difetto Matplotlib: center_baseline dei tick Y corretto; doppio arrotondamento eliminato nello snippet, golden CPython invariato e test non arrotondato aggiunto.
-- [x] Audit NuGet delle sei soluzioni e gate ripetibile con exit code non zero su finding/fallimenti. Nessuna soppressione dei problemi.
+- [x] net11.0 target for the active projects of the six repositories; .NET 11 RC3 SDK, not GA. Imported snapshots excluded. Exception verified on 2026-10-29: only `Ecosystem.Validation` and `Ecosystem.Validation.Tests` (the gate's operational tools) remain `net10.0`; keeping or migrating is an open decision (R06), not an implicit retargeting.
+- [x] MathemaSharp kernels consolidated and validated on multi-format cases and independent oracles: Core, LinearAlgebra, TimeSeries and Quantum.
+- [x] NDArray<T>: typed storage, views, slicing, Add broadcasting, Sum, Dot and MatMul; LU/QR/diagnostics bridge without an intermediate double.
+- [x] PySharp: Decimal32/64/128 constructors, CLR operators, explicit binding of generic methods, recovery of the twin notebooks and FastAPI/AnyIO compatibility in the tests.
+- [x] PySharp: explicit closure of generic CLR types (host-injected List<Decimal128> example), constraints and arity verified. Not equivalent to inference, import of all the generic families or typed NumPy.
+- [x] MatSharp: typed real 2D column-major scalars and matrices, indexing, copies, transpose, concatenation and products.
+- [x] MatSharp: typed A \\ b through an opt-in adapter: LU on square, QR on overdetermined, multiple RHS columns; tests on the six formats and preservation of 1e-25 in Decimal128. Underdetermined systems explicitly rejected.
+- [x] Real JupyterSharp → MathemaSharp FFT → PlotSharp SVG pilot, run through NuGet packages: notebooks/Ecosystem/01-signal-spectrum.ipynb.
+- [x] Preview packages generated in the common feed without overwriting; isolated consumer verified also on the latest PySharp APIs and on the MatSharp solver.
+- [x] Matplotlib defect: center_baseline of the Y ticks fixed; double rounding eliminated in the snippet, CPython golden unchanged and unrounded test added.
+- [x] NuGet audit of the six solutions and repeatable gate with non-zero exit code on findings/failures. No suppression of the problems.
 
-### Verifiche: distinguere baseline e ultime modifiche
+### Verifications: distinguishing baseline and latest changes
 
-Baseline storica completa verde: ops/ValidateEcosystem.cs, report in D:\Dev\BuildArtifacts\ecosystem-validation\20261027-223603. 2624 test passati, zero falliti, 13 sospesi PySharp; 24 notebook della baseline, percorsi PySharp/MatSharp e pilota NuGet verificati.
+Complete green historical baseline: ops/ValidateEcosystem.cs, report in D:\Dev\BuildArtifacts\ecosystem-validation\20261027-223603. 2624 tests passed, zero failed, 13 PySharp suspended; 24 baseline notebooks, PySharp/MatSharp paths and NuGet pilot verified.
 
-Aggiornamento 2026-10-28: gate completo rieseguito dopo le modifiche, exit 0 per tutti i nove passi. Report: D:\Dev\BuildArtifacts\ecosystem-validation\20261028-005251. Include build/test delle sei soluzioni, audit, baseline, kernel/notebook PySharp, notebook MatSharp e tre piloti. Core.Tests verificato anche separatamente: 86/86 passati. Non riutilizzare il precedente totale 2624 come conteggio della nuova esecuzione; i conteggi dettagliati sono nei log delle suite.
+Update 2026-10-28: complete gate rerun after the changes, exit 0 for all nine steps. Report: D:\Dev\BuildArtifacts\ecosystem-validation\20261028-005251. Includes build/test of the six solutions, audit, baseline, PySharp kernel/notebooks, MatSharp notebooks and three pilots. Core.Tests also verified separately: 86/86 passed. Do not reuse the previous total 2624 as the count of the new run; the detailed counts are in the suite logs.
 
-Il secondo notebook Ecosystem è ora eseguito e verificato nel gate, con marker di conservazione della precisione Python/MATLAB. Il terzo pilota `03-indexed-charts.ipynb` carica una facade opt-in condivisa: Lines/Panels/Stems delegano a PlotSharp, quattro SVG validati XML. Output precedenti cancellati dal runner prima dell'esecuzione. Test xUnit aggiunto sugli output salvati, distinto dall'esecuzione reale. Renderer legacy conservato: nessuna equivalenza dichiarata per gap non finiti, layout/tick/tooltip o verifica visiva. Migrazione completa dei consumatori ancora aperta.
+The second Ecosystem notebook is now run and verified in the gate, with a precision-preservation marker for Python/MATLAB. The third pilot `03-indexed-charts.ipynb` loads a shared opt-in facade: Lines/Panels/Stems delegate to PlotSharp, four XML-validated SVGs. Previous outputs cleared by the runner before the execution. xUnit test added on the saved outputs, distinct from the real execution. Legacy renderer kept: no equivalence declared for non-finite gaps, layout/tick/tooltip or visual verification. Complete migration of the consumers still open.
 
-Ultima verifica completa dopo la tranche successiva: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-010433`, 12/12 passi exit 0. Prima migrazione applicativa: Core/03 usa il bootstrap PlotSharp, due SVG eseguiti in JupyterNet e validati XML, output precedenti cancellati. Un test dedicato protegge bootstrap/output. Soluzione MathemaSharp verificata anche separatamente: 320 test passati (87 Core e 6 nuovi test del parser TRX inclusi), zero falliti/sospesi. PySharp: 1507 passati, 13 sospesi; report rigenerabile e conservato nel gate. Dei 13 sospesi, 12 richiedono PostgreSQL raggiungibile e una theory richiede download pretrained opt-in. Non dichiarare completata la migrazione delle famiglie né la verifica visiva.
+Last complete verification after the following tranche: `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-010433`, 12/12 steps exit 0. First application migration: Core/03 uses the PlotSharp bootstrap, two SVGs run in JupyterNet and XML-validated, previous outputs cleared. A dedicated test protects bootstrap/output. MathemaSharp solution also verified separately: 320 tests passed (87 Core and 6 new TRX parser tests included), zero failed/suspended. PySharp: 1507 passed, 13 suspended; report regenerable and kept in the gate. Of the 13 suspended, 12 require a reachable PostgreSQL and one theory requires an opt-in pretrained download. Do not declare the migration of the families or the visual verification completed.
 
-### P0 — chiudere la tranche corrente
+### P0 — close the current tranche
 
-- [x] Eseguire notebooks/Ecosystem/02-typed-language-interop.ipynb e verificare riferimenti/output.
-- [x] Secondo e terzo pilota nel gate; test sugli output salvati distinti dall'esecuzione reale.
-- [ ] Completare inventario API; Usage contiene già tipi generici PySharp e solver typed MatSharp.
-- [x] Rieseguire il gate completo dopo queste modifiche: tutti i dodici passi exit 0.
-- [x] Registro delle motivazioni dei test sospesi, rigenerato da TRX fresco in ogni gate; nessun test sospeso eliminato o contato come passato.
-- [ ] Verificare coerenza delle versioni degli assembly/kernel rispetto ai pacchetti, senza riutilizzare output obsoleti.
+- [x] Run notebooks/Ecosystem/02-typed-language-interop.ipynb and verify references/outputs.
+- [x] Second and third pilot in the gate; tests on the saved outputs distinct from the real execution.
+- [ ] Complete the API inventory; Usage already contains PySharp generic types and the MatSharp typed solver.
+- [x] Rerun the complete gate after these changes: all twelve steps exit 0.
+- [x] Register of the reasons of the suspended tests, regenerated from a fresh TRX in every gate; no suspended test deleted or counted as passed.
+- [ ] Verify the consistency of the assembly/kernel versions with respect to the packages, without reusing obsolete outputs.
 
-### P1 — completare interoperabilità e Generic Math
+### P1 — complete interoperability and Generic Math
 
-- [ ] PySharp: import/selezione delle famiglie di tipi generici, inferenza controllata, array typed e integrazione NDArray<T>.
-- [ ] PySharp: strategia esplicita per Span/byref, conversioni numeriche e NumPy typed; niente promesse di marshalling universale.
-- [ ] MatSharp: complessi typed, array N-D, literal interi grandi esatti; normalizzare il nome GenericScalar<T>, ora usato anche per matrici.
-- [ ] MatSharp: sistemi sottodeterminati/minimum-norm e ulteriori contratti del solver; mantenere distinta la divisione matriciale da quella elemento per elemento.
-- [ ] NDSharp: coabitazione runtime/typed, conversioni checked, complessi, prodotti batched e adattatori agli algoritmi condivisi.
-- [ ] FFT/eig, wavelet e distribuzioni importate: migrazione per famiglie e test, evitando duplicazione dei kernel in NDSharp.
-- [ ] Python AST: completare nodi, visitor, validazione e semantica di compile/exec/eval nei limiti dichiarati.
+- [ ] PySharp: import/selection of the generic type families, controlled inference, typed arrays and NDArray<T> integration.
+- [ ] PySharp: explicit strategy for Span/byref, numerical conversions and typed NumPy; no promises of universal marshalling.
+- [ ] MatSharp: typed complex numbers, N-D arrays, exact large integer literals; normalise the name GenericScalar<T>, now also used for matrices.
+- [ ] MatSharp: underdetermined/minimum-norm systems and further solver contracts; keep matrix division distinct from element-wise division.
+- [ ] NDSharp: runtime/typed cohabitation, checked conversions, complex numbers, batched products and adapters to the shared algorithms.
+- [ ] FFT/eig, wavelets and imported distributions: migration by family and tests, avoiding duplication of the kernels in NDSharp.
+- [ ] Python AST: complete nodes, visitor, validation and semantics of compile/exec/eval within the declared limits.
 
-### P2 — visualizzazione ed esecuzione condivise
+### P2 — shared visualisation and execution
 
-- [ ] Migrare i renderer duplicati a PlotSharp per categorie, conservando compatibilità e test prima di rimuovere il codice precedente.
-- [ ] Adattatori Decimal: normalizzazione nel tipo prima della proiezione grafica; il primo pilota usa double intenzionalmente.
-- [ ] Verificare plugin PySharp e MatSharp nativi in JupyterSharp. I notebook C# di embedding non costituiscono questa prova.
-- [ ] Aggiornare loader e notebook applicativi alla distribuzione tramite pacchetti, senza dipendenze grafiche nei kernel matematici.
+- [ ] Migrate the duplicated renderers to PlotSharp by category, keeping compatibility and tests before removing the previous code.
+- [ ] Decimal adapters: normalisation in the type before the graphical projection; the first pilot intentionally uses double.
+- [ ] Verify native PySharp and MatSharp plugins in JupyterSharp. The C# embedding notebooks are not this proof.
+- [ ] Update loaders and application notebooks to distribution through packages, without graphics dependencies in the mathematics kernels.
 
-### P3 — copertura numerica e documentazione
+### P3 — numerical coverage and documentation
 
-- [ ] Inventario API-per-API di constraint, tipi verificati, precisione e conversioni residue.
-- [ ] Contratti: dominio, overflow, tolleranze, mutabilità/copie/viste, rappresentabilità e costo della diagnostica.
-- [ ] Estendere oracoli a Half/Decimal32 e ulteriori matrici/segnali/code; non confondere residuo e accuratezza della soluzione.
-- [ ] Completare Usage/Reference per libreria e rieseguire i notebook non inclusi nella selezione corrente.
-- [ ] Portale: formule, CSS compilato, logo MàthemaSharp, accessibilità, responsive e stampa verificati nel browser.
+- [ ] API-by-API inventory of constraints, verified types, precision and residual conversions.
+- [ ] Contracts: domain, overflow, tolerances, mutability/copies/views, representability and cost of the diagnostics.
+- [ ] Extend oracles to Half/Decimal32 and further matrices/signals/tails; do not confuse residual and accuracy of the solution.
+- [ ] Complete Usage/Reference per library and rerun the notebooks not included in the current selection.
+- [ ] Portal: formulas, compiled CSS, MàthemaSharp logo, accessibility, responsive and print verified in the browser.
 
-### P4 — rilascio e operatività
+### P4 — release and operations
 
-- [ ] CI riproducibile, politica RC/GA, metadati/licenze e compatibilità API dei pacchetti.
-- [ ] Rendere manifest-driven i runner e il versionamento: gli script correnti hanno ancora versioni e percorsi fissati.
-- [ ] Audit di progetti fuori soluzione, tool e vecchi pacchetti; sicurezza applicativa/runtime distinta dall’audit NuGet.
-- [ ] Documentare aggiornamento e ritiro delle vecchie preview, senza cancellazioni o sovrascritture indiscriminate.
+- [ ] Reproducible CI, RC/GA policy, metadata/licences and API compatibility of the packages.
+- [ ] Make the runners and the versioning manifest-driven: the current scripts still have fixed versions and paths.
+- [ ] Audit of projects outside the solution, tools and old packages; application/runtime security distinct from the NuGet audit.
+- [ ] Document the update and retirement of the old previews, without indiscriminate deletions or overwrites.
 
-### P5 — performance, esplicitamente dopo
+### P5 — performance, explicitly after
 
-- [ ] Riduzione delle allocazioni Bluestein, workspace, caching, SIMD e parallelismo solo dopo la stabilizzazione funzionale.
-- [ ] Benchmark out-of-process attendibili, confronti per formato, memoria e costo diagnostica/Solve.
-- [ ] BLAS/GPU soltanto come obiettivi separati, senza garanzie universali di velocità.
+- [ ] Reduction of Bluestein allocations, workspace, caching, SIMD and parallelism only after functional stabilisation.
+- [ ] Reliable out-of-process benchmarks, comparisons per format, memory and cost of diagnostics/Solve.
+- [ ] BLAS/GPU only as separate objectives, without universal speed guarantees.
 
-## Quadro precedente — storico, non stato corrente
+## Previous picture — historical, not current state
 
-Le tabelle e checkbox seguenti conservano gli stati delle tranche precedenti e possono contenere voci oggi superate. Fare riferimento esclusivamente alla roadmap corrente sopra per priorità e completamento.
+The following tables and checkboxes keep the states of the previous tranches and may contain items that are superseded today. Refer exclusively to the current roadmap above for priorities and completion.
 
-### Stato delle librerie
+### State of the libraries
 
-| Libreria/progetto | Stato verificato | Limiti e lavori aperti |
+| Library/project | Verified state | Limits and open work |
 |---|---|---|
-| MathemaSharp.Core | Generic Math, precisione, DFT e FFT/IFFT radix-2/Bluestein; notebook e oracoli FFT | FFT solo nei sorgenti, non nei pacchetti 0.2.0; ampliare oracoli e contratti |
-| MathemaSharp.LinearAlgebra | Matrici, norme, QR/minimi quadrati, LU, inversa e diagnostica; test multiformato e Hilbert | Nessuna SVD/Cholesky generale o autovalori generali; stima condizionamento non certificata, nessun refinement |
-| MathemaSharp.TimeSeries | Kernel generici consolidati, forecasting e statistiche; notebook C# selezionati eseguiti | Lanczos non garantisce 34 cifre; gaussiani default da double; scenari e confronti PySharp non chiusi |
-| MathemaSharp.Quantum | Complex<T>, norma, normalizzazione, autostati, hermitiano 2x2, MatrixExp; oracoli indipendenti | Taylor/scaling-squaring non garantito su ogni matrice; estendere casi estremi e dimensionalità |
-| MathemaSharp.NDSharp | Ponte runtime migliorato e typed verso LU/QR/diagnostica; 16 test anche via pacchetto 0.2.0 | Percorso runtime verso NDArray ancora float64; tipi runtime e generici separati; dipendenza locale al repository fratello nei sorgenti |
-| NDSharp | NDArray<T>: storage, viste, slicing, broadcasting Add, Sum, Dot, MatMul; suite completa 563 test all'ultima verifica | Non è una conversione completa: FFT/eig/wavelet/distribuzioni e API runtime non migrate; niente MatMul batched; target net10.0 |
-| PlotSharp | Ultima verifica: build riuscita, 70 test; libreria, Gallery, Inventory presenti | Rivalutare stato della sessione dedicata; integrazione MathemaSharp/JupyterSharp e migrazione dei grafici non verificata qui |
-| MatSharp | Matrici double e typed reali 2D column-major, NDSharp 2.8.0 e ponte LinearAlgebra; GenericScalar<T> ora include storage matriciale, concatenazione, broadcast, prodotti, trasposta e assegnazione; build senza warning e 130 test passati; notebook Decimal128 eseguito | Solver typed, complessi, N-D, literal esatti grandi e packaging aperti; Plot resta NDSharp.Plot; notebook C# di embedding, non kernel MATLAB. Nome GenericScalar<T> da normalizzare perché ora contiene anche matrici |
-| JupyterSharp | Ultima verifica: build riuscita, 44 test, 60 warning | Classificare warning; il runner MathemaSharp usa ancora il tool JupyterNet: non prova integrazione con JupyterSharp |
-| Portale Docs | Blazor Server interattivo, Markdown, navigazione e CSS; test esistenti | Tailwind CDN, formule, accessibilità e verifica visuale da completare |
+| MathemaSharp.Core | Generic Math, precision, DFT and radix-2/Bluestein FFT/IFFT; FFT notebooks and oracles | FFT only in the sources, not in the 0.2.0 packages; widen oracles and contracts |
+| MathemaSharp.LinearAlgebra | Matrices, norms, QR/least squares, LU, inverse and diagnostics; multi-format and Hilbert tests | No general SVD/Cholesky or general eigenvalues; conditioning estimate not certified, no refinement |
+| MathemaSharp.TimeSeries | Consolidated generic kernels, forecasting and statistics; selected C# notebooks run | Lanczos does not guarantee 34 digits; default Gaussians from double; scenarios and PySharp comparisons not closed |
+| MathemaSharp.Quantum | Complex<T>, norm, normalisation, eigenstates, 2x2 Hermitian, MatrixExp; independent oracles | Taylor/scaling-squaring not guaranteed on every matrix; extend extreme cases and dimensionality |
+| MathemaSharp.NDSharp | Improved runtime bridge and typed towards LU/QR/diagnostics; 16 tests also via the 0.2.0 package | Runtime path towards NDArray still float64; runtime and generic types separate; local dependency on the sibling repository in the sources |
+| NDSharp | NDArray<T>: storage, views, slicing, Add broadcasting, Sum, Dot, MatMul; complete suite 563 tests at the last verification | Not a complete conversion: FFT/eig/wavelet/distributions and runtime APIs not migrated; no batched MatMul; target net10.0 |
+| PlotSharp | Last verification: build successful, 70 tests; library, Gallery, Inventory present | Reassess the state of the dedicated session; MathemaSharp/JupyterSharp integration and migration of the charts not verified here |
+| MatSharp | Double and typed real 2D column-major matrices, NDSharp 2.8.0 and LinearAlgebra bridge; GenericScalar<T> now includes matrix storage, concatenation, broadcast, products, transpose and assignment; build without warnings and 130 tests passed; Decimal128 notebook run | Typed solver, complex numbers, N-D, large exact literals and packaging open; Plot remains NDSharp.Plot; C# embedding notebook, not a MATLAB kernel. Name GenericScalar<T> to normalise because it now also contains matrices |
+| JupyterSharp | Last verification: build successful, 44 tests, 60 warnings | Classify warnings; the MathemaSharp runner still uses the JupyterNet tool: not proof of integration with JupyterSharp |
+| Docs portal | Interactive Blazor Server, Markdown, navigation and CSS; existing tests | Tailwind CDN, formulas, accessibility and visual verification to complete |
 
-Stato aggiornato dopo la migrazione: tutti i progetti attivi dei sei repository target net11.0 (SDK RC3). MathemaSharp: 310 test passati, nessun sospeso; baseline 24 notebook, più percorsi PySharp e embedding MatSharp rieseguiti. Pacchetti MathemaSharp 0.2.1-net11-preview.1 includono le FFT; NDSharp 2.8.1-net11-preview.1. JupyterSharp 0.3.1-net11-preview.2; PySharp/Pyodbc 2.5.1-net11-preview.2 correggono dipendenze crittografiche. PySharp: 1503 passati, 1 fallito (layout Matplotlib), 13 sospesi. Audit NuGet delle sei soluzioni senza vulnerabilità rilevate dalle fonti correnti. Questo riepilogo e NET11-MIGRATION.md prevalgono sui limiti/versioni storici riportati nella tabella.
+State updated after the migration: all the active projects of the six repositories target net11.0 (SDK RC3). MathemaSharp: 310 tests passed, none suspended; baseline of 24 notebooks, plus PySharp paths and MatSharp embedding rerun. MathemaSharp 0.2.1-net11-preview.1 packages include the FFTs; NDSharp 2.8.1-net11-preview.1. JupyterSharp 0.3.1-net11-preview.2; PySharp/Pyodbc 2.5.1-net11-preview.2 fix cryptographic dependencies. PySharp: 1503 passed, 1 failed (Matplotlib layout), 13 suspended. NuGet audit of the six solutions without vulnerabilities found from the current sources. This summary and NET11-MIGRATION.md prevail over the historical limits/versions reported in the table.
 
-### Open points — priorità prima delle performance
+### Open points — priority before performance
 
-- [ ] Aggiornare inventario API/constraint e copertura nativa per tipo dopo le nuove API typed e FFT; evitare dichiarazioni globali di supporto.
-- [ ] Contratti API-per-API: precisione, overflow, dominio, mutabilità/copie/viste, tolleranze e costi di memoria.
-- [x] Pacchetti preview .NET 11 generati nel feed comune senza sovrascrittura; FFT/IFFT e ponte verificati in consumer NuGet isolato.
-- [x] Audit NuGet ripetibile delle sei soluzioni, con exit code non zero su finding/errori: `dotnet run --file ops/AuditSciencePackages.cs`.
-- [ ] Correggere il layout Matplotlib P5_layout, senza alterare il golden confermato da CPython.
-- [ ] Ampliare audit a progetti fuori soluzione e consumer dei pacchetti tool; le preview precedenti nel feed restano storiche.
-- [ ] Metadati e licenze dei pacchetti MathemaSharp; eliminare descrizioni obsolete Numbers, stabilire versionamento e compatibilità API.
-- [ ] Rendere ripetibile il rilascio: gli script operativi attuali contengono versioni e percorsi fissati; evitare repack silenzioso della stessa versione.
-- [ ] CI e SDK/runtime fissati, politica RC/stabile, target residui net10.0 esplicitati.
-- [ ] Rieseguire mode consumer NuGet quando cambiano i pacchetti; mantenerla separata dai test sui sorgenti.
-- [ ] Oracoli su ulteriori famiglie di segnali/matrici e grandi lunghezze; Half/Decimal32 non inclusi negli oracoli mpmath FFT generali.
-- [ ] Estendere analisi di condizionamento, stabilità, overflow intermedi e funzioni speciali/code estreme; non confondere residuo con errore forward.
-- [ ] Reference e Usage aggiornate in ogni libreria; altri notebook e scenari non selezionati restano non verificati.
-- [x] PySharp ricollegato agli assembly MathemaSharp: kernel compilato esternamente, tour e scenari A/D eseguiti in entrambe le lingue, tre test di concordanza riattivati e passati. Ultimo BuildAndTest: 304 passati, zero sospesi.
-- [x] Primo percorso precisione PySharp: Decimal128Interop in Core, notebook eseguito su .NET 11 con scalar 1+1e-25, array CLR/lista e Complex<Decimal128> hermitiano. Oggetti CLR preservati dal marshaller esistente, facciata esplicita non generica; 307 test passati, zero sospesi.
-- [x] Primo dispatch operatori CLR nel runtime PySharp: aritmetica, confronti e unary; notebook eseguito sui tre Decimal con incremento Decimal128 1e-25 e int misti. Quattro test CLR mirati passati, MathemaSharp 308 test verdi.
-- [x] Modulo builtin PySharp `mathema`: decimal32/64/128 importabili, stringhe/interi/valori dello stesso tipo, float impliciti rifiutati. Notebook senza helper locali eseguito; 8 test mirati PySharp verdi con roll-forward .NET 11. Richiede runtime .NET 11 per costruire i Decimal IEEE.
-- [x] Binding esplicito dei metodi CLR `method[ClrType](args)`: chiusura dei generic e constraint; notebook MathemaSharp Identity/Determinant2x2/Transpose in Decimal128 eseguito senza facciate. 12 test PySharp mirati verdi; MathemaSharp 309 test verdi.
-- [ ] Inferenza generica, costruzione dei tipi generici, parametri Span/byref, numpy typed e nuovi pacchetti: aperti. Il binder corrente esclude Span/byref dalla reflection; non dichiarare supporto a tutte le API Generic Math. Float e tipi CLR numerici diversi non vengono convertiti implicitamente. Il marshalling generale di decimal/float preesistente non è stato modificato; non dichiarare preservazione universale per qualunque oggetto numerico CLR.
-- [ ] Suite completa PySharp e regressioni più ampie del dispatch: in questa tranche eseguiti solo i quattro test nuovi e il notebook Decimal.
-- [ ] NDSharp: decidere integrazione/coabitazione runtime e typed, API per operazioni ancora mancanti, complessi, conversioni checked esplicite; no duplicazione dei kernel MathemaSharp.
-- [ ] NDSharp: FFT/eig, wavelet, distribuzioni e prodotti batched sono lavori funzionali separati, non completati.
-- [x] Notebook pilota end-to-end tramite NuGet: `notebooks/Ecosystem/01-signal-spectrum.ipynb`, CLI JupyterSharp reale, FFT MathemaSharp e due SVG PlotSharp; eseguito e output salvati. Comando: `dotnet run --file ops/RunEcosystemPilot.cs`.
-- [x] Gate ecosistema: `dotnet run --file ops/ValidateEcosystem.cs`, report esterno e nessuna deroga sui fallimenti. Ultima esecuzione: audit, baseline, kernel, notebook PySharp/MatSharp e pilota verdi; step build/test rosso per il layout legacy PySharp.
-- [ ] Adattatori grafici Decimal: il pilota usa intenzionalmente double per dati e coordinate; non certifica la visualizzazione di differenze Decimal128.
-- [ ] Migrare grafici duplicati a PlotSharp solo dopo verifica funzionale, mantenendo i kernel matematici indipendenti dal renderer.
-- [ ] Ricontrollare script e configurazioni di tutti i repository per vecchi percorsi e output locali; build output centralizzato non copre automaticamente tool esterni, publish, report custom e cache.
-- [ ] Portale: logo MàthemaSharp, CSS compilato, formule, responsive, accessibilità e stampa verificati nel browser.
-- [ ] Fonti delle infografiche e confine tra API implementate e modelli solo concettuali.
+- [ ] Update API inventory/constraints and native coverage per type after the new typed APIs and FFT; avoid global declarations of support.
+- [ ] API-by-API contracts: precision, overflow, domain, mutability/copies/views, tolerances and memory costs.
+- [x] .NET 11 preview packages generated in the common feed without overwriting; FFT/IFFT and bridge verified in an isolated NuGet consumer.
+- [x] Repeatable NuGet audit of the six solutions, with non-zero exit code on findings/errors: `dotnet run --file ops/AuditSciencePackages.cs`.
+- [ ] Fix the Matplotlib layout P5_layout, without altering the golden confirmed by CPython.
+- [ ] Extend the audit to projects outside the solution and consumers of the tool packages; the previous previews in the feed remain historical.
+- [ ] Metadata and licences of the MathemaSharp packages; eliminate obsolete Numbers descriptions, establish versioning and API compatibility.
+- [ ] Make the release repeatable: the current operational scripts contain fixed versions and paths; avoid silent repack of the same version.
+- [ ] CI and fixed SDK/runtime, RC/stable policy, residual net10.0 targets made explicit.
+- [ ] Rerun the NuGet consumer mode when the packages change; keep it separate from the tests on the sources.
+- [ ] Oracles on further families of signals/matrices and large lengths; Half/Decimal32 not included in the general mpmath FFT oracles.
+- [ ] Extend analysis of conditioning, stability, intermediate overflow and special functions/extreme tails; do not confuse residual with forward error.
+- [ ] Reference and Usage updated in every library; other notebooks and scenarios not selected remain unverified.
+- [x] PySharp reconnected to the MathemaSharp assemblies: kernel compiled externally, tour and A/D scenarios run in both languages, three agreement tests reactivated and passed. Last BuildAndTest: 304 passed, zero suspended.
+- [x] First PySharp precision path: Decimal128Interop in Core, notebook run on .NET 11 with scalar 1+1e-25, CLR array/list and Hermitian Complex<Decimal128>. CLR objects preserved by the existing marshaller, explicit non-generic facade; 307 tests passed, zero suspended.
+- [x] First CLR operator dispatch in the PySharp runtime: arithmetic, comparisons and unary; notebook run on the three Decimals with Decimal128 increment 1e-25 and mixed int. Four targeted CLR tests passed, MathemaSharp 308 tests green.
+- [x] PySharp builtin module `mathema`: decimal32/64/128 importable, strings/integers/values of the same type, implicit floats rejected. Notebook without local helpers run; 8 targeted PySharp tests green with .NET 11 roll-forward. Requires the .NET 11 runtime to build the IEEE Decimals.
+- [x] Explicit binding of CLR methods `method[ClrType](args)`: closure of generics and constraints; MathemaSharp notebook Identity/Determinant2x2/Transpose in Decimal128 run without facades. 12 targeted PySharp tests green; MathemaSharp 309 tests green.
+- [ ] Generic inference, construction of generic types, Span/byref parameters, typed numpy and new packages: open. The current binder excludes Span/byref from reflection; do not declare support for all the Generic Math APIs. Floats and different numeric CLR types are not implicitly converted. The general marshalling of decimal/float that existed before was not modified; do not declare universal preservation for any CLR numeric object.
+- [ ] Complete PySharp suite and wider regressions of the dispatch: in this tranche only the four new tests and the Decimal notebook were run.
+- [ ] NDSharp: decide runtime and typed integration/cohabitation, APIs for the operations still missing, complex numbers, explicit checked conversions; no duplication of the MathemaSharp kernels.
+- [ ] NDSharp: FFT/eig, wavelets, distributions and batched products are separate functional work, not completed.
+- [x] End-to-end pilot notebook through NuGet: `notebooks/Ecosystem/01-signal-spectrum.ipynb`, real JupyterSharp CLI, MathemaSharp FFT and two PlotSharp SVGs; run and outputs saved. Command: `dotnet run --file ops/RunEcosystemPilot.cs`.
+- [x] Ecosystem gate: `dotnet run --file ops/ValidateEcosystem.cs`, external report and no waiver on failures. Last run: audit, baseline, kernel, PySharp/MatSharp notebooks and pilot green; build/test step red because of the PySharp legacy layout.
+- [ ] Decimal graphics adapters: the pilot intentionally uses double for data and coordinates; it does not certify the visualisation of Decimal128 differences.
+- [ ] Migrate duplicated charts to PlotSharp only after functional verification, keeping the mathematics kernels independent of the renderer.
+- [ ] Recheck scripts and configurations of all the repositories for old paths and local outputs; centralised build output does not automatically cover external tools, publish, custom reports and caches.
+- [ ] Portal: MàthemaSharp logo, compiled CSS, formulas, responsive, accessibility and print verified in the browser.
+- [ ] Sources of the infographics and boundary between implemented APIs and purely conceptual models.
 
-### Performance — esplicitamente dopo
+### Performance — explicitly after
 
-- [ ] Ridurre buffer/allocazioni Bluestein e valutare riuso di workspace, caching, SIMD o parallelismo solo dopo contratti e test.
-- [ ] Benchmark out-of-process su .NET 11 riconosciuto dalla toolchain; le misure attuali sono ShortRun in-process su double, non definitive.
-- [ ] Confronti per tipo e kernel, costo diagnostica vs Solve, scalabilità, memoria e scenari reali.
-- [ ] Valutare BLAS/GPU solo come obiettivi separati; nessuna promessa universale di velocità.
+- [ ] Reduce Bluestein buffers/allocations and evaluate workspace reuse, caching, SIMD or parallelism only after contracts and tests.
+- [ ] Out-of-process benchmarks on .NET 11 recognised by the toolchain; the current measurements are in-process ShortRun on double, not definitive.
+- [ ] Comparisons per type and kernel, cost of diagnostics vs Solve, scalability, memory and real scenarios.
+- [ ] Evaluate BLAS/GPU only as separate objectives; no universal promise of speed.
 
-## Stato storico delle tranche iniziali (vedere quadro corrente sopra)
+## Historical state of the initial tranches (see the current picture above)
 
-- [x] Rinominati soluzione, progetti, namespace e riferimenti in `MathemaSharp.*`.
-- [x] Librerie separate: Core, LinearAlgebra, TimeSeries, Quantum e ponte NDSharp.
-- [x] Notebook organizzati nella root `notebooks/`, per libreria.
-- [x] Portale documentazione Blazor con navigazione Markdown, immagini e stili per tabelle.
-- [x] Algebra lineare estratta da TimeSeries; LU generica, solver, determinante e inversa generale aggiunti con test.
-- [x] Patch storiche e valutazione rolling-origin implementate e testate.
-- [x] Ultima verifica dopo la rinomina: build senza warning/errori; 124 test passati, 3 sospesi.
-- [x] Raccolta iniziale PlotSharp: 148 copie di riferimento e manifest di provenienza. Non è ancora una libreria attiva verificata.
-- [ ] Tutti i progetti sul medesimo target .NET 11: alcuni, incluso il portale, restano net10.0.
-- [ ] Conversione completa del materiale NDSharp importato.
-- [ ] Riesecuzione dei notebook dopo spostamenti e rinomina; ripristino dei 3 test sospesi.
-- [ ] Logo grafico aggiornato a MàthemaSharp: il file rinominato contiene ancora il vecchio nome.
+- [x] Solution, projects, namespaces and references renamed to `MathemaSharp.*`.
+- [x] Separate libraries: Core, LinearAlgebra, TimeSeries, Quantum and NDSharp bridge.
+- [x] Notebooks organised in the root `notebooks/`, by library.
+- [x] Blazor documentation portal with Markdown navigation, images and table styles.
+- [x] Linear algebra extracted from TimeSeries; generic LU, solver, determinant and general inverse added with tests.
+- [x] Historical patches and rolling-origin evaluation implemented and tested.
+- [x] Last verification after the renaming: build without warnings/errors; 124 tests passed, 3 suspended.
+- [x] Initial PlotSharp collection: 148 reference copies and provenance manifest. It is not yet a verified active library.
+- [ ] All the projects on the same .NET 11 target: some, including the portal, remain net10.0.
+- [ ] Complete conversion of the imported NDSharp material.
+- [ ] Rerun of the notebooks after moves and renaming; restoration of the 3 suspended tests.
+- [x] Graphic logo updated: the renamed file still contained the old name (MàthemaNet); replaced on 2026-10-30 by the ScienceSharp logo set.
 
-## P0 — inventario e baseline riproducibile
+## P0 — inventory and reproducible baseline
 
-- [ ] Censire API pubbliche, constraint, target, conversioni a double e copertura per tipo di ogni libreria.
-- [ ] Classificare ciascuna API: generica verificata, generica non verificata, wrapper runtime, da migrare o fuori scope.
-- [ ] Verificare dipendenze e licenze degli snapshot importati, mantenendo attribuzioni e provenienza.
-- [ ] Fissare SDK/runtime .NET 11 disponibile e politica degli aggiornamenti preview/stabili. Migrare i target residui solo quando i vincoli dell'ambiente lo consentono.
-- [ ] Rendere build e test riproducibili in CI, separando test veloci, integrazione e notebook.
+- [ ] Survey public APIs, constraints, targets, conversions to double and per-type coverage of each library.
+- [ ] Classify each API: verified generic, unverified generic, runtime wrapper, to migrate or out of scope.
+- [ ] Verify dependencies and licences of the imported snapshots, keeping attributions and provenance.
+- [ ] Fix the available .NET 11 SDK/runtime and the policy for preview/stable updates. Migrate the residual targets only when the environment's constraints allow it.
+- [ ] Make build and tests reproducible in CI, separating fast tests, integration and notebooks.
 
-**Criterio di completamento:** inventario API-per-API e pipeline verde; nessuna percentuale di conversione senza un denominatore esplicito.
+**Completion criterion:** API-by-API inventory and green pipeline; no conversion percentage without an explicit denominator.
 
-## P1 — completare il nucleo Generic Math
+## P1 — complete the Generic Math core
 
 ### LinearAlgebra
-- [x] Prima tranche QR/minimi quadrati: sistema normalizzato, norme Hypot, riflettori unitari, soglia min(4096 epsilon, sqrt(epsilon)), controllo dati finiti e intermedi non rappresentabili. Dieci test aggiunti: sei formati, scale 1e-200/1e200, coefficiente Decimal128 1e-25 e input invalidi. Build senza warning/errori, 175 test passati e 3 sospesi.
-- [ ] Ampliare ulteriormente i test di prodotti, norme, QR e LU: matrici mal condizionate, errori relativi/residui e oracoli indipendenti; la tranche QR non costituisce una certificazione generale.
-- [ ] Convertire autovalori importati: bilanciamento, Hessenberg e QR complesso; documentare convergenza e casi limite.
-- [ ] Valutare Cholesky e SVD come tranche separate, senza dichiararle disponibili prima di implementazione e test.
-- [ ] Spostare i test algebrici ancora ospitati nel progetto TimeSeries in un progetto dedicato.
+- [x] First QR/least squares tranche: normalised system, Hypot norms, unit reflectors, threshold min(4096 epsilon, sqrt(epsilon)), check of finite data and non-representable intermediates. Ten tests added: six formats, scales 1e-200/1e200, Decimal128 coefficient 1e-25 and invalid inputs. Build without warnings/errors, 175 tests passed and 3 suspended.
+- [ ] Widen further the tests of products, norms, QR and LU: ill-conditioned matrices, relative errors/residuals and independent oracles; the QR tranche is not a general certification.
+- [ ] Convert imported eigenvalues: balancing, Hessenberg and complex QR; document convergence and edge cases.
+- [ ] Evaluate Cholesky and SVD as separate tranches, without declaring them available before implementation and tests.
+- [ ] Move the algebra tests still hosted in the TimeSeries project into a dedicated project.
 
-### Segnali e trasformate
-- [ ] Decidere confini e nome del modulo segnali prima di estrarre i kernel.
-- [x] FFT/IFFT radix-2 in Core: confronto DFT e round-trip sui sei formati, casi analitici impulso/costante, Decimal128 1e-25, input e overflow. Percorso radix-2 per potenze di due, affiancato ora da Bluestein; nessuna certificazione generale.
-- [x] Bluestein per lunghezze non potenze di due: convoluzione radix-2, fasi ridotte con aritmetica intera, cinque nuovi test su lunghezze prime/composite e sei formati. Notebook FFT aggiornato ed eseguito.
-- [ ] Oracoli FFT indipendenti ad alta precisione su segnali generali, grandi lunghezze e benchmark. I casi analitici piccoli non costituiscono certificazione generale.
-- [x] Ponte NuGet 0.2.0: 16 test eseguiti in modalità UsePackagedBridge=true con dipendenze dal feed locale; mapping MathemaSharp.* corretto.
-- [ ] Wavelet e filtri: conversione di costanti, normalizzazione, condizioni al bordo e ricostruzione.
+### Signals and transforms
+- [ ] Decide boundaries and name of the signals module before extracting the kernels.
+- [x] Radix-2 FFT/IFFT in Core: DFT comparison and round trip on the six formats, analytic impulse/constant cases, Decimal128 1e-25, input and overflow. Radix-2 path for powers of two, now accompanied by Bluestein; no general certification.
+- [x] Bluestein for non-power-of-two lengths: radix-2 convolution, phases reduced with integer arithmetic, five new tests on prime/composite lengths and six formats. FFT notebook updated and run.
+- [ ] Independent high-precision FFT oracles on general signals, large lengths and benchmarks. The small analytic cases are not a general certification.
+- [x] NuGet bridge 0.2.0: 16 tests run in UsePackagedBridge=true mode with dependencies from the local feed; MathemaSharp.* mapping corrected.
+- [ ] Wavelets and filters: conversion of constants, normalisation, boundary conditions and reconstruction.
 
-### Statistica e probabilità
-- [ ] Inventariare distribuzioni, generatori e funzioni speciali importate.
-- [ ] Estrarre kernel generici senza conversioni nascoste a double; distinguere calcolo numerico e sorgente casuale.
-- [ ] Test di momenti, quantili, dominio e riproducibilità; test statistici non fragili.
+### Statistics and probability
+- [ ] Inventory the imported distributions, generators and special functions.
+- [ ] Extract generic kernels without hidden conversions to double; distinguish numerical computation and random source.
+- [ ] Tests of moments, quantiles, domain and reproducibility; non-fragile statistical tests.
 
-### NDSharp — conversione ripresa su richiesta
+### NDSharp — conversion resumed on request
+- [x] `NDArray<T>` storage with `INumber<T>`, shape, strides, views, slicing and broadcasting.
+- [x] Generic Sum, Add, Dot and MatMul without double intermediates.
+- [x] Bridge towards the existing LU, QR and diagnostics; verifications on the six formats and Decimal128 1e-25.
+- [x] Usage/Reference notebook run and included in the baseline manifest.
+- [ ] Complete conversion of the runtime APIs, FFT, wavelets and distributions: not completed.
+- [ ] Batched products and optimisations: not implemented.
 
-- [x] Storage `NDArray<T>` con `INumber<T>`, shape, stride, viste, slicing e broadcasting.
-- [x] Sum, Add, Dot e MatMul generici senza intermedi double.
-- [x] Ponte verso LU, QR e diagnostica esistenti; verifiche sui sei formati e Decimal128 1e-25.
-- [x] Notebook Usage/Reference eseguito e incluso nel manifest della baseline.
-- [ ] Conversione completa delle API runtime, FFT, wavelet e distribuzioni: non completata.
-- [ ] Prodotti batched e ottimizzazioni: non implementati.
+NDSharp manages arrays and views; MathemaSharp the mathematics kernels. The new container sits alongside the runtime one. The imported snapshots are not automatically converted.
 
-NDSharp gestisce array e viste; MathemaSharp i kernel matematici. Il nuovo contenitore affianca quello runtime. Gli snapshot importati non sono automaticamente convertiti.
+### Non-NDSharp interoperability
+- [ ] Document the non-generic wrappers needed by PySharp, separating them from the mathematical APIs.
 
-### Interoperabilità non NDSharp
-- [ ] Documentare i wrapper non generici necessari a PySharp, separandoli dalle API matematiche.
+**Completion criterion:** every migrated kernel has tests on all the declared types, documented errors and comparison with fixtures/oracles. Generic Math does not mean imposing the same constraint on every operation.
 
-**Criterio di completamento:** ogni kernel migrato ha test su tutti i tipi dichiarati, errori documentati e confronto con fixture/oracoli. Generic Math non significa imporre lo stesso constraint a ogni operazione.
+### Quantum — consolidation
+- [x] Norm with Hypot on the components, Normalize scaled on the maximum finite component. A finite state can be normalised even when its original norm exceeds the type's range.
+- [x] Seven NativeStateNormTests tests: six formats, maximum/subnormal amplitudes, preservation of the inputs, zero/NaN/infinity rejected and Decimal128 component 1e-25. Build without warnings/errors, 182 tests passed and 3 suspended.
+- [x] Normalised 2×2 Hermitian diagonalisation, Hypot for the radius, fixed 1e-12 threshold removed, eigenvectors without unstable subtractions and orthonormal complement even in degeneracy. Eight native tests: six formats, maximum/subnormal scales, residuals, zero/identity, Decimal128 coupling 1e-25 and input/overflow. Baseline: 190 tests passed, 3 suspended, build without warnings/errors.
+- [x] CheckEigenstate: state/operator scaled separately, Rayleigh quotient and residual relative to the operator's Frobenius norm, validation of tolerance/dimensions/components. Seven tests on the six formats: maximum/subnormal amplitudes, small operators, complex eigenvalue and Decimal128 perturbation 1e-25. Baseline: 197 tests passed and 3 suspended.
+- [x] MatrixExp: Frobenius with Hypot, explicit copy and scaling by halvings without 2^s, positive Taylor terms required and finite intermediates verified. TimeEvolution validates finite t and positive finite hbar. Eight tests on the six formats: zero, diagonal, large nilpotent, unitary evolution, Decimal128 term 1e-25 and overflow/input. Build green, 205 tests passed and 3 suspended.
+- [ ] Validate MatrixExp with oracles and non-normal matrices/extreme scales: 24 terms give no general guarantee, underflow and loss of small terms during the scaling remain possible. Widen the diagonalisation tests to nearly singular matrices and very unbalanced eigenvalues. The global normalisation can lose components below the range of T; the recovery of the small eigenvalue from the determinant was added in the oracle tranche, but does not eliminate every conditioning/underflow problem.
 
-### Quantum — consolidamento
-- [x] Norm con Hypot sulle componenti, Normalize scalata sulla massima componente finita. Uno stato finito può essere normalizzato anche quando la sua norma originale supera il range del tipo.
-- [x] Sette test NativeStateNormTests: sei formati, ampiezze massime/subnormali, preservazione degli input, zero/NaN/infinito rifiutati e componente Decimal128 1e-25. Build senza warning/errori, 182 test passati e 3 sospesi.
-- [x] Diagonalizzazione hermitiana 2×2 normalizzata, Hypot per il raggio, soglia fissa 1e-12 rimossa, autovettori senza sottrazioni instabili e complemento ortonormale anche in degenerazione. Otto test nativi: sei formati, scale massime/subnormali, residui, zero/identità, coupling Decimal128 1e-25 e input/overflow. Baseline: 190 test passati, 3 sospesi, build senza warning/errori.
-- [x] CheckEigenstate: stato/operatore scalati separatamente, quoziente di Rayleigh e residuo relativo alla norma Frobenius dell'operatore, validazione tolleranza/dimensioni/componenti. Sette test sui sei formati: ampiezze massime/subnormali, operatori piccoli, autovalore complesso e perturbazione Decimal128 1e-25. Baseline: 197 test passati e 3 sospesi.
-- [x] MatrixExp: Frobenius con Hypot, copia esplicita e scaling per dimezzamenti senza 2^s, termini Taylor positivi richiesti e intermedi finiti verificati. TimeEvolution valida t finito e hbar positivo finito. Otto test sui sei formati: zero, diagonale, nilpotente grande, evoluzione unitaria, termine Decimal128 1e-25 e overflow/input. Build verde, 205 test passati e 3 sospesi.
-- [ ] Validare MatrixExp con oracoli e matrici non normali/scale estreme: 24 termini non danno una garanzia generale, underflow e perdita di piccoli termini durante lo scaling restano possibili. Ampliare test di diagonalizzazione a matrici quasi singolari e autovalori molto sbilanciati. La normalizzazione globale può perdere componenti sotto il range di T; il recupero dell'autovalore piccolo dal determinante è stato aggiunto nella tranche oracoli, ma non elimina ogni problema di condizionamento/underflow.
+## P2 — notebooks, Usage and Reference
 
-## P2 — notebook, Usage e Reference
+- [x] Four notebooks `notebooks/<Core|LinearAlgebra|TimeSeries|Quantum>/11-consolidation.ipynb` with focused Usage/Reference, checks in T and real outputs on the six formats, run with JupyterNet/.NET 11. Numerical bootstrap without Charts/NDSharp and runner `dotnet msbuild ops/consolidation-notebooks.proj -t:Run`.
+- [x] Fixed the solution path in the runner and the compatibility of the path resolution with Windows PowerShell. Four tests added for evidence of the saved outputs (not rerun).
+- [x] Four notebooks `12-api-reference.ipynb` run: catalogue from reflection of exported types and declared public members, signatures and constraints. Core 3 types, LinearAlgebra 4 (including diagnostics), Quantum 4, TimeSeries 36 (including Interop wrappers). Runner: `dotnet msbuild ops/reference-notebooks.proj -t:Run`. Four tests for the catalogue outputs; they do not certify the behaviour of the APIs.
+- [x] Core 01–05 rerun on .NET 11 RC3 with real outputs: Generic Math, precision, Complex/DFT, SIMD environment and new Decimal/partial parsing. Contracts added to notebooks 01–03, five tests of the saved outputs and selective runner `dotnet msbuild ops/core-notebooks.proj -t:Run`. The performance notebook does not run statistical benchmarks.
+- [x] LinearAlgebra/01-lu and Quantum/01-operators rewritten and rerun: contracts, examples with checks, Reference links, real .NET 11 outputs. LU/residual/inverse/reuse, Decimal128 QR; extreme normalisation, eigenstates, density and Decimal128 TimeEvolution with error ≤1e-28 in the specific case. Two tests on the outputs. Runner: `dotnet msbuild ops/algebra-quantum-notebooks.proj -t:Run`.
+- [x] C# TimeSeries 06–08 and tour 10: contracts/limits and Reference links added, rerun with real .NET 11 outputs. Runner `dotnet msbuild ops/timeseries-notebooks.proj -t:Run`, top-level selection and PowerShell wildcards. Four tests of the outputs; the tour has at least 24 saved numerical labels.
+- [ ] Complete the remaining contracts and end-to-end numerical verifications; scenarios and PySharp not rerun, three comparisons still suspended. 09 (STL + NDSharp bridge) remains excluded as long as NDSharp is parked.
 
-- [x] Quattro notebook `notebooks/<Core|LinearAlgebra|TimeSeries|Quantum>/11-consolidation.ipynb` con Usage/Reference focalizzate, verifiche in T e output reali sui sei formati, eseguiti con JupyterNet/.NET 11. Bootstrap numerico senza Charts/NDSharp e runner `dotnet msbuild ops/consolidation-notebooks.proj -t:Run`.
-- [x] Corretto il percorso soluzione nel runner e la compatibilità della risoluzione percorsi con Windows PowerShell. Quattro test aggiunti per evidenza degli output salvati (non riesecuzione).
-- [x] Quattro notebook `12-api-reference.ipynb` eseguiti: catalogo da reflection di tipi esportati e membri pubblici dichiarati, firme e constraint. Core 3 tipi, LinearAlgebra 4 (inclusa diagnostica), Quantum 4, TimeSeries 36 (inclusi wrapper Interop). Runner: `dotnet msbuild ops/reference-notebooks.proj -t:Run`. Quattro test per gli output del catalogo; non certificano comportamento delle API.
-- [x] Rieseguiti Core 01–05 su .NET 11 RC3 con output reali: Generic Math, precisione, Complex/DFT, ambiente SIMD e nuovi Decimal/parsing parziale. Aggiunti contratti ai notebook 01–03, cinque test degli output salvati e runner selettivo `dotnet msbuild ops/core-notebooks.proj -t:Run`. Il notebook performance non esegue benchmark statistici.
-- [x] Riscritti e rieseguiti LinearAlgebra/01-lu e Quantum/01-operators: contratti, esempi con verifiche, collegamenti Reference, output .NET 11 reali. LU/residuo/inversa/riuso, QR Decimal128; normalizzazione estrema, autostati, densità e TimeEvolution Decimal128 con errore ≤1e-28 nel caso specifico. Due test sugli output. Runner: `dotnet msbuild ops/algebra-quantum-notebooks.proj -t:Run`.
-- [x] TimeSeries C# 06–08 e tour 10: aggiunti contratti/limiti e link alla Reference, rieseguiti con output reali .NET 11. Runner `dotnet msbuild ops/timeseries-notebooks.proj -t:Run`, selezione top-level e wildcard PowerShell. Quattro test degli output; il tour ha almeno 24 etichette numeriche salvate.
-- [ ] Completare contratti e verifiche numeriche end-to-end restanti; scenari e PySharp non rieseguiti, tre confronti ancora sospesi. Il 09 (STL + ponte NDSharp) resta escluso finché NDSharp è parcheggiato.
+- [ ] Inventory the console examples and transfer the didactic ones into the notebooks; evaluate whether to keep the console only as a harness.
+- [ ] For each library create Usage and Reference notebooks with an index of the APIs, constraints, examples, limits and links to the documentation.
+- [ ] Rerun notebooks on documented kernels/runtimes and verify relative paths from their actual position.
+- [ ] Restore the suspended C#/PySharp comparisons; distinguish executed, structurally valid and unverified notebooks.
+- [ ] Prefer versioned packages to references to artifacts for the examples intended for users.
+- [ ] Align README, USAGE and ARCHITECTURE with the real state of the modules.
 
-- [ ] Inventariare gli esempi console e trasferire quelli didattici nei notebook; valutare se mantenere la console solo come harness.
-- [ ] Per ogni libreria creare notebook Usage e Reference con indice delle API, constraint, esempi, limiti e collegamenti alla documentazione.
-- [ ] Rieseguire notebook su kernel/runtime documentati e verificare percorsi relativi dalla loro posizione effettiva.
-- [ ] Ripristinare i confronti C#/PySharp sospesi; distinguere notebook eseguiti, strutturalmente validi e non verificati.
-- [ ] Preferire pacchetti versionati ai riferimenti ad artifacts per gli esempi destinati agli utenti.
-- [ ] Allineare README, USAGE e ARCHITECTURE al reale stato dei moduli.
+**Completion criterion:** every notebook published as executed is reproducible; every public API is traceable in the Reference.
 
-**Criterio di completamento:** ogni notebook pubblicato come eseguito è riproducibile; ogni API pubblica è rintracciabile nella Reference.
+## P3 — PlotSharp, external dependency in preparation
 
-## P3 — PlotSharp, dipendenza esterna in preparazione
+The standalone project is in `D:\Dev\2027\repos\PlotSharp`; the extraction objectives are in its `OBJECTIVES.md`. The initial collection does not guarantee all the dependencies and does not prove compatibility or compilation.
 
-Il progetto autonomo è in `D:\Dev\2027\repos\PlotSharp`; gli obiettivi di estrazione sono nel suo `OBJECTIVES.md`. La raccolta iniziale non garantisce tutte le dipendenze e non prova compatibilità o compilazione.
+- [ ] Wait for the inventory, licence verification and first stable API with renderer/tests in PlotSharp.
+- [ ] Survey the local Charts implementations and their users before removing code.
+- [ ] Integrate PlotSharp in a pilot notebook, then migrate the other examples progressively.
+- [ ] Keep the mathematical notebooks in MathemaSharp; the gallery of the charts belongs to PlotSharp.
+- [ ] Limit the graphics dependency to the samples and the adapters: the mathematics kernels must not depend on the renderer.
+- [ ] Remove Charts duplications only after functional equivalence and visual verification.
 
-- [ ] Attendere inventario, verifica licenze e prima API stabile con renderer/test in PlotSharp.
-- [ ] Censire le implementazioni Charts locali e i loro utilizzatori prima di rimuovere codice.
-- [ ] Integrare PlotSharp in un notebook pilota, poi migrare progressivamente gli altri esempi.
-- [ ] Mantenere i notebook matematici in MathemaSharp; la galleria dei grafici appartiene a PlotSharp.
-- [ ] Limitare la dipendenza grafica ai sample e agli adattatori: i kernel matematici non devono dipendere dal renderer.
-- [ ] Rimuovere duplicazioni Charts solo dopo equivalenza funzionale e verifica visiva.
+**Completion criterion:** migrated examples verified and no graphics dependency introduced into the kernels. NDSharp, JupyterSharp and NavierStokes are updated in authorised tranches in their respective repositories.
 
-**Criterio di completamento:** esempi migrati verificati e nessuna dipendenza grafica introdotta nei kernel. NDSharp, JupyterSharp e NavierStokes si aggiornano in tranche autorizzate nei rispettivi repository.
+## Consolidation started — Core
 
-## Consolidamento avviato — Core
+- [x] NearlyEqual fixed: default tolerance min(4096 epsilon, sqrt(epsilon)), to avoid a default of about 4 on Half. It is a behavioural change for the low-precision formats; use the explicit overload when an application policy is needed.
+- [x] Seven NativePrecisionTests tests added: comparisons/special values and small examples Sum, Mean, Kahan, Horner, VectorDot, DFT and HermitianDot on Half, float, double, Decimal32/64/128, with fixtures and comparisons in T.
+- [x] Decimal128 test that preserves a difference of 1e-25 in sum/dot product and detects it with an explicit tolerance, without passing through double.
+- [x] First TimeSeries tranche: LOESS with centred abscissae, margin 999/1000 computed in T, thresholds tied to epsilon and validation of observations/weights/abscissa.
+- [x] Nine NativeLoessTests tests: lines on six formats, Decimal128 trend 1e-25, large indices and invalid inputs. Baseline: build green, 140 tests passed and 3 suspended.
+- [x] GARCH variance targeting: grid with integer indices, stationarity margin computed in T and bounded by the predecessor of 1, invalid inputs rejected and finite likelihood required. Seven native tests: recurrence/forecast/reproducible fit on the six formats and wrong inputs. Baseline: 147 tests passed, 3 suspended, build without warnings/errors.
+- [x] Simulation: ARMA, random walk, GARCH and VAR overloads with a Func<Random,T> innovation source; the defaults keep double Box-Muller. Nine tests: recurrences and call count on six formats, Decimal128 differences 1e-25, default compared with an explicit legacy source and invalid inputs. Baseline: build green, 156 tests passed, 3 suspended. A high-precision Gaussian RNG was not implemented.
+- [x] First SpecialFunctions tranche: Lanczos coefficients and threshold from invariant strings in T with cache, explicit domain/NaN/infinity, identities for LogGamma(1/2,1,2) and Q(1,x), flagging of non-convergence/overflow. Nine tests: identities and recurrences on the six formats, Decimal128 difference 1e-25 in the exponential case, iteration limit and overflow. Baseline: 165 tests passed, 3 suspended, build without warnings/errors.
+- [ ] Wider validation of the special functions (extreme tails, independent oracles, quality of the approximation and [0,1] clamp), simulation parameters/overflow of the recurrences and LinearAlgebra/Quantum coverage; also verify the cost of the repeated LOESS validation inside STL.
+- [ ] Usage/Reference notebooks and rerun: not run in this tranche.
 
-- [x] Corretto NearlyEqual: tolleranza default min(4096 epsilon, sqrt(epsilon)), per evitare un default circa 4 su Half. È un cambiamento comportamentale per i formati a bassa precisione; usare l'overload esplicito quando serve una policy applicativa.
-- [x] Aggiunti sette test NativePrecisionTests: confronti/valori speciali e piccoli esempi Sum, Mean, Kahan, Horner, VectorDot, DFT e HermitianDot su Half, float, double, Decimal32/64/128, con fixture e confronti in T.
-- [x] Test Decimal128 che conserva una differenza 1e-25 in somma/prodotto scalare e la rileva con tolleranza esplicita, senza passaggi da double.
-- [x] Prima tranche TimeSeries: LOESS con ascisse centrate, margine 999/1000 calcolato in T, soglie legate a epsilon e validazione osservazioni/pesi/ascissa.
-- [x] Nove test NativeLoessTests: rette su sei formati, trend Decimal128 1e-25, indici grandi e input invalidi. Baseline: build verde, 140 test passati e 3 sospesi.
-- [x] GARCH variance targeting: griglia a indici interi, margine di stazionarietà calcolato in T e limitato dal predecessore di 1, input invalidi rifiutati e likelihood finita richiesta. Sette test nativi: ricorrenza/forecast/fit riproducibile sui sei formati e input errati. Baseline: 147 test passati, 3 sospesi, build senza warning/errori.
-- [x] Simulation: overload ARMA, random walk, GARCH e VAR con sorgente di innovazioni Func<Random,T>; i default conservano Box-Muller double. Nove test: ricorrenze e conteggio chiamate su sei formati, differenze Decimal128 1e-25, default confrontato con sorgente legacy esplicita e input invalidi. Baseline: build verde, 156 test passati, 3 sospesi. Non è stato implementato un RNG gaussiano ad alta precisione.
-- [x] Prima tranche SpecialFunctions: coefficienti Lanczos e soglia da stringhe invariant in T con cache, dominio/NaN/infinito espliciti, identità per LogGamma(1/2,1,2) e Q(1,x), segnalazione non convergenza/overflow. Nove test: identità e ricorrenze sui sei formati, differenza Decimal128 1e-25 nel caso esponenziale, limite iterazioni e overflow. Baseline: 165 test passati, 3 sospesi, build senza warning/errori.
-- [ ] Validazione più ampia delle funzioni speciali (code estreme, oracoli indipendenti, qualità dell'approssimazione e clamp [0,1]), parametri delle simulazioni/overflow delle ricorrenze e copertura LinearAlgebra/Quantum; verificare anche il costo della validazione LOESS ripetuta dentro STL.
-- [ ] Notebook Usage/Reference e riesecuzione: non eseguiti in questa tranche.
+## Independent validation — first tranche
 
-## Validazione indipendente — prima tranche
+- [x] mpmath 1.3.0 fixture: 200 working digits, 160 saved, generator independent of MathemaSharp and isolated Python dependency. Versionable fixture in ops/oracles/numerical-reference.json; no Python needed for dotnet test.
+- [x] 12 gamma Q cases and 7 LogGamma compared on float/double/Decimal64/Decimal128; chi-square verified for the equivalent parameters with integer degrees. Relative tolerance 0.002 for float and 1e-10 for the others; float underflow explicitly distinguished. Half/Decimal32 not certified on these tails.
+- [x] Hilbert 3/5/8: LU and QR compared with an independent solution on double/Decimal128, residuals and determinants. Allowed solution error depends on the conditioning, not a universal tolerance.
+- [x] Hilbert12 double limit documented: LU accepts the system with relative residual about 1.31e-16 but maximum error of the solution about 0.00595; QR rejects the numerical rank. The LU threshold was not arbitrarily raised.
+- [x] Notebook 13-independent-oracles run, with maximum relative errors on the gamma fixtures about 1.46e-12 double and 2.46e-13 Decimal128; no promise of 34 Lanczos digits.
+- [x] Quantum oracles: 5 MatrixExp from mpmath.expm (Jordan 2/3, stiffer and complex case) on float/double/Decimal64/128; 3 Hermitian spectra from eigh on double/Decimal128, including eigenvalues 1e-40. Six numerical tests and a notebook test added.
+- [x] Fixed a defect found by the oracles: diagonalisation returned zero on diag(1,1e-40). Diagonals handled directly, eigenvalue subject to cancellation derived from the determinant with FMA and from the other eigenvalue. Notebook Quantum/13 run: maximum scaled MatrixExp error about 1.98e-14 double and 3.38e-32 Decimal128 on the 5 fixtures.
+- [x] Opt-in diagnostics LinearSystemDiagnostics.Solve<T>: LU solution, infinity relative residual, normwise backward error, condition/rcond and warning rcond ≤ sqrt(epsilon). n additional solves for the norm of the inverse, without storing it; it is not a cheap iterative condition estimator or a forward certification. Native tests on the six formats and condition against mpmath; notebook LinearAlgebra/13 run and References regenerated.
+- [ ] Extend further: harder non-normal matrices, nearly zero determinants, rounded inputs, gamma cases near cancellation/underflow, noisy overdetermined regressions; component-wise diagnostics, refinement and cheap estimate of the conditioning.
 
-- [x] Fixture mpmath 1.3.0: 200 cifre di lavoro, 160 salvate, generatore indipendente da MathemaSharp e dipendenza Python isolata. Fixture versionabile in ops/oracles/numerical-reference.json; nessun Python necessario per dotnet test.
-- [x] 12 casi gamma Q e 7 LogGamma confrontati su float/double/Decimal64/Decimal128; chi-quadro verificato per i parametri equivalenti con gradi interi. Tolleranza relativa 0.002 per float e 1e-10 per gli altri; underflow float esplicitamente distinto. Half/Decimal32 non certificati su queste code.
-- [x] Hilbert 3/5/8: LU e QR confrontate con soluzione indipendente su double/Decimal128, residui e determinanti. Errore di soluzione ammesso dipendente dal condizionamento, non una tolleranza universale.
-- [x] Limite Hilbert12 double documentato: LU accetta il sistema con residuo relativo circa 1.31e-16 ma errore massimo della soluzione circa 0.00595; QR rifiuta il rango numerico. Non alzata arbitrariamente la soglia LU.
-- [x] Notebook 13-independent-oracles eseguito, con errori relativi massimi sulle fixture gamma circa 1.46e-12 double e 2.46e-13 Decimal128; nessuna promessa di 34 cifre Lanczos.
-- [x] Oracoli Quantum: 5 MatrixExp da mpmath.expm (Jordan 2/3, caso più rigido e complesso) su float/double/Decimal64/128; 3 spettri hermitiani da eighe su double/Decimal128, inclusi autovalori 1e-40. Sei test numerici e un test notebook aggiunti.
-- [x] Corretto un difetto trovato dagli oracoli: diagonalizzazione restituiva zero su diag(1,1e-40). Diagonali trattate direttamente, autovalore soggetto a cancellazione ricavato dal determinante con FMA e dall'altro autovalore. Notebook Quantum/13 eseguito: errore MatrixExp scalato massimo circa 1.98e-14 double e 3.38e-32 Decimal128 sulle 5 fixture.
-- [x] Diagnostica opt-in LinearSystemDiagnostics.Solve<T>: soluzione LU, residuo relativo infinito, backward error normwise, condition/rcond e avviso rcond ≤ sqrt(epsilon). n solve aggiuntivi per norma dell'inversa, senza memorizzarla; non è un condition estimator iterativo economico o certificazione forward. Test nativi sui sei formati e condition contro mpmath; notebook LinearAlgebra/13 eseguito e Reference rigenerate.
-- [ ] Estendere ancora: matrici non normali più difficili, determinanti quasi nulli, input arrotondati, casi gamma vicini alla cancellazione/underflow, regressioni sovradeterminate rumorose; diagnostica componente per componente, refinement e stima economica del condizionamento.
+## P4 — numerical validation and performance
 
-## P4 — validazione numerica e performance
+- [ ] Targeted Decimal32/64/128 tests: precision, conversions, NaN/infinity, rounding, parsing and transcendental functions.
+- [ ] Widen Complex<T> tests, relative/absolute errors and extreme cases per algorithm.
+- [ ] Direct benchmarks of the formats, FFT, LU and other kernels, without parsing/reflection in the loops.
+- [ ] Run reliable BenchmarkDotNet jobs, documenting hardware, SDK/runtime, allocations and configuration.
+- [ ] Separate Dry smoke tests from measurements usable for comparisons; no universal promise of speed.
 
-- [ ] Test mirati Decimal32/64/128: precisione, conversioni, NaN/infinito, rounding, parsing e funzioni trascendenti.
-- [ ] Ampliare test Complex<T>, errori relativi/assoluti e casi estremi per algoritmo.
-- [ ] Benchmark diretti dei formati, FFT, LU e altri kernel, senza parsing/reflection nei loop.
-- [ ] Eseguire job BenchmarkDotNet attendibili, documentando hardware, SDK/runtime, allocazioni e configurazione.
-- [ ] Separare smoke test Dry dalle misure utilizzabili per confronti; nessuna promessa universale di velocità.
+## P5 — deepening and scenarios
 
-## P5 — approfondimenti e scenari
+- [ ] Apply the already implemented rolling-origin to the refrigerator and photovoltaic scenarios with comparable windows and without leakage.
+- [ ] Build scenarios B (compressors), C (aqueduct), E (CNC).
+- [ ] Evaluate Diebold-Mariano/Clark-West, conformal prediction, matrix profile, PELT/BOCPD.
+- [ ] Extend ARIMA with exact likelihood, Kalman with q/r estimation and RTS smoother, state-space ETS and ARIMA/VAR intervals.
+- [ ] Complete the cards of the atlas theories and verify the primary sources; distinguish concepts, baselines and complete models.
+- [ ] Update logo and brand in the portal; verify responsive rendering, print, accessibility and formulas.
+- [ ] Replace Tailwind CDN with compiled CSS before productive use.
 
-- [ ] Applicare il rolling-origin già implementato agli scenari frigorifero e fotovoltaico con finestre comparabili e senza leakage.
-- [ ] Realizzare gli scenari B (compressori), C (acquedotto), E (CNC).
-- [ ] Valutare Diebold-Mariano/Clark-West, previsione conforme, matrix profile, PELT/BOCPD.
-- [ ] Estendere ARIMA con likelihood esatta, Kalman con stima q/r e smoother RTS, ETS state-space e intervalli ARIMA/VAR.
-- [ ] Completare schede delle teorie dell'atlante e verificare le fonti primarie; distinguere concetti, baseline e modelli completi.
-- [ ] Aggiornare logo e marchio nel portale; verificare resa responsive, stampa, accessibilità e formule.
-- [ ] Sostituire Tailwind CDN con CSS compilato prima di un uso produttivo.
+## Automated baseline
 
-## Baseline automatizzata
+- [x] Single command `dotnet msbuild ops/validate.proj -t:Baseline`: Release build, tool restore, 22 explicit notebooks, Release tests and JSON/log report with SDK/runtime and counts. Run successfully: 272 tests passed, 3 suspended; 7 notebooks excluded with reasons.
+- [x] BuildAndTest mode records notebooks not executed and FullBaseline=false. Manifest validated by two new tests, no automatic selection of NDSharp/PySharp/scenarios.
+- [ ] CI with fixed SDK/runtime and reproducible feeds; statistical benchmarks separate from the functional baseline.
 
-- [x] Unico comando `dotnet msbuild ops/validate.proj -t:Baseline`: build Release, tool restore, 22 notebook espliciti, test Release e report JSON/log con SDK/runtime e conteggi. Eseguito con successo: 272 test passati, 3 sospesi; 7 notebook esclusi con motivazione.
-- [x] Modalità BuildAndTest registra notebook non eseguiti e FullBaseline=false. Manifest validato da due nuovi test, nessuna selezione automatica di NDSharp/PySharp/scenari.
-- [ ] CI con SDK/runtime fissati e feed riproducibili; benchmark statistici separati dalla baseline funzionale.
+## P6 — release
 
-## P6 — rilascio
+- [ ] Define versioning, API compatibility and changelog.
+- [ ] Verify packaging, licences, metadata and consumption of the packages from a clean external project.
+- [ ] Publish/install only on request, after build, tests and verification of the examples.
 
-- [ ] Definire versionamento, compatibilità API e changelog.
-- [ ] Verificare packaging, licenze, metadati e consumo dei pacchetti da un progetto esterno pulito.
-- [ ] Pubblicare/installare solo su richiesta, dopo build, test e verifica degli esempi.
+## Out of scope for these tranches
 
-## Fuori scope per queste tranche
+Complete symbolic algebra, regulatory finance, alternative implementations of the Decimal types, a complete custom INumber, optimised GPU/BLAS and complete Transformers/foundation models. SVD, eigenvalues and FFT are objectives to evaluate/implement, not capabilities already guaranteed.
 
-Algebra simbolica completa, finanza normativa, implementazioni alternative dei tipi Decimal, un custom INumber completo, GPU/BLAS ottimizzati e Transformer/foundation model completi. SVD, autovalori e FFT sono obiettivi da valutare/implementare, non capacità già garantite.
+## Recommended next tranche
 
-## Prossima tranche consigliata
+1. Update inventory, contracts and documentation to the current code.
+2. Release a new local version containing FFT/IFFT and verify it via NuGet.
+3. Verify a pilot notebook with JupyterSharp and PlotSharp.
 
-1. Aggiornare inventario, contratti e documentazione al codice corrente.
-2. Rilasciare una nuova versione locale contenente FFT/IFFT e verificarla via NuGet.
-3. Verificare un notebook pilota con JupyterSharp e PlotSharp.
-
-Performance rimandate. NDSharp è stato ripreso; conversione runtime completa, autovalori generali e wavelet restano aperti. Le FFT in Core sono implementate e verificate, ma non ancora nei pacchetti 0.2.0.
+Performance postponed. NDSharp was resumed; complete runtime conversion, general eigenvalues and wavelets remain open. The FFTs in Core are implemented and verified, but not yet in the 0.2.0 packages.
