@@ -1,66 +1,66 @@
-# 9 · LOESS e STL: decomporre prima, prevedere dopo
+# 9 · LOESS and STL: decompose first, forecast later
 
-Codice: [Stl.cs](../../../src/libs/MathemaSharp.TimeSeries/Stl.cs).
+Code: [Stl.cs](../../../src/libs/MathemaSharp.TimeSeries/Stl.cs).
 
-## LOESS: una retta locale
+## LOESS: a local line
 
-Per ogni punto $x$ si adatta una **retta pesata** ai $q$ punti più vicini; il valore stimato è il valore della retta in $x$. I pesi sono **tricubici**:
+For each point $x$ a **weighted line** is fitted to the $q$ nearest points; the estimated value is the value of the line at $x$. The weights are **tricube**:
 
-$$w_i=\Big(1-\Big(\frac{|x_i-x|}{h}\Big)^{3}\Big)^{3}\;\text{ per }|x_i-x|<h,\qquad 0\text{ altrimenti}$$
+$$w_i=\Big(1-\Big(\frac{|x_i-x|}{h}\Big)^{3}\Big)^{3}\;\text{ for }|x_i-x|<h,\qquad 0\text{ otherwise}$$
 
-dove $h$ è la distanza dal $q$-esimo vicino. Con i pesi $w_i$ (moltiplicati per i pesi di robustezza) la retta dei minimi quadrati pesati ha
+where $h$ is the distance of the $q$-th neighbour. With the weights $w_i$ (multiplied by the robustness weights) the weighted least-squares line has
 
 $$\bar x=\frac{\sum w_ix_i}{\sum w_i},\quad\bar y=\frac{\sum w_iy_i}{\sum w_i},\quad \text{slope}=\frac{\sum w_ix_iy_i/\sum w_i-\bar x\bar y}{\sum w_ix_i^2/\sum w_i-\bar x^2},\quad \hat y(x)=\bar y+\text{slope}\,(x-\bar x)$$
 
 ```csharp
 var slope = variance > C<T>(1e-12) * T.Max(T.One, meanX * meanX)
-    ? (swxy / sw - meanX * meanY) / variance : T.Zero;     // grado 0 se i punti pesati sono degeneri
+    ? (swxy / sw - meanX * meanY) / variance : T.Zero;     // degree 0 if the weighted points are degenerate
 return meanY + slope * (x - meanX);
 ```
 
-**Proprietà usata dai test**: una retta è riprodotta *esattamente*, anche estrapolando fuori dall'intervallo (`LoessReproducesLinesEvenWhenExtrapolating`). Se $q>n$, $h$ cresce di $(q-n)/2$; il margine $h/0.999$ (come nel Fortran originale) dà ai punti sul bordo un peso quasi nullo, non esattamente nullo.
+**Property used by the tests**: a line is reproduced *exactly*, even when extrapolating outside the interval (`LoessReproducesLinesEvenWhenExtrapolating`). If $q>n$, $h$ grows by $(q-n)/2$; the margin $h/0.999$ (as in the original Fortran) gives the points on the edge an almost zero weight, not exactly zero.
 
 ## STL (Cleveland, Cleveland, McRae, Terpenning, 1990)
 
-Decompone additivamente in **trend** $T_t$, **stagionalità** $S_t$ e **resto** $R_t$:
+Decomposes additively into **trend** $T_t$, **seasonality** $S_t$ and **remainder** $R_t$:
 
 $$y_t=T_t+S_t+R_t$$
 
-(il resto è per definizione $y-T-S$, quindi la somma è esatta). Un **ciclo interno**, ripetuto $n_i$ volte, con periodo $n_p$:
+(the remainder is by definition $y-T-S$, so the sum is exact). An **inner loop**, repeated $n_i$ times, with period $n_p$:
 
-| Passo | Operazione |
+| Step | Operation |
 |---|---|
-| 1 | togliere il trend: $y_t-T_t$ |
-| 2 | **sottoserie cicliche**: per ogni fase $j$ (tutti i "gennaio", tutti i "febbraio"…) un LOESS di ampiezza $n_s$, esteso di **un ciclo prima e uno dopo** → serie $C$ di lunghezza $n+2n_p$ |
-| 3 | **passa-basso** di $C$: medie mobili MA($n_p$), MA($n_p$), MA(3), poi LOESS($n_l$) → $L$ di lunghezza $n$ |
-| 4 | stagionalità $S=C-L$ (si toglie a $C$ il livello lento che il passa-basso ha catturato) |
-| 5 | destagionalizzare: $y_t-S_t$ |
-| 6 | **trend** = LOESS($n_t$) della serie destagionalizzata |
+| 1 | remove the trend: $y_t-T_t$ |
+| 2 | **cycle-subseries**: for each phase $j$ (all the "Januaries", all the "Februaries"…) a LOESS of width $n_s$, extended by **one cycle before and one after** → series $C$ of length $n+2n_p$ |
+| 3 | **low-pass** of $C$: moving averages MA($n_p$), MA($n_p$), MA(3), then LOESS($n_l$) → $L$ of length $n$ |
+| 4 | seasonality $S=C-L$ (the slow level that the low-pass captured is removed from $C$) |
+| 5 | deseasonalise: $y_t-S_t$ |
+| 6 | **trend** = LOESS($n_t$) of the deseasonalised series |
 
-Parametri: $n_s$ **dispari** (≥ 7 consigliato): più grande ⇒ stagionalità più stabile nel tempo; $n_t$ è il minimo dispari $\ge\dfrac{1.5\,n_p}{1-1.5/n_s}$; $n_l$ è il minimo dispari $\ge n_p$.
+Parameters: $n_s$ **odd** (≥ 7 recommended): larger ⇒ seasonality more stable over time; $n_t$ is the smallest odd number $\ge\dfrac{1.5\,n_p}{1-1.5/n_s}$; $n_l$ is the smallest odd number $\ge n_p$.
 
-**Perché le tre medie mobili.** Una media mobile lunga un periodo annulla qualsiasi stagionalità di periodo $n_p$ a media nulla; applicata due volte e poi con MA(3) rende il passa-basso molto liscio e accorcia $C$ da $n+2n_p$ a $n$ ($-(n_p-1)-(n_p-1)-2=-2n_p$).
+**Why the three moving averages.** A moving average one period long cancels any zero-mean seasonality of period $n_p$; applied twice and then with MA(3) it makes the low-pass very smooth and shortens $C$ from $n+2n_p$ to $n$ ($-(n_p-1)-(n_p-1)-2=-2n_p$).
 
-### Esattezza
+### Exactness
 
-Su $y_t=a+bt+s_{t\bmod n_p}$ con $\sum s=0$: i LOESS riproducono le rette e la MA di un periodo annulla $s$, quindi STL separa **esattamente** trend e stagionalità (a $10^{-9}$ in `double`, $5\cdot10^{-3}$ in `float`; `StlExactInEveryFormat`).
+On $y_t=a+bt+s_{t\bmod n_p}$ with $\sum s=0$: the LOESS reproduce lines and the one-period MA cancels $s$, so STL separates trend and seasonality **exactly** (to $10^{-9}$ in `double`, $5\cdot10^{-3}$ in `float`; `StlExactInEveryFormat`).
 
-## Robustezza (ciclo esterno)
+## Robustness (outer loop)
 
-Dopo il ciclo interno si calcolano i **pesi bisquare**
+After the inner loop the **bisquare weights** are computed
 
-$$\rho_t=B\!\left(\frac{|R_t|}{6\,\operatorname{mediana}|R|}\right),\qquad B(u)=\begin{cases}(1-u^2)^2&u<1\\0&u\ge1\end{cases}$$
+$$\rho_t=B\!\left(\frac{|R_t|}{6\,\operatorname{median}|R|}\right),\qquad B(u)=\begin{cases}(1-u^2)^2&u<1\\0&u\ge1\end{cases}$$
 
-che entrano come pesi nei LOESS dei passi 2 e 6 delle iterazioni successive. Un **outlier** (grande $|R_t|$) ha $\rho_t\approx0$ e non trascina più trend e stagionalità: finisce nel resto. Verifica `RobustIterationsIsolateOutlier`: con un picco di +30 la stagionalità robusta sbaglia 3 volte meno della non robusta, il resto in $t=60$ resta $>25$ e il suo peso $<0.01$.
+which enter as weights in the LOESS of steps 2 and 6 of the following iterations. An **outlier** (large $|R_t|$) has $\rho_t\approx0$ and no longer drags trend and seasonality: it ends up in the remainder. Verification `RobustIterationsIsolateOutlier`: with a +30 spike the robust seasonality errs 3 times less than the non-robust one, the remainder at $t=60$ stays $>25$ and its weight $<0.01$.
 
-Con la robustezza, $n_i=1$ basta.
+With robustness, $n_i=1$ is enough.
 
-## Decomporre prima, prevedere dopo
+## Decompose first, forecast later
 
-STL non prevede. Lo schema classico: trend destagionalizzato → Holt con damping; stagionalità → seasonal naive sulla componente $S$; previsione = somma. Il notebook [09](../../../notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb) lo confronta con Holt-Winters su dati sintetici con due outlier; il risultato è onesto: nel caso mostrato **non** batte Holt-Winters.
+STL does not forecast. The classic scheme: deseasonalised trend → Holt with damping; seasonality → seasonal naive on the $S$ component; forecast = sum. The notebook [09](../../../notebooks/TimeSeries/09-ts-stl-ndsharp.ipynb) compares it with Holt-Winters on synthetic data with two outliers; the result is honest: in the case shown it does **not** beat Holt-Winters.
 
-## Cosa non fa
+## What it does not do
 
-Fedele all'*algoritmo*, non al Fortran originale: niente *jump* di valutazione (il LOESS è valutato in ogni punto), niente LOESS di grado 0, niente stagionalità moltiplicativa (si usa il logaritmo a monte). Nessuna stagionalità multipla (MSTL).
+Faithful to the *algorithm*, not to the original Fortran: no evaluation *jump* (the LOESS is evaluated at every point), no degree-0 LOESS, no multiplicative seasonality (use the logarithm upstream). No multiple seasonality (MSTL).
 
-← [8 · ARCH e GARCH](08-garch.md) · [Indice](README.md) · [10 · Algebra e simulazione →](10-algebra-e-simulazione.md)
+← [8 · ARCH and GARCH](08-garch.md) · [Index](README.md) · [10 · Algebra and simulation →](10-algebra-e-simulazione.md)

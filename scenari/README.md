@@ -1,73 +1,73 @@
-# Scenari: la teoria sul campo
+# Scenarios: theory in the field
 
-> Ogni scenario mette le tecniche del libro in una **fabbrica o un impianto reale**: persone che acquisiscono dati e segnali da automazioni (PLC, sensori, contatori) e che alla fine devono produrre **KPI**, **dashboard** e **risposte ai clienti**. Ogni scenario ha dati, un notebook C# e uno PySharp con gli stessi numeri.
+> Each scenario puts the techniques of the book in a **real factory or plant**: people who acquire data and signals from automation (PLCs, sensors, meters) and who in the end must produce **KPIs**, **dashboards** and **answers to customers**. Each scenario has data, a C# notebook and a PySharp one with the same numbers.
 
-## Come leggere un scenario
+## How to read a scenario
 
-Ogni scenario segue la stessa traccia, che è anche la domanda di chi lavora sull'impianto:
+Each scenario follows the same outline, which is also the question of those who work on the plant:
 
-| Passo | Domanda | Strumenti del libro |
+| Step | Question | Tools of the book |
 |---|---|---|
-| 1 · **Acquisire** | I dati sono completi e affidabili? Dove sono i buchi? | qualità dei dati, Kalman con `NaN` |
-| 2 · **Capire** | Che comportamento ha il segnale? Cicli, trend, volatilità? | ACF/PACF, STL, GARCH |
-| 3 · **Prevedere** | Che cosa succederà nelle prossime ore/giorni? | riferimenti, smoothing, ARIMA, VAR |
-| 4 · **Misurare** | Il modello è meglio del riferimento? | MASE, Ljung-Box |
-| 5 · **Comunicare** | Qual è il KPI? Come lo mostro? Cosa rispondo al cliente? | tile KPI, grafici, testo con i numeri |
+| 1 · **Acquire** | Is the data complete and reliable? Where are the gaps? | data quality, Kalman with `NaN` |
+| 2 · **Understand** | What behaviour does the signal have? Cycles, trend, volatility? | ACF/PACF, STL, GARCH |
+| 3 · **Forecast** | What will happen in the next hours/days? | baselines, smoothing, ARIMA, VAR |
+| 4 · **Measure** | Is the model better than the baseline? | MASE, Ljung-Box |
+| 5 · **Communicate** | What is the KPI? How do I show it? What do I answer to the customer? | KPI tiles, charts, text with the numbers |
 
-## Gli scenari possibili
+## The possible scenarios
 
-| | Scenario | Segnali dalle automazioni | KPI e dashboard | Domanda del cliente | Stato |
+| | Scenario | Signals from the automation | KPIs and dashboard | Customer's question | Status |
 |---|---|---|---|---|---|
-| **A** | **Magazzino frigorifero** (catena del freddo) | temperatura cella, setpoint, corrente compressore, vibrazione, pressione evaporatore, porta, sbrinamento, kWh | tempo fuori soglia HACCP, numero di escursioni, kWh/giorno, allarme vibrazione | «La mia merce è stata sempre sotto +4 °C?» | ✅ **fatto** · [A](A-magazzino-frigorifero/README.md) |
-| **B** | Sala compressori aria | pressione di rete, portata, kW, temperatura olio, cicli carico/vuoto | kWh/Nm³, % perdite, disponibilità | «Quanto risparmio se abbasso la pressione di 0,5 bar?» | più avanti |
-| **C** | Stazione di pompaggio acquedotto | livello serbatoio, portata, pressione di rete, kW pompe | kWh/m³, ore di marcia, pressione minima garantita | «Garantite la pressione domani mattina?» | più avanti |
-| **D** | **Parco fotovoltaico + accumulo** | irraggiamento, temperatura modulo, potenza AC, SoC batteria, temperatura inverter | performance ratio, disponibilità, errore di previsione | «Quanta energia offrite sul mercato domani?» (con intervalli P10/P50/P90) | ✅ **fatto** · [D](D-fotovoltaico/README.md) |
-| **E** | Centro di lavoro CNC | vibrazione mandrino, corrente assi, temperatura, contapezzi | OEE, usura utensile, MTBF/MTTR, pezzi/ora | «Quando consegnate il lotto?» | più avanti |
+| **A** | **Cold-storage warehouse** (cold chain) | chamber temperature, setpoint, compressor current, vibration, evaporator pressure, door, defrost, kWh | time out of HACCP threshold, number of excursions, kWh/day, vibration alarm | "Was my merchandise always below +4 °C?" | ✅ **done** · [A](A-magazzino-frigorifero/README.md) |
+| **B** | Compressed-air compressor room | network pressure, flow, kW, oil temperature, load/unload cycles | kWh/Nm³, % leaks, availability | "How much do I save if I lower the pressure by 0.5 bar?" | later |
+| **C** | Aqueduct pumping station | tank level, flow, network pressure, pump kW | kWh/m³, running hours, guaranteed minimum pressure | "Do you guarantee the pressure tomorrow morning?" | later |
+| **D** | **Photovoltaic park + storage** | irradiance, module temperature, AC power, battery SoC, inverter temperature | performance ratio, availability, forecast error | "How much energy do you offer on the market tomorrow?" (with P10/P50/P90 intervals) | ✅ **done** · [D](D-fotovoltaico/README.md) |
+| **E** | CNC machining centre | spindle vibration, axis current, temperature, part counter | OEE, tool wear, MTBF/MTTR, parts/hour | "When do you deliver the batch?" | later |
 
-I dati degli scenari sono **sintetici**, generati da uno script deterministico (con il seme): lo scopo è poter verificare i risultati contro la verità nota. Nessun dato è una misura reale di un impianto reale.
+The data of the scenarios is **synthetic**, generated by a deterministic script (with the seed): the purpose is to be able to verify the results against the known truth. No data is a real measurement of a real plant.
 
-## Quali teorie del libro mette in gioco ciascuno scenario
+## Which theories of the book each scenario brings into play
 
-✅ = implementata nella libreria · ◐ = realizzabile con le funzioni esistenti più poco codice nel notebook · ⬜ = descritta nel libro, non ancora implementata.
+✅ = implemented in the library · ◐ = achievable with the existing functions plus a little code in the notebook · ⬜ = described in the book, not yet implemented.
 
-| Tecnica | A · frigo | B · compressori | C · pompaggio | D · fotovoltaico | E · CNC |
+| Technique | A · refrigerator | B · compressors | C · pumping | D · photovoltaic | E · CNC |
 |---|---|---|---|---|---|
-| Previsioni di riferimento e **MASE** ✅ | ✅ consumi | ✅ | ✅ domanda | ✅ | ✅ |
-| Seasonal naive, **Holt-Winters** ✅ | ✅ ciclo 24 h / 168 h | ✅ | ✅ | ✅ ciclo giornaliero | — |
-| **STL** ✅ | ✅ consumi | ✅ | ✅ | ✅ giorno/anno | ✅ turni |
-| **Kalman** con dati mancanti ✅ | ✅ **temperatura con buchi di comunicazione** | ✅ pressione | ✅ livello | ✅ | ✅ |
+| Baseline forecasts and **MASE** ✅ | ✅ consumption | ✅ | ✅ demand | ✅ | ✅ |
+| Seasonal naive, **Holt-Winters** ✅ | ✅ 24 h / 168 h cycle | ✅ | ✅ | ✅ daily cycle | — |
+| **STL** ✅ | ✅ consumption | ✅ | ✅ | ✅ day/year | ✅ shifts |
+| **Kalman** with missing data ✅ | ✅ **temperature with communication gaps** | ✅ pressure | ✅ level | ✅ | ✅ |
 | AR/**ARIMA**, Ljung-Box ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **VAR** (segnali accoppiati) ✅ | ✅ temperatura–corrente–pressione | ✅ pressione–portata–kW | ✅ livello–portata | ◐ irraggiamento–potenza | — |
-| **GARCH** (volatilità) ✅ | ✅ **vibrazione del compressore** | — | — | ◐ variabilità da nuvolosità | ✅ vibrazione mandrino |
-| Quantili e **intervalli di previsione** ✅ (quantili, pinball, copertura) | ◐ | — | ✅ | ✅ **P10/P50/P90, traiettorie, offerta ottima** | ◐ |
-| **Change point** (PELT, BOCPD) ⬜ | cambio setpoint, sensore | nuovo setpoint, perdita | — | — | cambio utensile |
-| **Matrix profile** (motif, discord) ⬜ | **cicli di sbrinamento**, anomalie | cicli carico/vuoto | — | — | **ciclo di lavorazione** |
-| **Validazione** (rolling origin, Clark-West…) ⬜ | ◐ | ◐ | ◐ | ✅ | ◐ |
-| Condizionare a un futuro noto/incerto ⬜ | — | — | meteo | ✅ **irraggiamento previsto** | — |
-| **Interventi** (osservare ≠ fare) ⬜ | — | ✅ **cambiare il setpoint** | — | — | — |
+| **VAR** (coupled signals) ✅ | ✅ temperature–current–pressure | ✅ pressure–flow–kW | ✅ level–flow | ◐ irradiance–power | — |
+| **GARCH** (volatility) ✅ | ✅ **compressor vibration** | — | — | ◐ variability from cloudiness | ✅ spindle vibration |
+| Quantiles and **prediction intervals** ✅ (quantiles, pinball, coverage) | ◐ | — | ✅ | ✅ **P10/P50/P90, trajectories, optimal bid** | ◐ |
+| **Change point** (PELT, BOCPD) ⬜ | setpoint change, sensor | new setpoint, leak | — | — | tool change |
+| **Matrix profile** (motif, discord) ⬜ | **defrost cycles**, anomalies | load/unload cycles | — | — | **machining cycle** |
+| **Validation** (rolling origin, Clark-West…) ⬜ | ◐ | ◐ | ◐ | ✅ | ◐ |
+| Conditioning on a known/uncertain future ⬜ | — | — | weather | ✅ **forecast irradiance** | — |
+| **Interventions** (observing ≠ doing) ⬜ | — | ✅ **changing the setpoint** | — | — | — |
 
-Le righe ⬜ non hanno ancora codice nella libreria: nell'atlante delle teorie sono descritte, e gli scenari le richiamano come **passo successivo naturale**, non le simulano.
+The ⬜ rows have no code in the library yet: in the atlas of theories they are described, and the scenarios recall them as the **natural next step**, they do not simulate them.
 
-## Struttura di una cartella scenario
+## Structure of a scenario folder
 
 ```text
 scenari/
-  README.md                       questo indice
+  README.md                       this index
   A-magazzino-frigorifero/
-    README.md                     contesto, segnali, KPI, domande del cliente, risultati
-    generate-data.cs              generatore deterministico dei dati (dotnet run generate-data.cs)
-    data/*.csv                    i dati, come li esporterebbe uno storico
-    A1-...-csharp.ipynb           notebook C# (API generica)
-    A1-...-pysharp.ipynb          notebook PySharp (facciata Interop), stessi numeri
-  D-fotovoltaico/                 stessa struttura (D1-...)
+    README.md                     context, signals, KPIs, customer's questions, results
+    generate-data.cs              deterministic data generator (dotnet run generate-data.cs)
+    data/*.csv                    the data, as a historian would export it
+    A1-...-csharp.ipynb           C# notebook (generic API)
+    A1-...-pysharp.ipynb          PySharp notebook (Interop facade), same numbers
+  D-fotovoltaico/                 same structure (D1-...)
 ```
 
-I notebook si eseguono con `pwsh scripts/run-notebooks.ps1 -Filter 'A1-*'`; i due linguaggi sono verificati da un test che confronta i numeri stampati.
+The notebooks are run with `pwsh scripts/run-notebooks.ps1 -Filter 'A1-*'`; the two languages are verified by a test that compares the printed numbers.
 
-## Ordine di lavoro
+## Order of work
 
-1. **A · magazzino frigorifero**: fatto
-2. **D · parco fotovoltaico**: fatto
-3. B, C, E: **più avanti**, a seconda di cosa serve.
+1. **A · cold-storage warehouse**: done
+2. **D · photovoltaic park**: done
+3. B, C, E: **later**, depending on what is needed.
 
-I notebook 01–10 di [`notebooks/`](../notebooks/) restano tutti: sono i *samples* generici su cui gli scenari si appoggiano.
+The notebooks 01–10 in [`notebooks/`](../notebooks/) all remain: they are the generic *samples* on which the scenarios rely.

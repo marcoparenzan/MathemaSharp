@@ -1,52 +1,52 @@
-# 3 · Previsioni di riferimento e metriche di errore
+# 3 · Baseline forecasts and error metrics
 
-Codice: [ReferenceForecasts.cs](../../../src/libs/MathemaSharp.TimeSeries/ReferenceForecasts.cs) (contiene anche `Accuracy`).
+Code: [ReferenceForecasts.cs](../../../src/libs/MathemaSharp.TimeSeries/ReferenceForecasts.cs) (also contains `Accuracy`).
 
-## Le quattro previsioni di riferimento
+## The four baseline forecasts
 
-Sono ancora i **benchmark di oggi**: un modello che non le batte non giustifica la propria complessità. Non sono previsioni "stupide", sono i modelli ottimi per processi specifici.
+They are still today's **benchmarks**: a model that does not beat them does not justify its own complexity. They are not "stupid" forecasts, they are the optimal models for specific processes.
 
-| Metodo | Formula $\hat y_{T+h}$ | Ottimo per |
+| Method | Formula $\hat y_{T+h}$ | Optimal for |
 |---|---|---|
-| Mean | $\bar y$ | rumore bianco attorno a una media |
-| Naive | $y_T$ | passeggiata aleatoria |
-| Seasonal naive | $y_{T+h-m(k+1)},\;k=\lfloor(h-1)/m\rfloor$ | stagionalità stabile, senza trend |
-| Drift | $y_T+h\,\dfrac{y_T-y_1}{T-1}$ | passeggiata aleatoria con deriva |
+| Mean | $\bar y$ | white noise around a mean |
+| Naive | $y_T$ | random walk |
+| Seasonal naive | $y_{T+h-m(k+1)},\;k=\lfloor(h-1)/m\rfloor$ | stable seasonality, without trend |
+| Drift | $y_T+h\,\dfrac{y_T-y_1}{T-1}$ | random walk with drift |
 
 ```csharp
 for (var h = 1; h <= horizon; h++) result[h - 1] = y[y.Length - period + (h - 1) % period];   // seasonal naive
 ```
 
-Verifica: `Benchmarks` (valori calcolati a mano su $y=[1,2,3,10,20,30]$).
+Verification: `Benchmarks` (values computed by hand on $y=[1,2,3,10,20,30]$).
 
-## Misure di accuratezza fuori campione
+## Out-of-sample accuracy measures
 
-Con $e_t=y_t-\hat y_t$ su $H$ osservazioni fuori campione:
+With $e_t=y_t-\hat y_t$ on $H$ out-of-sample observations:
 
 $$\text{MAE}=\frac1H\sum|e_t|,\qquad \text{RMSE}=\sqrt{\frac1H\sum e_t^2},\qquad \text{MAPE}=\frac{100}{H}\sum\left|\frac{e_t}{y_t}\right|$$
 
-- **RMSE** punisce di più gli errori grandi; è la misura coerente con la media come previsione puntuale.
-- **MAE** è coerente con la mediana.
-- **MAPE** è in percentuale e leggibile da chiunque, ma **non è definita con osservazioni nulle** (la libreria lo dichiara con `ArgumentException`) ed esplode vicino a zero. Una temperatura in °C che passa per 0 non si valuta con la MAPE.
+- **RMSE** punishes large errors more; it is the measure consistent with the mean as a point forecast.
+- **MAE** is consistent with the median.
+- **MAPE** is a percentage and readable by anyone, but it is **not defined with zero observations** (the library declares it with `ArgumentException`) and explodes near zero. A temperature in °C that passes through 0 cannot be evaluated with the MAPE.
 
 ### MASE (Hyndman & Koehler, 2006)
 
-$$\text{MASE}=\frac{\text{MAE}_{\text{fuori campione}}}{\dfrac{1}{n-m}\displaystyle\sum_{t=m+1}^{n}|y_t-y_{t-m}|}$$
+$$\text{MASE}=\frac{\text{MAE}_{\text{out of sample}}}{\dfrac{1}{n-m}\displaystyle\sum_{t=m+1}^{n}|y_t-y_{t-m}|}$$
 
-Il denominatore è il MAE *in campione* del seasonal naive di periodo $m$ ($m=1$: naive). Quindi:
+The denominator is the *in-sample* MAE of the seasonal naive of period $m$ ($m=1$: naive). Therefore:
 
-- **MASE $<1$**: il modello è meglio del naive stagionale **in campione**;
-- è **indipendente dalla scala** (si confrontano serie in unità diverse) e **definita anche con zeri**.
+- **MASE $<1$**: the model is better than the seasonal naive **in sample**;
+- it is **scale-independent** (series in different units are compared) and **defined even with zeros**.
 
 ```csharp
 for (var t = period; t < training.Length; t++) scale += T.Abs(training[t] - training[t - period]);
 scale /= N<T>(training.Length - period);
-if (scale == T.Zero) throw new ArgumentException("Training costante sul periodo: scala nulla.");
+if (scale == T.Zero) throw new ArgumentException("Constant training over the period: zero scale.");
 return Mae(actual, forecast) / scale;
 ```
 
-Verifica: `MaseOfNaiveOnRandomWalkIsNearOne`: su $[1,2,4,7]$ la scala vale $(1+2+3)/3=2$; con errore $|9-7|=2$ la MASE è esattamente 1.
+Verification: `MaseOfNaiveOnRandomWalkIsNearOne`: on $[1,2,4,7]$ the scale is $(1+2+3)/3=2$; with error $|9-7|=2$ the MASE is exactly 1.
 
-> **Quale confronto fa onestamente una MASE.** Il denominatore è calcolato sul training: confronta il modello con un naive *addestrato sugli stessi dati*, ma l'errore al numeratore è fuori campione. È una scala, non un test di significatività: per dire se un modello batte davvero un altro, si vedano i metodi di validazione (Diebold-Mariano, Clark-West, Model Confidence Set…) negli infografici sulla *forecast validation*.
+> **What comparison a MASE honestly makes.** The denominator is computed on the training set: it compares the model with a naive *trained on the same data*, but the error in the numerator is out of sample. It is a scale, not a significance test: to say whether one model really beats another, see the validation methods (Diebold-Mariano, Clark-West, Model Confidence Set…) in the infographics on *forecast validation*.
 
-← [2 · Statistica di base](02-statistica-di-base.md) · [Indice](README.md) · [4 · AR e ARIMA →](04-ar-arima.md)
+← [2 · Basic statistics](02-statistica-di-base.md) · [Index](README.md) · [4 · AR and ARIMA →](04-ar-arima.md)
