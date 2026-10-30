@@ -7,3 +7,4 @@
 *.zip binary
 *.dll binary
 *.ttf binary
+*.ipynb text eol=lf
