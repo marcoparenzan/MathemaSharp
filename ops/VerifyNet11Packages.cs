@@ -10,7 +10,7 @@ File.WriteAllText(Path.Combine(root,"Consumer.csproj"),"""
 <PackageReference Include="PySharp.Interpreter" Version="2.6.1-net11-preview.2" />
 <PackageReference Include="MatSharp.Interpreter" Version="0.1.1-net11-preview.3" />
 <PackageReference Include="MatSharp.NDSharp" Version="0.1.1-net11-preview.3" />
-<PackageReference Include="PlotSharp" Version="0.1.1-net11-preview.1" />
+<PackageReference Include="PlotSharp" Version="0.1.1-net11-preview.2" />
 <PackageReference Include="JupyterSharp.Engine" Version="0.3.1-net11-preview.4" />
 </ItemGroup>
 </Project>
