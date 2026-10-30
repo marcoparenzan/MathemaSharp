@@ -1,4 +1,39 @@
-# Uso quotidiano
+# Usage
+
+## Installation
+
+MathemaSharp is a set of **libraries** plus the global tool **`mathema`**. Requires the **.NET 11 SDK**.
+
+```powershell
+dotnet add package MathemaSharp.Core          --source D:\Dev\NuGetLocalFeed --prerelease
+dotnet add package MathemaSharp.LinearAlgebra --source D:\Dev\NuGetLocalFeed --prerelease
+dotnet add package MathemaSharp.TimeSeries    --source D:\Dev\NuGetLocalFeed --prerelease
+dotnet add package MathemaSharp.Quantum       --source D:\Dev\NuGetLocalFeed --prerelease
+dotnet add package MathemaSharp.NDSharp       --source D:\Dev\NuGetLocalFeed --prerelease   # bridge to NDArray
+```
+
+### The `mathema` tool
+
+```powershell
+dotnet tool install --global MathemaSharp.Cli --add-source D:\Dev\NuGetLocalFeed --prerelease
+mathema stats data.csv --column v
+mathema acf data.csv --column v --lags 12
+mathema diff data.csv --column v --lag 1
+mathema forecast data.csv --column v --method ses --horizon 6    # naive | mean | drift | seasonal-naive | ses
+mathema selftest
+```
+
+It reads one numeric column of a CSV (empty and non-numeric cells are skipped). Exit codes: 0 ok, 1 unknown command, 2 usage or
+input error. Build and test from source: `dotnet test src/tests/MathemaSharp.Cli.Tests`.
+
+This repository also holds the **ecosystem gate**, which validates the whole suite:
+
+```powershell
+dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus skip-report, over 10 minutes
+```
+
+Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
+CLI built from source. The remaining sections are the day-to-day instructions (some still in Italian; suite open point G7).
 
 ## Baseline completa dopo sampler e bande NDSharp
 

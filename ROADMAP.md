@@ -8,7 +8,11 @@ Questa roadmap sostituisce le precedenti voci aggregate che davano per completat
 
 Questa sezione prevale su tutti i quadri e conteggi storici riportati più avanti. Non attribuisce alle ultime modifiche una baseline completa che non è stata ancora rieseguita. Ottimizzazioni di performance rimandate: prima correttezza, contratti, notebook, interoperabilità e distribuzione.
 
-### Ultima baseline completa — NDSharp filled sampler/bands
+### Baseline riconfermata — 2026-10-29
+
+Gate `--no-images` rieseguito senza modifiche al codice: 31 passi più `skip-report`, tutti exit 0, report `D:\Dev\BuildArtifacts\ecosystem-validation\20261028-230541`. PySharp: 1507 passati, 0 falliti, 13 sospesi (12 PostgreSQL non raggiungibile, 1 download pretrained opt-in); i sospesi non sono contati come passati. `PlotSharp.Tests` riverificato a parte: 227/227. Il gate richiede oltre 10 minuti: eseguirlo ai punti di consolidamento. Il repository è sotto git dal 2026-10-29 (commit di baseline `13341d3`). Questa riconferma prevale sulla baseline `20261028-215324` qui sotto, che resta valida come storia. Il perimetro e i residui del consolidamento grafico sono nella `ROADMAP.md` di `Science` (R01–R16).
+
+### Baseline completa precedente — NDSharp filled sampler/bands
 
 Gate --no-images D:\Dev\BuildArtifacts\ecosystem-validation\20261028-215324: 31/31 exit0 dopo le ultime estrazioni. Solution build/test/audit, kernel package e source isolati, notebook linee/bande, browser/UI/cancellazione e selftest numerico completo rieseguiti. Suite shared227 casi, ND19 e fixture/query compatibilità riconfermate nel gate; test sospesi e warning restano dichiarati.
 Zero nuovi file review/screenshot, notebook output PNG incorporati come previsti e encoding QA in memoria. Cartelle no-images solo JSON, report recenti/politica verificati e archiviati. Prevale sulle note di full gate non rieseguito. D03 resta parziale (palette/alpha/Skia/altre categorie/consumer/distribuzione), accessibilità completa e native JupyterSharp non certificati. Nessuna release.
@@ -180,7 +184,7 @@ D01 MathemaSharp resta parziale: quattro notebook non equivalgono a una famiglia
 
 ### Completato e verificato
 
-- [x] Target net11.0 per i progetti attivi dei sei repository; SDK .NET 11 RC3, non GA. Snapshot importati esclusi.
+- [x] Target net11.0 per i progetti attivi dei sei repository; SDK .NET 11 RC3, non GA. Snapshot importati esclusi. Eccezione verificata il 2026-10-29: i soli `Ecosystem.Validation` e `Ecosystem.Validation.Tests` (tool operativi del gate) restano `net10.0`; mantenere o migrare è una decisione aperta (R06), non un retargeting implicito.
 - [x] Kernel MathemaSharp consolidati e validati su casi multiformato e oracoli indipendenti: Core, LinearAlgebra, TimeSeries e Quantum.
 - [x] NDArray<T>: storage typed, viste, slicing, broadcasting Add, Sum, Dot e MatMul; ponte LU/QR/diagnostica senza double intermedio.
 - [x] PySharp: costruttori Decimal32/64/128, operatori CLR, binding esplicito dei metodi generici, recupero dei notebook gemelli e compatibilità FastAPI/AnyIO nei test.

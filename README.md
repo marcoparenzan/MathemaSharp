@@ -1,5 +1,11 @@
 # MàthemaSharp
 
+> **Part of [ScienceSharp](../ScienceSharp)** — the Science suite. Targets **.NET 11**. Status: preview, not published. License: MIT.
+> **Form:** NuGet libraries (`MathemaSharp.Core`, `.LinearAlgebra`, `.TimeSeries`, `.Quantum`, `.NDSharp`). Global tool `mathema` (stats, acf, diff, forecast on a CSV column). Also hosts the ecosystem gate (`ops/ValidateEcosystem.cs`).
+
+| [README](README.md) | [USAGE](USAGE.md) (install first) | [ARCHITECTURE](ARCHITECTURE.md) | [ROADMAP](ROADMAP.md) | [OPENPOINTS](OPENPOINTS.md) |
+| --- | --- | --- | --- | --- |
+
 ![Logo MàthemaSharp](refs/branding/mathemasharp-logo.png)
 
 Una famiglia di librerie matematiche basate su Generic Math. Il marchio si scrive **MàthemaSharp**, con accento grave sulla prima a; pacchetti, assembly e namespace usano **MathemaSharp** senza accento.
@@ -59,3 +65,7 @@ dotnet run --project src/apps/MathemaSharp.Docs/MathemaSharp.Docs/MathemaSharp.D
 L'ambiente richiede l'SDK .NET 11 indicato da `global.json` e i feed di `nuget.config`. I kernel già .NET 11 supportano i nuovi Decimal32/64/128 secondo i rispettivi vincoli. Alcuni progetti restano net10.0: questa riorganizzazione non ne cambia il target. Non tutti i kernel importati sono convertiti a Generic Math.
 
 La rinomina è una **breaking change**: aggiornare `using Numbers.*`, riferimenti ai progetti e nomi degli assembly a `MathemaSharp.*`. I notebook sono stati spostati e gli output precedenti azzerati: devono essere rieseguiti. Il logo è stato generato e controllato visivamente per l'accento; il sito non è stato verificato nel browser.
+
+## License
+
+MIT, Copyright (c) 2026 Marco Parenzan; see [LICENSE](LICENSE). This code was developed with the assistance of generative AI tools. Third-party material, where present, keeps its own license; see THIRD-PARTY-NOTICES.md in `NDSharp/src/NDSharp.Plot` for the matplotlib-derived parts.
