@@ -1,5 +1,16 @@
 # Recap and architecture
 
+## CODATA source layer
+
+CodataParser parses NIST fixed60/25/25 columns with explicit edition,duplicate/
+numeric validation and read-only results. CodataRecord preserves printed value,
+uncertainty/unit text plus normalized strings,exact marker and ellipsis flag.
+Truncated printed values are never silently promoted to exact physical definitions.
+ops/ImportCodata.cs pins source SHA256,reads external hash-named snapshot or downloads
+and verifies before generating ops/data/codata2022.json. No timestamps in generated
+data; deterministic imports. No measured/SI-defining/derived classification or unit
+vector model yet. Constants metadata catalog remains mathematical-only.
+
 ## Immutable mathematical definitions
 
 ConstantDefinition supplies read-only metadata and invariant Value<T>();constructor

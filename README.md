@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Checksummed CODATA source import
+
+NIST CODATA2022 imported as355 source records,81 exact markers and62 printed
+truncated values. Parser retains text/units and flags; no typed physical catalog or
+SI dimension inference yet. Pinned SHA256 protects source changes. Core183/183.
+Generated data under ops/data; raw snapshot external. No package/builtin change.
+
 ## Mathematical definition catalog (source branch)
 
 MathematicalConstants.Definitions/Get expose13 immutable definitions: symbol,

@@ -4,7 +4,15 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — mathematical metadata subset
+## Common-core physical source — CODATA2022 import
+
+NIST source imported with pinned checksum:355 records,81 exact markers,62 truncated
+printed values. Parser/schema/malformed/edition tests:Core173 baseline,183 after.
+Core source preview.15,no package. Repeat import deterministic; raw bytes external,
+structured source generated under ops/data. Post-import gate,physical typed catalog,
+SI vector parsing,exact-derived recomputation andF# remain pending.
+
+## Earlier common-core step 1 — mathematical metadata subset
 
 ConstantDefinition/ConstantStatus and MathematicalConstants immutable catalog added.
 Thirteen generated mathematical records,exact ordinal lookup and Value<T>() conversion.

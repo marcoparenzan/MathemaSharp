@@ -35,6 +35,16 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Importing the physical source table
+
+From MathemaSharp run `dotnet run --file ops/ImportCodata.cs`. It imports only the
+pinned CODATA2022 bytes; a checksum change fails instead of silently updating.
+Raw source is retained under BuildArtifacts/sources/nist-codata; generated structured
+source is ops/data/codata2022.json. Never edit generated data manually.
+CodataParser.Parse(text,edition) retains exact/truncated flags and printed units;
+normalized truncated values are approximations,not exact SI values. No physical
+Value<T>()/unit conversion API is supplied in this tranche.
+
 ## Mathematical metadata from source
 
 On `agent/core-step1-constant-metadata`, use `MathematicalConstants.Get("Pi")`
