@@ -35,6 +35,14 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Trigonometric spans from source
+
+On `agent/core-step1-trig-spans`, reference Core source and call
+`GenericMath.Sin<double>(input, destination)` (likewise Cos/Tan). Destination must
+be at least input length; its tail remains untouched. Exact same-buffer in-place
+is supported; shifted overlaps throw before writing. Empty input is a no-op.
+The facade uses scalar operations and allocates no buffers. No updated package.
+
 ## Independent double accuracy check
 
 Requires Python with its standard-library decimal module; no package installation.

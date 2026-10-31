@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — first independent double corpus
+## Common-core step 1 — trigonometric span shape
+
+Three span overloads added; baselineCore129/129, six-type tests135/135, after
+allocation test136/136. Source Core preview.6, no package. Exact scalar bits,
+in-place and pre-write bounds/overlap validation verified. No complex overloads
+or language builtin migration. Full gate after span change remains pending.
+
+## Earlier common-core step 1 — first independent double corpus
 
 40 finite Sqrt/Exp/Log references generated via Python decimal at 100/200 digits;
 stable binary64 bits required. Maximum measured 0 ULP for each function, sample

@@ -1,5 +1,15 @@
 # Recap and architecture
 
+## Scalar-equivalent trigonometric spans
+
+GenericMath.Trigonometric.Spans.cs loops over scalar forwards, without delegates,
+SIMD regrouping, temporary buffers or conversion. Validation rejects short output
+and nonzero-offset overlap before writes. Same-origin in-place operation is allowed;
+only destination prefix is written. Empty input is a no-op. Six-format bit parity
+and warmed-double allocation checks pass. A custom T can allocate/throw inside its
+own operations; only facade allocation is excluded. No complex/span arithmetic
+accuracy profile beyond the existing scalar contract is added.
+
 ## Independent binary64 accuracy samples
 
 ops/GenerateDoubleOracle.py generates committed reference JSON using Decimal.from_float,
