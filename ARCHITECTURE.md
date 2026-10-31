@@ -1,5 +1,16 @@
 # Recap and architecture
 
+## Independent binary64 accuracy samples
+
+ops/GenerateDoubleOracle.py generates committed reference JSON using Decimal.from_float,
+then sqrt/exp/ln at 100 and 200 digits; both must round to identical double bits.
+ops/VerifyDoubleOracle.cs generates the fixture and writes per-case ULP measurements
+outside repositories using Utf8JsonWriter. Three xUnit tests load the copied fixture
+and enforce a 1-ULP sample acceptance threshold, not a BCL universal bound.
+All 40 samples measured 0 ULP on the recorded runtime. Standard-library decimal is
+independent of the BCL implementation; precision stability alone is not proof of
+correct rounding for every hard case. Mpmath was unavailable, and trig is excluded.
+
 ## Common-core elementary forwards
 
 GenericMath.Elementary.cs delegates Sqrt to IRootFunctions<T>, Exp to

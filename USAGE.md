@@ -35,6 +35,16 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Independent double accuracy check
+
+Requires Python with its standard-library decimal module; no package installation.
+From MathemaSharp run `dotnet run --file ops/VerifyDoubleOracle.cs` to regenerate the
+fixture and measure 40 Sqrt/Exp/Log cases. JSON report is written to
+`D:\Dev\BuildArtifacts\validation\double-oracle\report.json` and the run is logged.
+The fixture is generated, never manually edited. Normal Core tests use the committed
+fixture without Python. Current corpus passes at maximum 0 ULP; test acceptance is
+1 ULP and does not certify every input or platform. No trig/other-type reference claim.
+
 ## Scalar roots, exponentials and logarithms from source
 
 On `agent/core-step1-elementary-forwards`, reference the Core source project and

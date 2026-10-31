@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="../../libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
+    <None Update="Fixtures/double-elementary-oracle.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

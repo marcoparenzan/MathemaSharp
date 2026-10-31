@@ -15,6 +15,14 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Independent double reference corpus
+
+Forty finite Sqrt/Exp/Log samples are generated from exact binary64 inputs using
+Python standard-library decimal at 100/200 digits, requiring stable reference bits.
+Maximum measured error is 0 ULP on the recorded Windows runtime; acceptance tests
+allow at most 1 ULP for this sample corpus. Core suite 129/129. This is not a universal
+accuracy bound; mpmath, trig and other-format external references remain pending.
+
 ## Common-core elementary forwards (source branch)
 
 GenericMath now also exposes Sqrt, Exp and Log with the weakest root/exponential/

@@ -4,7 +4,16 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — elementary forwards added
+## Common-core step 1 — first independent double corpus
+
+40 finite Sqrt/Exp/Log references generated via Python decimal at 100/200 digits;
+stable binary64 bits required. Maximum measured 0 ULP for each function, sample
+acceptance threshold 1 ULP. Core baseline 126/126, after 129/129. Generator and
+report tool committed; report external. No production API changes or packages.
+Mpmath unavailable; trig and remaining types lack external accuracy corpus.
+Full gate after this test/tool tranche remains pending. Step1 is not complete.
+
+## Earlier common-core step 1 — elementary forwards added
 
 Sqrt/Exp/Log scalar forwards added with six IEEE format tests. Core baseline
 120/120, after 126/126; source version 0.2.1-net11-preview.5. No new package.
