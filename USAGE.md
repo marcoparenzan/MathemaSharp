@@ -35,6 +35,15 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Mathematical metadata from source
+
+On `agent/core-step1-constant-metadata`, use `MathematicalConstants.Get("Pi")`
+or enumerate `.Definitions`. ID lookup is exact/case-sensitive; unknown ID throws
+KeyNotFoundException. Read `.Symbol`, `.Status`, `.DecimalValue`, `.UnitExponents`,
+`.Source` and `.SignificantDigits`; call `.Value<double>()` for invariant conversion.
+All entries dimensionless mathematical definitions;physical/CODATA names are absent.
+Collection/definitions are not mutable. Generated files must be regenerated,not edited.
+
 ## Remaining mathematical values from source
 
 On `agent/core-step1-special-math-constants`, use `MathConstants<double>.EulerGamma`,

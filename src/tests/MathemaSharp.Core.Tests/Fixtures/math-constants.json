@@ -8,6 +8,19 @@
   "constants": [
     {
       "id": "Pi",
+      "symbol": "\u03c0",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -25,6 +38,19 @@
     },
     {
       "id": "Tau",
+      "symbol": "\u03c4",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -42,6 +68,19 @@
     },
     {
       "id": "E",
+      "symbol": "e",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -59,6 +98,19 @@
     },
     {
       "id": "Sqrt2",
+      "symbol": "\u221a2",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -76,6 +128,19 @@
     },
     {
       "id": "Ln2",
+      "symbol": "ln 2",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -93,6 +158,19 @@
     },
     {
       "id": "Ln10",
+      "symbol": "ln 10",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -110,6 +188,19 @@
     },
     {
       "id": "Sqrt3",
+      "symbol": "\u221a3",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -127,6 +218,19 @@
     },
     {
       "id": "Log2E",
+      "symbol": "log\u2082 e",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -144,6 +248,19 @@
     },
     {
       "id": "Log10E",
+      "symbol": "log\u2081\u2080 e",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -161,6 +278,19 @@
     },
     {
       "id": "EulerGamma",
+      "symbol": "\u03b3",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -178,6 +308,19 @@
     },
     {
       "id": "GoldenRatio",
+      "symbol": "\u03c6",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -195,6 +338,19 @@
     },
     {
       "id": "Catalan",
+      "symbol": "G",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,
@@ -212,6 +368,19 @@
     },
     {
       "id": "Apery",
+      "symbol": "\u03b6(3)",
+      "unit": "1",
+      "unitExponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "standardUncertainty": "0",
+      "relativeStandardUncertainty": "0",
       "status": "Mathematical",
       "source": "mpmath 1.3.0",
       "significantDigits": 100,

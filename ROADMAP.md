@@ -4,7 +4,15 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — mathematical value family
+## Common-core step 1 — mathematical metadata subset
+
+ConstantDefinition/ConstantStatus and MathematicalConstants immutable catalog added.
+Thirteen generated mathematical records,exact ordinal lookup and Value<T>() conversion.
+Core164 baseline,173 after (9 new tests);source preview.14. Numeric references
+preserved. Full post-metadata gate,physical SI/CODATA catalogs and remaining
+common-core work pending. Mathematical SourceDate null;no measurement data fabricated.
+
+## Earlier common-core step 1 — mathematical value family
 
 EulerGamma/GoldenRatio/Catalan/Apery added: all13 mathematical values listed in
 COMMON-CORE3.3 now present,78 format references,Core164/164 before/after. Old9

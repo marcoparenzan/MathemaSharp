@@ -1,5 +1,16 @@
 # Recap and architecture
 
+## Immutable mathematical definitions
+
+ConstantDefinition supplies read-only metadata and invariant Value<T>();constructor
+is internal and current records are mathematical/dimensionless only. ConstantStatus
+names follow the proposed taxonomy,but SI/measured entries are not supplied.
+MathematicalConstants wraps generated definitions in a read-only list and frozen
+ordinal dictionary. Generated symbols,source,unit vectors and uncertainties accompany
+existing values; numeric data/reference encodings unchanged. SourceDate is null for
+timeless mathematical definitions. No physical table/date or measurement invented.
+Nine tests cover schema/lookup/immutability and six-type conversion under fr-FR culture.
+
 ## Complete mathematical value subset
 
 The generator adds mp.euler, (1+sqrt(5))/2, mp.catalan and mp.zeta(3), each with
