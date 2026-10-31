@@ -35,6 +35,14 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Rounding spans from source
+
+On `agent/core-step1-round-spans`, call `GenericMath.Round<double>(input, output,
+RoundingMode.HalfToEven)` or add `digits` before the mode. Policies are mandatory.
+Exact in-place allowed, shifted overlap rejected, tail untouched. Empty input still
+validates policy and probes digit rounding on Zero. Digit limits follow T; oversized
+positive digits may return unchanged IEEE values rather than throwing. No package.
+
 ## Elementary spans from source
 
 On `agent/core-step1-elementary-spans`, call `GenericMath.Sqrt<double>(input, output)`,

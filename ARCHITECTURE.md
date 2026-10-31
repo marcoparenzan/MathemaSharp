@@ -1,5 +1,14 @@
 # Recap and architecture
 
+## Explicit rounding span policies
+
+GenericMath.Round.Spans.cs maps policy before writes, reuses destination validation,
+and uses T.Round per element. Digits overload probes T.Round(Zero,digits,mode) once
+before writing, including empty input. No type-independent maximum digits imposed:
+direct BCL probes showed One/int.MaxValue unchanged on six IEEE formats but rejected
+by decimal. Seven-format tests retain this distinction; custom T defines validity.
+No rounding defaults or conversion through double are introduced.
+
 ## Scalar-equivalent elementary spans
 
 GenericMath.Elementary.Spans.cs reuses ValidateDestination and forwards each

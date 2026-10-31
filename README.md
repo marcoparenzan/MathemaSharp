@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Explicit rounding spans (source branch)
+
+Round span overloads require RoundingMode, optionally digits, with exact in-place
+and pre-write destination/policy validation. Seven formats pass scalar-bit parity
+for every mode; Core150/150. Digits delegate to T: huge positive digits can return
+unchanged values on IEEE types, while decimal rejects them. No package/builtin.
+
 ## Elementary spans (source branch)
 
 Sqrt/Exp/Log now share the span contract: scalar-equivalent bits, exact in-place,
