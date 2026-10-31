@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — scalar Round only (source branch)
+## Common-core step 1 — integral scalar forwards added
+
+Floor/Ceiling/Truncate implemented with seven additional format tests: baseline
+107/107, after 114/114, zero failures/skips. Source Core version is now
+0.2.1-net11-preview.3; no package produced. Full ecosystem gate after scalar changes
+and remaining step-1 APIs/reference work are still pending.
+
+## Earlier common-core step 1 — scalar Round only (source branch)
 
 Two GenericMath.Round overloads and explicit RoundingMode implemented in Core;
 source version 0.2.1-net11-preview.2, no package produced. Baseline Core 100/100,

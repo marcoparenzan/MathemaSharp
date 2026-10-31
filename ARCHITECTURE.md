@@ -1,5 +1,13 @@
 # Recap and architecture
 
+## Common-core integral forwards
+
+`GenericMath.Integral.cs` adds scalar Floor/Ceiling/Truncate with the weakest
+`IFloatingPoint<T>` constraint, without double conversion or new dependencies.
+Definitions are in public XML contracts. Tests cover negative fractions, signed zeros,
+NaN, infinities and positive/negative subnormals across the six IEEE formats; decimal
+gets finite cases. This is a BCL fast-profile facade, not a new accuracy algorithm.
+
 ## Common-core scalar rounding — first step-1 tranche
 
 `GenericMath.Round.cs` in the existing Core library introduces the explicit

@@ -17,6 +17,10 @@ A family of mathematics libraries based on Generic Math. The brand is written **
 
 ## Common-core scalar rounding (source branch)
 
+The scalar surface also provides `Floor<T>`, `Ceiling<T>` and `Truncate<T>` as
+`IFloatingPoint<T>` BCL forwards. All seven formats pass finite and IEEE special-value
+checks; Core tests are now 114/114. No interpreter builtin has been switched.
+
 `MathemaSharp.GenericMath.Round<T>` forwards to BCL generic rounding with explicit
 `RoundingMode`: ties-to-even, ties-away, toward zero, negative or positive infinity.
 Both integer and decimal-digit overloads use `IFloatingPoint<T>`. Digit ranges are

@@ -35,6 +35,14 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Scalar integral parts from source
+
+The same source Core reference exposes `GenericMath.Floor(-2.5)` (−3),
+`GenericMath.Ceiling(-2.5)` (−2) and `GenericMath.Truncate(-2.5)` (−2).
+The result stays in T, with no conversion through double. IEEE signed zero and
+non-finite values follow the BCL contract; tests cover the seven supported formats.
+No new installed package or language builtin is implied.
+
 ## Scalar rounding from the source branch
 
 Reference `src/libs/MathemaSharp.Core/MathemaSharp.Core.csproj` on
