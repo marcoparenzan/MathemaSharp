@@ -9,8 +9,9 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 EulerGamma/GoldenRatio/Catalan/Apery added: all13 mathematical values listed in
 COMMON-CORE3.3 now present,78 format references,Core164/164 before/after. Old9
 records preserved,generated hashes reproducible. Source Core preview.13; no package.
-Latest combined gate,definition metadata,physical constants,F# and remaining scalar/
-complex/reference work remain pending. This is not full step1 completion.
+Latest combined gate passed33/33 with --no-images (20261031-221915);Core164/164,
+generated API output includes all13 fields. Definition metadata,physical constants,
+F# and remaining scalar/complex/reference work remain pending. Not full step1 completion.
 
 ## Earlier common-core step 1 — base-logarithm constants
 

@@ -5,7 +5,7 @@ the history is [CHANGELOG.md](CHANGELOG.md).
 
 | # | Point | Status |
 | --- | --- | --- |
-| MA-18 | MathConstants<T> all13 mathematical values listed in COMMON-CORE3.3 generated;78 IEEE format encodings tested (Core164/164). Gate after latest7 pending. Complete catalog/other mathematical and physical constants, custom >100-digit formats pending; full post-change gate passed33/33 (20261031-214535). External pinned mpmath generator dependency only. | partial |
+| MA-18 | MathConstants<T> all13 mathematical values listed in COMMON-CORE3.3 generated;78 IEEE format encodings tested (Core164/164). Gate after latest7 passed33/33 (20261031-221915). Complete catalog/other mathematical and physical constants, custom >100-digit formats pending; full post-change gate passed33/33 (20261031-214535). External pinned mpmath generator dependency only. | partial |
 | MA-17 | Integral rounding spans verified across seven formats plus warmed-double allocation (Core158/158). Full gate after Round/integral spans passed33/33 (20261031-211557); custom T allocation/exception guarantees excluded. | partial |
 | MA-16 | Explicit Round span overloads verified across seven formats/all modes (Core150/150). Digits are type-specific, including oversized positive digits; no universal cap. Post-Round-span gate passed33/33 (20261031-211557); remaining shapes pending. | partial |
 | MA-15 | Trig and elementary span shapes implemented: six IEEE scalar-bit comparisons, domain cases, in-place, pre-write overlap/length validation and warmed-double allocation (Core143/143). Post-span full gate passed33/33 (20261031-191731); other spans and complex overloads pending; custom T allocation/exception behaviour not guaranteed. | partial |
