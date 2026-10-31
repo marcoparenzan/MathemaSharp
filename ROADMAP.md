@@ -9,7 +9,8 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 Floor/Ceiling/Truncate implemented with seven additional format tests: baseline
 107/107, after 114/114, zero failures/skips. Source Core version is now
 0.2.1-net11-preview.3; no package produced. Full ecosystem gate after scalar changes
-and remaining step-1 APIs/reference work are still pending.
+passed 33/33 with --no-images (20261031-094510). Remaining step-1 APIs and reference
+work are still pending; no cross-platform arithmetic reproducibility is certified.
 
 ## Earlier common-core step 1 — scalar Round only (source branch)
 
