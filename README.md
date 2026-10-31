@@ -15,6 +15,12 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Integral rounding spans (source branch)
+
+Floor/Ceiling/Truncate now have scalar-equivalent span overloads with exact in-place
+and pre-write overlap/length validation. Seven formats plus warmed-double allocation
+check pass (Core158/158). No new package or interpreter builtin.
+
 ## Explicit rounding spans (source branch)
 
 Round span overloads require RoundingMode, optionally digits, with exact in-place

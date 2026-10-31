@@ -1,5 +1,13 @@
 # Recap and architecture
 
+## Integral rounding span shape
+
+GenericMath.Integral.Spans.cs adds Floor/Ceiling/Truncate loops over scalar calls,
+using the existing validator and IFloatingPoint<T>. Seven-format tests cover bit
+parity, signed zeros, non-finite values, in-place, overlap failure without writes,
+short destinations and empty input. Warmed double allocation measured zero.
+No buffers/delegates added; custom T still owns its allocation/exception behaviour.
+
 ## Explicit rounding span policies
 
 GenericMath.Round.Spans.cs maps policy before writes, reuses destination validation,

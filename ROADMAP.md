@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — rounding span shape
+## Common-core step 1 — integral rounding span shape
+
+Floor/Ceiling/Truncate span overloads added. Core baseline150/150, after158/158:
+seven-format parity/validation tests plus warmed-double zero-allocation check.
+Core source preview.9, no package. Full gate after Round/integral spans pending;
+remaining common-core surface/constants/complex/reference work not complete.
+
+## Earlier common-core step 1 — rounding span shape
 
 Two Round span overloads added, seven formats/all modes tested. Core143 baseline,
 150 after. Expanded validation test initially failed six cases due to incorrect
