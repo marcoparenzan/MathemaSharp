@@ -8,8 +8,10 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 
 Sqrt/Exp/Log span overloads added with six-format parity/domain/in-place validation
 and warmed-double allocation check. Baseline136/136, after143/143; Core source
-preview.7, no package. Shared validation reused. Full gate after both span tranches,
-complex shapes and remaining step1 surface/constants/reference work pending.
+preview.7, no package. Shared validation reused. Full gate after both span tranches
+passed33/33 with --no-images (20261031-191731). Generated API notebook lists all six
+span overloads. Complex shapes and remaining step1 surface/constants/reference work
+are pending.
 
 ## Earlier common-core step 1 — trigonometric span shape
 
