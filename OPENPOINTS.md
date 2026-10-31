@@ -5,6 +5,7 @@ the history is [CHANGELOG.md](CHANGELOG.md).
 
 | # | Point | Status |
 | --- | --- | --- |
+| MA-14 | Common-core step 1: explicit scalar Round implemented and seven formats tested (Core 107/107); other scalar functions, constants, reference corpus and full post-change gate pending. Digit range delegates to T; no negative-digit extension or language builtin migration. | partial |
 | MA-1 | **Perimeter** (R10): classify notebooks, legacy helpers and assets still left; migrate the relevant ones or justify keeping them. | open |
 | MA-2 | **Precision and formats** (R06): a successful build does not prove that every API supports every format (Decimal32/64/128). The supported platform matrix is not decided. | open |
 | MA-3 | **Performance** work is deferred until correctness, contracts and notebooks are settled. | deferred |

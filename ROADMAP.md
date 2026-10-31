@@ -4,6 +4,16 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
+## Common-core step 1 — scalar Round only (source branch)
+
+Two GenericMath.Round overloads and explicit RoundingMode implemented in Core;
+source version 0.2.1-net11-preview.2, no package produced. Baseline Core 100/100,
+after seven format tests 107/107. Half, float, double, Decimal32/64/128 and decimal
+verified on Windows; special IEEE values and all five policies covered.
+Step 1 remains open: other scalar functions, constants, span/complex surface,
+mpmath/reference corpus, adapters and full post-change ecosystem gate are pending.
+Earlier common-core documentation saying no scalar layer exists predates this branch.
+
 ## Current roadmap — updated state
 
 This section prevails over all the historical tables and counts reported further on. It does not attribute to the latest changes a complete baseline that has not yet been rerun. Performance optimisations postponed: first correctness, contracts, notebooks, interoperability and distribution.

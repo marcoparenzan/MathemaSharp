@@ -35,6 +35,23 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Scalar rounding from the source branch
+
+Reference `src/libs/MathemaSharp.Core/MathemaSharp.Core.csproj` on
+`agent/core-step1-round-scalar`; the new source API has not been packaged.
+
+```csharp
+using MathemaSharp;
+var even = GenericMath.Round(2.5, RoundingMode.HalfToEven); // 2
+var away = GenericMath.Round(2.5, RoundingMode.HalfAwayFromZero); // 3
+var digits = GenericMath.Round(1.25, 1, RoundingMode.HalfToEven); // 1.2
+```
+
+Every call requires a mode. Digit ranges and scaling behaviour follow the BCL
+implementation for T; negative digits are not supported by this new facade.
+Run `dotnet test src/tests/MathemaSharp.Core.Tests -c Release` to verify this tranche.
+This does not replace Python/MATLAB round or provide ReproducibleMath.
+
 ## Full baseline after NDSharp sampler and bands
 
 `dotnet run --file ops/ValidateEcosystem.cs -- --no-images` rerun after RectilinearFieldSampler and ContourBands: D:\Dev\BuildArtifacts\ecosystem-validation\20261028-215324, 31/31 steps exit 0. Build/test/audit, package/source kernel paths, real notebook, UI/browser and complete numerical selftest, no check skipped.

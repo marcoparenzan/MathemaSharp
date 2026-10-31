@@ -1,5 +1,16 @@
 # Recap and architecture
 
+## Common-core scalar rounding — first step-1 tranche
+
+`GenericMath.Round.cs` in the existing Core library introduces the explicit
+`RoundingMode` enum and two scalar forwards constrained by `IFloatingPoint<T>`.
+Policy mapping uses the five BCL MidpointRounding values, without language defaults
+or conversion through double. Invalid modes throw; digit validity and precision
+are delegated to T. IEEE signed zero, NaN and infinity pass-through are tested.
+No allocation is introduced by the facade; custom T may have its own behaviour.
+This is the fast BCL profile, not correctly-rounded cross-platform reproducibility.
+No span/complex overloads, constants or kernel package are implemented in this tranche.
+
 ## Evidence without saving images
 
 EvidenceOptions (net10.0, tested) separates saving from the checks: --no-images is forwarded by the gate only to the three visual tools. The rasteriser verifies PNGs in memory with signature/hash; the browsers verify DOM/layout without capturing screenshots; the Navier tool does not save SVG/PNG. The notebook outputs and the tests are still run.

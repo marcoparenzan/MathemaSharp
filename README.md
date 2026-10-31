@@ -15,6 +15,14 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Common-core scalar rounding (source branch)
+
+`MathemaSharp.GenericMath.Round<T>` forwards to BCL generic rounding with explicit
+`RoundingMode`: ties-to-even, ties-away, toward zero, negative or positive infinity.
+Both integer and decimal-digit overloads use `IFloatingPoint<T>`. Digit ranges are
+those of T; negative-digit rounding is not added. Seven-format tests pass; no
+language builtin migrated, new package produced or cross-platform claim made.
+
 ## Documentation and history
 
 - [CHANGELOG.md](CHANGELOG.md): reconstructed log of the changes, checks, packages and limits.
