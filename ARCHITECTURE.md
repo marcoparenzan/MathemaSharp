@@ -1,5 +1,14 @@
 # Recap and architecture
 
+## Common-core trigonometric forwards
+
+GenericMath.Trigonometric.cs adds scalar Sin/Cos/Tan on ITrigonometricFunctions<T>.
+No extra IEEE constraint is imposed on the API. Radians, special values and fast
+BCL accuracy are documented per function. Six IEEE formats compare forwarding
+byte-for-byte over zero, subnormal, fractional and large samples; zero identities
+and invalid non-finite results are separately asserted. No external accuracy oracle
+or reproducible profile is provided; tangent at finite rounded pi/2 follows T.
+
 ## Common-core integral forwards
 
 `GenericMath.Integral.cs` adds scalar Floor/Ceiling/Truncate with the weakest

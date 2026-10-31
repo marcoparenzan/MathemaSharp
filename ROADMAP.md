@@ -4,6 +4,13 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
+## Common-core step 1 — trigonometric forwards added
+
+Sin/Cos/Tan now implemented in the scalar facade; Core Release baseline 114/114,
+after six format tests 120/120. Source Core version 0.2.1-net11-preview.4. No new
+package, language builtin migration or external accuracy corpus. Gate after this
+trigonometric tranche remains pending; prior rounding gate below is historical.
+
 ## Common-core step 1 — integral scalar forwards added
 
 Floor/Ceiling/Truncate implemented with seven additional format tests: baseline

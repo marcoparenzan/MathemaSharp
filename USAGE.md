@@ -35,6 +35,14 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Scalar trigonometry from source
+
+On `agent/core-step1-trig-forwards`, reference the Core source project and call
+`GenericMath.Sin(0.25)`, `GenericMath.Cos(0.25)` or `GenericMath.Tan(0.25)`.
+Inputs are radians and computations remain in T. Six IEEE formats are tested;
+BCL decimal is not claimed to implement trigonometric interfaces. No new package
+was produced. This is not a cross-language or cross-platform accuracy guarantee.
+
 ## Scalar integral parts from source
 
 The same source Core reference exposes `GenericMath.Floor(-2.5)` (−3),

@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Common-core trigonometric forwards (source branch)
+
+`GenericMath.Sin`, `Cos` and `Tan` now forward to T's BCL implementation using
+`ITrigonometricFunctions<T>`. Six IEEE formats pass byte-parity and special-value
+checks (Core 120/120). This verifies forwarding, not external mathematical accuracy
+or cross-platform reproducibility. No Python/MATLAB builtin changed.
+
 ## Common-core scalar rounding (source branch)
 
 The scalar surface also provides `Floor<T>`, `Ceiling<T>` and `Truncate<T>` as
