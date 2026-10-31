@@ -51,4 +51,24 @@ public static class MathConstants<T> where T : IFloatingPoint<T>
     /// irrational. Parsed from independently generated 100-digit data, not rounded Ln10.
     /// Initialization may allocate; field reads do not.</summary>
     public static readonly T Log10E = T.Parse(MathematicalConstantData.Log10E, CultureInfo.InvariantCulture);
+
+    /// <summary>Euler–Mascheroni constant, the limit of the nth harmonic number minus ln(n).
+    /// Dimensionless, positive. Rounded from generated 100-digit data by T.Parse;
+    /// initialization may allocate, field reads do not. No irrationality claim is made.</summary>
+    public static readonly T EulerGamma = T.Parse(MathematicalConstantData.EulerGamma, CultureInfo.InvariantCulture);
+
+    /// <summary>Golden ratio, (1+sqrt(5))/2. Dimensionless, positive, irrational.
+    /// Rounded from generated 100-digit data by T.Parse; initialization may allocate,
+    /// field reads do not.</summary>
+    public static readonly T GoldenRatio = T.Parse(MathematicalConstantData.GoldenRatio, CultureInfo.InvariantCulture);
+
+    /// <summary>Catalan's constant, the sum from n=0 of (-1)^n/(2n+1)^2.
+    /// Dimensionless, positive. Rounded from generated 100-digit data by T.Parse;
+    /// initialization may allocate, field reads do not. No irrationality claim is made.</summary>
+    public static readonly T Catalan = T.Parse(MathematicalConstantData.Catalan, CultureInfo.InvariantCulture);
+
+    /// <summary>Apéry's constant, zeta(3), the sum from n=1 of 1/n^3.
+    /// Dimensionless, positive, irrational. Rounded from generated 100-digit data by T.Parse;
+    /// initialization may allocate, field reads do not.</summary>
+    public static readonly T Apery = T.Parse(MathematicalConstantData.Apery, CultureInfo.InvariantCulture);
 }

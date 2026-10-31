@@ -17,7 +17,9 @@ def value(name):
     return {'Pi': lambda: mp.pi, 'Tau': lambda: 2 * mp.pi, 'E': lambda: mp.e,
             'Sqrt2': lambda: mp.sqrt(2), 'Ln2': lambda: mp.log(2),
             'Ln10': lambda: mp.log(10), 'Sqrt3': lambda: mp.sqrt(3),
-            'Log2E': lambda: 1 / mp.log(2), 'Log10E': lambda: 1 / mp.log(10)}[name]()
+            'Log2E': lambda: 1 / mp.log(2), 'Log10E': lambda: 1 / mp.log(10),
+            'EulerGamma': lambda: mp.euler, 'GoldenRatio': lambda: (1 + mp.sqrt(5)) / 2,
+            'Catalan': lambda: mp.catalan, 'Apery': lambda: mp.zeta(3)}[name]()
 
 
 def binary_bits(number, precision, exponent_bits):
@@ -38,7 +40,8 @@ def binary_bits(number, precision, exponent_bits):
 
 root = pathlib.Path(__file__).resolve().parents[1]
 records = []
-for name in ['Pi', 'Tau', 'E', 'Sqrt2', 'Ln2', 'Ln10', 'Sqrt3', 'Log2E', 'Log10E']:
+for name in ['Pi', 'Tau', 'E', 'Sqrt2', 'Ln2', 'Ln10', 'Sqrt3', 'Log2E', 'Log10E',
+             'EulerGamma', 'GoldenRatio', 'Catalan', 'Apery']:
     with mp.workdps(160):
         first = mp.nstr(value(name), 100)
     with mp.workdps(200):

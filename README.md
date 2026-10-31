@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Mathematical family values covered (source branch)
+
+EulerGamma/GoldenRatio/Catalan/Apery complete the13 mathematical values listed in
+COMMON-CORE3.3. Seventy-eight six-format rounding references pass (Core164/164).
+All values generated at100 digits; full metadata catalog and physical constants
+remain unimplemented, and no new package was produced.
+
 ## Base-logarithm constants (source branch)
 
 Sqrt3/Log2E/Log10E added: nine generated100-digit values and54 format references.

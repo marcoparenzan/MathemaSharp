@@ -1,5 +1,14 @@
 # Recap and architecture
 
+## Complete mathematical value subset
+
+The generator adds mp.euler, (1+sqrt(5))/2, mp.catalan and mp.zeta(3), each with
+160/200 precision agreement for100 digits. MathConstants has13 readonly values;
+strict fixture count and six-type tests cover78 expected encodings. Old9 records
+preserved. EulerGamma/Catalan documentation does not assert unknown irrationality.
+This completes only the value family, not the public definition-record metadata,
+SI/CODATA catalogs, variants or cross-language constant bindings.
+
 ## Root-three and base-conversion constants
 
 Generated subset extends to nine values. Sqrt3 is mp.sqrt(3), Log2E and Log10E

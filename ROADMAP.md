@@ -4,7 +4,15 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — base-logarithm constants
+## Common-core step 1 — mathematical value family
+
+EulerGamma/GoldenRatio/Catalan/Apery added: all13 mathematical values listed in
+COMMON-CORE3.3 now present,78 format references,Core164/164 before/after. Old9
+records preserved,generated hashes reproducible. Source Core preview.13; no package.
+Latest combined gate,definition metadata,physical constants,F# and remaining scalar/
+complex/reference work remain pending. This is not full step1 completion.
+
+## Earlier common-core step 1 — base-logarithm constants
 
 Sqrt3/Log2E/Log10E added: nine constants,54 expected format encodings; Core164/164
 before/after, existing tests expanded. High-precision formulas precede rounding;
