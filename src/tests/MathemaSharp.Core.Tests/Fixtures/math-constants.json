@@ -1,0 +1,61 @@
+{
+  "generator": "ops/GenerateMathConstants.py",
+  "reference": "mpmath 1.3.0",
+  "verificationPrecision": [
+    160,
+    200
+  ],
+  "constants": [
+    {
+      "id": "Pi",
+      "status": "Mathematical",
+      "source": "mpmath 1.3.0",
+      "significantDigits": 100,
+      "value": "3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068",
+      "binaryBits": {
+        "Half": "4248",
+        "Single": "40490fdb",
+        "Double": "400921fb54442d18"
+      },
+      "decimalValues": {
+        "Decimal32": "3.141593",
+        "Decimal64": "3.141592653589793",
+        "Decimal128": "3.141592653589793238462643383279503"
+      }
+    },
+    {
+      "id": "Tau",
+      "status": "Mathematical",
+      "source": "mpmath 1.3.0",
+      "significantDigits": 100,
+      "value": "6.283185307179586476925286766559005768394338798750211641949889184615632812572417997256069650684234136",
+      "binaryBits": {
+        "Half": "4648",
+        "Single": "40c90fdb",
+        "Double": "401921fb54442d18"
+      },
+      "decimalValues": {
+        "Decimal32": "6.283185",
+        "Decimal64": "6.283185307179586",
+        "Decimal128": "6.283185307179586476925286766559006"
+      }
+    },
+    {
+      "id": "E",
+      "status": "Mathematical",
+      "source": "mpmath 1.3.0",
+      "significantDigits": 100,
+      "value": "2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427",
+      "binaryBits": {
+        "Half": "4170",
+        "Single": "402df854",
+        "Double": "4005bf0a8b145769"
+      },
+      "decimalValues": {
+        "Decimal32": "2.718282",
+        "Decimal64": "2.718281828459045",
+        "Decimal128": "2.718281828459045235360287471352662"
+      }
+    }
+  ]
+}

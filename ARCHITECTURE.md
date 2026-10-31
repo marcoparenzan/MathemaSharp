@@ -1,5 +1,16 @@
 # Recap and architecture
 
+## Generated mathematical constants
+
+MathConstants<T> uses IFloatingPoint<T>, parsing generated decimal strings at type
+initialization. MathematicalConstantData.g.cs and math-constants.json are generated
+by ops/GenerateMathConstants.py with pinned mpmath1.3.0 and160/200-digit agreement.
+Binary references use independent significand rounding; decimal references quantize
+to7/16/34 significant digits. Six IEEE types match expected encoding. Initialization
+may allocate; readonly field reads introduce no work. Custom high-precision types
+above100 digits are not promised exact; complete definition-record catalog deferred.
+Mpmath BSD wheel lives only in external tools, checksum verified; not a NuGet/runtime dependency.
+
 ## Integral rounding span shape
 
 GenericMath.Integral.Spans.cs adds Floor/Ceiling/Truncate loops over scalar calls,

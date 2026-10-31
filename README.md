@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Generated mathematical constants (source branch)
+
+MathConstants<T>.Pi/Tau/E parse generated100-digit values once per floating type.
+Mpmath1.3.0 calculations agree at160/200 digits; six IEEE rounded references pass
+(Core164/164). Tau is generated independently, not twice rounded Pi. No physical
+catalog or other mathematical constants yet; no new package.
+
 ## Integral rounding spans (source branch)
 
 Floor/Ceiling/Truncate now have scalar-equivalent span overloads with exact in-place

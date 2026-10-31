@@ -4,7 +4,15 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — integral rounding span shape
+## Common-core step 1 — first mathematical constants
+
+MathConstants<T> Pi/Tau/E generated from mpmath1.3.0 at100 stable digits (160/200
+dps agreement). Six-format independent rounding tests pass: Core158 baseline,
+164 after. Core source preview.10; no package. Dependency isolated under external
+BuildArtifacts tools with wheel SHA256 verified. Full constants catalog, remaining
+mathematical/physical values and post-constant full gate remain pending.
+
+## Earlier common-core step 1 — integral rounding span shape
 
 Floor/Ceiling/Truncate span overloads added. Core baseline150/150, after158/158:
 seven-format parity/validation tests plus warmed-double zero-allocation check.

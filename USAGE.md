@@ -35,6 +35,15 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Mathematical constants from source
+
+On `agent/core-step1-math-constants`, use `MathConstants<double>.Pi`, `.Tau` or `.E`
+with the Core source reference. Six IEEE formats are verified; values are parsed
+once from generated100-digit strings. No package availability is implied.
+Regenerate with `python ops/GenerateMathConstants.py`. Requires mpmath1.3.0 under
+`D:\Dev\BuildArtifacts\tools\mpmath-1.3.0` or SCIENCE_MPMATH_PATH; do not edit generated
+C# or JSON by hand. Normal .NET builds/tests use committed data without Python.
+
 ## Integral rounding spans from source
 
 On `agent/core-step1-integral-spans`, use `GenericMath.Floor<double>(input, output)`,
