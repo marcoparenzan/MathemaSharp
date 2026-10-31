@@ -16,7 +16,8 @@ if mp.__version__ != '1.3.0':
 def value(name):
     return {'Pi': lambda: mp.pi, 'Tau': lambda: 2 * mp.pi, 'E': lambda: mp.e,
             'Sqrt2': lambda: mp.sqrt(2), 'Ln2': lambda: mp.log(2),
-            'Ln10': lambda: mp.log(10)}[name]()
+            'Ln10': lambda: mp.log(10), 'Sqrt3': lambda: mp.sqrt(3),
+            'Log2E': lambda: 1 / mp.log(2), 'Log10E': lambda: 1 / mp.log(10)}[name]()
 
 
 def binary_bits(number, precision, exponent_bits):
@@ -37,7 +38,7 @@ def binary_bits(number, precision, exponent_bits):
 
 root = pathlib.Path(__file__).resolve().parents[1]
 records = []
-for name in ['Pi', 'Tau', 'E', 'Sqrt2', 'Ln2', 'Ln10']:
+for name in ['Pi', 'Tau', 'E', 'Sqrt2', 'Ln2', 'Ln10', 'Sqrt3', 'Log2E', 'Log10E']:
     with mp.workdps(160):
         first = mp.nstr(value(name), 100)
     with mp.workdps(200):

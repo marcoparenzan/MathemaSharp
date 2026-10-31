@@ -1,5 +1,12 @@
 # Recap and architecture
 
+## Root-three and base-conversion constants
+
+Generated subset extends to nine values. Sqrt3 is mp.sqrt(3), Log2E and Log10E
+are1/mp.log(2) and1/mp.log(10) at160/200 digits, with100-digit agreement. Typed fields
+parse generated strings independently, never invert rounded Ln2/Ln10. Six format
+tests cover54 expected encodings and preserve old six records. Full catalog pending.
+
 ## Expanded mathematical constant subset
 
 Generator now adds Sqrt2/Ln2/Ln10. Decimal reference exponent uses adjusted()+1-p,

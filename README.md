@@ -15,6 +15,12 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Base-logarithm constants (source branch)
+
+Sqrt3/Log2E/Log10E added: nine generated100-digit values and54 format references.
+Log2E/Log10E are computed at high precision before rounding, not from rounded Ln2/
+Ln10. Core164/164 (existing format tests expanded), no package or builtin change.
+
 ## Additional mathematical constants (source branch)
 
 MathConstants<T> now also exposes Sqrt2/Ln2/Ln10. Six generated100-digit values,

@@ -21,7 +21,7 @@ public class MathConstantsTests
     {
         using var document = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "math-constants.json")));
         Assert.Equal("mpmath 1.3.0", document.RootElement.GetProperty("reference").GetString());
-        Assert.Equal(6, document.RootElement.GetProperty("constants").GetArrayLength());
+        Assert.Equal(9, document.RootElement.GetProperty("constants").GetArrayLength());
         foreach (var constant in document.RootElement.GetProperty("constants").EnumerateArray())
         {
             Assert.Equal(100, constant.GetProperty("significantDigits").GetInt32());
@@ -29,6 +29,7 @@ public class MathConstantsTests
             {
                 "Pi" => MathConstants<T>.Pi, "Tau" => MathConstants<T>.Tau, "E" => MathConstants<T>.E,
                 "Sqrt2" => MathConstants<T>.Sqrt2, "Ln2" => MathConstants<T>.Ln2, "Ln10" => MathConstants<T>.Ln10,
+                "Sqrt3" => MathConstants<T>.Sqrt3, "Log2E" => MathConstants<T>.Log2E, "Log10E" => MathConstants<T>.Log10E,
                 _ => throw new InvalidOperationException()
             };
             string type = typeof(T).Name;

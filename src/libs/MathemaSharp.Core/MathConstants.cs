@@ -37,4 +37,18 @@ public static class MathConstants<T> where T : IFloatingPoint<T>
     /// <summary>Natural logarithm of ten. Dimensionless, positive, irrational. Rounded from
     /// generated 100-digit data by T.Parse; initialization may allocate, field reads do not.</summary>
     public static readonly T Ln10 = T.Parse(MathematicalConstantData.Ln10, CultureInfo.InvariantCulture);
+
+    /// <summary>Positive square root of three. Dimensionless, irrational. Rounded from
+    /// generated 100-digit data by T.Parse; initialization may allocate, field reads do not.</summary>
+    public static readonly T Sqrt3 = T.Parse(MathematicalConstantData.Sqrt3, CultureInfo.InvariantCulture);
+
+    /// <summary>Base-two logarithm of Euler's number, defined as 1/ln(2). Dimensionless,
+    /// irrational. Parsed from independently generated 100-digit data, not rounded Ln2.
+    /// Initialization may allocate; field reads do not.</summary>
+    public static readonly T Log2E = T.Parse(MathematicalConstantData.Log2E, CultureInfo.InvariantCulture);
+
+    /// <summary>Base-ten logarithm of Euler's number, defined as 1/ln(10). Dimensionless,
+    /// irrational. Parsed from independently generated 100-digit data, not rounded Ln10.
+    /// Initialization may allocate; field reads do not.</summary>
+    public static readonly T Log10E = T.Parse(MathematicalConstantData.Log10E, CultureInfo.InvariantCulture);
 }

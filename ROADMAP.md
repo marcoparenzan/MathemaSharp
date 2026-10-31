@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — root/log constants
+## Common-core step 1 — base-logarithm constants
+
+Sqrt3/Log2E/Log10E added: nine constants,54 expected format encodings; Core164/164
+before/after, existing tests expanded. High-precision formulas precede rounding;
+old6 records and generated-file repeatability checked. Core source preview.12,
+no package. Combined latest constants gate and full catalog remain pending.
+
+## Earlier common-core step 1 — root/log constants
 
 Sqrt2/Ln2/Ln10 added to generated subset: six constants/36 format references.
 Core164/164 baseline and after (existing format tests expanded, no tests removed).

@@ -35,6 +35,12 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Base-logarithm constants from source
+
+On `agent/core-step1-log-base-constants`, use `MathConstants<double>.Sqrt3`,
+`.Log2E` or `.Log10E`; latter values are logarithms of e in base2/base10.
+Same pinned external generator and Core source reference; no package updated.
+
 ## Root/logarithm constants from source
 
 On `agent/core-step1-derived-math-constants`, use `MathConstants<double>.Sqrt2`,
