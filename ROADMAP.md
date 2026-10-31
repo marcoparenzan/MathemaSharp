@@ -11,7 +11,12 @@ stable binary64 bits required. Maximum measured 0 ULP for each function, sample
 acceptance threshold 1 ULP. Core baseline 126/126, after 129/129. Generator and
 report tool committed; report external. No production API changes or packages.
 Mpmath unavailable; trig and remaining types lack external accuracy corpus.
-Full gate after this test/tool tranche remains pending. Step1 is not complete.
+Full gate after this test/tool tranche failed at build-test (20261031-153903):
+MatSharp AssertTreatsNaNAsEqualAndChecksClassWithoutTolerance received an unexpected
+singular-matrix warning; 32 other steps passed and Core 129/129 passed. Unchanged
+MatSharp rerun passed 166/166, but no root-cause correction is established. Consolidation
+is blocked, not waived; shared static warning sink (MatSharp M-1) is a candidate.
+Step1 is not complete.
 
 ## Earlier common-core step 1 — elementary forwards added
 
