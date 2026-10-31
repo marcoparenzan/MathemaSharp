@@ -1,5 +1,13 @@
 # Recap and architecture
 
+## Expanded mathematical constant subset
+
+Generator now adds Sqrt2/Ln2/Ln10. Decimal reference exponent uses adjusted()+1-p,
+so values below1 retain7/16/34 significant digits rather than fixed fractional digits.
+Prior Pi/Tau/E checks retained; exact fixture count expands3 to6. Thirty-six expected
+format encodings verified in existing six format tests. No full definition catalog
+or physical constant source yet;100-digit provenance and custom-type limits unchanged.
+
 ## Generated mathematical constants
 
 MathConstants<T> uses IFloatingPoint<T>, parsing generated decimal strings at type

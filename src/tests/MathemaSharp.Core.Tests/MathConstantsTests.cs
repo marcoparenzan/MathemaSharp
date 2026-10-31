@@ -21,13 +21,14 @@ public class MathConstantsTests
     {
         using var document = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "math-constants.json")));
         Assert.Equal("mpmath 1.3.0", document.RootElement.GetProperty("reference").GetString());
-        Assert.Equal(3, document.RootElement.GetProperty("constants").GetArrayLength());
+        Assert.Equal(6, document.RootElement.GetProperty("constants").GetArrayLength());
         foreach (var constant in document.RootElement.GetProperty("constants").EnumerateArray())
         {
             Assert.Equal(100, constant.GetProperty("significantDigits").GetInt32());
             T actual = constant.GetProperty("id").GetString() switch
             {
                 "Pi" => MathConstants<T>.Pi, "Tau" => MathConstants<T>.Tau, "E" => MathConstants<T>.E,
+                "Sqrt2" => MathConstants<T>.Sqrt2, "Ln2" => MathConstants<T>.Ln2, "Ln10" => MathConstants<T>.Ln10,
                 _ => throw new InvalidOperationException()
             };
             string type = typeof(T).Name;
@@ -45,7 +46,10 @@ public class MathConstantsTests
                 Assert.Equal(MemoryMarshal.AsBytes(a.AsSpan()).ToArray(), MemoryMarshal.AsBytes(b.AsSpan()).ToArray());
             }
             Assert.True(T.IsFinite(actual));
-            Assert.True(actual > T.CreateChecked(2));
+            if (constant.GetProperty("id").GetString() is "Pi" or "Tau" or "E")
+                Assert.True(actual > T.CreateChecked(2));
+            else
+                Assert.True(actual > T.Zero);
         }
     }
 }

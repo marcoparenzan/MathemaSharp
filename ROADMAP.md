@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — first mathematical constants
+## Common-core step 1 — root/log constants
+
+Sqrt2/Ln2/Ln10 added to generated subset: six constants/36 format references.
+Core164/164 baseline and after (existing format tests expanded, no tests removed).
+Magnitude-aware decimal reference quantization added; prior three records protected.
+Core source preview.11; combined constants gate and full catalog remain pending.
+
+## Earlier common-core step 1 — first mathematical constants
 
 MathConstants<T> Pi/Tau/E generated from mpmath1.3.0 at100 stable digits (160/200
 dps agreement). Six-format independent rounding tests pass: Core158 baseline,

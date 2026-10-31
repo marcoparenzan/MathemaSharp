@@ -25,4 +25,16 @@ public static class MathConstants<T> where T : IFloatingPoint<T>
     /// positive, irrational. Rounded from its generated 100-digit source by T.Parse;
     /// initialization can allocate, subsequent field reads do not.</summary>
     public static readonly T E = T.Parse(MathematicalConstantData.E, CultureInfo.InvariantCulture);
+
+    /// <summary>Positive square root of two. Dimensionless, irrational. Rounded from
+    /// generated 100-digit data by T.Parse; initialization may allocate, field reads do not.</summary>
+    public static readonly T Sqrt2 = T.Parse(MathematicalConstantData.Sqrt2, CultureInfo.InvariantCulture);
+
+    /// <summary>Natural logarithm of two. Dimensionless, positive, irrational. Rounded from
+    /// generated 100-digit data by T.Parse; initialization may allocate, field reads do not.</summary>
+    public static readonly T Ln2 = T.Parse(MathematicalConstantData.Ln2, CultureInfo.InvariantCulture);
+
+    /// <summary>Natural logarithm of ten. Dimensionless, positive, irrational. Rounded from
+    /// generated 100-digit data by T.Parse; initialization may allocate, field reads do not.</summary>
+    public static readonly T Ln10 = T.Parse(MathematicalConstantData.Ln10, CultureInfo.InvariantCulture);
 }

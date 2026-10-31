@@ -15,6 +15,12 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Additional mathematical constants (source branch)
+
+MathConstants<T> now also exposes Sqrt2/Ln2/Ln10. Six generated100-digit values,
+36 rounded format references, Core164/164. Decimal quantization follows magnitude
+exponent; prior Pi/Tau/E references remain protected. No new package or builtin.
+
 ## Generated mathematical constants (source branch)
 
 MathConstants<T>.Pi/Tau/E parse generated100-digit values once per floating type.
