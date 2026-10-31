@@ -8,8 +8,9 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 
 Floor/Ceiling/Truncate span overloads added. Core baseline150/150, after158/158:
 seven-format parity/validation tests plus warmed-double zero-allocation check.
-Core source preview.9, no package. Full gate after Round/integral spans pending;
-remaining common-core surface/constants/complex/reference work not complete.
+Core source preview.9, no package. Full gate after Round/integral spans passed33/33
+with --no-images (20261031-211557); generated API notebook includes five rounding
+span overloads. Remaining common-core surface/constants/complex/reference work not complete.
 
 ## Earlier common-core step 1 — rounding span shape
 
