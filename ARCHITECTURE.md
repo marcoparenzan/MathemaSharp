@@ -1,5 +1,14 @@
 # Recap and architecture
 
+## Scalar-equivalent elementary spans
+
+GenericMath.Elementary.Spans.cs reuses ValidateDestination and forwards each
+sample to scalar Sqrt/Exp/Log without temporary storage or delegates. API constraints
+remain IRootFunctions/IExponentialFunctions/ILogarithmicFunctions. Six IEEE tests
+include domain NaNs, overflow, infinities, signed zeros and subnormals; in-place
+and validation-before-write behaviours match trig spans. Custom T exceptions may
+leave a written prefix; no transactional guarantee is added.
+
 ## Scalar-equivalent trigonometric spans
 
 GenericMath.Trigonometric.Spans.cs loops over scalar forwards, without delegates,

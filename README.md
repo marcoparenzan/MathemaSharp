@@ -15,6 +15,12 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Elementary spans (source branch)
+
+Sqrt/Exp/Log now share the span contract: scalar-equivalent bits, exact in-place,
+pre-write bounds/overlap validation and untouched output tail. Six IEEE format tests
+and warmed-double zero-allocation check pass; Core143/143. No new package/builtin.
+
 ## Trigonometric spans (source branch)
 
 Sin/Cos/Tan now accept ReadOnlySpan input and Span destination, using the same

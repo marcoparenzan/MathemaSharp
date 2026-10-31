@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — trigonometric span shape
+## Common-core step 1 — elementary span shape
+
+Sqrt/Exp/Log span overloads added with six-format parity/domain/in-place validation
+and warmed-double allocation check. Baseline136/136, after143/143; Core source
+preview.7, no package. Shared validation reused. Full gate after both span tranches,
+complex shapes and remaining step1 surface/constants/reference work pending.
+
+## Earlier common-core step 1 — trigonometric span shape
 
 Three span overloads added; baselineCore129/129, six-type tests135/135, after
 allocation test136/136. Source Core preview.6, no package. Exact scalar bits,

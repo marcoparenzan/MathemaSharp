@@ -35,6 +35,13 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Elementary spans from source
+
+On `agent/core-step1-elementary-spans`, call `GenericMath.Sqrt<double>(input, output)`,
+`Exp` or `Log` with the same Core source reference. Exact in-place is allowed;
+shifted overlaps and short destinations throw before writes, output tail untouched.
+Results match scalar operations, including IEEE domain NaNs. No package produced.
+
 ## Trigonometric spans from source
 
 On `agent/core-step1-trig-spans`, reference Core source and call
