@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core step 1 — trigonometric forwards added
+## Common-core step 1 — elementary forwards added
+
+Sqrt/Exp/Log scalar forwards added with six IEEE format tests. Core baseline
+120/120, after 126/126; source version 0.2.1-net11-preview.5. No new package.
+Full gate after trig/elementary additions, external accuracy corpus, remaining scalar
+surface/constants and language migration are pending. Step1 is not complete.
+
+## Earlier common-core step 1 — trigonometric forwards added
 
 Sin/Cos/Tan now implemented in the scalar facade; Core Release baseline 114/114,
 after six format tests 120/120. Source Core version 0.2.1-net11-preview.4. No new

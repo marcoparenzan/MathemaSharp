@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Common-core elementary forwards (source branch)
+
+GenericMath now also exposes Sqrt, Exp and Log with the weakest root/exponential/
+logarithmic interface constraints. Six IEEE types pass domain, special-value and
+same-BCL byte-parity tests; Core suite is 126/126. No external accuracy claim or
+language builtin migration. New source API is not packaged.
+
 ## Common-core trigonometric forwards (source branch)
 
 `GenericMath.Sin`, `Cos` and `Tan` now forward to T's BCL implementation using

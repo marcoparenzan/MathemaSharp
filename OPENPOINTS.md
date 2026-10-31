@@ -5,7 +5,7 @@ the history is [CHANGELOG.md](CHANGELOG.md).
 
 | # | Point | Status |
 | --- | --- | --- |
-| MA-14 | Common-core step 1: scalar Round and Floor/Ceiling/Truncate (seven formats), Sin/Cos/Tan (six IEEE formats) implemented (Core 120/120); trig post-change gate pending; scalar rounding post-change gate passed 33/33 (20261031-094510); other scalar functions, constants and reference corpus pending. Digit range delegates to T; no negative-digit extension or language builtin migration. | partial |
+| MA-14 | Common-core step 1: scalar Round and Floor/Ceiling/Truncate (seven formats), Sin/Cos/Tan and Sqrt/Exp/Log (six IEEE formats) implemented (Core 126/126); trig/elementary post-change gate pending; scalar rounding post-change gate passed 33/33 (20261031-094510); other scalar functions, constants and reference corpus pending. Digit range delegates to T; no negative-digit extension or language builtin migration. | partial |
 | MA-1 | **Perimeter** (R10): classify notebooks, legacy helpers and assets still left; migrate the relevant ones or justify keeping them. | open |
 | MA-2 | **Precision and formats** (R06): a successful build does not prove that every API supports every format (Decimal32/64/128). The supported platform matrix is not decided. | open |
 | MA-3 | **Performance** work is deferred until correctness, contracts and notebooks are settled. | deferred |

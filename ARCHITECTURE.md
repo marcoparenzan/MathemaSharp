@@ -1,5 +1,14 @@
 # Recap and architecture
 
+## Common-core elementary forwards
+
+GenericMath.Elementary.cs delegates Sqrt to IRootFunctions<T>, Exp to
+IExponentialFunctions<T> and Log to ILogarithmicFunctions<T>. Public constraints
+do not force IEEE support; the six-format tests use IEEE interfaces for domain
+and special-value checks. Negative real root/log inputs produce NaN in those formats;
+no Python exceptions or MATLAB complex-domain defaults are built into the facade.
+Analytic anchors and BCL byte parity are distinct from external accuracy verification.
+
 ## Common-core trigonometric forwards
 
 GenericMath.Trigonometric.cs adds scalar Sin/Cos/Tan on ITrigonometricFunctions<T>.

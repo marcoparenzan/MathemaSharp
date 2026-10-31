@@ -35,6 +35,14 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Scalar roots, exponentials and logarithms from source
+
+On `agent/core-step1-elementary-forwards`, reference the Core source project and
+use `GenericMath.Sqrt(4.0)` (2), `GenericMath.Exp(0.0)` (1), or
+`GenericMath.Log(1.0)` (0). Computation stays in T. In tested IEEE formats negative
+root/log inputs return NaN; log of signed zero is negative infinity. The facade
+does not impose language-specific exceptions or complex conversion. No new package.
+
 ## Scalar trigonometry from source
 
 On `agent/core-step1-trig-forwards`, reference the Core source project and call
