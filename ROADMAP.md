@@ -9,8 +9,9 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 ConstantDefinition/ConstantStatus and MathematicalConstants immutable catalog added.
 Thirteen generated mathematical records,exact ordinal lookup and Value<T>() conversion.
 Core164 baseline,173 after (9 new tests);source preview.14. Numeric references
-preserved. Full post-metadata gate,physical SI/CODATA catalogs and remaining
-common-core work pending. Mathematical SourceDate null;no measurement data fabricated.
+preserved. Full post-metadata gate passed33/33 with --no-images (20261031-225534),
+Core173/173;API notebook generated declarations updated. Physical SI/CODATA catalogs
+and remaining common-core work pending. Mathematical SourceDate null;no measurement data fabricated.
 
 ## Earlier common-core step 1 — mathematical value family
 
