@@ -9,7 +9,9 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 Sqrt2/Ln2/Ln10 added to generated subset: six constants/36 format references.
 Core164/164 baseline and after (existing format tests expanded, no tests removed).
 Magnitude-aware decimal reference quantization added; prior three records protected.
-Core source preview.11; combined constants gate and full catalog remain pending.
+Core source preview.11; combined constants gate passed33/33 with --no-images
+(20261031-214535), including Core164/164. API notebook generated output updated.
+Full catalog and remaining common-core work remain pending.
 
 ## Earlier common-core step 1 — first mathematical constants
 
