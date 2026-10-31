@@ -8,8 +8,10 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 
 Sqrt/Exp/Log scalar forwards added with six IEEE format tests. Core baseline
 120/120, after 126/126; source version 0.2.1-net11-preview.5. No new package.
-Full gate after trig/elementary additions, external accuracy corpus, remaining scalar
-surface/constants and language migration are pending. Step1 is not complete.
+Full gate after trig/elementary additions passed 33/33 with --no-images
+(report 20261031-133944). Generated API notebook now lists all six added forwards.
+External accuracy corpus, remaining scalar surface/constants and language migration
+are pending. Step1 is not complete.
 
 ## Earlier common-core step 1 — trigonometric forwards added
 
