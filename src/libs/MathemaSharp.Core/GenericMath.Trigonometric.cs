@@ -52,4 +52,14 @@ public static partial class GenericMath
     /// No conversion or allocation is introduced; custom T defines its own special values.</summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Atan<T>(T x) where T : ITrigonometricFunctions<T> => T.Atan(x);
+
+    /// <summary>Principal angle in radians of the vector (x, y), with range [-pi, pi].
+    /// Argument order is y, x. Finite inputs other than the origin have the usual
+    /// quadrant-aware angle. IEEE signed zeros determine the side of the negative-axis
+    /// branch cut, including at the origin; infinities follow T.Atan2's axis/diagonal
+    /// conventions and NaN propagates. Direct BCL fast-profile forward, without y/x
+    /// division or conversion. Accuracy follows T, not a universal bound or cross-platform
+    /// bit guarantee. No facade allocation is introduced; custom T defines its behaviour.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Atan2<T>(T y, T x) where T : IFloatingPointIeee754<T> => T.Atan2(y, x);
 }

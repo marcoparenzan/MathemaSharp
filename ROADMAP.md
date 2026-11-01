@@ -1,5 +1,17 @@
 # MàthemaSharp — roadmap
 
+## Current scalar Atan2 continuation
+
+`GenericMath.Atan2(y, x)` forwards to `T.Atan2` without division or conversion.
+The required BCL member is on `IFloatingPointIeee754<T>`, not the trigonometric
+interface alone. Six IEEE formats verify argument order, four quadrants, signed-zero
+axes/origin, infinities and NaN, including bit parity for a 13-by-13 input matrix.
+Release baseline: 606 passed (Core 299); after: 612 passed (Core 305), zero failures/skips.
+Build: zero warnings/errors. Core preview.30 is source-only, not packaged.
+Binary span/complex shapes, independent accuracy and post-change ecosystem gate
+remain pending. No language builtin migration; common-core step 1 remains partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-atan2-scalar`.
+
 ## Current inverse trigonometric span continuation
 
 `Asin`, `Acos` and `Atan` now accept `ReadOnlySpan<T>` and `Span<T>`.
