@@ -24,8 +24,11 @@ directions and short destinations are rejected before writes. Empty input is a
 no-op; extra output elements and input storage remain unchanged. Warmed double
 calls allocate zero managed bytes on this runtime; custom T may allocate or throw.
 Core baseline 253 → 260 passed; solution after 567 passed, zero failures/skips.
-Core preview.23 is source-only, not packaged. Independent accuracy, complex shapes
-and the post-change full ecosystem gate remain pending; step 1 remains partial.
+Core preview.23 is source-only, not packaged. Post-change ecosystem gate passed
+33/33 with `--no-images`: `D:\Dev\BuildArtifacts\ecosystem-validation\20261101-172318`.
+Only six generated inverse-hyperbolic declarations changed in Core/12; code cells
+were unchanged. Independent accuracy and complex shapes remain pending;
+step 1 remains partial.
 Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-inverse-hyperbolic-spans`.
 The following sections record earlier verified tranches.
 
