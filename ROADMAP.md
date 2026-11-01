@@ -8,8 +8,9 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 
 G/alpha/mu0 added fromNIST withstandarduncertainty. Core219 baseline,226 after;
 catalog10(7exactSI/3measured),old7 source fields/assertions preserved. Sourcepreview.18,
-no package. Measuredmu0 not treatedasexact;underflowinguncertainty rejected. Fullgate,
-remainingmeasured/exactderivedcatalog,non-SI/F# andcommoncorework pending.
+no package. Measuredmu0 not treatedasexact;underflowinguncertainty rejected. Fullgate
+passed33/33 with --no-images (20261101-072631),Core226/226;API output updated.
+Remainingmeasured/exactderivedcatalog,non-SI/F# andcommoncorework pending.
 
 ## Earlier common-core physical API — seven SI definitions
 
