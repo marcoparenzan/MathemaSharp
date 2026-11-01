@@ -1,5 +1,19 @@
 # Usage
 
+## Current scalar inverse trigonometric continuation
+
+`GenericMath.Asin`, `Acos` and `Atan` now use `ITrigonometricFunctions<T>`
+without conversion to double. Asin/Acos have real domain [-1, 1] and return NaN
+outside it; Atan accepts all real values and signed infinities. Six IEEE formats
+verify signed zero, NaN, infinities, subnormals, ordinary values and adjacent
+representable values on both sides of the domain boundaries. Tests compare BCL
+bits on the current runtime, not independent mathematical accuracy. Release solution
+baseline: 593 passed (Core 286); after: 599 passed (Core 292), zero failures/skips.
+Build: zero warnings/errors. Core preview.28 is source-only, not packaged.
+Span and complex overloads, independent accuracy and the post-change ecosystem gate
+remain pending. No language builtin migration; common-core step 1 remains partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-inverse-trig-scalar`.
+
 ## Current logarithmic span continuation
 
 `Log2`, `Log10` and `LogP1` now also accept `ReadOnlySpan<T>` and `Span<T>`.
