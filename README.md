@@ -26,8 +26,12 @@ output prefix participates in overlap checks; tails and separate inputs stay unc
 Warmed double calls allocate zero managed bytes on this runtime. Custom T may throw
 without rollback. Release baseline: 612 passed (Core 305); after: 619 passed (Core 312),
 zero failures/skips. Build: zero warnings/errors. Core preview.31 is source-only.
-Post-change ecosystem gate, independent accuracy and complex shapes remain pending;
-no builtin migration and common-core step 1 remains partial.
+Post-change ecosystem gate passed 33/33 with `--no-images`:
+`D:\Dev\BuildArtifacts\ecosystem-validation\20261101-213531`.
+Core/12 added only the two generated Atan2 declarations; code cells were unchanged.
+Independent accuracy and complex shapes remain pending; no builtin migration and
+common-core step 1 remains partial.
+Gate handoff: `D:\Dev\BuildArtifacts\handoff\core-step1-atan2-gate`.
 Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-atan2-spans`.
 
 ## Current scalar Atan2 continuation
