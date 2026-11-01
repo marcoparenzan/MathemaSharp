@@ -1,5 +1,22 @@
 # Usage
 
+## Current complete root-family continuation
+
+`Cbrt`, `Hypot` and `RootN` now have scalar and span overloads with `IRootFunctions<T>`.
+All forward BCL math in the original type. RootN preserves BCL degree-zero/negative
+and extreme-int degree behaviour; no facade degree restriction. Hypot spans require
+equal input lengths and validate destination overlap against both before writes.
+Six IEEE formats verify scalar bit parity, special values, subnormals, degree extremes,
+in-place, untouched tails/inputs and pre-write rejection. Warmed double calls allocate
+zero managed bytes on this runtime. Custom T may throw without rollback.
+Release baseline: 619 passed (Core 312); after: 632 passed (Core 325), zero failures/skips.
+Build: zero warnings/errors. Core preview.32 is source-only. Independent accuracy,
+complex shapes and builtin migration remain pending; common-core step 1 is partial.
+Full-family ecosystem gate passed 33/33 with `--no-images`:
+`D:\Dev\BuildArtifacts\ecosystem-validation\20261101-221816`.
+Core/12 added only six generated root-family declarations; code cells were unchanged.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-roots-family`.
+
 ## Current binary Atan2 span continuation
 
 `Atan2(y, x, destination)` requires equal-length read-only inputs, without broadcasting.
