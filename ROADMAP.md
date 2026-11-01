@@ -9,8 +9,9 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 Seven SI-defining records generated directly from verified raw/structured source,
 with typedGet andbinary64 facades. Core210 baseline,219 after;Core sourcepreview.17.
 Finite/nonzero representability checked;sourceExactSi distinct fromformatrounding.
-No package. Post-SI API gate,measured/exact-derived catalogs,non-SI conversion,F# and
-remainingcommon-core work remain pending.
+No package. Post-SI API gate passed33/33 with --no-images (20261101-065718),
+Core219/219;generated API output updated. Measured/exact-derived catalogs,non-SI
+conversion,F# andremainingcommon-core work remain pending.
 
 ## Earlier common-core physical dimension subset
 
