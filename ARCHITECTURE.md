@@ -1,5 +1,17 @@
 # Recap and architecture
 
+## Common-core continuation: scalar hyperbolic functions
+
+`GenericMath.Sinh<T>`, `Cosh<T>` and `Tanh<T>` are direct BCL fast-profile forwards
+with `IHyperbolicFunctions<T>` constraints. No language builtin has been switched.
+Six IEEE formats are tested for signed zeros, NaN, infinities, subnormals and finite
+samples (including overflow), with bit parity against T's BCL implementation.
+Core baseline: 234 passed; after: 240 passed. Solution after: 547 passed.
+The independent hyperbolic accuracy corpus, span/complex shapes and post-change
+full ecosystem gate remain pending. Core source version is preview.20; no package
+was produced. Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-hyperbolic-resume`.
+
+
 ## Final review boundary
 
 The consolidated gate validates source, not a release. Pending PySharp cancellation

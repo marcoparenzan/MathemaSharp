@@ -1,5 +1,17 @@
 # MàthemaSharp — roadmap
 
+## Common-core continuation: scalar hyperbolic functions
+
+`GenericMath.Sinh<T>`, `Cosh<T>` and `Tanh<T>` are direct BCL fast-profile forwards
+with `IHyperbolicFunctions<T>` constraints. No language builtin has been switched.
+Six IEEE formats are tested for signed zeros, NaN, infinities, subnormals and finite
+samples (including overflow), with bit parity against T's BCL implementation.
+Core baseline: 234 passed; after: 240 passed. Solution after: 547 passed.
+The independent hyperbolic accuracy corpus, span/complex shapes and post-change
+full ecosystem gate remain pending. Core source version is preview.20; no package
+was produced. Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-hyperbolic-resume`.
+
+
 MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the brand. Objective: a modular mathematics library based on Generic Math, with .NET 11 and support for the new Decimal32/64/128 where compatible with the algorithms.
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.

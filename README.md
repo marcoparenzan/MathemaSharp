@@ -15,6 +15,15 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Common-core continuation: scalar hyperbolic functions
+
+`GenericMath.Sinh<T>`, `Cosh<T>` and `Tanh<T>` now forward to the BCL without
+conversion, using `IHyperbolicFunctions<T>`. Six IEEE formats pass special-value
+and byte-parity tests. Core: 234 baseline → 240 passed; solution after: 547 passed.
+Source version: preview.20, not packaged. Span/complex shapes, independent accuracy
+and the post-change full ecosystem gate remain pending. No builtin migration.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-hyperbolic-resume`.
+
 ## Consolidated common-core review delivery — 2026-11-01
 
 Consolidation gate passed **33/33** (`20261101-133722`, no images): solution 541 tests,
