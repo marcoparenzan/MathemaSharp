@@ -5,7 +5,7 @@ the history is [CHANGELOG.md](CHANGELOG.md).
 
 | # | Point | Status |
 | --- | --- | --- |
-| MA-25 | FirstF# source runner validates624 C#/F# rows (1integrationtest,solution541/541). Samecommon algorithms/runtime only;post-changegate,F#library/unitsofmeasure,independentaccuracy andotherplatforms pending. RunnerusesSDK FSharp.Core copy-local,not productionCoredependency. | partial |
+| MA-25 | FirstF# source runner validates624 C#/F# rows (1integrationtest,solution541/541). Samecommon algorithms/runtime only;post-changegate blocked by twoPySharp Task.cancelling failures (20261101-120319),F#test passes. F#library/unitsofmeasure,independentaccuracy andotherplatforms pending. RunnerusesSDK FSharp.Core copy-local,not productionCoredependency. | partial |
 | MA-24 | R/F/hbar regenerated fromexactinputs,formulas/dimensions/finitehbar precision explicit (Core234/234);NISTellipsisnotpromotedtofullvalue. Post-changegate passed33/33 (20261101-080517);remainingderived/measured/non-SI/F# pending. | partial |
 | MA-23 | G/alpha/mu0 measuredsubset sourced withuncertainty (Core226/226);mu0 explicitlyMeasured,catalog7SI+3measured. Uncertaintyunderflow rejected. Post-changegate passed33/33 (20261101-072631);othermeasured/derived/non-SI/F# pending. | partial |
 | MA-22 | Seven exact SI definitions generated withtypedGet/double facades (Core219/219). Nonfinite/zero-underflow values rejected;ExactSi not a guarantee of exact T representation. Post-change gate passed33/33 (20261101-065718);measured/derived catalogs,non-SI conversion andF# pending. | partial |

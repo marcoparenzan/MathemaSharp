@@ -9,7 +9,11 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 FirstF# project added as source-onlycorpus runner withC# processintegration test.
 624 rows agree oncurrentWindows runtime;baseline solution540 tests,after541(allpass),
 Core234 unchanged. No publicF#package/unitsofmeasure;no Coreproductionchange/versionbump.
-Full post-F#ecosystem gate andcross-platform/reference work remain pending.
+Full post-F#ecosystem gate failed (20261101-120319):MathemaSharp541passed including
+F#test,but twoPySharp FastAPI/anyio tests fail with Task.cancelling missing. build-test/
+pysharp-trx fail;skip-report correctly rejects thefailedTRX. 30othersteps pass. Nofailure
+waived;consolidation stopped pending separatePySharp async diagnosis. Cross-platform/
+reference work remains pending.
 
 ## Earlier common-core physical API — three derived formulas
 
