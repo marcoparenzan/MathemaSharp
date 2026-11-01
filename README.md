@@ -24,8 +24,11 @@ empty inputs, short destinations and both partial-overlap directions before writ
 Warmed double calls allocate zero managed bytes on this runtime; custom T may
 allocate or throw, with no rollback of earlier writes. Core baseline 266 → 273
 passed; solution after 580 passed, zero failures/skips. Core preview.25 is source-only,
-not packaged. Complex shapes, independent accuracy and full post-change ecosystem
-gate remain pending. No builtin migration; step 1 remains partial.
+not packaged. Post-change ecosystem gate passed 33/33 with `--no-images`:
+`D:\Dev\BuildArtifacts\ecosystem-validation\20261101-175059`. Core/12 added only
+six generated exponential declarations; notebook code cells were unchanged.
+Complex shapes and independent accuracy remain pending. No builtin migration;
+step 1 remains partial.
 Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-exponential-spans`.
 The following sections record earlier verified tranches.
 
