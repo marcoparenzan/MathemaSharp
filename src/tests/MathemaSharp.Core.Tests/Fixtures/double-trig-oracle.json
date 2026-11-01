@@ -1,0 +1,801 @@
+{
+  "generator": "ops/GenerateTrigOracle.py",
+  "reference": "mpmath",
+  "referenceVersion": "1.3.0",
+  "referenceModuleSha256": "b241584d2c1fc0304b0a1015ea923749d7b0800411dd406dcab7c82bf25d9fe8",
+  "pythonVersion": "3.11.7",
+  "precisions": [
+    160,
+    200
+  ],
+  "acceptanceMaxUlp": 1,
+  "scope": "Finite exact-input binary64 samples; no universal accuracy or platform guarantee.",
+  "cases": [
+    {
+      "function": "Sin",
+      "inputBits": [
+        "c08f400000000000"
+      ],
+      "expectedBits": "bfea75cc150a206b"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "c024000000000000"
+      ],
+      "expectedBits": "3fe1689ef5f34f52"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "c000000000000000"
+      ],
+      "expectedBits": "bfed18f6ead1b446"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "bff0000000000000"
+      ],
+      "expectedBits": "bfeaed548f090cee"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "bfe0000000000000"
+      ],
+      "expectedBits": "bfdeaee8744b05f0"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "bfd0000000000000"
+      ],
+      "expectedBits": "bfcfaaeed4f31577"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "bddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "bddb7cdfd9d7bdbb"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "0000000000000000"
+      ],
+      "expectedBits": "0000000000000000"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "3ddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "3ddb7cdfd9d7bdbb"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "3fd0000000000000"
+      ],
+      "expectedBits": "3fcfaaeed4f31577"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3fdeaee8744b05f0"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "3ff0000000000000"
+      ],
+      "expectedBits": "3feaed548f090cee"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "4000000000000000"
+      ],
+      "expectedBits": "3fed18f6ead1b446"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "4024000000000000"
+      ],
+      "expectedBits": "bfe1689ef5f34f52"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "408f400000000000"
+      ],
+      "expectedBits": "3fea75cc150a206b"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "4202a05f20000000"
+      ],
+      "expectedBits": "bfdf334c7896a4e3"
+    },
+    {
+      "function": "Sin",
+      "inputBits": [
+        "54b249ad2594c37d"
+      ],
+      "expectedBits": "bfd85c5e5b929359"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "c08f400000000000"
+      ],
+      "expectedBits": "3fe1ff026793f1bb"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "c024000000000000"
+      ],
+      "expectedBits": "bfead9ac890c6b1f"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "c000000000000000"
+      ],
+      "expectedBits": "bfdaa22657537205"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "bff0000000000000"
+      ],
+      "expectedBits": "3fe14a280fb5068c"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "bfe0000000000000"
+      ],
+      "expectedBits": "3fec1528065b7d50"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "bfd0000000000000"
+      ],
+      "expectedBits": "3fef01549f7deea1"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "bddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "0000000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "3ddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "3fd0000000000000"
+      ],
+      "expectedBits": "3fef01549f7deea1"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3fec1528065b7d50"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "3ff0000000000000"
+      ],
+      "expectedBits": "3fe14a280fb5068c"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "4000000000000000"
+      ],
+      "expectedBits": "bfdaa22657537205"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "4024000000000000"
+      ],
+      "expectedBits": "bfead9ac890c6b1f"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "408f400000000000"
+      ],
+      "expectedBits": "3fe1ff026793f1bb"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "4202a05f20000000"
+      ],
+      "expectedBits": "3febf098901c931a"
+    },
+    {
+      "function": "Cos",
+      "inputBits": [
+        "54b249ad2594c37d"
+      ],
+      "expectedBits": "3fed9757496841f5"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "c08f400000000000"
+      ],
+      "expectedBits": "bff786729f34311a"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "c024000000000000"
+      ],
+      "expectedBits": "bfe4bf5f34be3782"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "c000000000000000"
+      ],
+      "expectedBits": "40017af62e0950f8"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "bff0000000000000"
+      ],
+      "expectedBits": "bff8eb245cbee3a6"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "bfe0000000000000"
+      ],
+      "expectedBits": "bfe17b4f5bf3474a"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "bfd0000000000000"
+      ],
+      "expectedBits": "bfd05785a43c4c56"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "bddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "bddb7cdfd9d7bdbb"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "0000000000000000"
+      ],
+      "expectedBits": "0000000000000000"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "3ddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "3ddb7cdfd9d7bdbb"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "3fd0000000000000"
+      ],
+      "expectedBits": "3fd05785a43c4c56"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3fe17b4f5bf3474a"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "3ff0000000000000"
+      ],
+      "expectedBits": "3ff8eb245cbee3a6"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "4000000000000000"
+      ],
+      "expectedBits": "c0017af62e0950f8"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "4024000000000000"
+      ],
+      "expectedBits": "3fe4bf5f34be3782"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "408f400000000000"
+      ],
+      "expectedBits": "3ff786729f34311a"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "4202a05f20000000"
+      ],
+      "expectedBits": "bfe1de000f443f50"
+    },
+    {
+      "function": "Tan",
+      "inputBits": [
+        "54b249ad2594c37d"
+      ],
+      "expectedBits": "bfda5807d6f76f7d"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "c08f400000000000"
+      ],
+      "expectedBits": "bff91de2c0e658bd"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "c024000000000000"
+      ],
+      "expectedBits": "bff789bd2c160054"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "c000000000000000"
+      ],
+      "expectedBits": "bff1b6e192ebbe44"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "bff0000000000000"
+      ],
+      "expectedBits": "bfe921fb54442d18"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "bfe0000000000000"
+      ],
+      "expectedBits": "bfddac670561bb4f"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "bfd0000000000000"
+      ],
+      "expectedBits": "bfcf5b75f92c80dd"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "bddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "bddb7cdfd9d7bdbb"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "0000000000000000"
+      ],
+      "expectedBits": "0000000000000000"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "3ddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "3ddb7cdfd9d7bdbb"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "3fd0000000000000"
+      ],
+      "expectedBits": "3fcf5b75f92c80dd"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3fddac670561bb4f"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "3ff0000000000000"
+      ],
+      "expectedBits": "3fe921fb54442d18"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "4000000000000000"
+      ],
+      "expectedBits": "3ff1b6e192ebbe44"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "4024000000000000"
+      ],
+      "expectedBits": "3ff789bd2c160054"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "408f400000000000"
+      ],
+      "expectedBits": "3ff91de2c0e658bd"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "4202a05f20000000"
+      ],
+      "expectedBits": "3ff921fb543d4de0"
+    },
+    {
+      "function": "Atan",
+      "inputBits": [
+        "54b249ad2594c37d"
+      ],
+      "expectedBits": "3ff921fb54442d18"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "bff0000000000000"
+      ],
+      "expectedBits": "bff921fb54442d18"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "bfefffffffffffff"
+      ],
+      "expectedBits": "bff921fb50442d18"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "bfe8000000000000"
+      ],
+      "expectedBits": "bfeb235315c680dc"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "bfe0000000000000"
+      ],
+      "expectedBits": "bfe0c152382d7366"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "bfd0000000000000"
+      ],
+      "expectedBits": "bfd02be9ce0b87cd"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "bddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "bddb7cdfd9d7bdbb"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "0000000000000000"
+      ],
+      "expectedBits": "0000000000000000"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "3ddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "3ddb7cdfd9d7bdbb"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "3fd0000000000000"
+      ],
+      "expectedBits": "3fd02be9ce0b87cd"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3fe0c152382d7366"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "3fe8000000000000"
+      ],
+      "expectedBits": "3feb235315c680dc"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "3fefffffffffffff"
+      ],
+      "expectedBits": "3ff921fb50442d18"
+    },
+    {
+      "function": "Asin",
+      "inputBits": [
+        "3ff0000000000000"
+      ],
+      "expectedBits": "3ff921fb54442d18"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "bff0000000000000"
+      ],
+      "expectedBits": "400921fb54442d18"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "bfefffffffffffff"
+      ],
+      "expectedBits": "400921fb52442d18"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "bfe8000000000000"
+      ],
+      "expectedBits": "400359d26f93b6c3"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "bfe0000000000000"
+      ],
+      "expectedBits": "4000c152382d7366"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "bfd0000000000000"
+      ],
+      "expectedBits": "3ffd2cf5c7c70f0c"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "bddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "3ff921fb544b0c50"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "0000000000000000"
+      ],
+      "expectedBits": "3ff921fb54442d18"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "3ddb7cdfd9d7bdbb"
+      ],
+      "expectedBits": "3ff921fb543d4de0"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "3fd0000000000000"
+      ],
+      "expectedBits": "3ff51700e0c14b25"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3ff0c152382d7366"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "3fe8000000000000"
+      ],
+      "expectedBits": "3fe720a392c1d955"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "3fefffffffffffff"
+      ],
+      "expectedBits": "3e50000000000000"
+    },
+    {
+      "function": "Acos",
+      "inputBits": [
+        "3ff0000000000000"
+      ],
+      "expectedBits": "0000000000000000"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "c000000000000000",
+        "c000000000000000"
+      ],
+      "expectedBits": "c002d97c7f3321d2"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "c000000000000000",
+        "bfd0000000000000"
+      ],
+      "expectedBits": "bffb1f56fdeef00f"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "c000000000000000",
+        "3fd0000000000000"
+      ],
+      "expectedBits": "bff7249faa996a21"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "c000000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "bfe921fb54442d18"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "bfd0000000000000",
+        "c000000000000000"
+      ],
+      "expectedBits": "c008234d7f6ecb9d"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "bfd0000000000000",
+        "bfd0000000000000"
+      ],
+      "expectedBits": "c002d97c7f3321d2"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "bfd0000000000000",
+        "3fd0000000000000"
+      ],
+      "expectedBits": "bfe921fb54442d18"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "bfd0000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "bfbfd5ba9aac2f6e"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "3fd0000000000000",
+        "c000000000000000"
+      ],
+      "expectedBits": "4008234d7f6ecb9d"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "3fd0000000000000",
+        "bfd0000000000000"
+      ],
+      "expectedBits": "4002d97c7f3321d2"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "3fd0000000000000",
+        "3fd0000000000000"
+      ],
+      "expectedBits": "3fe921fb54442d18"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "3fd0000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "3fbfd5ba9aac2f6e"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "4000000000000000",
+        "c000000000000000"
+      ],
+      "expectedBits": "4002d97c7f3321d2"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "4000000000000000",
+        "bfd0000000000000"
+      ],
+      "expectedBits": "3ffb1f56fdeef00f"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "4000000000000000",
+        "3fd0000000000000"
+      ],
+      "expectedBits": "3ff7249faa996a21"
+    },
+    {
+      "function": "Atan2",
+      "inputBits": [
+        "4000000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "3fe921fb54442d18"
+    }
+  ]
+}

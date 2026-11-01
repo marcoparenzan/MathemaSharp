@@ -2,6 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="../../libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
     <None Update="Fixtures/double-elementary-oracle.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/double-trig-oracle.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/math-constants.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../../ops/data/codata2022.json" Link="Fixtures/codata2022.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
