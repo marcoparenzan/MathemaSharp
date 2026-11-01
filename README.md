@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Coherent SI dimension parsing
+
+SiDimensions and SiUnitDimensions model seven base exponents and parse coherent
+SI products with integer powers. CODATA coverage293 supported/62 unsupported rows;
+unknown units are not inferred dimensionless. No scale conversion/prefixes/non-SI
+or parenthesis/slash support. Core210/210,no package or typed physical catalog yet.
+
 ## Checksummed CODATA source import
 
 NIST CODATA2022 imported as355 source records,81 exact markers and62 printed

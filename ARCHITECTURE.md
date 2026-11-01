@@ -1,5 +1,16 @@
 # Recap and architecture
 
+## Coherent SI dimension model
+
+SiDimensions is a readonly seven-exponent vector with checked product/power
+arithmetic. SiUnitDimensions maps explicit coherent base/derived symbols and integer
+powers;rad/sr dimensionless by SI convention. Parse throws on unsupported input;
+TryParse returnsfalse with default vector,which must not be interpreted as a dimension
+result. No scale conversions,prefixes,non-SI aliases or parenthesis/slash grammar.
+27 tests cover dimensional identities,bounds/errors and pinned-source coverage.
+VerifySiDimensions writes supported vectors and null unsupported vectors externally;
+293 rows supported,62 not inferred. Mathematical metadata remains unchanged.
+
 ## CODATA source layer
 
 CodataParser parses NIST fixed60/25/25 columns with explicit edition,duplicate/

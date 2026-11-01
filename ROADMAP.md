@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core physical source — CODATA2022 import
+## Common-core physical dimension subset
+
+SiDimensions/SiUnitDimensions added for coherentSI only. Core183 baseline,210 after;
+pinned CODATA source coverage293 supported/62 explicitlyunsupported rows. Report
+external,unknown vectors null. Core source preview.16;no package. Post-dimension
+gate,non-SI/scale conversion andtyped physical definitions remain pending.
+
+## Earlier common-core physical source — CODATA2022 import
 
 NIST source imported with pinned checksum:355 records,81 exact markers,62 truncated
 printed values. Parser/schema/malformed/edition tests:Core173 baseline,183 after.

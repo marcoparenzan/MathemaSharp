@@ -35,6 +35,15 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Coherent SI dimensions from source
+
+On `agent/core-step1-si-dimensions`, use `SiUnitDimensions.Parse("J T^-1")`
+or TryParse with an explicit success check. Access Metres/Kilograms/Seconds/Amperes/
+Kelvins/Moles/Candelas. Empty text is dimensionless;unsupported MeV/u/MHz andslash/
+parenthesis syntax returnfalse or throw. No scale conversion is performed.
+Run `dotnet run --file ops/VerifySiDimensions.cs` from MathemaSharp for a coverage
+report under BuildArtifacts/validation/si-dimensions. No installed package updated.
+
 ## Importing the physical source table
 
 From MathemaSharp run `dotnet run --file ops/ImportCodata.cs`. It imports only the
