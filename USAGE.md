@@ -1,5 +1,18 @@
 # Usage
 
+## Current scalar exponential variants
+
+`Exp2`, `Exp10` and `ExpM1` now use `IExponentialFunctions<T>`. Exp2/Exp10 forward
+directly; ExpM1 returns zero inputs unchanged and forwards all others. The first
+new test run exposed loss of negative zero in the binary BCL ExpM1 implementations;
+the facade was corrected, retaining the signed-zero assertion. No Exp(x)-1 rewrite.
+Six formats cover special values, subnormals, near-zero and large finite samples.
+Core baseline 260 → 266 passed; solution after 573 passed. Core preview.24 is
+source-only, not packaged. Span/complex shapes, independent accuracy and post-change
+full ecosystem gate remain pending; no language builtin migration.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-exponential-scalar`.
+The following sections record earlier verified tranches.
+
 ## Current inverse hyperbolic span continuation
 
 `Asinh`, `Acosh` and `Atanh` now also accept `ReadOnlySpan<T>` and `Span<T>`.

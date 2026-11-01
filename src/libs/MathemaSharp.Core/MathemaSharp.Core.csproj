@@ -2,6 +2,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Numerical algorithms on .NET 11 Generic Math (float, double, Half, Decimal32/64/128, Complex&lt;T&gt;): Kahan sums, SIMD dot product with scalar fallback, Horner, GCD, DFT, comparisons with a format-proportional tolerance.</Description>
-    <Version>0.2.1-net11-preview.23</Version>
+    <Version>0.2.1-net11-preview.24</Version>
   </PropertyGroup>
 </Project>
