@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Recomputed physical derived constants (source branch)
+
+MolarGas/Faraday/ReducedPlanck added fromexactSI inputs. R/F use exactdecimal
+products;hbar uses100stable digits withmpmath160/200 agreement,not printedNISTellipsis.
+Formula/GeneratedPrecisionDigits metadata exposed. Catalog13(7SI/3measured/3derived),
+Core234/234,no package orfull catalog yet.
+
 ## First measured physical constants (source branch)
 
 G,fine-structure alpha andvacuum permeability mu0 added withNIST measurement

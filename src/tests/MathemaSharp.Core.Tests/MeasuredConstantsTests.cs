@@ -14,7 +14,7 @@ public class MeasuredConstantsTests
     public void MeasuredMetadataAndUncertaintyMatchNist()
     {
         using var document = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "codata2022.json")));
-        Assert.Equal(10, PhysicalConstants.Definitions.Count);
+        Assert.Equal(13, PhysicalConstants.Definitions.Count);
         var measured = PhysicalConstants.Definitions.Where(x => x.Status == ConstantStatus.Measured).ToArray();
         Assert.Equal(3, measured.Length);
         foreach (var definition in measured)

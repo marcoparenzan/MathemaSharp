@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core physical API — first measured subset
+## Common-core physical API — three derived formulas
+
+R/F/hbar regenerated from exactSIinputs,not truncatedNISTvalues. ExactdecimalR/F,
+100digithbar stable160/200,formula/precision metadata. Core226 baseline,234 after;
+catalog13,old10sourceentries preserved. Core sourcepreview.19,no package. Fullgate,
+remainingderived/measured/non-SI/F# andcommoncorework pending.
+
+## Earlier common-core physical API — first measured subset
 
 G/alpha/mu0 added fromNIST withstandarduncertainty. Core219 baseline,226 after;
 catalog10(7exactSI/3measured),old7 source fields/assertions preserved. Sourcepreview.18,

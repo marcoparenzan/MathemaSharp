@@ -6,8 +6,9 @@ using System.Numerics;
 
 namespace MathemaSharp;
 
-/// <summary>Initial physical catalog: seven exact SI definitions and three measured entries
-/// from pinned NIST data. No truncated, exact-derived or non-SI variants are supplied.</summary>
+/// <summary>Initial physical catalog: seven SI definitions, three measured entries and three
+/// regenerated exact-derived formulas. No printed truncated values are used as full values;
+/// non-SI variants and remaining measured/derived families are not supplied.</summary>
 public static partial class PhysicalConstants
 {
     private static readonly IReadOnlyList<PhysicalConstantDefinition> definitions = Array.AsReadOnly(CreateDefinitions());
@@ -54,4 +55,10 @@ public static partial class PhysicalConstants
     public static readonly double FineStructure = Get<double>("fine-structure constant").Value;
     /// <summary>Recommended binary64 vacuum permeability, measured rather than exact; uncertainty via Get.</summary>
     public static readonly double VacuumPermeability = Get<double>("vacuum mag. permeability").Value;
+    /// <summary>Rounded binary64 molar gas constant, generated from N_A*k.</summary>
+    public static readonly double MolarGas = Get<double>("molar gas constant").Value;
+    /// <summary>Rounded binary64 Faraday constant, generated from N_A*e.</summary>
+    public static readonly double Faraday = Get<double>("Faraday constant").Value;
+    /// <summary>Rounded binary64 reduced Planck constant, generated from h/(2*pi).</summary>
+    public static readonly double ReducedPlanck = Get<double>("reduced Planck constant").Value;
 }

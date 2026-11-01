@@ -1,5 +1,15 @@
 # Recap and architecture
 
+## Regenerated exact-derived subset
+
+Generator computesR=N_A*k andF=N_A*e with exactdecimal products of verifiedSI rows.
+Hbar=h/(2*pi) usesmpmath1.3.0 at160/200 dps andstores100agreeing digits. Derived
+metadata recordsFormula;GeneratedPrecisionDigits100 only for nonterminating hbar,
+null for terminating exact products. Source describesgeneratedformula frompinned
+inputs rather than pretending the shorterNISTellipsis is fullvalue. Sourceuncertainty0
+is not finiteprecisionerror. Typedformat rounding/representability policy unchanged.
+Eight tests coverdimensions/provenance,Decimal128 exactproducts andsixformat requests.
+
 ## Measured physical subset
 
 Generator now also verifies raw/source value anduncertainty for G/alpha/mu0,

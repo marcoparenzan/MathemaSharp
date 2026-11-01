@@ -17,5 +17,8 @@ public static partial class PhysicalConstants
         new("Newtonian constant of gravitation", "G", "6.67430e-11", "m^3 kg^-1 s^-2", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67", ConstantStatus.Measured, "0.00015e-11"),
         new("fine-structure constant", "α", "7.2973525643e-3", "", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67", ConstantStatus.Measured, "0.0000000011e-3"),
         new("vacuum mag. permeability", "μ₀", "1.25663706127e-6", "N A^-2", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67", ConstantStatus.Measured, "0.00000000020e-6"),
+        new("molar gas constant", "R", "8.31446261815324", "J mol^-1 K^-1", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67", ConstantStatus.ExactDerived, "0", "N_A*k", null),
+        new("Faraday constant", "F", "96485.3321233100184", "C mol^-1", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67", ConstantStatus.ExactDerived, "0", "N_A*e", null),
+        new("reduced Planck constant", "ħ", "1.054571817646156391262428003302280744722826330020413122421923470598435912734739062498530628612457e-34", "J s", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67", ConstantStatus.ExactDerived, "0", "h/(2*pi)", 100),
     ];
 }

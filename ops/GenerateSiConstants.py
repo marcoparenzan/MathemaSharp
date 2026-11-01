@@ -1,6 +1,6 @@
 # Copyright (c) 2026 Marco Parenzan
 # Licensed under the MIT License. See the LICENSE file in the project root.
-"""Generate seven SI definitions and three measured records from verified NIST data."""
+"""Generate SI, measured and recomputed derived entries from verified NIST inputs."""
 import hashlib
 import json
 import pathlib
@@ -52,6 +52,41 @@ for name, symbol in measured:
     if row['decimalValue'] != value or row['unit'] != unit or row['decimalUncertainty'] != standard_uncertainty:
         raise RuntimeError('Structured/raw measured source mismatch: ' + name)
     header += f'        new("{name}", "{symbol}", "{value}", "{unit}", "{hash_value}", ConstantStatus.Measured, "{standard_uncertainty}"),\n'
+import decimal
+import os
+import sys
+sys.path.insert(0, os.environ.get('SCIENCE_MPMATH_PATH', r'D:\Dev\BuildArtifacts\tools\mpmath-1.3.0'))
+import mpmath as mp
+if mp.__version__ != '1.3.0':
+    raise RuntimeError('Expected pinned mpmath 1.3.0')
+
+def exact_input(name):
+    printed, uncertainty, _ = source[name]
+    if uncertainty != '(exact)' or '...' in printed:
+        raise RuntimeError('Derived input is not exact/untruncated: ' + name)
+    return printed.replace(' ', '')
+
+with decimal.localcontext() as context:
+    context.prec = 100
+    avogadro = decimal.Decimal(exact_input('Avogadro constant'))
+    gas = str(avogadro * decimal.Decimal(exact_input('Boltzmann constant')))
+    faraday = str(avogadro * decimal.Decimal(exact_input('elementary charge')))
+planck = exact_input('Planck constant')
+with mp.workdps(160):
+    first = mp.nstr(mp.mpf(planck) / (2 * mp.pi), 100)
+with mp.workdps(200):
+    reduced = mp.nstr(mp.mpf(planck) / (2 * mp.pi), 100)
+if first != reduced:
+    raise RuntimeError('Unstable reduced Planck reference')
+derived = [('molar gas constant', 'R', gas, 'N_A*k', None),
+           ('Faraday constant', 'F', faraday, 'N_A*e', None),
+           ('reduced Planck constant', 'ħ', reduced, 'h/(2*pi)', 100)]
+for name, symbol, value, formula, precision in derived:
+    _, uncertainty, unit = source[name]
+    if uncertainty != '(exact)':
+        raise RuntimeError('Derived source is not exact: ' + name)
+    digits = 'null' if precision is None else str(precision)
+    header += f'        new("{name}", "{symbol}", "{value}", "{unit}", "{hash_value}", ConstantStatus.ExactDerived, "0", "{formula}", {digits}),\n'
 header += '    ];\n}\n'
 (root / 'src/libs/MathemaSharp.Core/PhysicalConstants.g.cs').write_text(header, encoding='utf-8', newline='\n')
-print('Generated seven exact SI and three measured definitions; raw/source data agree.')
+print('Generated seven SI, three measured and three recomputed derived definitions.')
