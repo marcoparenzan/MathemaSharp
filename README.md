@@ -24,8 +24,13 @@ tails. Empty input is a no-op; short output and both shifted overlaps are reject
 before writes. Warmed double calls allocate zero managed bytes on this runtime;
 custom T may allocate or throw without rollback. Core baseline 279 → 286 passed;
 solution after 593 passed, zero failures/skips. Core preview.27 is source-only,
-not packaged. Complex shapes, independent accuracy and post-change full ecosystem
-gate remain pending; no builtin migration, step 1 remains partial.
+not packaged. Full ecosystem gate passed 33/33 with `--no-images` on rerun:
+`D:\Dev\BuildArtifacts\ecosystem-validation\20261101-185621`. The first gate
+(`20261101-184002`) failed in baseline: Core/12 exited 143 with no C# diagnostic.
+The isolated notebook and full rerun passed without code changes; interruption cause
+remains unknown, not a demonstrated fix. Core/12 added only six generated API lines.
+Complex shapes and independent accuracy remain pending; no builtin migration,
+step 1 remains partial.
 Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-logarithmic-spans`.
 The following sections record earlier verified tranches.
 
