@@ -35,6 +35,19 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## C#/F# interoperability corpus
+
+Requires .NET11SDK withits F# compiler/runtime assembly. FromMathemaSharp run:
+
+```powershell
+dotnet test src/tests/CommonCore.Language.Tests -c Release
+```
+
+Thetest builds theF# runner andcompares624 rows againstC#. Manualrunner:
+`dotnet run --project src/tools/CommonCore.FSharp -c Release` (prints corpus).
+No F# globaltool/package installed. Same-runtime bitparity doesnot certify independent
+numericalaccuracy,otherOS orall language semantics.
+
 ## Recomputed derived constants from source
 
 On `agent/core-derived-physical-constants`, use Get<T> with"molar gas constant",

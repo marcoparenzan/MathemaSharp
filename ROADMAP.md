@@ -4,7 +4,14 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core physical API — three derived formulas
+## Common-core F# runner tranche
+
+FirstF# project added as source-onlycorpus runner withC# processintegration test.
+624 rows agree oncurrentWindows runtime;baseline solution540 tests,after541(allpass),
+Core234 unchanged. No publicF#package/unitsofmeasure;no Coreproductionchange/versionbump.
+Full post-F#ecosystem gate andcross-platform/reference work remain pending.
+
+## Earlier common-core physical API — three derived formulas
 
 R/F/hbar regenerated from exactSIinputs,not truncatedNISTvalues. ExactdecimalR/F,
 100digithbar stable160/200,formula/precision metadata. Core226 baseline,234 after;

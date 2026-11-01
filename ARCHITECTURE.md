@@ -1,5 +1,16 @@
 # Recap and architecture
 
+## F# corpus runner
+
+src/tools/CommonCore.FSharp references Core andcopies FSharp.Core fromtheactiveSDK
+as an explicitprivate runtime reference (implicit package reference is disabled in
+thisbuild). No productionCore dependency onF#. CommonCore.Language.Tests builds
+the runner without assemblyreference,records itsTargetPath inassemblymetadata,and
+launches dotnet onthebuiltDLL withtimeout/cleanup. It compares624 sortedordinal rows
+withC# expected output:78 constants,468 scalarcalls,78 physicalvalues/errors. SixIEEE
+formats only;samecommon algorithms,not independentaccuracy/cross-OS verification.
+Both newprojects arein thesolution andnotpackable. No F# units-of-measure library yet.
+
 ## Regenerated exact-derived subset
 
 Generator computesR=N_A*k andF=N_A*e with exactdecimal products of verifiedSI rows.

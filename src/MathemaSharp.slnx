@@ -12,8 +12,10 @@
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/Ecosystem.Validation/Ecosystem.Validation/Ecosystem.Validation.csproj" />
+    <Project Path="tools/CommonCore.FSharp/CommonCore.FSharp.fsproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/CommonCore.Language.Tests/CommonCore.Language.Tests.csproj" />
     <Project Path="tests/Ecosystem.Validation.Tests/Ecosystem.Validation.Tests/Ecosystem.Validation.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Core.Tests/MathemaSharp.Core.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Cli.Tests/MathemaSharp.Cli.Tests.csproj" />

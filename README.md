@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## C#/F# source corpus
+
+A net11 F# runner andxUnitintegration test compare624 rows across sixIEEE formats:
+mathematicalconstants,six scalarfunctions andphysicalvalue/uncertainty orrepresentability
+errors. Both call commoncore;this is same-runtime language interoperability,not an
+independentaccuracy oracle orcross-platform guarantee. Solution541/541,Core234/234.
+
 ## Recomputed physical derived constants (source branch)
 
 MolarGas/Faraday/ReducedPlanck added fromexactSI inputs. R/F use exactdecimal

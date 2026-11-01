@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
+    <ProjectReference Include="../../tools/CommonCore.FSharp/CommonCore.FSharp.fsproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <Target Name="RecordFSharpRunnerPath" BeforeTargets="GetAssemblyAttributes">
+    <MSBuild Projects="../../tools/CommonCore.FSharp/CommonCore.FSharp.fsproj" Targets="GetTargetPath" Properties="Configuration=$(Configuration)">
+      <Output TaskParameter="TargetOutputs" ItemName="FSharpRunnerTarget" />
+    </MSBuild>
+    <ItemGroup>
+      <AssemblyMetadata Include="FSharpRunnerPath" Value="@(FSharpRunnerTarget)" />
+    </ItemGroup>
+  </Target>
+</Project>
