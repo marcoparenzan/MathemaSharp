@@ -5,7 +5,7 @@ the history is [CHANGELOG.md](CHANGELOG.md).
 
 | # | Point | Status |
 | --- | --- | --- |
-| MA-20 | Checksummed NIST CODATA2022 source imported:355 records,exact/truncated flags preserved (Core183/183). Post-import gate,typed physical definitions,SI dimensions/units andderived high-precision formulas pending. Printed ellipses must not become exact values. | partial |
+| MA-20 | Checksummed NIST CODATA2022 source imported:355 records,exact/truncated flags preserved (Core183/183). Post-import gate passed33/33 (20261031-234405);typed physical definitions,SI dimensions/units andderived high-precision formulas pending. Printed ellipses must not become exact values. | partial |
 | MA-19 | Mathematical definition metadata/catalog implemented for13 generated values (Core173/173):immutable lookup and six-type conversion. Post-metadata gate passed33/33 (20261031-225534);SI/CODATA records and full physical dimensional model remain pending. Measurement uncertainty0 is not decimal approximation error. | partial |
 | MA-18 | MathConstants<T> all13 mathematical values listed in COMMON-CORE3.3 generated;78 IEEE format encodings tested (Core164/164). Gate after latest7 passed33/33 (20261031-221915). Complete catalog/other mathematical and physical constants, custom >100-digit formats pending; full post-change gate passed33/33 (20261031-214535). External pinned mpmath generator dependency only. | partial |
 | MA-17 | Integral rounding spans verified across seven formats plus warmed-double allocation (Core158/158). Full gate after Round/integral spans passed33/33 (20261031-211557); custom T allocation/exception guarantees excluded. | partial |
