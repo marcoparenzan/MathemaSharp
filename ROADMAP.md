@@ -1,5 +1,23 @@
 # MàthemaSharp — roadmap
 
+## Current base-two/base-ten small-argument variants
+
+`Exp2M1`, `Exp10M1`, `Log2P1` and `Log10P1` now have scalar and span forms.
+Dedicated BCL operations are used; zero inputs are returned unchanged to preserve
+sign, matching existing ExpM1/LogP1 policy. Six IEEE formats verify domains, special
+values, subnormals, near-zero and boundary samples, scalar/span bit parity, in-place,
+untouched tails/inputs and pre-write dimension/overlap rejection. Warmed double
+calls allocate zero managed bytes on this runtime; custom T may throw without rollback.
+Baseline first run failed an existing inverse-trig allocation assertion (+8000 bytes),
+before code changes. Three isolated runs and full solution rerun passed unchanged;
+cause remains unknown, not fixed or waived. Green baseline: 652 passed (Core 345).
+After: 665 passed (Core 358), zero failures/skips; build zero warnings/errors.
+Core preview.34 is source-only. Full-family gate passed 33/33 with `--no-images`:
+`D:\Dev\BuildArtifacts\ecosystem-validation\20261101-234051`.
+Core/12 added only eight generated declarations; code cells were unchanged.
+Independent accuracy, complex shapes and builtin adoption remain pending; step 1 partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-base-variants`.
+
 ## Current independent binary64 trigonometric accuracy corpus
 
 Seven existing functions (Sin/Cos/Tan/Asin/Acos/Atan/Atan2) now have 110 independent
