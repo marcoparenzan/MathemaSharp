@@ -9,7 +9,8 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 SiDimensions/SiUnitDimensions added for coherentSI only. Core183 baseline,210 after;
 pinned CODATA source coverage293 supported/62 explicitlyunsupported rows. Report
 external,unknown vectors null. Core source preview.16;no package. Post-dimension
-gate,non-SI/scale conversion andtyped physical definitions remain pending.
+gate passed33/33 with --no-images (20261101-004757),Core210/210;API output updated.
+Non-SI/scale conversion andtyped physical definitions remain pending.
 
 ## Earlier common-core physical source — CODATA2022 import
 
