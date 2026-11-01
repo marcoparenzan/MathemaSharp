@@ -10,8 +10,11 @@ including signed zeros, nonfinite values, subnormals and finite overflow samples
 Warmed double calls allocated zero managed bytes on the tested runtime; custom T
 may allocate or throw, and element failures do not roll back earlier writes.
 Core baseline 240 → 247 passed; solution after 554 passed. Core preview.21 is
-source-only, not packaged. Independent accuracy, complex shapes and full ecosystem
-gate remain pending. The following scalar section is historical evidence.
+source-only, not packaged. Post-change full ecosystem gate passed 33/33 with
+`--no-images`: `D:\Dev\BuildArtifacts\ecosystem-validation\20261101-165215`.
+Only six generated API declarations changed in Core/12; code cells stayed unchanged.
+Independent accuracy and complex shapes remain pending. The following scalar section
+is historical evidence; step 1 is not complete.
 Logs: `D:\Dev\BuildArtifacts\handoff\core-step1-hyperbolic-spans`.
 
 ## Common-core continuation: scalar hyperbolic functions
