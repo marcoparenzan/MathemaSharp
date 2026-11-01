@@ -1,5 +1,15 @@
 # Recap and architecture
 
+## Final review boundary
+
+The consolidated gate validates source, not a release. Pending PySharp cancellation
+work was backed up, reviewed against CPython 3.12.10 and committed as 9765f45 under
+explicit user authorization; its original authorship is not claimed by this review.
+No new numerical algorithm was added during consolidation. MathemaSharp has partial
+scalar/span and constant/catalog APIs; lane kernels and broad builtin adoption remain
+planned. Final source heads and acceptance evidence are in the authorized-final
+bundle; ScienceSharp language-common-core README maps implementation and remaining work.
+
 ## F# corpus runner
 
 src/tools/CommonCore.FSharp references Core andcopies FSharp.Core fromtheactiveSDK

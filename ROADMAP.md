@@ -4,7 +4,19 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core F# runner tranche
+## Consolidated common-core review delivery — 2026-11-01
+
+Consolidation gate 33/33 at 20261101-133722 (no images): solution 541 passed / Core 234,
+C#/F# 624 rows, MatSharp 175, NDSharp core 473, PySharp 1546 passed / 13 skipped.
+PySharp cancellation work is now reviewed and committed as 9765f45, with original
+patches preserved; no implicit uncommitted fix is required. Final source heads and
+committed-source acceptance evidence are in the authorized-final reviewer bundle.
+The prior 20261101-120319 failed gate is retained, historical, not waived.
+Full common-core work is incomplete: step 0 scoped, 1/1b partial, 2–7 unimplemented
+by this work. The complete remaining-work/design-review matrix is in ScienceSharp
+language-common-core README. No publication or fresh-machine release claim.
+
+## Earlier common-core F# runner tranche
 
 FirstF# project added as source-onlycorpus runner withC# processintegration test.
 624 rows agree oncurrentWindows runtime;baseline solution540 tests,after541(allpass),

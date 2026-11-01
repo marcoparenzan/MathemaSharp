@@ -35,6 +35,16 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Reviewing the current delivery
+
+Start with `ScienceSharp/docs/language-common-core/README.md` and
+`D:\Dev\BuildArtifacts\handoff\20261101-133221-authorized-final-consolidation\REPORT.md`.
+Consolidation gate: ecosystem-validation/20261101-133722, 33/33 with no images.
+Repeat `dotnet run --file ops/ValidateEcosystem.cs -- --no-images` from this repository.
+The pending PySharp fix is now reviewed and committed as 9765f45; exact final source
+heads, patches and committed-source acceptance rerun are in the bundle. Source-only
+SDK/feed prerequisites remain; this is not a package or fresh-machine release.
+
 ## C#/F# interoperability corpus
 
 Requires .NET11SDK withits F# compiler/runtime assembly. FromMathemaSharp run:

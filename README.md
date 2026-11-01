@@ -15,6 +15,19 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Consolidated common-core review delivery — 2026-11-01
+
+Consolidation gate passed **33/33** (`20261101-133722`, no images): solution 541 tests,
+Core 234, and 624 C#/F# comparison rows. PySharp has 1546 passed / 13 skipped; its
+previously pending cancellation patch was reviewed against CPython 3.12.10 and
+committed as 9765f45 under explicit user authorization. Original patches are retained.
+Exact final source heads and the committed-source acceptance rerun are recorded in
+`D:\Dev\BuildArtifacts\handoff\20261101-133221-authorized-final-consolidation`.
+This is current-machine source verification, not a fresh-machine package release.
+The full common-core roadmap is not complete. Review implementation, remaining work
+and decisions in [the delivery status](../ScienceSharp/docs/language-common-core/README.md).
+Earlier blocked-gate sections below retain historical evidence.
+
 ## C#/F# source corpus
 
 A net11 F# runner andxUnitintegration test compare624 rows across sixIEEE formats:
