@@ -68,4 +68,37 @@ public static partial class GenericMath
         ValidateDestination(input, destination);
         for (int i = 0; i < input.Length; i++) destination[i] = Log(input[i]);
     }
+
+    /// <summary>Writes scalar Log2 for each input into the destination prefix.
+    /// Domain, special values and fast-profile accuracy match Log2(T).
+    /// Empty input is a no-op; output tail is unchanged. Short destinations and
+    /// shifted overlaps throw before writes; exact in-place is supported.
+    /// No facade allocation; custom T may allocate or throw without rollback of prior writes.</summary>
+    public static void Log2<T>(ReadOnlySpan<T> input, Span<T> destination) where T : ILogarithmicFunctions<T>
+    {
+        ValidateDestination(input, destination);
+        for (int i = 0; i < input.Length; i++) destination[i] = Log2(input[i]);
+    }
+
+    /// <summary>Writes scalar Log10 for each input into the destination prefix.
+    /// Domain, special values and fast-profile accuracy match Log10(T).
+    /// Empty input is a no-op; output tail is unchanged. Short destinations and
+    /// shifted overlaps throw before writes; exact in-place is supported.
+    /// No facade allocation; custom T may allocate or throw without rollback of prior writes.</summary>
+    public static void Log10<T>(ReadOnlySpan<T> input, Span<T> destination) where T : ILogarithmicFunctions<T>
+    {
+        ValidateDestination(input, destination);
+        for (int i = 0; i < input.Length; i++) destination[i] = Log10(input[i]);
+    }
+
+    /// <summary>Writes scalar LogP1 for each input into the destination prefix,
+    /// preserving signed zero. Domain, other special values and fast-profile accuracy
+    /// match LogP1(T). Empty input is a no-op; output tail is unchanged.
+    /// Short destinations and shifted overlaps throw before writes; exact in-place is supported.
+    /// No facade allocation; custom T may allocate or throw without rollback of prior writes.</summary>
+    public static void LogP1<T>(ReadOnlySpan<T> input, Span<T> destination) where T : ILogarithmicFunctions<T>
+    {
+        ValidateDestination(input, destination);
+        for (int i = 0; i < input.Length; i++) destination[i] = LogP1(input[i]);
+    }
 }

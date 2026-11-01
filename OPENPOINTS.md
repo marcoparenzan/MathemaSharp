@@ -1,5 +1,19 @@
 # MathemaSharp — Open points
 
+## Current logarithmic span continuation
+
+`Log2`, `Log10` and `LogP1` now also accept `ReadOnlySpan<T>` and `Span<T>`.
+Each loop calls its scalar facade, preserving LogP1 negative zero. Six IEEE formats
+verify bit parity, domains, near-zero samples, in-place, input immutability and output
+tails. Empty input is a no-op; short output and both shifted overlaps are rejected
+before writes. Warmed double calls allocate zero managed bytes on this runtime;
+custom T may allocate or throw without rollback. Core baseline 279 → 286 passed;
+solution after 593 passed, zero failures/skips. Core preview.27 is source-only,
+not packaged. Complex shapes, independent accuracy and post-change full ecosystem
+gate remain pending; no builtin migration, step 1 remains partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-logarithmic-spans`.
+The following sections record earlier verified tranches.
+
 ## Current scalar logarithmic variants
 
 `Log2`, `Log10` and `LogP1` use `ILogarithmicFunctions<T>` without conversion.
