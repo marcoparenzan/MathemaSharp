@@ -25,8 +25,12 @@ extra output elements remain unchanged; disjoint slices of shared storage work.
 Warmed double calls allocate zero managed bytes on this runtime. Custom T may
 allocate or throw, with no rollback of earlier writes. Release baseline: 599 passed
 (Core 292); after: 606 passed (Core 299), zero failures/skips. Build: zero warnings/errors.
-Core preview.29 is source-only. Post-change ecosystem gate, complex shapes and
-independent accuracy remain pending. No builtin migration; step 1 remains partial.
+Core preview.29 is source-only. Post-change ecosystem gate passed 33/33 with
+`--no-images`: `D:\Dev\BuildArtifacts\ecosystem-validation\20261101-204038`.
+Core/12 added only six generated inverse-trigonometric declarations; code cells
+were unchanged. Complex shapes and independent accuracy remain pending.
+No builtin migration; step 1 remains partial.
+Gate handoff: `D:\Dev\BuildArtifacts\handoff\core-step1-inverse-trig-gate`.
 Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-inverse-trig-spans`.
 
 ## Current scalar inverse trigonometric continuation
