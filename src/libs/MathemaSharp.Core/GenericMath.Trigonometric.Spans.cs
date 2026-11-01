@@ -75,6 +75,23 @@ public static partial class GenericMath
         for (int i = 0; i < input.Length; i++) destination[i] = Atan(input[i]);
     }
 
+    /// <summary>Writes scalar Atan2(y[i], x[i]) in radians into the destination prefix.
+    /// Inputs must have equal lengths; no broadcasting is performed. Domain, signed-zero
+    /// branch cuts, special values and BCL fast-profile accuracy match Atan2(T, T).
+    /// Destination must be at least input length; extra elements remain unchanged.
+    /// Empty inputs are a no-op. Exact in-place on either or both inputs is allowed;
+    /// partial overlap with either input is rejected before writing. Input-input overlap
+    /// alone is allowed. No facade allocation is introduced; custom T may allocate or
+    /// throw, without rollback of earlier writes.</summary>
+    public static void Atan2<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> destination) where T : IFloatingPointIeee754<T>
+    {
+        if (y.Length != x.Length)
+            throw new ArgumentException("Inputs must have equal lengths.", nameof(x));
+        ValidateDestination(y, destination);
+        ValidateDestination(x, destination);
+        for (int i = 0; i < y.Length; i++) destination[i] = Atan2(y[i], x[i]);
+    }
+
     private static void ValidateDestination<T>(ReadOnlySpan<T> input, Span<T> destination)
     {
         if (destination.Length < input.Length)

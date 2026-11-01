@@ -1,5 +1,20 @@
 # Usage
 
+## Current binary Atan2 span continuation
+
+`Atan2(y, x, destination)` requires equal-length read-only inputs, without broadcasting.
+Its loop preserves scalar bits on six IEEE formats, including the signed-zero and
+infinity cases in the 13-by-13 input matrix. Destination length and overlap with both
+inputs are checked before writes. Exact in-place on either/both is supported;
+shifted input-input overlap alone is safe with separate output. Only the written
+output prefix participates in overlap checks; tails and separate inputs stay unchanged.
+Warmed double calls allocate zero managed bytes on this runtime. Custom T may throw
+without rollback. Release baseline: 612 passed (Core 305); after: 619 passed (Core 312),
+zero failures/skips. Build: zero warnings/errors. Core preview.31 is source-only.
+Post-change ecosystem gate, independent accuracy and complex shapes remain pending;
+no builtin migration and common-core step 1 remains partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-atan2-spans`.
+
 ## Current scalar Atan2 continuation
 
 `GenericMath.Atan2(y, x)` forwards to `T.Atan2` without division or conversion.
