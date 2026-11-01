@@ -8,8 +8,9 @@ This roadmap replaces the previous aggregated items that gave migration and veri
 
 R/F/hbar regenerated from exactSIinputs,not truncatedNISTvalues. ExactdecimalR/F,
 100digithbar stable160/200,formula/precision metadata. Core226 baseline,234 after;
-catalog13,old10sourceentries preserved. Core sourcepreview.19,no package. Fullgate,
-remainingderived/measured/non-SI/F# andcommoncorework pending.
+catalog13,old10sourceentries preserved. Core sourcepreview.19,no package. Fullgate
+passed33/33 with --no-images (20261101-080517),Core234/234;API output updated.
+Remainingderived/measured/non-SI/F# andcommoncorework pending.
 
 ## Earlier common-core physical API — first measured subset
 
