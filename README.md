@@ -15,6 +15,19 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Current scalar logarithmic variants
+
+`Log2`, `Log10` and `LogP1` use `ILogarithmicFunctions<T>` without conversion.
+Log2/Log10 forward directly; LogP1 returns zero inputs unchanged and forwards others
+without forming 1+x. First tests exposed binary BCL LogP1(-0) returning +0; the
+facade was corrected without weakening signed-zero assertions. Six IEEE formats
+cover domains, special values, subnormals, near-zero and boundary-adjacent samples.
+Core baseline 273 → 279 passed; solution after 586 passed, zero failures/skips.
+Core preview.26 is source-only, not packaged. Span/complex shapes, independent
+accuracy and post-change full gate remain pending; no language builtin migration.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-logarithmic-scalar`.
+The following sections record earlier verified tranches; step 1 remains partial.
+
 ## Current exponential variant span continuation
 
 `Exp2`, `Exp10` and `ExpM1` now also accept `ReadOnlySpan<T>` and `Span<T>`.

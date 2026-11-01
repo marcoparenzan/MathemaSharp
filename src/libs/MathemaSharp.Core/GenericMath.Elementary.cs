@@ -57,4 +57,30 @@ public static partial class GenericMath
     /// No conversion or allocation is introduced by the facade.</summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Log<T>(T x) where T : ILogarithmicFunctions<T> => T.Log(x);
+
+    /// <summary>Base-two logarithm. Real domain: x &gt; 0.
+    /// IEEE Log2(±0)=-infinity, Log2(1)=+0, Log2(+infinity)=+infinity;
+    /// negative inputs and NaN produce NaN. Direct T.Log2 fast-profile forward;
+    /// accuracy follows T without cross-platform bit-identity guarantees.
+    /// No facade conversion or allocation; custom T owns its special-value behaviour.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Log2<T>(T x) where T : ILogarithmicFunctions<T> => T.Log2(x);
+
+    /// <summary>Base-ten logarithm. Real domain: x &gt; 0.
+    /// IEEE Log10(±0)=-infinity, Log10(1)=+0, Log10(+infinity)=+infinity;
+    /// negative inputs and NaN produce NaN. Direct T.Log10 fast-profile forward;
+    /// accuracy follows T without cross-platform bit-identity guarantees.
+    /// No facade conversion or allocation; custom T owns its special-value behaviour.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Log10<T>(T x) where T : ILogarithmicFunctions<T> => T.Log10(x);
+
+    /// <summary>Natural logarithm of one plus x, evaluated by T.LogP1 without forming 1+x.
+    /// Real domain: x &gt; -1. IEEE LogP1(±0)=±0, LogP1(-1)=-infinity,
+    /// LogP1(+infinity)=+infinity; inputs below -1 and NaN produce NaN.
+    /// Zero inputs are returned unchanged to preserve sign (the current binary BCL
+    /// loses negative zero); other inputs forward directly. Accuracy follows T's BCL
+    /// fast profile without cross-platform bit-identity guarantees. No facade conversion
+    /// or allocation; custom T owns its special-value behaviour.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T LogP1<T>(T x) where T : ILogarithmicFunctions<T> => T.IsZero(x) ? x : T.LogP1(x);
 }
