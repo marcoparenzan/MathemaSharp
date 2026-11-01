@@ -1,5 +1,23 @@
 # MàthemaSharp — roadmap
 
+## Current complete pi-scaled trigonometric family
+
+`SinPi`, `CosPi`, `TanPi`, `AsinPi`, `AcosPi` and `AtanPi` now have scalar and
+span overloads with `ITrigonometricFunctions<T>`. Dedicated BCL methods are used,
+not multiplication/division by rounded pi. Six IEEE formats verify exact analytic
+anchors, special values, half-integers/pole neighbours, domain-boundary neighbours,
+BCL bit parity, in-place, unchanged tails/inputs and pre-write overlap/length rejection.
+Warmed double span calls allocate zero managed bytes on this runtime. Custom T may
+allocate/throw without rollback; no new universal accuracy guarantee.
+Release baseline: 632 passed (Core 325); after: 645 passed (Core 338), zero failures/skips.
+Build: zero warnings/errors. Core preview.33 is source-only, not packaged.
+Full-family post-change gate passed 33/33 with `--no-images`:
+`D:\Dev\BuildArtifacts\ecosystem-validation\20261101-230539`.
+Core/12 added only twelve generated pi-scaled declarations; code cells were unchanged.
+Independent accuracy, complex shapes and builtin migration remain pending;
+common-core step 1 is partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-pi-trig-family`.
+
 ## Current complete root-family continuation
 
 `Cbrt`, `Hypot` and `RootN` now have scalar and span overloads with `IRootFunctions<T>`.
