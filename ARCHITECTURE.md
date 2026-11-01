@@ -1,5 +1,19 @@
 # Recap and architecture
 
+## Current hyperbolic span continuation
+
+`Sinh`, `Cosh` and `Tanh` now also accept `ReadOnlySpan<T>` and `Span<T>`.
+They reuse destination validation: exact in-place is supported; short output and
+partial overlap in either direction are rejected before writes. Empty input is a
+no-op; extra output elements are preserved. Six IEEE formats match scalar bits,
+including signed zeros, nonfinite values, subnormals and finite overflow samples.
+Warmed double calls allocated zero managed bytes on the tested runtime; custom T
+may allocate or throw, and element failures do not roll back earlier writes.
+Core baseline 240 → 247 passed; solution after 554 passed. Core preview.21 is
+source-only, not packaged. Independent accuracy, complex shapes and full ecosystem
+gate remain pending. The following scalar section is historical evidence.
+Logs: `D:\Dev\BuildArtifacts\handoff\core-step1-hyperbolic-spans`.
+
 ## Common-core continuation: scalar hyperbolic functions
 
 `GenericMath.Sinh<T>`, `Cosh<T>` and `Tanh<T>` are direct BCL fast-profile forwards
