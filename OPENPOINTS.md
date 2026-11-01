@@ -1,5 +1,19 @@
 # MathemaSharp — Open points
 
+## Current inverse hyperbolic span continuation
+
+`Asinh`, `Acosh` and `Atanh` now also accept `ReadOnlySpan<T>` and `Span<T>`.
+The loops preserve scalar bits on six IEEE formats, including domain boundaries
+and their adjacent values. Exact in-place is supported; partial overlaps in both
+directions and short destinations are rejected before writes. Empty input is a
+no-op; extra output elements and input storage remain unchanged. Warmed double
+calls allocate zero managed bytes on this runtime; custom T may allocate or throw.
+Core baseline 253 → 260 passed; solution after 567 passed, zero failures/skips.
+Core preview.23 is source-only, not packaged. Independent accuracy, complex shapes
+and the post-change full ecosystem gate remain pending; step 1 remains partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-inverse-hyperbolic-spans`.
+The following sections record earlier verified tranches.
+
 ## Current inverse hyperbolic scalar continuation
 
 `GenericMath.Asinh<T>`, `Acosh<T>` and `Atanh<T>` directly forward to the BCL with
