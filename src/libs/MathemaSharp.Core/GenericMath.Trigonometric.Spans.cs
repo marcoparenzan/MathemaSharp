@@ -39,6 +39,42 @@ public static partial class GenericMath
         for (int i = 0; i < input.Length; i++) destination[i] = Tan(input[i]);
     }
 
+    /// <summary>Writes scalar Asin for each input into the destination prefix (radians).
+    /// Domain [-1, 1], special values and BCL fast-profile accuracy match Asin(T).
+    /// Empty input is a no-op; extra destination elements remain unchanged.
+    /// Destination must be at least input length. Exact in-place is allowed;
+    /// partial overlap is rejected before writing. No facade allocation is introduced;
+    /// custom T may allocate or throw, without rollback of earlier writes.</summary>
+    public static void Asin<T>(ReadOnlySpan<T> input, Span<T> destination) where T : ITrigonometricFunctions<T>
+    {
+        ValidateDestination(input, destination);
+        for (int i = 0; i < input.Length; i++) destination[i] = Asin(input[i]);
+    }
+
+    /// <summary>Writes scalar Acos for each input into the destination prefix (radians).
+    /// Domain [-1, 1], special values and BCL fast-profile accuracy match Acos(T).
+    /// Empty input is a no-op; extra destination elements remain unchanged.
+    /// Destination must be at least input length. Exact in-place is allowed;
+    /// partial overlap is rejected before writing. No facade allocation is introduced;
+    /// custom T may allocate or throw, without rollback of earlier writes.</summary>
+    public static void Acos<T>(ReadOnlySpan<T> input, Span<T> destination) where T : ITrigonometricFunctions<T>
+    {
+        ValidateDestination(input, destination);
+        for (int i = 0; i < input.Length; i++) destination[i] = Acos(input[i]);
+    }
+
+    /// <summary>Writes scalar Atan for each input into the destination prefix (radians).
+    /// All real values, special values and BCL fast-profile accuracy match Atan(T).
+    /// Empty input is a no-op; extra destination elements remain unchanged.
+    /// Destination must be at least input length. Exact in-place is allowed;
+    /// partial overlap is rejected before writing. No facade allocation is introduced;
+    /// custom T may allocate or throw, without rollback of earlier writes.</summary>
+    public static void Atan<T>(ReadOnlySpan<T> input, Span<T> destination) where T : ITrigonometricFunctions<T>
+    {
+        ValidateDestination(input, destination);
+        for (int i = 0; i < input.Length; i++) destination[i] = Atan(input[i]);
+    }
+
     private static void ValidateDestination<T>(ReadOnlySpan<T> input, Span<T> destination)
     {
         if (destination.Length < input.Length)

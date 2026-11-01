@@ -1,5 +1,19 @@
 # Recap and architecture
 
+## Current inverse trigonometric span continuation
+
+`Asin`, `Acos` and `Atan` now accept `ReadOnlySpan<T>` and `Span<T>`.
+Loops preserve scalar bits on all six IEEE formats, including signed zero, domain
+boundaries and adjacent samples, NaN and infinities. Exact in-place is supported;
+short destinations and both shifted overlaps are rejected before writes. Input and
+extra output elements remain unchanged; disjoint slices of shared storage work.
+Warmed double calls allocate zero managed bytes on this runtime. Custom T may
+allocate or throw, with no rollback of earlier writes. Release baseline: 599 passed
+(Core 292); after: 606 passed (Core 299), zero failures/skips. Build: zero warnings/errors.
+Core preview.29 is source-only. Post-change ecosystem gate, complex shapes and
+independent accuracy remain pending. No builtin migration; step 1 remains partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-inverse-trig-spans`.
+
 ## Current scalar inverse trigonometric continuation
 
 `GenericMath.Asin`, `Acos` and `Atan` now use `ITrigonometricFunctions<T>`
