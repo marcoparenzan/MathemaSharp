@@ -35,6 +35,16 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## Measured constants from source
+
+On `agent/core-measured-constants`, use
+`PhysicalConstants.Get<double>("vacuum mag. permeability")` andread Value,
+StandardUncertainty andDefinition.Status/SourceEdition. G andalpha have source names
+"Newtonian constant of gravitation" and"fine-structure constant". Binary64facades
+GravitationalConstant,FineStructure,VacuumPermeability expose values only;useGet for
+uncertainty. Measureduncertainty underflow/nonfinite representation is rejected.
+Same sourcegenerator,no installedpackageupdate.
+
 ## SI defining constants from source
 
 On `agent/core-si-defining-constants`, call

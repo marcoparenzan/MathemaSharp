@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## First measured physical constants (source branch)
+
+G,fine-structure alpha andvacuum permeability mu0 added withNIST measurement
+uncertainty;catalog10 definitions (7exactSI/3measured),Core226/226. mu0 is Measured,
+not an exact4pi definition. Get rejects uncertainty underflow instead of returning
+falsezero measurement error. No full measured/derived catalog orpackage.
+
 ## Seven SI defining constants (source branch)
 
 PhysicalConstants.Get<T>(exactNistName) exposes rounded typed values and immutable

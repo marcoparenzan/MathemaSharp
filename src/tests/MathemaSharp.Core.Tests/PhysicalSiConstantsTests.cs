@@ -14,8 +14,8 @@ public class PhysicalSiConstantsTests
     public void SevenDefinitionsMatchExactUntruncatedNistRows()
     {
         using var document = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "codata2022.json")));
-        Assert.Equal(7, PhysicalConstants.Definitions.Count);
-        foreach (var definition in PhysicalConstants.Definitions)
+        Assert.Equal(7, PhysicalConstants.Definitions.Count(x => x.Status == ConstantStatus.ExactSi));
+        foreach (var definition in PhysicalConstants.Definitions.Where(x => x.Status == ConstantStatus.ExactSi))
         {
             var row = document.RootElement.GetProperty("records").EnumerateArray().Single(x => x.GetProperty("name").GetString() == definition.Id);
             Assert.True(row.GetProperty("isExact").GetBoolean());
@@ -35,7 +35,7 @@ public class PhysicalSiConstantsTests
     {
         var list = Assert.IsAssignableFrom<IList<PhysicalConstantDefinition>>(PhysicalConstants.Definitions);
         Assert.Throws<NotSupportedException>(() => list.Clear());
-        Assert.Throws<KeyNotFoundException>(() => PhysicalConstants.Get<double>("vacuum mag. permeability"));
+        Assert.Throws<KeyNotFoundException>(() => PhysicalConstants.Get<double>("electron mass"));
         Assert.Throws<ArgumentNullException>(() => PhysicalConstants.Get<double>(null!));
     }
 
@@ -48,7 +48,7 @@ public class PhysicalSiConstantsTests
 
     private static void Check<T>() where T : unmanaged, IFloatingPointIeee754<T>
     {
-        foreach (var definition in PhysicalConstants.Definitions)
+        foreach (var definition in PhysicalConstants.Definitions.Where(x => x.Status == ConstantStatus.ExactSi))
         {
             var expected = T.Parse(definition.DecimalValue, CultureInfo.InvariantCulture);
             if (!T.IsFinite(expected))

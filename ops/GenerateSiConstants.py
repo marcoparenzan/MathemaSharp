@@ -1,6 +1,6 @@
 # Copyright (c) 2026 Marco Parenzan
 # Licensed under the MIT License. See the LICENSE file in the project root.
-"""Generate only seven SI defining records from verified raw NIST data."""
+"""Generate seven SI definitions and three measured records from verified NIST data."""
 import hashlib
 import json
 import pathlib
@@ -40,6 +40,18 @@ for name, symbol in selected:
     if row['decimalValue'] != value or row['unit'] != unit or row['decimalUncertainty'] != '0':
         raise RuntimeError('Structured/raw source mismatch: ' + name)
     header += f'        new("{name}", "{symbol}", "{value}", "{unit}", "{hash_value}"),\n'
+measured = [('Newtonian constant of gravitation', 'G'), ('fine-structure constant', 'α'),
+            ('vacuum mag. permeability', 'μ₀')]
+for name, symbol in measured:
+    row = rows[name]
+    printed, uncertainty, unit = source[name]
+    if uncertainty == '(exact)' or '...' in printed or row['isExact'] or row['valueIsTruncated']:
+        raise RuntimeError('Not an untruncated measured record: ' + name)
+    value = printed.replace(' ', '')
+    standard_uncertainty = uncertainty.replace(' ', '')
+    if row['decimalValue'] != value or row['unit'] != unit or row['decimalUncertainty'] != standard_uncertainty:
+        raise RuntimeError('Structured/raw measured source mismatch: ' + name)
+    header += f'        new("{name}", "{symbol}", "{value}", "{unit}", "{hash_value}", ConstantStatus.Measured, "{standard_uncertainty}"),\n'
 header += '    ];\n}\n'
 (root / 'src/libs/MathemaSharp.Core/PhysicalConstants.g.cs').write_text(header, encoding='utf-8', newline='\n')
-print('Generated seven exact SI definitions; raw and structured NIST data agree.')
+print('Generated seven exact SI and three measured definitions; raw/source data agree.')

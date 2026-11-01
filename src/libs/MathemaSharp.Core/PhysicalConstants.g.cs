@@ -14,5 +14,8 @@ public static partial class PhysicalConstants
         new("Avogadro constant", "N_A", "6.02214076e23", "mol^-1", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67"),
         new("hyperfine transition frequency of Cs-133", "Δν_Cs", "9192631770", "Hz", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67"),
         new("luminous efficacy", "K_cd", "683", "lm W^-1", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67"),
+        new("Newtonian constant of gravitation", "G", "6.67430e-11", "m^3 kg^-1 s^-2", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67", ConstantStatus.Measured, "0.00015e-11"),
+        new("fine-structure constant", "α", "7.2973525643e-3", "", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67", ConstantStatus.Measured, "0.0000000011e-3"),
+        new("vacuum mag. permeability", "μ₀", "1.25663706127e-6", "N A^-2", "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67", ConstantStatus.Measured, "0.00000000020e-6"),
     ];
 }

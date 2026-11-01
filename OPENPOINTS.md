@@ -5,6 +5,7 @@ the history is [CHANGELOG.md](CHANGELOG.md).
 
 | # | Point | Status |
 | --- | --- | --- |
+| MA-23 | G/alpha/mu0 measuredsubset sourced withuncertainty (Core226/226);mu0 explicitlyMeasured,catalog7SI+3measured. Uncertaintyunderflow rejected. Post-changegate,othermeasured/derived/non-SI/F# pending. | partial |
 | MA-22 | Seven exact SI definitions generated withtypedGet/double facades (Core219/219). Nonfinite/zero-underflow values rejected;ExactSi not a guarantee of exact T representation. Post-change gate passed33/33 (20261101-065718);measured/derived catalogs,non-SI conversion andF# pending. | partial |
 | MA-21 | CoherentSI dimensions implemented/tested (Core210/210),293 CODATA rows recognized,62 explicit unsupported. Post-change gate passed33/33 (20261101-004757);non-SI/scales/prefixes andtyped physical API pending. TryParsefalse/defaultvector is not a dimensionless classification. | partial |
 | MA-20 | Checksummed NIST CODATA2022 source imported:355 records,exact/truncated flags preserved (Core183/183). Post-import gate passed33/33 (20261031-234405);typed physical definitions,SI dimensions/units andderived high-precision formulas pending. Printed ellipses must not become exact values. | partial |

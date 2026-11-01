@@ -1,5 +1,16 @@
 # Recap and architecture
 
+## Measured physical subset
+
+Generator now also verifies raw/source value anduncertainty for G/alpha/mu0,
+rejecting exact markers/truncated values. Physicaldefinition storesStatus andstandard
+uncertainty;exactSI overload retains prior7 source fields. Typed Get parses value and
+uncertainty separately,rejecting nonfinite orzero-underflow measured uncertainty.
+Measured tests cover sixformats/sourceprovenance/mu0status;oldSI checks filtered to
+all7exactentries without removing assertions. Catalogtotal10/measurecount3 asserted.
+Unknown lookup test moves to electronmass,still not supplied. No independentphysical
+rounding oracle orcross-edition claim yet.
+
 ## Typed SI defining subset
 
 GenerateSiConstants.py verifies rawNIST SHA256 andstructured equality for seven
