@@ -26,6 +26,39 @@ public static partial class GenericMath
         for (int i = 0; i < input.Length; i++) destination[i] = Exp(input[i]);
     }
 
+    /// <summary>Writes scalar Exp2 for each input into the destination prefix.
+    /// Domain, special values and fast-profile accuracy match Exp2(T).
+    /// Empty input is a no-op; output tail is unchanged. Short destinations and
+    /// shifted overlaps throw before writes; exact in-place is supported.
+    /// No facade allocation; custom T may allocate or throw without rollback of prior writes.</summary>
+    public static void Exp2<T>(ReadOnlySpan<T> input, Span<T> destination) where T : IExponentialFunctions<T>
+    {
+        ValidateDestination(input, destination);
+        for (int i = 0; i < input.Length; i++) destination[i] = Exp2(input[i]);
+    }
+
+    /// <summary>Writes scalar Exp10 for each input into the destination prefix.
+    /// Domain, special values and fast-profile accuracy match Exp10(T).
+    /// Empty input is a no-op; output tail is unchanged. Short destinations and
+    /// shifted overlaps throw before writes; exact in-place is supported.
+    /// No facade allocation; custom T may allocate or throw without rollback of prior writes.</summary>
+    public static void Exp10<T>(ReadOnlySpan<T> input, Span<T> destination) where T : IExponentialFunctions<T>
+    {
+        ValidateDestination(input, destination);
+        for (int i = 0; i < input.Length; i++) destination[i] = Exp10(input[i]);
+    }
+
+    /// <summary>Writes scalar ExpM1 for each input into the destination prefix,
+    /// preserving signed zero. Domain, other special values and fast-profile accuracy
+    /// match ExpM1(T). Empty input is a no-op; output tail is unchanged.
+    /// Short destinations and shifted overlaps throw before writes; exact in-place is supported.
+    /// No facade allocation; custom T may allocate or throw without rollback of prior writes.</summary>
+    public static void ExpM1<T>(ReadOnlySpan<T> input, Span<T> destination) where T : IExponentialFunctions<T>
+    {
+        ValidateDestination(input, destination);
+        for (int i = 0; i < input.Length; i++) destination[i] = ExpM1(input[i]);
+    }
+
     /// <summary>Writes scalar Log for each input into the destination prefix.
     /// Domain, special values and accuracy match Log(T). Empty input is a no-op;
     /// output tail is unchanged. Short destinations and shifted overlaps throw before writes;

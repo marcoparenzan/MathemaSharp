@@ -1,5 +1,19 @@
 # MathemaSharp — Open points
 
+## Current exponential variant span continuation
+
+`Exp2`, `Exp10` and `ExpM1` now also accept `ReadOnlySpan<T>` and `Span<T>`.
+Each loop calls the scalar facade, including ExpM1's signed-zero correction.
+Six IEEE formats verify scalar bit parity, in-place, input immutability, output tails,
+empty inputs, short destinations and both partial-overlap directions before writes.
+Warmed double calls allocate zero managed bytes on this runtime; custom T may
+allocate or throw, with no rollback of earlier writes. Core baseline 266 → 273
+passed; solution after 580 passed, zero failures/skips. Core preview.25 is source-only,
+not packaged. Complex shapes, independent accuracy and full post-change ecosystem
+gate remain pending. No builtin migration; step 1 remains partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-exponential-spans`.
+The following sections record earlier verified tranches.
+
 ## Current scalar exponential variants
 
 `Exp2`, `Exp10` and `ExpM1` now use `IExponentialFunctions<T>`. Exp2/Exp10 forward
