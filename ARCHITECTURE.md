@@ -1,5 +1,16 @@
 # Recap and architecture
 
+## Typed SI defining subset
+
+GenerateSiConstants.py verifies rawNIST SHA256 andstructured equality for seven
+exact/untruncated SI-defining rows,then emits PhysicalConstants.g.cs. PhysicalConstantDefinition
+is immutable andincludes source edition/hash,exact decimal text andcoherent dimensions.
+PhysicalConstants has readonly catalog,frozen lookup,Get<T>() andcached binary64 facades.
+Get parses invariantly,throws for nonfinite overflow/zero underflow,returns source
+uncertainty0 separate from representation rounding. No fallback double conversion.
+Half accepts only representable requests;Decimal32 may round exactSI decimals.
+Measured/truncated/exact-derived entries andnon-SI conversion are absent.
+
 ## Coherent SI dimension model
 
 SiDimensions is a readonly seven-exponent vector with checked product/power

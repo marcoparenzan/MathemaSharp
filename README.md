@@ -15,6 +15,13 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Seven SI defining constants (source branch)
+
+PhysicalConstants.Get<T>(exactNistName) exposes rounded typed values and immutable
+ExactSi source metadata for seven definitions,generated from pinned raw/source data.
+Double facades included. Nonfinite overflow/zero underflow throw;ExactSi is not
+an exact-representation promise for T. Core219/219,no measured/derived values or package.
+
 ## Coherent SI dimension parsing
 
 SiDimensions and SiUnitDimensions model seven base exponents and parse coherent

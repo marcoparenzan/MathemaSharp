@@ -35,6 +35,17 @@ dotnet run --file ops/ValidateEcosystem.cs -- --no-images    # 32 steps plus ski
 Notebooks run in JupyterSharp: install the tool with `D:\Dev\Science\ScienceSharp\Install-Suite.ps1 -Tools`, or the gate uses the
 CLI built from source. The remaining sections are the day-to-day instructions and a dated record of the verification tranches (translated from Italian on 2026-10-30; where they mention JupyterNet, that tool has since been removed from the suite and replaced by JupyterSharp).
 
+## SI defining constants from source
+
+On `agent/core-si-defining-constants`, call
+`PhysicalConstants.Get<Decimal128>("Planck constant")` (System.Numerics) and inspect
+Value,StandardUncertainty,Definition.Unit/Dimensions/SourceEdition/SourceSha256.
+Use PhysicalConstants.SpeedOfLight,Planck,Boltzmann,ElementaryCharge,Avogadro,
+CesiumFrequency,LuminousEfficacy for binary64 facades. ExactSi describes source,
+not exact representation in T. Half overflow/zero underflow rejected explicitly.
+Regenerate with `python ops/GenerateSiConstants.py` after ImportCodata supplies the
+verified raw snapshot andstructured JSON. No measured catalog or package produced.
+
 ## Coherent SI dimensions from source
 
 On `agent/core-step1-si-dimensions`, use `SiUnitDimensions.Parse("J T^-1")`

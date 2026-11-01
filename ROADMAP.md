@@ -4,7 +4,15 @@ MathemaSharp is the code and the name of the packages; **MàthemaSharp** is the 
 
 This roadmap replaces the previous aggregated items that gave migration and verification of the notebooks as completed. A successful build does not prove that every API supports every format.
 
-## Common-core physical dimension subset
+## Common-core physical API — seven SI definitions
+
+Seven SI-defining records generated directly from verified raw/structured source,
+with typedGet andbinary64 facades. Core210 baseline,219 after;Core sourcepreview.17.
+Finite/nonzero representability checked;sourceExactSi distinct fromformatrounding.
+No package. Post-SI API gate,measured/exact-derived catalogs,non-SI conversion,F# and
+remainingcommon-core work remain pending.
+
+## Earlier common-core physical dimension subset
 
 SiDimensions/SiUnitDimensions added for coherentSI only. Core183 baseline,210 after;
 pinned CODATA source coverage293 supported/62 explicitlyunsupported rows. Report
