@@ -15,6 +15,19 @@
 
 A family of mathematics libraries based on Generic Math. The brand is written **MàthemaSharp**, with a grave accent on the first a; packages, assemblies and namespaces use **MathemaSharp** without the accent.
 
+## Current inverse hyperbolic scalar continuation
+
+`GenericMath.Asinh<T>`, `Acosh<T>` and `Atanh<T>` directly forward to the BCL with
+`IHyperbolicFunctions<T>` constraints. No conversion or language builtin change.
+Six IEEE formats verify signed zeros, NaN, infinities, subnormals, domain boundaries
+and adjacent representable values. Acosh rejects x < 1 with NaN; Atanh returns
+signed infinities at ±1 and NaN outside [-1, 1], as tested on this runtime.
+Core baseline 247 → 253 passed; solution after 560 passed. Core preview.22 is
+source-only, not packaged. Inverse spans, complex shapes, independent accuracy and
+the post-change full ecosystem gate remain pending; step 1 remains partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-inverse-hyperbolic`.
+The following sections record earlier verified tranches.
+
 ## Current hyperbolic span continuation
 
 `Sinh`, `Cosh` and `Tanh` now also accept `ReadOnlySpan<T>` and `Span<T>`.

@@ -27,4 +27,29 @@ public static partial class GenericMath
     /// bit-identity guarantee. No conversion or allocation is introduced by the facade.</summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Tanh<T>(T x) where T : IHyperbolicFunctions<T> => T.Tanh(x);
+
+    /// <summary>Inverse hyperbolic sine. Real domain: all real values.
+    /// IEEE Asinh(±0)=±0, Asinh(±infinity)=±infinity, Asinh(NaN)=NaN.
+    /// Direct T.Asinh fast-profile forward: accuracy follows T, without a cross-platform
+    /// bit-identity guarantee. The facade introduces no conversion or allocation;
+    /// custom T defines its own special-value and allocation behaviour.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Asinh<T>(T x) where T : IHyperbolicFunctions<T> => T.Asinh(x);
+
+    /// <summary>Inverse hyperbolic cosine. Real domain: x ≥ 1.
+    /// IEEE Acosh(1)=positive zero, Acosh(+infinity)=+infinity;
+    /// values below one (including -infinity) and NaN produce NaN.
+    /// Direct T.Acosh fast-profile forward: accuracy follows T, without a cross-platform
+    /// bit-identity guarantee. The facade introduces no conversion or allocation;
+    /// custom T defines its own special-value and allocation behaviour.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Acosh<T>(T x) where T : IHyperbolicFunctions<T> => T.Acosh(x);
+
+    /// <summary>Inverse hyperbolic tangent. Real finite domain: -1 &lt; x &lt; 1.
+    /// IEEE Atanh(±0)=±0, Atanh(±1)=±infinity; |x| &gt; 1 and NaN produce NaN.
+    /// Direct T.Atanh fast-profile forward: accuracy follows T, without a cross-platform
+    /// bit-identity guarantee. The facade introduces no conversion or allocation;
+    /// custom T defines its own special-value and allocation behaviour.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Atanh<T>(T x) where T : IHyperbolicFunctions<T> => T.Atanh(x);
 }
