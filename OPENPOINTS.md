@@ -1,5 +1,25 @@
 # MathemaSharp — Open points
 
+## Current common-core step 2: lane kernels for reductions and scans (2026-11-02)
+
+New library `MathemaSharp.Kernels` 0.1.0-net11-preview.1 (BCL only, no dependency on Core or NDSharp; not packed, not in the feed).
+`Lane(Length, Inner, Outer)` describes how a contiguous buffer is visited: a MATLAB column-major dimension and a NumPy row-major axis
+give the same triple, so one kernel serves both. Semantic choices are parameters: `NanPolicy` (Propagate, Omit), `SumMethod` (Sequential,
+Compensated, Pairwise = `numpy.add.reduce`), `VarianceMethod` (Welford, TwoPass = NumPy), `ddof`, `ScanOp`, `ScanDirection`, the index base is left to the adapters.
+
+| Static class | Methods |
+|---|---|
+| `Reductions` | `Sum`, `SumOfSquares`, `Product`, `Mean`, `Variance`, `StandardDeviation`, `Range`, `Min`, `Max` (with 0-based indices), `Median`, `Any`, `All`, `CountNonZero` |
+| `Scans` | `Scan` (sum, product, max, min; forward or reverse), `Difference` (order n) |
+
+Tests: `tests/MathemaSharp.Kernels.Tests`, 38 cases (six floating-point formats against an independent gather, NaN/infinity/signed-zero rules, the
+pairwise algorithm checked against its textbook form for 8–128 elements and above, two-pass variance, strided lanes, empty lanes, contract violations,
+allocation-free warm calls). Consumers: the MatSharp bridge (`MatSharpLib.NDSharp`, MATLAB defaults) and `PySharpLib.Numpy` (NumPy defaults).
+Benchmarks: `benchmarks/MathemaSharp.Benchmarks/ReductionBenchmarks.cs` (see ARCHITECTURE).
+
+Not done in step 2: mode, quantile, covariance/correlation, gradient, trapezoid, histogram, a selection-based median (it sorts a copy), integer element
+types for mean/min/max/median, complex ordering, `nan*` aliases, multi-axis reductions. The kernels are not in `MathemaSharp.Core`'s namespace on purpose.
+
 ## Current independent binary power/logarithm corpus
 
 Pow and Log(x,base) now have 78 finite exact-input binary64 mpmath references,

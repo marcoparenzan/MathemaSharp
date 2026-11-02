@@ -4,6 +4,8 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
+    <ProjectReference Include="../../libs/MathemaSharp.Kernels/MathemaSharp.Kernels.csproj" />
+    <ProjectReference Include="../../../../NDSharp/src/NDSharp/NDSharp.csproj" />
     <PackageReference Include="BenchmarkDotNet" />
   </ItemGroup>
 </Project>

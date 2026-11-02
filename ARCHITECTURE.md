@@ -612,12 +612,17 @@ src/
     MathemaSharp.Quantum         finite-dimensional quantum mathematics (QUANTUM.md)
     MathemaSharp.TimeSeries      statistical foundations of forecasting + Interop (double[] facade for PySharp)
     MathemaSharp.NDSharp         NDArray <-> double[]/double[,]/Complex[] bridge
+    MathemaSharp.Kernels         lane kernels (reductions, scans, differences) shared by MatSharp and PySharp; BCL only
   apps/MathemaSharp.Lab          console with topics, Microsoft.Extensions.Hosting
   tests/MathemaSharp.*.Tests     one xUnit project per library; tests/Directory.Build.props adds xUnit
   benchmarks/               BenchmarkDotNet
 ```
 
-Dependencies: Quantum and TimeSeries depend on Core. NDSharp depends only on the NDSharp package. Core, Quantum and TimeSeries do not depend on NDSharp.
+Dependencies: Quantum and TimeSeries depend on Core. NDSharp depends only on the NDSharp package. Core, Quantum and TimeSeries do not depend on NDSharp. Kernels depends on nothing (BCL only); the MatSharp bridge and the PySharp numpy binding reference it by project.
+
+### MathemaSharp.Kernels — benchmark (2026-11-02, i7-11370H, in-process short job, 512 × 512 doubles, row-major)
+
+Kernel against the NDSharp reduction it matches (bit-identical results where SumMethod.Pairwise / VarianceMethod.TwoPass are used): sum axis 1 113 µs vs 181 µs; sum axis 0 1082 µs vs 926 µs (kernel slower, within the noise of a short job); sum all 104 vs 135 µs; variance two-pass axis 1 413 µs vs 2560 µs (NDSharp allocates 4.2 MB, the kernel 4 KB); max axis 0 694 vs 739 µs; cumsum axis 1 436 vs 664 µs (NDSharp allocates 2.1 MB, the kernel nothing). Short-job errors are large (the log has them); treat this as order of magnitude, not a ranking. `dotnet run -c Release -- --filter "*ReductionBenchmarks*" --inprocess --job short` (BenchmarkDotNet 0.15.8 does not recognise the .NET 11 runtime with its default toolchain, so `--inprocess` is needed; the existing benchmarks have the same limit).
 
 ## Numbers and NDSharp
 
