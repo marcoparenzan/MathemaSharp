@@ -1,5 +1,21 @@
 # MathemaSharp — Open points
 
+## Current binary power and arbitrary-base logarithm
+
+`Pow(x, y)` and `Log(x, newBase)` now have scalar and equal-input-length span forms.
+Weakest IPowerFunctions/ILogarithmicFunctions constraints forward dedicated BCL calls,
+without conversion or log-ratio rewrite. Six IEEE formats verify special-value matrices,
+analytic anchors, scalar/span bits, in-place on either/both inputs, pre-write length
+and overlap rejection, safe readonly overlap, unchanged tails/inputs and warmed-double
+zero managed allocations. Custom T may allocate or throw without rollback.
+Release baseline: 665 passed (Core 358); after: 672 passed (Core 365), zero failures/skips.
+Build: zero warnings/errors. Core preview.35 is source-only. Full-family gate passed
+33/33 with `--no-images`: `D:\Dev\BuildArtifacts\ecosystem-validation\20261101-235736`.
+Core/12 added only four generated binary declarations; code cells were unchanged.
+Independent accuracy, complex shapes and builtin adoption remain pending;
+common-core step 1 is partial.
+Evidence: `D:\Dev\BuildArtifacts\handoff\core-step1-binary-math`.
+
 ## Current base-two/base-ten small-argument variants
 
 `Exp2M1`, `Exp10M1`, `Log2P1` and `Log10P1` now have scalar and span forms.
