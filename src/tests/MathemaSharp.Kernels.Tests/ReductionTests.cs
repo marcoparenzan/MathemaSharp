@@ -220,6 +220,7 @@ public class ReductionTests
         Reductions.Median<double>([double.NegativeInfinity, double.PositiveInfinity], Lane.Flat(2), d); Assert.True(double.IsNaN(d[0]));
         Reductions.Median<double>([double.PositiveInfinity, double.PositiveInfinity], Lane.Flat(2), d); Assert.Equal(double.PositiveInfinity, d[0]);
         Reductions.Median<double>([double.MaxValue, double.MaxValue], Lane.Flat(2), d); Assert.Equal(double.MaxValue, d[0]);   // no overflow
+        Reductions.Median<double>([-double.MaxValue, double.MaxValue], Lane.Flat(2), d); Assert.Equal(0, d[0]);   // nor with opposite signs
     }
 
     [Fact]

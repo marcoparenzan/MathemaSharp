@@ -252,7 +252,7 @@ public static class Reductions
         }
     }
 
-    /// <summary>Median of each lane (mean of the two middle elements for an even count, computed as <c>a + (b − a)/2</c>).
+    /// <summary>Median of each lane (mean of the two middle elements for an even count, computed as <c>(a + b)/2</c> when their signs differ and <c>a + (b − a)/2</c> otherwise, so that neither form overflows).
     /// With <see cref="NanPolicy.Propagate"/> any NaN gives NaN; with Omit NaNs are dropped first; no element gives NaN.
     /// Sorts a copy of each lane (O(n log n)), not a selection.</summary>
     public static void Median<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, NanPolicy nan = NanPolicy.Propagate)
@@ -275,7 +275,7 @@ public static class Reductions
             var s = buf.AsSpan(0, n);
             s.Sort();
             T a = s[(n - 1) / 2], b = s[n / 2];
-            dst[l] = a == b ? a : a + (b - a) / two;
+            dst[l] = a == b ? a : T.IsNegative(a) != T.IsNegative(b) ? (a + b) / two : a + (b - a) / two;
         }
     }
 
