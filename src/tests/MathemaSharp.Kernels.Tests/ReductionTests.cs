@@ -141,11 +141,11 @@ public class ReductionTests
     public void InfinitiesAndSignedZero()
     {
         var d = new double[1];
-        Reductions.Sum<double>([double.PositiveInfinity, 1], Lane.Flat(2), d, compensated: true);
+        Reductions.Sum<double>([double.PositiveInfinity, 1], Lane.Flat(2), d, method: SumMethod.Compensated);
         Assert.Equal(double.PositiveInfinity, d[0]);
-        Reductions.Sum<double>([double.PositiveInfinity, double.NegativeInfinity], Lane.Flat(2), d, compensated: true);
+        Reductions.Sum<double>([double.PositiveInfinity, double.NegativeInfinity], Lane.Flat(2), d, method: SumMethod.Compensated);
         Assert.True(double.IsNaN(d[0]));
-        Reductions.Sum<double>([double.MaxValue, double.MaxValue, -double.MaxValue], Lane.Flat(3), d, compensated: true);
+        Reductions.Sum<double>([double.MaxValue, double.MaxValue, -double.MaxValue], Lane.Flat(3), d, method: SumMethod.Compensated);
         Assert.Equal(double.PositiveInfinity, d[0]);   // overflow is not hidden by compensation
         var idx = new int[1];
         Reductions.Max<double>([-0.0, 0.0], Lane.Flat(2), d, idx, NanPolicy.Propagate);
@@ -161,12 +161,12 @@ public class ReductionTests
         var d = new double[1];
         Reductions.Sum<double>(x, Lane.Flat(3), d);
         Assert.Equal(0, d[0]);
-        Reductions.Sum<double>(x, Lane.Flat(3), d, compensated: true);
+        Reductions.Sum<double>(x, Lane.Flat(3), d, method: SumMethod.Compensated);
         Assert.Equal(1, d[0]);
-        Reductions.Mean<double>(x, Lane.Flat(3), d, compensated: true);
+        Reductions.Mean<double>(x, Lane.Flat(3), d, method: SumMethod.Compensated);
         Assert.Equal(1.0 / 3, d[0]);
         var many = Enumerable.Repeat(0.1, 1_000_000).ToArray();
-        Reductions.Sum<double>(many, Lane.Flat(many.Length), d, compensated: true);
+        Reductions.Sum<double>(many, Lane.Flat(many.Length), d, method: SumMethod.Compensated);
         Assert.Equal(100000.0, d[0], 9);
     }
 

@@ -66,3 +66,26 @@ public enum ScanDirection { Forward, Reverse }
 
 /// <summary>The operation of a scan.</summary>
 public enum ScanOp { Sum, Product, Max, Min }
+
+/// <summary>How a sum is accumulated. The choice changes the last bits of floating-point results, so it is a parameter.</summary>
+public enum SumMethod
+{
+    /// <summary>Plain left to right from zero.</summary>
+    Sequential,
+    /// <summary>Neumaier's compensated summation: error independent of the length. Infinities are never compensated.</summary>
+    Compensated,
+    /// <summary>What <c>numpy.add.reduce</c> does: when the lane elements are adjacent in memory (<see cref="Lane.Inner"/> = 1) the pairwise algorithm
+    /// (blocks of eight accumulators up to 128 elements, recursive halving above, error growing with log n); otherwise plain left to right starting
+    /// from the first element. With <see cref="NanPolicy.Omit"/> NaN elements are replaced by zero first, as <c>numpy.nansum</c> does.</summary>
+    Pairwise,
+}
+
+/// <summary>How a variance is computed.</summary>
+public enum VarianceMethod
+{
+    /// <summary>One pass (Welford): stable, no temporary buffer.</summary>
+    Welford,
+    /// <summary>NumPy's algorithm: the mean (summed as <see cref="SumMethod.Pairwise"/>), then the sum of the squared deviations (same rule), divided by n − ddof.
+    /// Needs a temporary buffer of one lane.</summary>
+    TwoPass,
+}

@@ -23,28 +23,78 @@ public static class Reductions
         if (lane.Count > 0 && src.Overlaps(dst)) throw new ArgumentException("Destination must not overlap the source.", nameof(dst));
     }
 
-    /// <summary>Sum of each lane. With <paramref name="compensated"/> the lane is summed with Neumaier's compensation (error independent of the
-    /// length, exact sum rounded once for well-conditioned data); otherwise plainly left to right. Infinities are never compensated.
-    /// Integer types wrap or throw as the type's own addition does.</summary>
-    public static void Sum<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, NanPolicy nan = NanPolicy.Propagate, bool compensated = false)
+    /// <summary>Sum of each lane, accumulated as <paramref name="method"/> says (see <see cref="SumMethod"/>); zero for an empty lane.
+    /// Integer types wrap or throw as the type's own addition does; <see cref="SumMethod.Compensated"/> is meant for floating-point types.</summary>
+    public static void Sum<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, NanPolicy nan = NanPolicy.Propagate, SumMethod method = SumMethod.Sequential)
         where T : INumber<T>
     {
         Check(src, lane, dst);
-        for (int l = 0; l < lane.Count; l++)
+        T[]? scratch = null;
+        for (int l = 0; l < lane.Count; l++) dst[l] = SumLane(src, lane, lane.Start(l), nan, method, ref scratch, out _);
+    }
+
+    static T SumLane<T>(ReadOnlySpan<T> src, Lane lane, int p0, NanPolicy nan, SumMethod method, ref T[]? scratch, out int count) where T : INumber<T>
+    {
+        count = 0;
+        int p = p0;
+        if (method == SumMethod.Pairwise)
         {
-            int p = lane.Start(l);
-            T s = T.Zero, c = T.Zero;
+            if (lane.Length == 0) return T.Zero;
+            if (lane.Inner == 1 && nan == NanPolicy.Propagate) { count = lane.Length; return Pairwise(src.Slice(p0, lane.Length)); }
+            scratch ??= new T[lane.Length];
             for (int k = 0; k < lane.Length; k++, p += lane.Inner)
             {
                 T x = src[p];
-                if (nan == NanPolicy.Omit && T.IsNaN(x)) continue;
-                if (!compensated) { s += x; continue; }
-                T t = s + x;
-                if (T.IsFinite(t)) c += T.Abs(s) >= T.Abs(x) ? (s - t) + x : (x - t) + s;
-                s = t;
+                bool skip = nan == NanPolicy.Omit && T.IsNaN(x);
+                scratch[k] = skip ? T.Zero : x;
+                if (!skip) count++;
             }
-            dst[l] = compensated && T.IsFinite(s) ? s + c : s;
+            var run = scratch.AsSpan(0, lane.Length);
+            return lane.Inner == 1 ? Pairwise(run) : SequentialFromFirst(run);
         }
+        T s = T.Zero, c = T.Zero;
+        for (int k = 0; k < lane.Length; k++, p += lane.Inner)
+        {
+            T x = src[p];
+            if (nan == NanPolicy.Omit && T.IsNaN(x)) continue;
+            count++;
+            if (method == SumMethod.Sequential) { s += x; continue; }
+            T t = s + x;
+            if (T.IsFinite(t)) c += T.Abs(s) >= T.Abs(x) ? (s - t) + x : (x - t) + s;
+            s = t;
+        }
+        return method == SumMethod.Compensated && T.IsFinite(s) ? s + c : s;
+    }
+
+    static T SequentialFromFirst<T>(ReadOnlySpan<T> x) where T : INumber<T>
+    {
+        T s = x[0];
+        for (int i = 1; i < x.Length; i++) s += x[i];
+        return s;
+    }
+
+    /// <summary>NumPy's pairwise summation of a contiguous run (n ≥ 1): below 8 elements plain; up to 128 eight interleaved accumulators
+    /// combined as ((r0+r1)+(r2+r3))+((r4+r5)+(r6+r7)); above, two halves, the first one a multiple of 8 long.</summary>
+    static T Pairwise<T>(ReadOnlySpan<T> x) where T : INumber<T>
+    {
+        int n = x.Length;
+        if (n < 8) return SequentialFromFirst(x);
+        if (n <= 128)
+        {
+            T r0 = x[0], r1 = x[1], r2 = x[2], r3 = x[3], r4 = x[4], r5 = x[5], r6 = x[6], r7 = x[7];
+            int i = 8;
+            for (; i < n - (n % 8); i += 8)
+            {
+                r0 += x[i]; r1 += x[i + 1]; r2 += x[i + 2]; r3 += x[i + 3];
+                r4 += x[i + 4]; r5 += x[i + 5]; r6 += x[i + 6]; r7 += x[i + 7];
+            }
+            T res = ((r0 + r1) + (r2 + r3)) + ((r4 + r5) + (r6 + r7));
+            for (; i < n; i++) res += x[i];
+            return res;
+        }
+        int n2 = n / 2;
+        n2 -= n2 % 8;
+        return Pairwise(x[..n2]) + Pairwise(x[n2..]);
     }
 
     /// <summary>Sum of squares of each lane (MATLAB <c>sumsq</c>), plain left to right.</summary>
@@ -85,46 +135,56 @@ public static class Reductions
         }
     }
 
-    /// <summary>Arithmetic mean of each lane: the sum of the retained elements divided by their count; NaN when none is retained.</summary>
-    public static void Mean<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, NanPolicy nan = NanPolicy.Propagate, bool compensated = false)
+    /// <summary>Arithmetic mean of each lane: the sum of the retained elements (accumulated as <paramref name="method"/>) divided by their count; NaN when none is retained.</summary>
+    public static void Mean<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, NanPolicy nan = NanPolicy.Propagate, SumMethod method = SumMethod.Sequential)
         where T : IFloatingPointIeee754<T>
     {
         Check(src, lane, dst);
+        T[]? scratch = null;
         for (int l = 0; l < lane.Count; l++)
         {
-            int p = lane.Start(l), n = 0;
-            T s = T.Zero, c = T.Zero;
-            for (int k = 0; k < lane.Length; k++, p += lane.Inner)
-            {
-                T x = src[p];
-                if (nan == NanPolicy.Omit && T.IsNaN(x)) continue;
-                n++;
-                if (!compensated) { s += x; continue; }
-                T t = s + x;
-                if (T.IsFinite(t)) c += T.Abs(s) >= T.Abs(x) ? (s - t) + x : (x - t) + s;
-                s = t;
-            }
-            if (n == 0) { dst[l] = T.NaN; continue; }
-            dst[l] = (compensated && T.IsFinite(s) ? s + c : s) / T.CreateChecked(n);
+            T s = SumLane(src, lane, lane.Start(l), nan, method, ref scratch, out int n);
+            dst[l] = n == 0 ? T.NaN : s / T.CreateChecked(n);
         }
     }
 
     /// <summary>Variance of each lane in one pass (Welford), dividing by <c>n − ddof</c> where n is the number of retained elements.
     /// NaN when <c>n − ddof ≤ 0</c>. <paramref name="ddof"/> = 1 is MATLAB's default (<c>w = 0</c>), 0 is NumPy's default and MATLAB's <c>w = 1</c>.
     /// MATLAB's rule that the variance of a scalar is 0 is an adapter concern.</summary>
-    public static void Variance<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, int ddof, NanPolicy nan = NanPolicy.Propagate)
-        where T : IFloatingPointIeee754<T>
+    public static void Variance<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, int ddof, NanPolicy nan = NanPolicy.Propagate,
+        VarianceMethod method = VarianceMethod.Welford) where T : IFloatingPointIeee754<T>
     {
         if (ddof < 0) throw new ArgumentOutOfRangeException(nameof(ddof));
         Check(src, lane, dst);
-        for (int l = 0; l < lane.Count; l++) dst[l] = VarianceLane(src, lane, l, ddof, nan);
+        T[]? scratch = null, deviations = null;
+        for (int l = 0; l < lane.Count; l++)
+            dst[l] = method == VarianceMethod.Welford ? VarianceLane(src, lane, l, ddof, nan) : TwoPassLane(src, lane, l, ddof, nan, ref scratch, ref deviations);
+    }
+
+    static T TwoPassLane<T>(ReadOnlySpan<T> src, Lane lane, int l, int ddof, NanPolicy nan, ref T[]? scratch, ref T[]? deviations) where T : IFloatingPointIeee754<T>
+    {
+        int p0 = lane.Start(l);
+        T sum = SumLane(src, lane, p0, nan, SumMethod.Pairwise, ref scratch, out int n);
+        if (n - ddof <= 0) return T.NaN;
+        T mean = sum / T.CreateChecked(n);
+        deviations ??= new T[lane.Length];
+        for (int k = 0, p = p0; k < lane.Length; k++, p += lane.Inner)
+        {
+            T x = src[p];
+            T d = x - mean;
+            deviations[k] = nan == NanPolicy.Omit && T.IsNaN(x) ? T.Zero : d * d;
+        }
+        // The squared deviations form a new contiguous array of the same shape: adjacent elements exactly when the lane was.
+        var dev = deviations.AsSpan(0, lane.Length);
+        T total = lane.Inner == 1 ? Pairwise(dev) : SequentialFromFirst(dev);
+        return total / T.CreateChecked(n - ddof);
     }
 
     /// <summary>Standard deviation of each lane: the square root of <see cref="Variance{T}"/>.</summary>
-    public static void StandardDeviation<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, int ddof, NanPolicy nan = NanPolicy.Propagate)
-        where T : IFloatingPointIeee754<T>
+    public static void StandardDeviation<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, int ddof, NanPolicy nan = NanPolicy.Propagate,
+        VarianceMethod method = VarianceMethod.Welford) where T : IFloatingPointIeee754<T>
     {
-        Variance(src, lane, dst, ddof, nan);
+        Variance(src, lane, dst, ddof, nan, method);
         for (int l = 0; l < lane.Count; l++) dst[l] = T.Sqrt(dst[l]);
     }
 
