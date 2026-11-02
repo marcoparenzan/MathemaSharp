@@ -1,5 +1,22 @@
 # MàthemaSharp — roadmap
 
+## Current independent binary power/logarithm corpus
+
+Pow and Log(x,base) now have 78 finite exact-input binary64 mpmath references,
+with rounding stable at 160/200 digits and two byte-identical regenerations.
+Measured maxima: Pow 0 ULP, LogBase 1 ULP in the ordered-bit metric (including
+signed-zero distinction). Mathematical zero is canonical +0 in this oracle;
+signed-zero BCL contracts remain tested separately. Acceptance stays 1 ULP.
+Run `dotnet run --file ops/VerifyTrigOracle.cs -- --binary` from MathemaSharp;
+external pinned mpmath prerequisite is unchanged. Default trig mode was rerun,
+with all 110 references unchanged and still passing. No production API change.
+Release baseline: 672 passed (Core 365); after: 674 passed (Core 367), zero failures/skips;
+build zero warnings/errors. Full post-change gate passed 33/33 with `--no-images`:
+`D:\Dev\BuildArtifacts\ecosystem-validation\20261102-001532`. No notebook output changed.
+Independent evidence remains sampled/current-platform, not universal correct rounding.
+Evidence: `D:\Dev\BuildArtifacts\validation\binary-oracle\report.json` and
+`D:\Dev\BuildArtifacts\handoff\core-step1-binary-oracle`.
+
 ## Current binary power and arbitrary-base logarithm
 
 `Pow(x, y)` and `Log(x, newBase)` now have scalar and equal-input-length span forms.

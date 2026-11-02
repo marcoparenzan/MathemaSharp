@@ -6,8 +6,11 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using MathemaSharp;
 
-const string fixture = "src/tests/MathemaSharp.Core.Tests/Fixtures/double-trig-oracle.json";
-var output = @"D:\Dev\BuildArtifacts\validation\trig-oracle";
+if (args.Length > 1 || (args.Length == 1 && args[0] != "--binary"))
+    throw new ArgumentException("Expected no arguments or --binary.");
+bool binary = args.Length == 1;
+string fixture = binary ? "src/tests/MathemaSharp.Core.Tests/Fixtures/double-binary-oracle.json" : "src/tests/MathemaSharp.Core.Tests/Fixtures/double-trig-oracle.json";
+var output = binary ? @"D:\Dev\BuildArtifacts\validation\binary-oracle" : @"D:\Dev\BuildArtifacts\validation\trig-oracle";
 Directory.CreateDirectory(output);
 int exit = 1;
 try
@@ -16,7 +19,7 @@ try
     for (int i = 0; i < 2; i++)
     {
         var start = new ProcessStartInfo("python") { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
-        start.ArgumentList.Add("ops/GenerateTrigOracle.py");
+        start.ArgumentList.Add(binary ? "ops/GenerateBinaryOracle.py" : "ops/GenerateTrigOracle.py");
         using var process = Process.Start(start)!;
         var stdout = process.StandardOutput.ReadToEndAsync(); var stderr = process.StandardError.ReadToEndAsync();
         await process.WaitForExitAsync(); Console.Write(await stdout + await stderr);
@@ -39,6 +42,8 @@ try
             "Sin" => GenericMath.Sin(x), "Cos" => GenericMath.Cos(x), "Tan" => GenericMath.Tan(x),
             "Asin" => GenericMath.Asin(x), "Acos" => GenericMath.Acos(x), "Atan" => GenericMath.Atan(x),
             "Atan2" => GenericMath.Atan2(x, BitConverter.UInt64BitsToDouble(bits[1])),
+            "Pow" => GenericMath.Pow(x, BitConverter.UInt64BitsToDouble(bits[1])),
+            "LogBase" => GenericMath.Log(x, BitConverter.UInt64BitsToDouble(bits[1])),
             _ => throw new Exception("Unknown function")
         };
         var expected = Convert.ToUInt64(sample.GetProperty("expectedBits").GetString(), 16);

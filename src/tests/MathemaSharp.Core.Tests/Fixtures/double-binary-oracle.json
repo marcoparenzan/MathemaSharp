@@ -1,0 +1,639 @@
+{
+  "generator": "ops/GenerateBinaryOracle.py",
+  "reference": "mpmath",
+  "referenceVersion": "1.3.0",
+  "referenceModuleSha256": "b241584d2c1fc0304b0a1015ea923749d7b0800411dd406dcab7c82bf25d9fe8",
+  "pythonVersion": "3.11.7",
+  "precisions": [
+    160,
+    200
+  ],
+  "acceptanceMaxUlp": 1,
+  "scope": "Finite real-domain binary64 samples; no universal or platform guarantee.",
+  "cases": [
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fd0000000000000",
+        "c008000000000000"
+      ],
+      "expectedBits": "4050000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fd0000000000000",
+        "bff0000000000000"
+      ],
+      "expectedBits": "4010000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fd0000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3fe0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fd0000000000000",
+        "3ff0000000000000"
+      ],
+      "expectedBits": "3fd0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fd0000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "3fb0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fd0000000000000",
+        "4008000000000000"
+      ],
+      "expectedBits": "3f90000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fe0000000000000",
+        "c008000000000000"
+      ],
+      "expectedBits": "4020000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fe0000000000000",
+        "bff0000000000000"
+      ],
+      "expectedBits": "4000000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fe0000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3fe6a09e667f3bcd"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fe0000000000000",
+        "3ff0000000000000"
+      ],
+      "expectedBits": "3fe0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fe0000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "3fd0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3fe0000000000000",
+        "4008000000000000"
+      ],
+      "expectedBits": "3fc0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3ff0000000000000",
+        "c008000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3ff0000000000000",
+        "bff0000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3ff0000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3ff0000000000000",
+        "3ff0000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3ff0000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "3ff0000000000000",
+        "4008000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4000000000000000",
+        "c008000000000000"
+      ],
+      "expectedBits": "3fc0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4000000000000000",
+        "bff0000000000000"
+      ],
+      "expectedBits": "3fe0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4000000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3ff6a09e667f3bcd"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4000000000000000",
+        "3ff0000000000000"
+      ],
+      "expectedBits": "4000000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4000000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "4010000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4000000000000000",
+        "4008000000000000"
+      ],
+      "expectedBits": "4020000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4024000000000000",
+        "c008000000000000"
+      ],
+      "expectedBits": "3f50624dd2f1a9fc"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4024000000000000",
+        "bff0000000000000"
+      ],
+      "expectedBits": "3fb999999999999a"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4024000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "40094c583ada5b53"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4024000000000000",
+        "3ff0000000000000"
+      ],
+      "expectedBits": "4024000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4024000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "4059000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4024000000000000",
+        "4008000000000000"
+      ],
+      "expectedBits": "408f400000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4059000000000000",
+        "c008000000000000"
+      ],
+      "expectedBits": "3eb0c6f7a0b5ed8d"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4059000000000000",
+        "bff0000000000000"
+      ],
+      "expectedBits": "3f847ae147ae147b"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4059000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "4024000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4059000000000000",
+        "3ff0000000000000"
+      ],
+      "expectedBits": "4059000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4059000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "40c3880000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "4059000000000000",
+        "4008000000000000"
+      ],
+      "expectedBits": "412e848000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c000000000000000",
+        "c008000000000000"
+      ],
+      "expectedBits": "bfc0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c000000000000000",
+        "bff0000000000000"
+      ],
+      "expectedBits": "bfe0000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c000000000000000",
+        "3ff0000000000000"
+      ],
+      "expectedBits": "c000000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c000000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "4010000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c000000000000000",
+        "4008000000000000"
+      ],
+      "expectedBits": "c020000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c024000000000000",
+        "c008000000000000"
+      ],
+      "expectedBits": "bf50624dd2f1a9fc"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c024000000000000",
+        "bff0000000000000"
+      ],
+      "expectedBits": "bfb999999999999a"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c024000000000000",
+        "3ff0000000000000"
+      ],
+      "expectedBits": "c024000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c024000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "4059000000000000"
+    },
+    {
+      "function": "Pow",
+      "inputBits": [
+        "c024000000000000",
+        "4008000000000000"
+      ],
+      "expectedBits": "c08f400000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3fd0000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "4000000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3fd0000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "c000000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3fd0000000000000",
+        "4010000000000000"
+      ],
+      "expectedBits": "bff0000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3fd0000000000000",
+        "4024000000000000"
+      ],
+      "expectedBits": "bfe34413509f79ff"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3fe0000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3fe0000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "bff0000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3fe0000000000000",
+        "4010000000000000"
+      ],
+      "expectedBits": "bfe0000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3fe0000000000000",
+        "4024000000000000"
+      ],
+      "expectedBits": "bfd34413509f79ff"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3ff0000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "0000000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3ff0000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "0000000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3ff0000000000000",
+        "4010000000000000"
+      ],
+      "expectedBits": "0000000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "3ff0000000000000",
+        "4024000000000000"
+      ],
+      "expectedBits": "0000000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4000000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "bff0000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4000000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4000000000000000",
+        "4010000000000000"
+      ],
+      "expectedBits": "3fe0000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4000000000000000",
+        "4024000000000000"
+      ],
+      "expectedBits": "3fd34413509f79ff"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4010000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "c000000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4010000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "4000000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4010000000000000",
+        "4010000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4010000000000000",
+        "4024000000000000"
+      ],
+      "expectedBits": "3fe34413509f79ff"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4024000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "c00a934f0979a371"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4024000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "400a934f0979a371"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4024000000000000",
+        "4010000000000000"
+      ],
+      "expectedBits": "3ffa934f0979a371"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4024000000000000",
+        "4024000000000000"
+      ],
+      "expectedBits": "3ff0000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4059000000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "c01a934f0979a371"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4059000000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "401a934f0979a371"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4059000000000000",
+        "4010000000000000"
+      ],
+      "expectedBits": "400a934f0979a371"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "4059000000000000",
+        "4024000000000000"
+      ],
+      "expectedBits": "4000000000000000"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "408f400000000000",
+        "3fe0000000000000"
+      ],
+      "expectedBits": "c023ee7b471b3a95"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "408f400000000000",
+        "4000000000000000"
+      ],
+      "expectedBits": "4023ee7b471b3a95"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "408f400000000000",
+        "4010000000000000"
+      ],
+      "expectedBits": "4013ee7b471b3a95"
+    },
+    {
+      "function": "LogBase",
+      "inputBits": [
+        "408f400000000000",
+        "4024000000000000"
+      ],
+      "expectedBits": "4008000000000000"
+    }
+  ]
+}
