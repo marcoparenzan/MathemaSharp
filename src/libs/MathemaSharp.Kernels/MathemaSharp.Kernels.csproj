@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Lane kernels over contiguous buffers, generic over INumber / IFloatingPointIeee754 (float, double, Half, Decimal32/64/128): reductions, scans and differences with explicit NaN, normalisation and tie policies. BCL only; shared by the MatSharp and PySharp adapters.</Description>
+    <Version>0.1.0-net11-preview.1</Version>
+  </PropertyGroup>
+</Project>
