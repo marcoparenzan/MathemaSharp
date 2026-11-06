@@ -518,3 +518,7 @@ of generative AI, with the aim of the greatest respect for the rights of the own
 
 ### Geometry (source preview)
 `src/libs/MathemaSharp.Geometry` provides generic 2-D and 3-D vectors. This is the first slice of GEOMETRY-PLAN.md, not the complete library.
+
+## Geometry — Matrix3 implementation
+Matrix3<T> adds row-major storage with column-vector transforms (A*B applies B first), identity, translation, rotation, scale, composition, transpose, determinant, inverse and point/direction transforms. Nonfinite or singular inverses and invalid homogeneous coordinates throw InvalidOperationException; directions require affine matrices. Inverse is not a conditioning guarantee. Geometry source version is preview.2.
+Release geometry baseline 5/5; first new run 9 passed/1 failed (Half inverse rounding), corrected without changing tolerance; rerun 10/10. Release solution build: zero warnings/errors; solution tests: 867 passed, zero skipped/failed. Phase 1 still needs Matrix4 and Quaternion; phases 2–5 pending; phase 6 excluded. No consumer migration, publication, rendering or ecosystem gate. Extreme conditioning/scaled inverse paths need additional tests.

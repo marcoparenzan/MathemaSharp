@@ -1030,3 +1030,12 @@ var v = new Vector2<double>(3, 4);
 var unit = v.Normalize(); // length 1
 ```
 Angles are unsigned radians; zero/nonfinite normalization throws ArgumentException. Projection and angles reject zero reference vectors.
+
+### Matrix3 source preview
+Installation: ProjectReference to MathemaSharp.Geometry.csproj, no published package.
+```csharp
+var m = Matrix3<double>.Translation(4, 5) * Matrix3<double>.Scale(2, 3);
+var p = m.TransformPoint(new Vector2<double>(2, 3)); // (8, 14)
+var original = m.Inverse().TransformPoint(p);
+```
+Matrices act on column vectors; transform composition applies the right-hand matrix first.

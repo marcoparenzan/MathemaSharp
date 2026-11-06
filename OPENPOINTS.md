@@ -342,3 +342,7 @@ the history is [CHANGELOG.md](CHANGELOG.md).
 
 ### Geometry remaining work
 Phase 1 vectors implemented only. Matrices and quaternions, shape/intersection algorithms, fingerprinted PlotSharp and NDSharp migrations remain pending. No rendering, Release run, ecosystem gate or narrow-format extremes were verified in this slice.
+
+## Geometry — Matrix3 implementation
+Matrix3<T> adds row-major storage with column-vector transforms (A*B applies B first), identity, translation, rotation, scale, composition, transpose, determinant, inverse and point/direction transforms. Nonfinite or singular inverses and invalid homogeneous coordinates throw InvalidOperationException; directions require affine matrices. Inverse is not a conditioning guarantee. Geometry source version is preview.2.
+Release geometry baseline 5/5; first new run 9 passed/1 failed (Half inverse rounding), corrected without changing tolerance; rerun 10/10. Release solution build: zero warnings/errors; solution tests: 867 passed, zero skipped/failed. Phase 1 still needs Matrix4 and Quaternion; phases 2–5 pending; phase 6 excluded. No consumer migration, publication, rendering or ecosystem gate. Extreme conditioning/scaled inverse paths need additional tests.
