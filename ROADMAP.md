@@ -18,7 +18,7 @@ pairwise algorithm checked against its textbook form for 8–128 elements and ab
 allocation-free warm calls). Consumers: the MatSharp bridge (`MatSharpLib.NDSharp`, MATLAB defaults) and `PySharpLib.Numpy` (NumPy defaults).
 Benchmarks: `benchmarks/MathemaSharp.Benchmarks/ReductionBenchmarks.cs` (see ARCHITECTURE).
 
-2026-11-06, later: `Max`, `Min` and `Scan` accept any `INumber` (integers); `SumMethod.SequentialFromFirst` (numpy along a strided axis); `Variance`/`StandardDeviation` take separate sum methods for the mean and the squared deviations. NDSharp now runs its nine reductions and scans, `median`, `percentile` and `quantile` on them. `Median` has `MedianAverage` (OverflowSafe for MATLAB, Mean for NumPy). Kernel tests: 90. `GradientScheme` (SecondOrder for NumPy, Central for MATLAB/Octave) picks the formula over non-uniform positions.
+2026-11-06, later: `Max`, `Min` and `Scan` accept any `INumber` (integers); `SumMethod.SequentialFromFirst` (numpy along a strided axis); `Variance`/`StandardDeviation` take separate sum methods for the mean and the squared deviations. NDSharp now runs its nine reductions and scans, `median`, `percentile` and `quantile` on them. `Median` has `MedianAverage` (OverflowSafe for MATLAB, Mean for NumPy). Kernel tests: 90. NDSharp runs the whole `nan*` family on them (`NanPolicy.Omit`). `GradientScheme` (SecondOrder for NumPy, Central for MATLAB/Octave) picks the formula over non-uniform positions.
 
 `Statistics` tests (37 cases): each quantile method against values worked out by hand from its definition, ends equal to min and max, lane layouts
 (probability-major output), NaN policies, `Decimal128` and `float`, histogram edge cases, trapezoid and gradient against closed forms. Not verified: agreement of every
