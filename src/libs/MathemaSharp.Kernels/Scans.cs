@@ -13,7 +13,7 @@ public static class Scans
     /// skipped: their output position repeats the running value (the identity 0 or 1 for sum/product; NaN for max/min until a first non-NaN
     /// element). The Omit behaviour for scans is not verified against MATLAB's <c>'omitnan'</c>.</summary>
     public static void Scan<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, ScanOp op, ScanDirection direction = ScanDirection.Forward,
-        NanPolicy nan = NanPolicy.Propagate) where T : IFloatingPointIeee754<T>
+        NanPolicy nan = NanPolicy.Propagate) where T : INumber<T>
     {
         lane.CheckSource(src.Length, nameof(src));
         if (dst.Length < lane.Total) throw new ArgumentException("Destination is shorter than the lane layout.", nameof(dst));
@@ -23,7 +23,7 @@ public static class Scans
         for (int l = 0; l < lane.Count; l++)
         {
             int p0 = lane.Start(l);
-            T acc = T.NaN;
+            T acc = default!;
             bool have = false, sticky = false;
             for (int j = 0; j < lane.Length; j++)
             {
@@ -50,11 +50,11 @@ public static class Scans
         }
     }
 
-    static T Identity<T>(ScanOp op) where T : IFloatingPointIeee754<T> => op switch
+    static T Identity<T>(ScanOp op) where T : INumber<T> => op switch
     {
         ScanOp.Sum => T.Zero,
         ScanOp.Product => T.One,
-        _ => T.NaN,
+        _ => Reductions.Nan<T>(),
     };
 
     /// <summary>Order-<paramref name="order"/> forward difference along each lane: <c>x[k+1] − x[k]</c> applied <paramref name="order"/> times.

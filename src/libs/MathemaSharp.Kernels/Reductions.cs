@@ -37,10 +37,10 @@ public static class Reductions
     {
         count = 0;
         int p = p0;
-        if (method == SumMethod.Pairwise)
+        if (method is SumMethod.Pairwise or SumMethod.SequentialFromFirst)
         {
             if (lane.Length == 0) return T.Zero;
-            if (lane.Inner == 1 && nan == NanPolicy.Propagate) { count = lane.Length; return Pairwise(src.Slice(p0, lane.Length)); }
+            if (lane.Inner == 1 && nan == NanPolicy.Propagate && method == SumMethod.Pairwise) { count = lane.Length; return Pairwise(src.Slice(p0, lane.Length)); }
             scratch ??= new T[lane.Length];
             for (int k = 0; k < lane.Length; k++, p += lane.Inner)
             {
@@ -50,7 +50,7 @@ public static class Reductions
                 if (!skip) count++;
             }
             var run = scratch.AsSpan(0, lane.Length);
-            return lane.Inner == 1 ? Pairwise(run) : SequentialFromFirst(run);
+            return lane.Inner == 1 && method == SumMethod.Pairwise ? Pairwise(run) : SequentialFromFirst(run);
         }
         T s = T.Zero, c = T.Zero;
         for (int k = 0; k < lane.Length; k++, p += lane.Inner)
@@ -151,20 +151,25 @@ public static class Reductions
     /// <summary>Variance of each lane in one pass (Welford), dividing by <c>n − ddof</c> where n is the number of retained elements.
     /// NaN when <c>n − ddof ≤ 0</c>. <paramref name="ddof"/> = 1 is MATLAB's default (<c>w = 0</c>), 0 is NumPy's default and MATLAB's <c>w = 1</c>.
     /// MATLAB's rule that the variance of a scalar is 0 is an adapter concern.</summary>
+    /// <remarks>For <see cref="VarianceMethod.TwoPass"/>, <paramref name="meanSum"/> says how the mean is summed and <paramref name="deviationSum"/>
+    /// how the squared deviations are (null: the same). They differ when the squared deviations, a new contiguous array, are laid out differently from
+    /// the source, as NumPy's are for a source with an unusual layout. <see cref="SumMethod.Compensated"/> and Sequential are not used by NumPy and are
+    /// accepted only for the mean and the deviations alike. Ignored by Welford.</remarks>
     public static void Variance<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, int ddof, NanPolicy nan = NanPolicy.Propagate,
-        VarianceMethod method = VarianceMethod.Welford) where T : IFloatingPointIeee754<T>
+        VarianceMethod method = VarianceMethod.Welford, SumMethod meanSum = SumMethod.Pairwise, SumMethod? deviationSum = null) where T : IFloatingPointIeee754<T>
     {
         if (ddof < 0) throw new ArgumentOutOfRangeException(nameof(ddof));
         Check(src, lane, dst);
         T[]? scratch = null, deviations = null;
+        var devMethod = deviationSum ?? meanSum;
         for (int l = 0; l < lane.Count; l++)
-            dst[l] = method == VarianceMethod.Welford ? VarianceLane(src, lane, l, ddof, nan) : TwoPassLane(src, lane, l, ddof, nan, ref scratch, ref deviations);
+            dst[l] = method == VarianceMethod.Welford ? VarianceLane(src, lane, l, ddof, nan) : TwoPassLane(src, lane, l, ddof, nan, meanSum, devMethod, ref scratch, ref deviations);
     }
 
-    static T TwoPassLane<T>(ReadOnlySpan<T> src, Lane lane, int l, int ddof, NanPolicy nan, ref T[]? scratch, ref T[]? deviations) where T : IFloatingPointIeee754<T>
+    static T TwoPassLane<T>(ReadOnlySpan<T> src, Lane lane, int l, int ddof, NanPolicy nan, SumMethod meanSum, SumMethod devSum, ref T[]? scratch, ref T[]? deviations) where T : IFloatingPointIeee754<T>
     {
         int p0 = lane.Start(l);
-        T sum = SumLane(src, lane, p0, nan, SumMethod.Pairwise, ref scratch, out int n);
+        T sum = SumLane(src, lane, p0, nan, meanSum, ref scratch, out int n);
         if (n - ddof <= 0) return T.NaN;
         T mean = sum / T.CreateChecked(n);
         deviations ??= new T[lane.Length];
@@ -174,17 +179,22 @@ public static class Reductions
             T d = x - mean;
             deviations[k] = nan == NanPolicy.Omit && T.IsNaN(x) ? T.Zero : d * d;
         }
-        // The squared deviations form a new contiguous array of the same shape: adjacent elements exactly when the lane was.
+        // The squared deviations form a new contiguous array of the same shape: adjacent elements exactly when the lane was (default rule).
         var dev = deviations.AsSpan(0, lane.Length);
-        T total = lane.Inner == 1 ? Pairwise(dev) : SequentialFromFirst(dev);
+        T total = devSum switch
+        {
+            SumMethod.Pairwise => lane.Inner == 1 ? Pairwise(dev) : SequentialFromFirst(dev),
+            SumMethod.SequentialFromFirst => SequentialFromFirst(dev),
+            _ => SumLane(dev, Lane.Flat(dev.Length), 0, NanPolicy.Propagate, devSum, ref scratch, out _),
+        };
         return total / T.CreateChecked(n - ddof);
     }
 
     /// <summary>Standard deviation of each lane: the square root of <see cref="Variance{T}"/>.</summary>
     public static void StandardDeviation<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, int ddof, NanPolicy nan = NanPolicy.Propagate,
-        VarianceMethod method = VarianceMethod.Welford) where T : IFloatingPointIeee754<T>
+        VarianceMethod method = VarianceMethod.Welford, SumMethod meanSum = SumMethod.Pairwise, SumMethod? deviationSum = null) where T : IFloatingPointIeee754<T>
     {
-        Variance(src, lane, dst, ddof, nan, method);
+        Variance(src, lane, dst, ddof, nan, method, meanSum, deviationSum);
         for (int l = 0; l < lane.Count; l++) dst[l] = T.Sqrt(dst[l]);
     }
 
@@ -221,14 +231,14 @@ public static class Reductions
     /// with <see cref="NanPolicy.Omit"/> NaN is ignored and a lane of only NaN gives NaN at index 0. The adapter adds the language's index base.
     /// Complex ordering is not handled here. Throws for a zero-length lane.</summary>
     public static void Max<T>(ReadOnlySpan<T> src, Lane lane, Span<T> values, Span<int> indices, NanPolicy nan)
-        where T : IFloatingPointIeee754<T> => Extremum(src, lane, values, indices, nan, max: true);
+        where T : INumber<T> => Extremum(src, lane, values, indices, nan, max: true);
 
     /// <summary>Smallest element of each lane; see <see cref="Max{T}"/> for ties, NaN and indices.</summary>
     public static void Min<T>(ReadOnlySpan<T> src, Lane lane, Span<T> values, Span<int> indices, NanPolicy nan)
-        where T : IFloatingPointIeee754<T> => Extremum(src, lane, values, indices, nan, max: false);
+        where T : INumber<T> => Extremum(src, lane, values, indices, nan, max: false);
 
     static void Extremum<T>(ReadOnlySpan<T> src, Lane lane, Span<T> values, Span<int> indices, NanPolicy nan, bool max)
-        where T : IFloatingPointIeee754<T>
+        where T : INumber<T>
     {
         Check(src, lane, values);
         if (indices.Length != 0 && indices.Length < lane.Count) throw new ArgumentException("Indices must be empty or hold one entry per lane.", nameof(indices));
@@ -236,7 +246,7 @@ public static class Reductions
         for (int l = 0; l < lane.Count; l++)
         {
             int p = lane.Start(l), best = -1;
-            T v = T.NaN;
+            T v = default!;
             for (int k = 0; k < lane.Length; k++, p += lane.Inner)
             {
                 T x = src[p];
@@ -247,7 +257,7 @@ public static class Reductions
                 }
                 if (best < 0 || (max ? x > v : x < v)) { v = x; best = k; }
             }
-            values[l] = v;
+            values[l] = best < 0 ? Nan<T>() : v;
             if (indices.Length != 0) indices[l] = Math.Max(best, 0);
         }
     }
@@ -255,7 +265,7 @@ public static class Reductions
     /// <summary>Median of each lane (mean of the two middle elements for an even count, computed as <c>(a + b)/2</c> when their signs differ and <c>a + (b − a)/2</c> otherwise, so that neither form overflows).
     /// With <see cref="NanPolicy.Propagate"/> any NaN gives NaN; with Omit NaNs are dropped first; no element gives NaN.
     /// Sorts a copy of each lane (O(n log n)), not a selection.</summary>
-    public static void Median<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, NanPolicy nan = NanPolicy.Propagate)
+    public static void Median<T>(ReadOnlySpan<T> src, Lane lane, Span<T> dst, NanPolicy nan = NanPolicy.Propagate, MedianAverage average = MedianAverage.OverflowSafe)
         where T : IFloatingPointIeee754<T>
     {
         Check(src, lane, dst);
@@ -275,7 +285,8 @@ public static class Reductions
             var s = buf.AsSpan(0, n);
             s.Sort();
             T a = s[(n - 1) / 2], b = s[n / 2];
-            dst[l] = a == b ? a : T.IsNegative(a) != T.IsNegative(b) ? (a + b) / two : a + (b - a) / two;
+            if (average == MedianAverage.Mean && n % 2 == 0) dst[l] = (a + b) / two;   // NumPy: the mean of the two middle values, which can overflow to infinity
+            else dst[l] = a == b ? a : T.IsNegative(a) != T.IsNegative(b) ? (a + b) / two : a + (b - a) / two;
         }
     }
 
@@ -318,4 +329,8 @@ public static class Reductions
     }
 
     static bool NonZero<T>(T x, bool nanIsNonZero) where T : INumberBase<T> => T.IsNaN(x) ? nanIsNonZero : x != T.Zero;
+
+    /// <summary>NaN of a floating-point type, for the paths that only floating-point lanes can reach (a lane of only NaN under <see cref="NanPolicy.Omit"/>).
+    /// Integer types never take them: they have no NaN.</summary>
+    internal static T Nan<T>() where T : INumber<T> => T.CreateSaturating(double.NaN);
 }

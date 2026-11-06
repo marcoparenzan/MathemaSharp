@@ -61,6 +61,15 @@ public enum NanPolicy
     Omit,
 }
 
+/// <summary>How the two middle values of an even-length lane are averaged by <see cref="Reductions.Median{T}"/>.</summary>
+public enum MedianAverage
+{
+    /// <summary>Written so that neither form overflows: <c>(a + b)/2</c> when the signs differ, <c>a + (b − a)/2</c> otherwise. MATLAB and Octave give a finite median for two huge values.</summary>
+    OverflowSafe,
+    /// <summary><c>(a + b)/2</c> always, as NumPy's <c>median</c> (the mean of the two middle values): two values near the largest finite number give infinity.</summary>
+    Mean,
+}
+
 /// <summary>Direction in which a scan accumulates.</summary>
 public enum ScanDirection { Forward, Reverse }
 
@@ -78,6 +87,9 @@ public enum SumMethod
     /// (blocks of eight accumulators up to 128 elements, recursive halving above, error growing with log n); otherwise plain left to right starting
     /// from the first element. With <see cref="NanPolicy.Omit"/> NaN elements are replaced by zero first, as <c>numpy.nansum</c> does.</summary>
     Pairwise,
+    /// <summary>What <c>numpy.add.reduce</c> does along an axis whose elements are not adjacent in memory: left to right starting from the first element
+    /// (not from zero, which differs for a lane of negative zeros), whatever the layout. Same NaN rule as <see cref="Pairwise"/>.</summary>
+    SequentialFromFirst,
 }
 
 /// <summary>How a variance is computed.</summary>

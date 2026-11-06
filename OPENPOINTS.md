@@ -2,7 +2,7 @@
 
 ## Current common-core step 2: lane kernels for reductions and scans (2026-11-02)
 
-New library `MathemaSharp.Kernels` 0.1.0-net11-preview.1 (BCL only, no dependency on Core or NDSharp; not packed, not in the feed).
+New library `MathemaSharp.Kernels` 0.1.0-net11-preview.2 (BCL only, no dependency on Core or NDSharp; not packed, not in the feed).
 `Lane(Length, Inner, Outer)` describes how a contiguous buffer is visited: a MATLAB column-major dimension and a NumPy row-major axis
 give the same triple, so one kernel serves both. Semantic choices are parameters: `NanPolicy` (Propagate, Omit), `SumMethod` (Sequential,
 Compensated, Pairwise = `numpy.add.reduce`), `VarianceMethod` (Welford, TwoPass = NumPy), `ddof`, `ScanOp`, `ScanDirection`, the index base is left to the adapters.

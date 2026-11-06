@@ -612,7 +612,7 @@ src/
     MathemaSharp.Quantum         finite-dimensional quantum mathematics (QUANTUM.md)
     MathemaSharp.TimeSeries      statistical foundations of forecasting + Interop (double[] facade for PySharp)
     MathemaSharp.NDSharp         NDArray <-> double[]/double[,]/Complex[] bridge
-    MathemaSharp.Kernels         lane kernels (reductions, scans, differences) shared by MatSharp and PySharp; BCL only
+    MathemaSharp.Kernels         lane kernels (reductions, scans, differences, quantiles, mode, histogram, trapezoid, gradient) shared by MatSharp and PySharp; BCL only
   apps/MathemaSharp.Lab          console with topics, Microsoft.Extensions.Hosting
   tests/MathemaSharp.*.Tests     one xUnit project per library; tests/Directory.Build.props adds xUnit
   benchmarks/               BenchmarkDotNet

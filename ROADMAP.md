@@ -2,7 +2,7 @@
 
 ## Current common-core step 2: lane kernels for reductions and scans (2026-11-02)
 
-New library `MathemaSharp.Kernels` 0.1.0-net11-preview.1 (BCL only, no dependency on Core or NDSharp; not packed, not in the feed).
+New library `MathemaSharp.Kernels` 0.1.0-net11-preview.2 (BCL only, no dependency on Core or NDSharp; not packed, not in the feed).
 `Lane(Length, Inner, Outer)` describes how a contiguous buffer is visited: a MATLAB column-major dimension and a NumPy row-major axis
 give the same triple, so one kernel serves both. Semantic choices are parameters: `NanPolicy` (Propagate, Omit), `SumMethod` (Sequential,
 Compensated, Pairwise = `numpy.add.reduce`), `VarianceMethod` (Welford, TwoPass = NumPy), `ddof`, `ScanOp`, `ScanDirection`, the index base is left to the adapters.
@@ -11,14 +11,22 @@ Compensated, Pairwise = `numpy.add.reduce`), `VarianceMethod` (Welford, TwoPass 
 |---|---|
 | `Reductions` | `Sum`, `SumOfSquares`, `Product`, `Mean`, `Variance`, `StandardDeviation`, `Range`, `Min`, `Max` (with 0-based indices), `Median`, `Any`, `All`, `CountNonZero` |
 | `Scans` | `Scan` (sum, product, max, min; forward or reverse), `Difference` (order n) |
+| `Statistics` (2026-11-06) | `Quantile` (13 methods: Hyndman-Fan 1 to 9 plus NumPy's lower, higher, nearest, midpoint; positions in double, weights converted to the data type; MATLAB/Octave = `Hazen`, NumPy = `Linear`), `Mode` (smallest of the ties), `Histogram` (`ClosedInterval` = NumPy, `ExactLastEdge` = MATLAB `histc`; counts by binary search on the edges), `Trapezoid` (uniform or with positions), `Gradient` (uniform or non-uniform, edge order 1) |
 
 Tests: `tests/MathemaSharp.Kernels.Tests`, 38 cases (six floating-point formats against an independent gather, NaN/infinity/signed-zero rules, the
 pairwise algorithm checked against its textbook form for 8–128 elements and above, two-pass variance, strided lanes, empty lanes, contract violations,
 allocation-free warm calls). Consumers: the MatSharp bridge (`MatSharpLib.NDSharp`, MATLAB defaults) and `PySharpLib.Numpy` (NumPy defaults).
 Benchmarks: `benchmarks/MathemaSharp.Benchmarks/ReductionBenchmarks.cs` (see ARCHITECTURE).
 
-Not done in step 2: mode, quantile, covariance/correlation, gradient, trapezoid, histogram, a selection-based median (it sorts a copy), integer element
-types for mean/min/max/median, complex ordering, `nan*` aliases, multi-axis reductions. The kernels are not in `MathemaSharp.Core`'s namespace on purpose.
+2026-11-06, later: `Max`, `Min` and `Scan` accept any `INumber` (integers); `SumMethod.SequentialFromFirst` (numpy along a strided axis); `Variance`/`StandardDeviation` take separate sum methods for the mean and the squared deviations. NDSharp now runs its nine reductions and scans, `median`, `percentile` and `quantile` on them. `Median` has `MedianAverage` (OverflowSafe for MATLAB, Mean for NumPy). Kernel tests: 89.
+
+`Statistics` tests (37 cases): each quantile method against values worked out by hand from its definition, ends equal to min and max, lane layouts
+(probability-major output), NaN policies, `Decimal128` and `float`, histogram edge cases, trapezoid and gradient against closed forms. Not verified: agreement of every
+quantile method with real NumPy and Octave on a corpus (neither the kernels nor the adapters are connected yet); the `Mode` NaN rule for `Propagate`.
+
+Not done in step 2: covariance/correlation, a selection-based median and quantile (they sort a copy), integer element types for mean/min/max/median, complex
+ordering, `nan*` aliases, multi-axis reductions, adapters for the new `Statistics` kernels in MatSharp (`quantile`, `prctile`, `mode`, `trapz`, `gradient`, `histc`) and PySharp
+(`percentile`, `quantile`, `trapezoid`, `gradient`, `histogram`). The kernels are not in `MathemaSharp.Core`'s namespace on purpose.
 
 ## Current independent binary power/logarithm corpus
 
