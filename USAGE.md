@@ -1039,3 +1039,12 @@ var p = m.TransformPoint(new Vector2<double>(2, 3)); // (8, 14)
 var original = m.Inverse().TransformPoint(p);
 ```
 Matrices act on column vectors; transform composition applies the right-hand matrix first.
+
+### Matrix4 source preview
+Installation: ProjectReference to MathemaSharp.Geometry.csproj; no published package.
+```csharp
+var m = Matrix4<double>.Translation(4,5,6) * Matrix4<double>.RotationZ(Math.PI/2);
+var p = m.TransformPoint(new Vector3<double>(1,0,0));
+var direction = m.TransformDirection(new Vector3<double>(1,0,0));
+```
+Right-handed rotations, angles in radians, right-hand composition first. Directions require affine matrices.
