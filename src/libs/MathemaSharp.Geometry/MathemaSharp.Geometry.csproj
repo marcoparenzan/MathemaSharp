@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Generic Math geometry primitives and algorithms.</Description>
-    <Version>0.1.0-net11-preview.7</Version>
+    <Version>0.1.0-net11-preview.8</Version>
   </PropertyGroup>
 </Project>

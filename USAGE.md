@@ -1086,3 +1086,11 @@ Installation: ProjectReference to MathemaSharp.Geometry.csproj, not a published 
 var segments = IsoContours.MarchingSquares(new double[,] {{0,2},{0,2}}, 1d);
 ```
 Coordinates are sample indices; optional mask excludes cells touching a masked vertex. For PlotSharp users all existing overloads remain unchanged.
+
+### Legacy perspective camera
+Installation: ProjectReference to MathemaSharp.Geometry.csproj, no published package.
+```csharp
+var p = Camera<double>.Project((-1d,1d),(-1d,1d),(-1d,1d),
+    30,-60,200,160,100,80,0,0,0);
+```
+Angles are degrees; viewport width/height/mids are caller supplied. Screen Y increases downward. No orthographic/clipping mode. Singular input retains legacy IEEE results.
