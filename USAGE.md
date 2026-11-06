@@ -1058,3 +1058,14 @@ var halfway = Quaternion<double>.Slerp(Quaternion<double>.Identity, q, 0.5);
 var roundTrip = Quaternion<double>.FromRotationMatrix(q.ToRotationMatrix());
 ```
 Angles are radians. Normalize and rotation reject zero/nonfinite quaternions. SLERP normalizes endpoints and chooses the shortest path; t must be finite and in [0,1].
+
+### Polygons source preview
+Installation: ProjectReference to MathemaSharp.Geometry.csproj; no published package.
+```csharp
+Vector2<double>[] square = [new(0,0),new(2,0),new(2,2),new(0,2)];
+var area = Polygons.SignedArea<double>(square); // 4
+var center = Polygons.Centroid<double>(square); // (1,1)
+var location = Polygons.LocatePoint<double>(square, new(1,1)); // Inside
+var hull = Polygons.ConvexHull<double>(square);
+```
+Polygons close implicitly. Simplify treats input as an open polyline and accepts finite nonnegative tolerance. Boundary is distinct from Inside.
