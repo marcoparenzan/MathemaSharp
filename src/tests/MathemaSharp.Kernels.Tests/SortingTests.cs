@@ -121,4 +121,41 @@ public class SortingTests
             if (data[idx[k - 1]] == data[idx[k]]) Assert.True(idx[k - 1] < idx[k]);   // stable
         }
     }
+
+    // ------------------------------------------------------------------ complex (NumPy's lexicographic order)
+
+    static System.Numerics.Complex C(double re, double im) => new(re, im);
+
+    [Fact]
+    public void ComplexSortIsLexicographicWithNanCasesLast()
+    {
+        // NumPy: [R + Rj, R + nanj, nan + Rj, nan + nanj]
+        var data = new[] { C(double.NaN, double.NaN), C(2, 1), C(double.NaN, 5), C(1, 9), C(2, double.NaN), C(1, -3), C(double.NaN, -1), C(2, 0), C(1, double.NaN) };
+        var r = new System.Numerics.Complex[data.Length];
+        Sorting.SortComplex(data, Lane.Flat(data.Length), r);
+        Assert.Equal(C(1, -3), r[0]); Assert.Equal(C(1, 9), r[1]);
+        Assert.Equal(C(2, 0), r[2]); Assert.Equal(C(2, 1), r[3]);
+        Assert.True(double.IsNaN(r[4].Imaginary) && r[4].Real == 1);     // 1 + nanj, then 2 + nanj
+        Assert.True(double.IsNaN(r[5].Imaginary) && r[5].Real == 2);
+        Assert.True(double.IsNaN(r[6].Real) && r[6].Imaginary == -1);    // nan + Rj, by imaginary part
+        Assert.True(double.IsNaN(r[7].Real) && r[7].Imaginary == 5);
+        Assert.True(double.IsNaN(r[8].Real) && double.IsNaN(r[8].Imaginary));
+    }
+
+    [Fact]
+    public void ComplexArgSortIsStableAndSearchWorks()
+    {
+        var data = new[] { C(1, 1), C(0, 5), C(1, 1), C(0, 5), C(0, 0) };
+        var idx = new int[5];
+        Sorting.ArgSortComplex(data, Lane.Flat(5), idx);
+        Assert.Equal(new[] { 4, 1, 3, 0, 2 }, idx);
+        Sorting.ArgSortComplex(data, Lane.Flat(5), idx, SortDirection.Descending);
+        Assert.Equal(new[] { 0, 2, 1, 3, 4 }, idx);
+        var sorted = new[] { C(0, 0), C(0, 5), C(0, 5), C(1, 1) };
+        var r = new int[3];
+        Sorting.SearchSortedComplex(sorted, new[] { C(0, 5), C(0, 6), C(2, 0) }, r, SearchSide.Left);
+        Assert.Equal(new[] { 1, 3, 4 }, r);
+        Sorting.SearchSortedComplex(sorted, new[] { C(0, 5) }, r, SearchSide.Right);
+        Assert.Equal(3, r[0]);
+    }
 }
