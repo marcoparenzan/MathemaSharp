@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../../libs/MathemaSharp.LinearAlgebra/MathemaSharp.LinearAlgebra.csproj" />
+  </ItemGroup>
+</Project>

@@ -989,3 +989,11 @@ Performance postponed. NDSharp was resumed; complete runtime conversion, general
 ## 2026-11-06 — direction of the dependencies
 
 NDSharp depends on MathemaSharp, never the opposite. The bridge `MathemaSharp.NDSharp` (NDArray to `T[]`, `T[,]`, `Complex<double>[]`, typed LU and least squares) moved to the NDSharp repository as `NDSharp.Mathema` (package `NDSharp.Mathema` 0.1.0-net11-preview.1, namespace `NDSharp.Mathema`, with its 16 tests), and `MathemaSharp.Benchmarks` no longer references NDSharp. The feed still holds `MathemaSharp.NDSharp` 0.2.1-net11-preview.1: it is obsolete.
+
+## 2026-11-06 — wavelets in the kernels
+
+`MathemaSharp.Kernels` gained `WaveletTransform` (`Dwt`, `Idwt`, `CoeffLength`: one level of the discrete wavelet transform of a line, nine extension modes) and `WaveletFilterBank` (106 PyWavelets filter banks, generated from PyWavelets 1.8.0). They come from `NDSharp.Wavelets` with the same arithmetic (195 929 results identical by SHA-256 before and after); `NDSharp.Wavelets` now applies them along an axis and keeps its public API. Kernel tests: 153. Known problem carried over: `Dwt` in mode `antireflect` on a signal of length 1 does not terminate (stack overflow) — see NDSharp OPENPOINTS N-16.
+
+## 2026-11-06 — dense linear algebra in LinearAlgebra
+
+`MathemaSharp.LinearAlgebra` gained `DenseLinearAlgebra` (LU with partial pivoting, LU solve, sign and log-determinant, symmetric eigendecomposition by Jacobi, thin SVD by one-sided Jacobi, orthonormal basis completion) and `GeneralEigen` (eigenvalues and eigenvectors of a general real or complex matrix), on flat row-major `double[]`. They come from NDSharp with the same arithmetic (738 `numpy.linalg` results identical by SHA-256 before and after); NDSharp, and through it `numpy.linalg` in PySharp, now run on them. New test project `MathemaSharp.LinearAlgebra.Tests` (12 tests). Open: generic versions, and MatSharp's own `det/inv/svd/eig` still run on `LuFactorization<T>` or its own code: to be compared with these (Octave oracle) and unified.

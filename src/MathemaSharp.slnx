@@ -20,6 +20,7 @@
     <Project Path="tests/MathemaSharp.Core.Tests/MathemaSharp.Core.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Cli.Tests/MathemaSharp.Cli.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Kernels.Tests/MathemaSharp.Kernels.Tests.csproj" />
+    <Project Path="tests/MathemaSharp.LinearAlgebra.Tests/MathemaSharp.LinearAlgebra.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Quantum.Tests/MathemaSharp.Quantum.Tests.csproj" />
     <Project Path="tests/MathemaSharp.TimeSeries.Tests/MathemaSharp.TimeSeries.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Docs.Tests/MathemaSharp.Docs.Tests.csproj" />
