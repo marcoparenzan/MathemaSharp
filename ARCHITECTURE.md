@@ -556,7 +556,7 @@ Included: NDSharp core, core tests and fixtures, wavelets, notebooks and four nu
 | `Fft.cs`: radix-2 and Bluestein | Numbers signals module | Separate NDArray wrapper from the transform; verify normalisation and arbitrary lengths |
 | `GeneratorDistributions.cs`, `np.Stats.cs` | Statistics/probability module | Detailed analysis still to be done; keep RNG APIs and per-axis reductions separate |
 | `NDSharp.Wavelets/Dwt.cs` and filters | Numbers signals module | Remove dependency on NDSharp exceptions; verify provenance of the filters and PyWavelets conventions |
-| Shape, stride, slicing, broadcasting, dtype | NDSharp | Do not duplicate in Numbers; keep the `MathemaSharp.NDSharp` bridge |
+| Shape, stride, slicing, broadcasting, dtype | NDSharp | Do not duplicate in Numbers; keep the `NDSharp.Mathema` bridge |
 
 **Import does not mean migration:** the preserved code is not yet Numbers API, has not been made Generic Math and its tests are not run by the MathemaSharp solution. Before the extraction also verify the attributions of code and generated data, besides the repository's licence.
 
@@ -611,7 +611,7 @@ src/
     MathemaSharp.Core            Generic Math, precision, DFT, SIMD. No dependencies
     MathemaSharp.Quantum         finite-dimensional quantum mathematics (QUANTUM.md)
     MathemaSharp.TimeSeries      statistical foundations of forecasting + Interop (double[] facade for PySharp)
-    MathemaSharp.NDSharp         NDArray <-> double[]/double[,]/Complex[] bridge
+    NDSharp.Mathema         NDArray <-> double[]/double[,]/Complex[] bridge
     MathemaSharp.Kernels         lane kernels (reductions, scans, differences, quantiles, mode, histogram, trapezoid, gradient) shared by MatSharp and PySharp; BCL only
   apps/MathemaSharp.Lab          console with topics, Microsoft.Extensions.Hosting
   tests/MathemaSharp.*.Tests     one xUnit project per library; tests/Directory.Build.props adds xUnit
@@ -626,7 +626,7 @@ Kernel against the NDSharp reduction it matches (bit-identical results where Sum
 
 ## Numbers and NDSharp
 
-NDSharp (PySharp repository, package 2.5.0) is an ndarray with NumPy semantics: runtime dtype, strided views, broadcasting, linalg, FFT, PCG64 random. Numbers is the typed layer: Generic Math and `Span<T>`, compile-time checks, no dependencies. It was decided **not to merge** the two libraries: they have different contracts (dynamic versus static dtype). `MathemaSharp.NDSharp` connects them:
+NDSharp (PySharp repository, package 2.5.0) is an ndarray with NumPy semantics: runtime dtype, strided views, broadcasting, linalg, FFT, PCG64 random. Numbers is the typed layer: Generic Math and `Span<T>`, compile-time checks, no dependencies. It was decided **not to merge** the two libraries: they have different contracts (dynamic versus static dtype). `NDSharp.Mathema` connects them:
 - towards Numbers it copies in C order with a cast, because strided views cannot be exposed as a Span;
 - towards NDSharp it wraps a `double[]` without copying.
 
@@ -716,11 +716,11 @@ Inventory of the public types extracted from the sources. For complete signature
 | `VarModel` | [VectorAutoregression.cs](src/libs/MathemaSharp.TimeSeries/VectorAutoregression.cs) |
 | `VarModel` | [VectorAutoregression.cs](src/libs/MathemaSharp.TimeSeries/VectorAutoregression.cs) |
 
-### MathemaSharp.NDSharp — Reference
+### NDSharp.Mathema — Reference
 
 | Public type | Source |
 |---|---|
-| `NDArrayBridge` | [NDArrayBridge.cs](src/libs/MathemaSharp.NDSharp/NDArrayBridge.cs) |
+| `NDArrayBridge` | [NDArrayBridge.cs](src/libs/NDSharp.Mathema/NDArrayBridge.cs) |
 
 ## Generic Math inventory — baseline after the renaming
 

@@ -61,7 +61,7 @@ They are the didactic core: the model families are not islands.
 
 ## Contracts and choices
 
-- Series as `ReadOnlySpan<double>`; multiple series (VAR) as `double[time, series]`. For NDSharp data: `MathemaSharp.NDSharp` (`ToVector`, `ToMatrix`).
+- Series as `ReadOnlySpan<double>`; multiple series (VAR) as `double[time, series]`. For NDSharp data: `NDSharp.Mathema` (`ToVector`, `ToMatrix`).
 - Autocovariance with divisor n: positive semi-definite Toeplitz matrix, hence |PACF| ≤ 1 and the Yule-Walker AR always stationary.
 - `ArimaModel`: conditional residuals (CSS), with e_t = 0 before the first estimable value. Hannan-Rissanen is linear, without optimisation and consistent, but less efficient than maximum likelihood. Stationarity and invertibility are **not** imposed.
 - Smoothing: parameters in [0,1] (`ArgumentOutOfRangeException` otherwise), deterministic initialisations that are not estimated. `FitSesAlpha` uses the golden section and presupposes a unimodal SSE.

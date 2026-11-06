@@ -87,6 +87,6 @@ fc   = np.array(model.Forecast(x.to_clr(), 12))
 
 - From NumPy to the library: **`x.to_clr()`** produces a `double[]` (copy); a Python list works as well.
 - From the library to NumPy: **`np.array(clr_array)`**.
-- From C#, the same exchange goes through the [`MathemaSharp.NDSharp`](02-uso-e-funzioni.md#mathemasharpndsharp--the-bridge) bridge: `ToVector()`, `ToNDArray()`.
+- From C#, the same exchange goes through the [`NDSharp.Mathema`](02-uso-e-funzioni.md#mathemasharpndsharp--the-bridge) bridge: `ToVector()`, `ToNDArray()`.
 
 ← [2 · Use and functions](02-uso-e-funzioni.md) · [Part II](README.md) · [4 · Examples →](04-esempi.md)

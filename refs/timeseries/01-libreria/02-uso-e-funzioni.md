@@ -120,7 +120,7 @@ The filter **keeps the state**: to filter another series a new one is created.
 
 The **matrices** are vectors in **row order**: an $r\times c$ matrix is `[m00, m01, …, m0c−1, m10, …]`.
 
-## `MathemaSharp.NDSharp` — the bridge
+## `NDSharp.Mathema` — the bridge
 
 | Direction | Function | Copy? |
 |---|---|---|

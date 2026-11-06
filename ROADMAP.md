@@ -769,7 +769,7 @@ The following tables and checkboxes keep the states of the previous tranches and
 | MathemaSharp.LinearAlgebra | Matrices, norms, QR/least squares, LU, inverse and diagnostics; multi-format and Hilbert tests | No general SVD/Cholesky or general eigenvalues; conditioning estimate not certified, no refinement |
 | MathemaSharp.TimeSeries | Consolidated generic kernels, forecasting and statistics; selected C# notebooks run | Lanczos does not guarantee 34 digits; default Gaussians from double; scenarios and PySharp comparisons not closed |
 | MathemaSharp.Quantum | Complex<T>, norm, normalisation, eigenstates, 2x2 Hermitian, MatrixExp; independent oracles | Taylor/scaling-squaring not guaranteed on every matrix; extend extreme cases and dimensionality |
-| MathemaSharp.NDSharp | Improved runtime bridge and typed towards LU/QR/diagnostics; 16 tests also via the 0.2.0 package | Runtime path towards NDArray still float64; runtime and generic types separate; local dependency on the sibling repository in the sources |
+| NDSharp.Mathema | Improved runtime bridge and typed towards LU/QR/diagnostics; 16 tests also via the 0.2.0 package | Runtime path towards NDArray still float64; runtime and generic types separate; local dependency on the sibling repository in the sources |
 | NDSharp | NDArray<T>: storage, views, slicing, Add broadcasting, Sum, Dot, MatMul; complete suite 563 tests at the last verification | Not a complete conversion: FFT/eig/wavelet/distributions and runtime APIs not migrated; no batched MatMul; target net10.0 |
 | PlotSharp | Last verification: build successful, 70 tests; library, Gallery, Inventory present | Reassess the state of the dedicated session; MathemaSharp/JupyterSharp integration and migration of the charts not verified here |
 | MatSharp | Double and typed real 2D column-major matrices, NDSharp 2.8.0 and LinearAlgebra bridge; GenericScalar<T> now includes matrix storage, concatenation, broadcast, products, transpose and assignment; build without warnings and 130 tests passed; Decimal128 notebook run | Typed solver, complex numbers, N-D, large exact literals and packaging open; Plot remains NDSharp.Plot; C# embedding notebook, not a MATLAB kernel. Name GenericScalar<T> to normalise because it now also contains matrices |
@@ -985,3 +985,7 @@ Complete symbolic algebra, regulatory finance, alternative implementations of th
 3. Verify a pilot notebook with JupyterSharp and PlotSharp.
 
 Performance postponed. NDSharp was resumed; complete runtime conversion, general eigenvalues and wavelets remain open. The FFTs in Core are implemented and verified, but not yet in the 0.2.0 packages.
+
+## 2026-11-06 — direction of the dependencies
+
+NDSharp depends on MathemaSharp, never the opposite. The bridge `MathemaSharp.NDSharp` (NDArray to `T[]`, `T[,]`, `Complex<double>[]`, typed LU and least squares) moved to the NDSharp repository as `NDSharp.Mathema` (package `NDSharp.Mathema` 0.1.0-net11-preview.1, namespace `NDSharp.Mathema`, with its 16 tests), and `MathemaSharp.Benchmarks` no longer references NDSharp. The feed still holds `MathemaSharp.NDSharp` 0.2.1-net11-preview.1: it is obsolete.

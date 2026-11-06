@@ -20,7 +20,7 @@ This part answers four questions, in this order:
 | **`MathemaSharp.Core`** | `NumericAlgorithms` (sum, Kahan, Horner, GCD, factorial), `Precision` (comparisons with tolerance, `decimal` roundings), `Signals` (DFT, Hermitian product, SIMD dot product) | — | [ARCHITECTURE](../../../ARCHITECTURE.md) |
 | **`MathemaSharp.TimeSeries`** | statistics, baseline forecasts, AR/ARIMA, smoothing, Kalman, VAR, GARCH, STL, simulation, **`Interop`** | `MathemaSharp.Core` | [Part I](../00-formule-e-libreria/README.md) |
 | **`MathemaSharp.Quantum`** | kets, operators, Pauli, time evolution, density matrix | `MathemaSharp.Core` | [QUANTUM](../../../QUANTUM.md) |
-| **`MathemaSharp.NDSharp`** | bridge between `NDArray` (PySharp's NumPy) and `T[]`, `T[,]`, `Complex<T>[]` | `NDSharp` package 2.5.0 | this part |
+| **`NDSharp.Mathema`** | bridge between `NDArray` (PySharp's NumPy) and `T[]`, `T[,]`, `Complex<T>[]` | `NDSharp` package 2.5.0 | this part |
 
 Version **0.1.0**, target **net11.0** (SDK and runtime 11 RC2, `global.json`), XML documentation included in the packages. The book mainly covers `MathemaSharp.TimeSeries`.
 
@@ -61,7 +61,7 @@ The two levels produce **identical numbers**: the test `LibraryTourNotebooksAgre
 
 ### What the library is **not**
 
-- It is not a high-performance linear-algebra library (no BLAS, no SIMD for the decimals): for N-dimensional arrays there is NDSharp, through `MathemaSharp.NDSharp`.
+- It is not a high-performance linear-algebra library (no BLAS, no SIMD for the decimals): for N-dimensional arrays there is NDSharp, through `NDSharp.Mathema`.
 - It is not `statsmodels`: ARIMA is by **Hannan-Rissanen** (not maximum likelihood), the Kalman has scalar observation, the GARCH is Gaussian (1,1). The limits of each algorithm are in its chapter of Part I.
 - No performance measurement was collected: **no speed ratio will be deduced** between formats or between libraries.
 

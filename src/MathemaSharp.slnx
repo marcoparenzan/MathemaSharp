@@ -3,7 +3,6 @@
     <Project Path="libs/MathemaSharp.Core/MathemaSharp.Core.csproj" />
     <Project Path="libs/MathemaSharp.LinearAlgebra/MathemaSharp.LinearAlgebra.csproj" />
     <Project Path="libs/MathemaSharp.Kernels/MathemaSharp.Kernels.csproj" />
-    <Project Path="libs/MathemaSharp.NDSharp/MathemaSharp.NDSharp.csproj" />
     <Project Path="libs/MathemaSharp.Quantum/MathemaSharp.Quantum.csproj" />
     <Project Path="libs/MathemaSharp.TimeSeries/MathemaSharp.TimeSeries.csproj" />
     <Project Path="tools/MathemaSharp.Cli/MathemaSharp.Cli.csproj" />
@@ -21,7 +20,6 @@
     <Project Path="tests/MathemaSharp.Core.Tests/MathemaSharp.Core.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Cli.Tests/MathemaSharp.Cli.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Kernels.Tests/MathemaSharp.Kernels.Tests.csproj" />
-    <Project Path="tests/MathemaSharp.NDSharp.Tests/MathemaSharp.NDSharp.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Quantum.Tests/MathemaSharp.Quantum.Tests.csproj" />
     <Project Path="tests/MathemaSharp.TimeSeries.Tests/MathemaSharp.TimeSeries.Tests.csproj" />
     <Project Path="tests/MathemaSharp.Docs.Tests/MathemaSharp.Docs.Tests.csproj" />

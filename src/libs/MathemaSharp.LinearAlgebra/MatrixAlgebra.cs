@@ -3,7 +3,7 @@ namespace MathemaSharp.LinearAlgebra;
 
 /// <summary>
 /// Minimal real linear algebra on <c>T[,]</c>, generic over <c>T : IFloatingPointIeee754&lt;T&gt;</c>: just enough for regressions with few
-/// regressors and filters with a small state. It is not a BLAS: for generic N-dimensional arrays use NDSharp (bridge in MathemaSharp.NDSharp).
+/// regressors and filters with a small state. It is not a BLAS: for generic N-dimensional arrays use NDSharp (bridge: NDSharp.Mathema, in the NDSharp repository).
 /// </summary>
 public static class MatrixAlgebra
 {

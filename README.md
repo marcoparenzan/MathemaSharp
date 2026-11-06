@@ -474,7 +474,7 @@ On Windows: Release build, 22 selected notebooks and tests, with reports/logs in
 | MathemaSharp.LinearAlgebra | Matrices, QR, LU, norms and linear systems | [Usage](USAGE.md#mathemasharplinearalgebra--usage) | [Reference](ARCHITECTURE.md#mathemasharplinearalgebra--reference) |
 | MathemaSharp.Quantum | Generic complex states and operators | [Usage](USAGE.md#mathemasharpquantum--usage) | [Reference](ARCHITECTURE.md#mathemasharpquantum--reference) |
 | MathemaSharp.TimeSeries | Statistics and time-series forecasting | [Usage](USAGE.md#mathemasharptimeseries--usage) | [Reference](ARCHITECTURE.md#mathemasharptimeseries--reference) |
-| MathemaSharp.NDSharp | ndarray bridge, not yet fully generic | [Usage](USAGE.md#mathemasharpndsharp--usage) | [Reference](ARCHITECTURE.md#mathemasharpndsharp--reference) |
+| NDSharp.Mathema | ndarray bridge, not yet fully generic | [Usage](USAGE.md#mathemasharpndsharp--usage) | [Reference](ARCHITECTURE.md#mathemasharpndsharp--reference) |
 
 ## Structure
 

@@ -298,7 +298,7 @@ dotnet add package MathemaSharp.Core          --source D:\Dev\NuGetLocalFeed --p
 dotnet add package MathemaSharp.LinearAlgebra --source D:\Dev\NuGetLocalFeed --prerelease
 dotnet add package MathemaSharp.TimeSeries    --source D:\Dev\NuGetLocalFeed --prerelease
 dotnet add package MathemaSharp.Quantum       --source D:\Dev\NuGetLocalFeed --prerelease
-dotnet add package MathemaSharp.NDSharp       --source D:\Dev\NuGetLocalFeed --prerelease   # bridge to NDArray
+dotnet add package NDSharp.Mathema       --source D:\Dev\NuGetLocalFeed --prerelease   # bridge to NDArray
 ```
 
 ### The `mathema` tool
@@ -1015,9 +1015,9 @@ Namespace: `MathemaSharp.TimeSeries`. Notebooks: `notebooks/TimeSeries/`.
 - [D1-fotovoltaico-csharp](notebooks/TimeSeries/Scenarios/D-fotovoltaico/D1-fotovoltaico-csharp.ipynb)
 - [D1-fotovoltaico-pysharp](notebooks/TimeSeries/Scenarios/D-fotovoltaico/D1-fotovoltaico-pysharp.ipynb)
 
-### MathemaSharp.NDSharp — Usage
+### NDSharp.Mathema — Usage
 
-Namespace: `MathemaSharp.NDSharp`. Notebooks: `notebooks/NDSharp/`.
+Namespace: `NDSharp.Mathema`. Notebooks: `notebooks/NDSharp/`.
 
 
 The bridge uses runtime dtype/storage and still contains conversions via double: it is not an entirely Generic Math kernel. The STL notebook in TimeSeries shows the integration.
