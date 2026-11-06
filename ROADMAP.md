@@ -997,3 +997,14 @@ NDSharp depends on MathemaSharp, never the opposite. The bridge `MathemaSharp.ND
 ## 2026-11-06 — dense linear algebra in LinearAlgebra
 
 `MathemaSharp.LinearAlgebra` gained `DenseLinearAlgebra` (LU with partial pivoting, LU solve, sign and log-determinant, symmetric eigendecomposition by Jacobi, thin SVD by one-sided Jacobi, orthonormal basis completion) and `GeneralEigen` (eigenvalues and eigenvectors of a general real or complex matrix), on flat row-major `double[]`. They come from NDSharp with the same arithmetic (738 `numpy.linalg` results identical by SHA-256 before and after); NDSharp, and through it `numpy.linalg` in PySharp, now run on them. New test project `MathemaSharp.LinearAlgebra.Tests` (12 tests). Open: generic versions, and MatSharp's own `det/inv/svd/eig` still run on `LuFactorization<T>` or its own code: to be compared with these (Octave oracle) and unified.
+
+## 2026-11-06 — fluid mechanics: the Navier-Stokes numerics move into the engine
+
+Everything reusable in the Navier-Stokes article is now in MathemaSharp, generic over `IFloatingPointIeee754<T>`, as high in the stack as it can go:
+
+* `MathemaSharp.Core` — `Acoustics` (MIDI note number of a frequency and back).
+* `MathemaSharp.Kernels` — `GridStencils` (central differences, five-point Laplacian, hybrid central/upwind advection, divergence, curl, RMS divergence on `T[j, i]` grids) and `Calculus` (cumulative trapezoid along the rows of a grid, linear interpolation, RMS against a reference, upward zero crossings and their mean period).
+* `MathemaSharp.LinearAlgebra` — `GridPoisson` (successive over-relaxation for the five-point Poisson equation with a caller-supplied boundary action; residual RMS).
+* `MathemaSharp.Fluids` (new) — `FluidMechanics` (Reynolds number, flow regime, Darcy friction factor with Haaland, pressure drop, drag force, shedding frequency, Beaufort number), `PipeFlow`, `CavityFlow<T>` (Chorin projection method, lid-driven cavity), `LatticeBoltzmannD2Q9<T>` (flow past a cylinder).
+
+`NavierStokes.Core` keeps what is the article's own — the fluid and shape tables, the argument checks, the reports and the charts — and its `CavitySolver`, `CylinderLbm`, `Pipe`, `Wind`, `Flow` and `VortexShedding` are thin double-precision faces over those types. With `double` the 242 outputs of the solvers and formulas (cavity fields, stream function, centre line, energy history, LBM vorticity and probe, Strouhal, pipe, drag, Beaufort, musical note) have the same SHA-256 before and after, and the article's own `ns selftest` passes. New tests: Kernels 163, LinearAlgebra 21, Fluids 15.

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Fluid mechanics in Generic Math (float, double, Half, Decimal32/64/128): pipe flow and drag correlations, the projection method for the two-dimensional incompressible Navier-Stokes equations (lid-driven cavity) and the D2Q9 lattice Boltzmann method (flow past a cylinder). Built on MathemaSharp.Kernels and MathemaSharp.LinearAlgebra.</Description>
+    <Version>0.1.0-net11-preview.1</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MathemaSharp.Kernels/MathemaSharp.Kernels.csproj" />
+    <ProjectReference Include="../MathemaSharp.LinearAlgebra/MathemaSharp.LinearAlgebra.csproj" />
+  </ItemGroup>
+</Project>
