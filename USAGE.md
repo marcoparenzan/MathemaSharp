@@ -1069,3 +1069,13 @@ var location = Polygons.LocatePoint<double>(square, new(1,1)); // Inside
 var hull = Polygons.ConvexHull<double>(square);
 ```
 Polygons close implicitly. Simplify treats input as an open polyline and accepts finite nonnegative tolerance. Boundary is distinct from Inside.
+
+### Intersections source preview
+Installation: ProjectReference to MathemaSharp.Geometry.csproj, no published package.
+```csharp
+var hit = Intersections.SegmentSegment(
+    new Segment2<double>(new(0,0), new(2,2)),
+    new Segment2<double>(new(0,2), new(2,0))); // Point at (1,1)
+var inside = Intersections.InsideCircle(new Vector2<double>(3,4), new(0,0), 5);
+```
+Inspect Kind before using result coordinates. PointPolygonDistance is to the filled polygon (zero inside), not distance to its boundary. Ellipses are axis-aligned.

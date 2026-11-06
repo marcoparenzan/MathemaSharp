@@ -1,6 +1,6 @@
 # MathemaSharp.Geometry — implementation plan
 
-Status: **phases 1–2 implemented and Release-tested; phases 3–5 pending; phase 6 excluded by default**. Original plan dated 2026-11-06. Geometry has 25 tests across double, float, Half and Decimal64; the solution rerun has 882 passing tests. The first phase-2 solution run had an unchanged kernel allocation-test failure (8 bytes); isolated and complete reruns passed without changes, cause unknown. Numerical conditioning, performance and ecosystem rendering are not certified. Owner: Marco Parenzan. Written to be handed to an agent that will do the work.
+Status: **phases 1–3 implemented and Release-tested; phases 4–5 pending; phase 6 excluded by default**. Original plan dated 2026-11-06. Geometry has 29 tests across double, float, Half and Decimal64; the latest solution run has 886 passing tests. The optional LBM mask change was not performed. The first phase-2 solution run had an unchanged kernel allocation-test failure (8 bytes); isolated and complete reruns passed without changes, cause unknown. Numerical conditioning, performance and ecosystem rendering are not certified. Owner: Marco Parenzan. Written to be handed to an agent that will do the work.
 
 ## 0. Before you start
 
