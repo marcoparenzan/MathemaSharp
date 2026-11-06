@@ -1021,3 +1021,12 @@ Namespace: `NDSharp.Mathema`. Notebooks: `notebooks/NDSharp/`.
 
 
 The bridge uses runtime dtype/storage and still contains conversions via double: it is not an entirely Generic Math kernel. The STL notebook in TimeSeries shows the integration.
+
+### Geometry source preview
+Installation: use a ProjectReference to `src/libs/MathemaSharp.Geometry/MathemaSharp.Geometry.csproj` (no package published).
+```csharp
+using MathemaSharp.Geometry;
+var v = new Vector2<double>(3, 4);
+var unit = v.Normalize(); // length 1
+```
+Angles are unsigned radians; zero/nonfinite normalization throws ArgumentException. Projection and angles reject zero reference vectors.

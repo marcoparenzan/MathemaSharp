@@ -515,3 +515,6 @@ This is a development exercise, not a commercial effort and not a way to take an
 scientific work as Python, in the hope that someone will try it. Its licensing, including the third-party material it adapts or credits, was reviewed with the help
 of generative AI, with the aim of the greatest respect for the rights of the owners. That is not legal advice, and some points are still open: they are listed in
 [LICENSING.md](../ScienceSharp/LICENSING.md). If you own material that is used here and have a concern, please open an issue: it will be discussed and, if needed, fixed or removed.
+
+### Geometry (source preview)
+`src/libs/MathemaSharp.Geometry` provides generic 2-D and 3-D vectors. This is the first slice of GEOMETRY-PLAN.md, not the complete library.

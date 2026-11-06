@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../../libs/MathemaSharp.Geometry/MathemaSharp.Geometry.csproj" />
+  </ItemGroup>
+</Project>
