@@ -47,6 +47,15 @@ public enum HistogramLastBin
     ExactLastEdge,
 }
 
+/// <summary>How <see cref="Statistics.Gradient{T}(ReadOnlySpan{T}, Lane, ReadOnlySpan{T}, Span{T}, GradientScheme)"/> differentiates over non-uniform sample positions.</summary>
+public enum GradientScheme
+{
+    /// <summary>NumPy's second-order formula over the two neighbouring intervals (exact for a quadratic).</summary>
+    SecondOrder,
+    /// <summary>The plain central difference <c>(y[k+1] − y[k−1])/(x[k+1] − x[k−1])</c> (MATLAB and Octave).</summary>
+    Central,
+}
+
 /// <summary>Order statistics, counting and numerical integration or differentiation along a lane. Same conventions as <see cref="Reductions"/>:
 /// semantic choices are parameters, results are written lane by lane, destinations must not overlap sources.</summary>
 public static class Statistics
@@ -286,13 +295,13 @@ public static class Statistics
     /// <summary>Numerical derivative along each lane over non-uniform sample positions <paramref name="x"/> (strictly monotonic, one per element of the lane).
     /// Inside, the second-order formula of NumPy's <c>gradient</c>: with <c>d1 = x[k] − x[k−1]</c> and <c>d2 = x[k+1] − x[k]</c>,
     /// <c>−d2/(d1(d1+d2))·y[k−1] + (d2−d1)/(d1 d2)·y[k] + d1/(d2(d1+d2))·y[k+1]</c>; one-sided differences at the ends.</summary>
-    public static void Gradient<T>(ReadOnlySpan<T> src, Lane lane, ReadOnlySpan<T> x, Span<T> dst) where T : IFloatingPointIeee754<T>
+    public static void Gradient<T>(ReadOnlySpan<T> src, Lane lane, ReadOnlySpan<T> x, Span<T> dst, GradientScheme scheme = GradientScheme.SecondOrder) where T : IFloatingPointIeee754<T>
     {
         if (x.Length != lane.Length) throw new ArgumentException("x must have one position per element of the lane.", nameof(x));
-        GradientCore(src, lane, T.Zero, x, dst);
+        GradientCore(src, lane, T.Zero, x, dst, scheme);
     }
 
-    static void GradientCore<T>(ReadOnlySpan<T> src, Lane lane, T h, ReadOnlySpan<T> x, Span<T> dst) where T : IFloatingPointIeee754<T>
+    static void GradientCore<T>(ReadOnlySpan<T> src, Lane lane, T h, ReadOnlySpan<T> x, Span<T> dst, GradientScheme scheme = GradientScheme.SecondOrder) where T : IFloatingPointIeee754<T>
     {
         lane.CheckSource(src.Length, nameof(src));
         if (lane.Count > 0 && lane.Length < 2) throw new ArgumentException("A gradient needs at least two samples per lane.", nameof(lane));
@@ -309,6 +318,7 @@ public static class Statistics
             {
                 int p = p0 + k * s;
                 if (uniform) dst[p] = (src[p + s] - src[p - s]) / (two * h);
+                else if (scheme == GradientScheme.Central) dst[p] = (src[p + s] - src[p - s]) / (x[k + 1] - x[k - 1]);
                 else
                 {
                     T d1 = x[k] - x[k - 1], d2 = x[k + 1] - x[k];

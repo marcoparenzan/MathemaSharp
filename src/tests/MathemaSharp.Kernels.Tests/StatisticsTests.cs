@@ -225,6 +225,18 @@ public class IntegrationTests
     }
 
     [Fact]
+    public void GradientCentralSchemeIsTheSimpleDifference()
+    {
+        double[] x = [0, 1, 3, 6];
+        var d = new double[4];
+        Statistics.Gradient<double>([1, 4, 9, 16], Lane.Flat(4), x, d, GradientScheme.Central);
+        Assert.Equal(3, d[0]);
+        Assert.Equal((9.0 - 1.0) / (3.0 - 0.0), d[1]);    // Octave: 2.66667
+        Assert.Equal((16.0 - 4.0) / (6.0 - 1.0), d[2]);   // 2.4
+        Assert.Equal((16.0 - 9.0) / (6.0 - 3.0), d[3]);   // 2.33333
+    }
+
+    [Fact]
     public void GradientAlongStridedLanes()
     {
         double[] src = [1, 10, 4, 40, 9, 90];   // 3 x 2 row-major, lanes along axis 0
