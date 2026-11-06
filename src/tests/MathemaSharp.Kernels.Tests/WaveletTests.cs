@@ -22,7 +22,7 @@ public class WaveletTests
     public void HaarOfAShortSignalIsKnownByHand()
     {
         // pywt.dwt([1, 2, 3, 4], 'haar'): approximation (x[2k] + x[2k+1]) / √2, detail (x[2k] − x[2k+1]) / √2 (dec_hi = [−1/√2, 1/√2]).
-        var (a, d) = WaveletTransform.Dwt([1, 2, 3, 4], Get("haar"));
+        var (a, d) = WaveletTransform.Dwt<double>([1, 2, 3, 4], Get("haar"));
         double r = Math.Sqrt(0.5);
         Assert.Equal([3 * r, 7 * r], a, new DoubleComparer());
         Assert.Equal([-r, -r], d, new DoubleComparer());
@@ -92,9 +92,9 @@ public class WaveletTests
     public void ArgumentErrors()
     {
         var w = Get("db2");
-        Assert.Equal("Invalid input data length", Assert.Throws<ArgumentException>(() => WaveletTransform.Dwt([], w)).Message);
+        Assert.Equal("Invalid input data length", Assert.Throws<ArgumentException>(() => WaveletTransform.Dwt<double>([], w)).Message);
         Assert.Equal("Unknown mode 'bogus'", Assert.Throws<ArgumentException>(() => WaveletTransform.Dwt(Signal(8), w, "bogus")).Message);
-        Assert.Throws<ArgumentException>(() => WaveletTransform.Idwt(null, null, w));
+        Assert.Throws<ArgumentException>(() => WaveletTransform.Idwt<double>(null, null, w));
         Assert.Throws<ArgumentException>(() => WaveletTransform.Idwt(new double[3], new double[4], w));
         Assert.Throws<ArgumentException>(() => WaveletTransform.Idwt(new double[1], null, Get("db10"), "symmetric"));
     }

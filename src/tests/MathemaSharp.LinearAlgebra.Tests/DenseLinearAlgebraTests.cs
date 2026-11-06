@@ -58,21 +58,21 @@ public class DenseLinearAlgebraTests
     [Fact]
     public void SignAndLogDeterminant()
     {
-        var (sign, log) = DenseLinearAlgebra.SignAndLogDeterminant([1, 2, 3, 4], 2);   // det = −2
+        var (sign, log) = DenseLinearAlgebra.SignAndLogDeterminant<double>([1, 2, 3, 4], 2);   // det = −2
         Assert.Equal(-1.0, sign);
         Assert.Equal(Math.Log(2), log, 12);
-        var (s0, l0) = DenseLinearAlgebra.SignAndLogDeterminant([1, 2, 2, 4], 2);       // singular
+        var (s0, l0) = DenseLinearAlgebra.SignAndLogDeterminant<double>([1, 2, 2, 4], 2);       // singular
         Assert.Equal(0.0, s0);
         Assert.True(double.IsNegativeInfinity(l0));
         var input = new double[] { 4, 3, 6, 3 };
-        DenseLinearAlgebra.SignAndLogDeterminant(input, 2);
+        DenseLinearAlgebra.SignAndLogDeterminant<double>(input, 2);
         Assert.Equal(new double[] { 4, 3, 6, 3 }, input);                              // not modified
     }
 
     [Fact]
     public void SymmetricEigenOfAKnownMatrix()
     {
-        var (w, v) = DenseLinearAlgebra.SymmetricEigen([2, 1, 1, 2], 2);   // eigenvalues 1 and 3
+        var (w, v) = DenseLinearAlgebra.SymmetricEigen<double>([2, 1, 1, 2], 2);   // eigenvalues 1 and 3
         Assert.Equal(1.0, w[0], 12);
         Assert.Equal(3.0, w[1], 12);
         // columns are orthonormal eigenvectors
@@ -87,7 +87,7 @@ public class DenseLinearAlgebraTests
     [Fact]
     public void ThinSvdOfADiagonalMatrixSortsTheSingularValues()
     {
-        var (u, s, v) = DenseLinearAlgebra.ThinSvd([3, 0, 0, 4], 2, 2);
+        var (u, s, v) = DenseLinearAlgebra.ThinSvd<double>([3, 0, 0, 4], 2, 2);
         Assert.Equal(4.0, s[0], 12);
         Assert.Equal(3.0, s[1], 12);
         Assert.Equal(2 * 2, u.Length);
@@ -113,7 +113,7 @@ public class DenseLinearAlgebraTests
     [Fact]
     public void CompleteBasisIsOrthogonal()
     {
-        var q = DenseLinearAlgebra.CompleteBasis([1, 0, 0], 3, 1);   // one unit column of a 3 × 3 basis
+        var q = DenseLinearAlgebra.CompleteBasis<double>([1, 0, 0], 3, 1);   // one unit column of a 3 × 3 basis
         for (int a = 0; a < 3; a++)
             for (int b = 0; b < 3; b++)
             {
@@ -175,5 +175,66 @@ public class GeneralEigenTests
         Assert.All(w, z => Assert.Equal(Complex.Zero, z));
         Assert.Equal(Complex.One, v![0]);
         Assert.Equal(Complex.One, v[4]);
+    }
+}
+
+/// <summary>The same routines in other IEEE formats: float and Half keep the iteration convergent (tolerances scale with the epsilon) and give results within the format's precision.</summary>
+public class DenseLinearAlgebraGenericTests
+{
+    static T[] Matrix<T>(int n, int salt) where T : IFloatingPointIeee754<T>
+    {
+        var m = new T[n * n];
+        for (int i = 0; i < n; i++) for (int j = 0; j < n; j++) m[i * n + j] = T.CreateChecked(Math.Round(Math.Sin(i * 1.7 + j * 0.9 + salt) * 5 + ((i * 3 + j * 7 + salt) % 4), 2));
+        return m;
+    }
+
+    static double Tolerance<T>(double scale) where T : IFloatingPointIeee754<T> => scale * double.CreateChecked(T.BitIncrement(T.One) - T.One);
+
+    [Theory]
+    [InlineData(typeof(double))]
+    [InlineData(typeof(float))]
+    [InlineData(typeof(Half))]
+    public void EveryFormat(Type type) => typeof(DenseLinearAlgebraGenericTests).GetMethod(nameof(Run), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!.MakeGenericMethod(type).Invoke(null, null);
+
+    static void Run<T>() where T : IFloatingPointIeee754<T>
+    {
+        // LU solve and inverse (a well-conditioned 4 × 4)
+        const int n = 4;
+        var a = new T[] { T.CreateChecked(4), T.One, T.Zero, T.CreateChecked(2), T.One, T.CreateChecked(5), T.One, T.Zero, T.Zero, T.One, T.CreateChecked(6), T.One, T.CreateChecked(2), T.Zero, T.One, T.CreateChecked(7) };
+        var lu = (T[])a.Clone(); var piv = new int[n];
+        Assert.False(DenseLinearAlgebra.Lu(lu, n, piv));
+        var inv = new T[n * n];
+        for (int i = 0; i < n; i++) inv[i * n + i] = T.One;
+        DenseLinearAlgebra.LuSolve(lu, n, piv, inv, n);
+        double tol = Tolerance<T>(64);
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+            {
+                T s = T.Zero; for (int k = 0; k < n; k++) s += a[i * n + k] * inv[k * n + j];
+                Assert.True(Math.Abs(double.CreateChecked(s) - (i == j ? 1.0 : 0.0)) < tol, $"{typeof(T).Name} inverse [{i},{j}]");
+            }
+
+        // log-determinant of a diagonal matrix
+        var diag = new T[] { T.CreateChecked(2), T.Zero, T.Zero, T.CreateChecked(-4) };
+        var (sign, log) = DenseLinearAlgebra.SignAndLogDeterminant<T>(diag, 2);
+        Assert.Equal(-1.0, double.CreateChecked(sign));
+        Assert.True(Math.Abs(double.CreateChecked(log) - Math.Log(8)) < tol, typeof(T).Name);
+
+        // symmetric eigenvalues of [[2,1],[1,2]] are 1 and 3
+        var (w, _) = DenseLinearAlgebra.SymmetricEigen(new T[] { T.CreateChecked(2), T.One, T.One, T.CreateChecked(2) }, 2);
+        Assert.True(Math.Abs(double.CreateChecked(w[0]) - 1) < tol && Math.Abs(double.CreateChecked(w[1]) - 3) < tol, typeof(T).Name);
+
+        // thin SVD reconstructs a tall matrix, singular values descending
+        const int m = 6, c = 3;
+        var tall = new T[m * c];
+        for (int i = 0; i < m; i++) for (int j = 0; j < c; j++) tall[i * c + j] = T.CreateChecked(Math.Round(Math.Cos(i * 0.8 + j * 1.3) * 3 + j, 2));
+        var (u, sv, v) = DenseLinearAlgebra.ThinSvd(tall, m, c);
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < c; j++)
+            {
+                T x = T.Zero; for (int k = 0; k < c; k++) x += u[i * c + k] * sv[k] * v[j * c + k];
+                Assert.True(Math.Abs(double.CreateChecked(x) - double.CreateChecked(tall[i * c + j])) < Tolerance<T>(256), $"{typeof(T).Name} svd [{i},{j}]");
+            }
+        for (int k = 1; k < c; k++) Assert.True(sv[k - 1] >= sv[k]);
     }
 }
