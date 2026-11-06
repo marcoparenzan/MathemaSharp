@@ -1,6 +1,6 @@
 # MathemaSharp.Geometry — implementation plan
 
-Status: **plan, not started** (2026-11-06). Owner: Marco Parenzan. Written to be handed to an agent that will do the work.
+Status: **phase 1 implemented and Release-tested; phases 2–5 pending; phase 6 excluded by default**. Original plan dated 2026-11-06. Phase 1 has 20 geometry tests across double, float, Half and Decimal64; the solution has 877 passing tests. Numerical conditioning, performance and ecosystem rendering are not certified. Owner: Marco Parenzan. Written to be handed to an agent that will do the work.
 
 ## 0. Before you start
 

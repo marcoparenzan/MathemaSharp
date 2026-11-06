@@ -1048,3 +1048,13 @@ var p = m.TransformPoint(new Vector3<double>(1,0,0));
 var direction = m.TransformDirection(new Vector3<double>(1,0,0));
 ```
 Right-handed rotations, angles in radians, right-hand composition first. Directions require affine matrices.
+
+### Quaternion source preview
+Installation: ProjectReference to MathemaSharp.Geometry.csproj, no published package.
+```csharp
+var q = Quaternion<double>.FromAxisAngle(new Vector3<double>(0,0,1), Math.PI/2);
+var rotated = q.Rotate(new Vector3<double>(1,0,0));
+var halfway = Quaternion<double>.Slerp(Quaternion<double>.Identity, q, 0.5);
+var roundTrip = Quaternion<double>.FromRotationMatrix(q.ToRotationMatrix());
+```
+Angles are radians. Normalize and rotation reject zero/nonfinite quaternions. SLERP normalizes endpoints and chooses the shortest path; t must be finite and in [0,1].
