@@ -1079,3 +1079,10 @@ var hit = Intersections.SegmentSegment(
 var inside = Intersections.InsideCircle(new Vector2<double>(3,4), new(0,0), 5);
 ```
 Inspect Kind before using result coordinates. PointPolygonDistance is to the filled polygon (zero inside), not distance to its boundary. Ellipses are axis-aligned.
+
+### Iso-contours source preview
+Installation: ProjectReference to MathemaSharp.Geometry.csproj, not a published package.
+```csharp
+var segments = IsoContours.MarchingSquares(new double[,] {{0,2},{0,2}}, 1d);
+```
+Coordinates are sample indices; optional mask excludes cells touching a masked vertex. For PlotSharp users all existing overloads remain unchanged.
