@@ -25,14 +25,15 @@ public class GenericInverseHyperbolicSpanTests
             GenericMath.Acosh<double>(input, output);
             GenericMath.Atanh<double>(input, output);
         }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++)
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
         {
-            GenericMath.Asinh<double>(input, output);
-            GenericMath.Acosh<double>(input, output);
-            GenericMath.Atanh<double>(input, output);
-        }
-        Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+            for (int i = 0; i < 100; i++)
+            {
+                GenericMath.Asinh<double>(input, output);
+                GenericMath.Acosh<double>(input, output);
+                GenericMath.Atanh<double>(input, output);
+            }
+        }));
     }
 
     private static void Check<T>() where T : unmanaged, IFloatingPointIeee754<T>

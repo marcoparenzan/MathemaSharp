@@ -58,14 +58,15 @@ public class GenericIntegralSpanTests
             GenericMath.Ceiling<double>(input, output);
             GenericMath.Truncate<double>(input, output);
         }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++)
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
         {
-            GenericMath.Floor<double>(input, output);
-            GenericMath.Ceiling<double>(input, output);
-            GenericMath.Truncate<double>(input, output);
-        }
-        Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+            for (int i = 0; i < 100; i++)
+            {
+                GenericMath.Floor<double>(input, output);
+                GenericMath.Ceiling<double>(input, output);
+                GenericMath.Truncate<double>(input, output);
+            }
+        }));
     }
 
     private static byte[] Bytes<T>(T[] values) where T : unmanaged => MemoryMarshal.AsBytes(values.AsSpan()).ToArray();

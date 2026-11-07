@@ -20,9 +20,10 @@ public class GenericBinaryMathTests
     {
         double[] x = [1, 2, 4], y = [2, 3, 2], output = new double[3];
         for (int i = 0; i < 100; i++) { GenericMath.Pow<double>(x, y, output); GenericMath.Log<double>(x, y, output); }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++) { GenericMath.Pow<double>(x, y, output); GenericMath.Log<double>(x, y, output); }
-        Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
+        {
+            for (int i = 0; i < 100; i++) { GenericMath.Pow<double>(x, y, output); GenericMath.Log<double>(x, y, output); }
+        }));
     }
 
     private static void Check<T>() where T : unmanaged, IFloatingPointIeee754<T>

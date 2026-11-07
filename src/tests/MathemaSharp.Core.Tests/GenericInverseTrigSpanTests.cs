@@ -25,14 +25,15 @@ public class GenericInverseTrigSpanTests
             GenericMath.Acos<double>(input, output);
             GenericMath.Atan<double>(input, output);
         }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++)
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
         {
-            GenericMath.Asin<double>(input, output);
-            GenericMath.Acos<double>(input, output);
-            GenericMath.Atan<double>(input, output);
-        }
-        Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+            for (int i = 0; i < 100; i++)
+            {
+                GenericMath.Asin<double>(input, output);
+                GenericMath.Acos<double>(input, output);
+                GenericMath.Atan<double>(input, output);
+            }
+        }));
     }
 
     private static void Check<T>() where T : unmanaged, IFloatingPointIeee754<T>

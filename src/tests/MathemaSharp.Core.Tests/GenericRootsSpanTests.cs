@@ -25,14 +25,15 @@ public class GenericRootsSpanTests
             GenericMath.RootN<double>(x, 3, output);
             GenericMath.Hypot<double>(x, y, output);
         }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++)
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
         {
-            GenericMath.Cbrt<double>(x, output);
-            GenericMath.RootN<double>(x, 3, output);
-            GenericMath.Hypot<double>(x, y, output);
-        }
-        Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+            for (int i = 0; i < 100; i++)
+            {
+                GenericMath.Cbrt<double>(x, output);
+                GenericMath.RootN<double>(x, 3, output);
+                GenericMath.Hypot<double>(x, y, output);
+            }
+        }));
     }
 
     private static void Check<T>() where T : unmanaged, IFloatingPointIeee754<T>

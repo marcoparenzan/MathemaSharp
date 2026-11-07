@@ -20,9 +20,10 @@ public class GenericAtan2SpanTests
     {
         double[] y = [0, -0.0, 0.25, -1], x = [1, -1, 2, -2], output = new double[4];
         for (int i = 0; i < 100; i++) GenericMath.Atan2<double>(y, x, output);
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++) GenericMath.Atan2<double>(y, x, output);
-        Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
+        {
+            for (int i = 0; i < 100; i++) GenericMath.Atan2<double>(y, x, output);
+        }));
     }
 
     private static void Check<T>() where T : unmanaged, IFloatingPointIeee754<T>

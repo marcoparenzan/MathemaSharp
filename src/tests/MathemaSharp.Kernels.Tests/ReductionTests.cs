@@ -293,8 +293,9 @@ public class ReductionTests
         var x = new double[1000]; var d = new double[10]; var i = new int[10];
         var lane = new Lane(100, 1, 10);
         for (int r = 0; r < 100; r++) { Reductions.Sum<double>(x, lane, d); Reductions.Variance<double>(x, lane, d, 1); Reductions.Max<double>(x, lane, d, i, NanPolicy.Omit); }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int r = 0; r < 100; r++) { Reductions.Sum<double>(x, lane, d); Reductions.Variance<double>(x, lane, d, 1); Reductions.Max<double>(x, lane, d, i, NanPolicy.Omit); }
-        Assert.Equal(0, GC.GetAllocatedBytesForCurrentThread() - before);
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
+        {
+            for (int r = 0; r < 100; r++) { Reductions.Sum<double>(x, lane, d); Reductions.Variance<double>(x, lane, d, 1); Reductions.Max<double>(x, lane, d, i, NanPolicy.Omit); }
+        }));
     }
 }

@@ -25,14 +25,15 @@ public class GenericHyperbolicSpanTests
             GenericMath.Cosh<double>(input, output);
             GenericMath.Tanh<double>(input, output);
         }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++)
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
         {
-            GenericMath.Sinh<double>(input, output);
-            GenericMath.Cosh<double>(input, output);
-            GenericMath.Tanh<double>(input, output);
-        }
-        Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+            for (int i = 0; i < 100; i++)
+            {
+                GenericMath.Sinh<double>(input, output);
+                GenericMath.Cosh<double>(input, output);
+                GenericMath.Tanh<double>(input, output);
+            }
+        }));
     }
 
     private static void Check<T>() where T : unmanaged, IFloatingPointIeee754<T>

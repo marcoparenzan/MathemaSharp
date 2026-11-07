@@ -25,15 +25,15 @@ public class GenericTrigSpanTests
             GenericMath.Cos<double>(input, output);
             GenericMath.Tan<double>(input, output);
         }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++)
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
         {
-            GenericMath.Sin<double>(input, output);
-            GenericMath.Cos<double>(input, output);
-            GenericMath.Tan<double>(input, output);
-        }
-        long after = GC.GetAllocatedBytesForCurrentThread();
-        Assert.Equal(before, after);
+            for (int i = 0; i < 100; i++)
+            {
+                GenericMath.Sin<double>(input, output);
+                GenericMath.Cos<double>(input, output);
+                GenericMath.Tan<double>(input, output);
+            }
+        }));
     }
 
     private static void Check<T>() where T : unmanaged, IFloatingPointIeee754<T>

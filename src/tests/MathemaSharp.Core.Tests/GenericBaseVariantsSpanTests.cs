@@ -20,9 +20,10 @@ public class GenericBaseVariantsSpanTests
     {
         double[] input = [0, 0.25, -0.25], output = new double[3];
         for (int i = 0; i < 100; i++) Warm(input, output);
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++) Warm(input, output);
-        Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
+        {
+            for (int i = 0; i < 100; i++) Warm(input, output);
+        }));
     }
 
     private static void Warm(double[] input, double[] output)

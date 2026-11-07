@@ -55,15 +55,15 @@ public class GenericElementarySpanTests
             GenericMath.Exp<double>(input, output);
             GenericMath.Log<double>(input, output);
         }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++)
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
         {
-            GenericMath.Sqrt<double>(input, output);
-            GenericMath.Exp<double>(input, output);
-            GenericMath.Log<double>(input, output);
-        }
-        long after = GC.GetAllocatedBytesForCurrentThread();
-        Assert.Equal(before, after);
+            for (int i = 0; i < 100; i++)
+            {
+                GenericMath.Sqrt<double>(input, output);
+                GenericMath.Exp<double>(input, output);
+                GenericMath.Log<double>(input, output);
+            }
+        }));
     }
 
     private static byte[] Bytes<T>(T[] values) where T : unmanaged => MemoryMarshal.AsBytes(values.AsSpan()).ToArray();

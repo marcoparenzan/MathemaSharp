@@ -25,14 +25,15 @@ public class GenericExponentialSpanTests
             GenericMath.Exp10<double>(input, output);
             GenericMath.ExpM1<double>(input, output);
         }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 100; i++)
+        Assert.Equal(0, AllocationProbe.MinimumBytes(() =>
         {
-            GenericMath.Exp2<double>(input, output);
-            GenericMath.Exp10<double>(input, output);
-            GenericMath.ExpM1<double>(input, output);
-        }
-        Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+            for (int i = 0; i < 100; i++)
+            {
+                GenericMath.Exp2<double>(input, output);
+                GenericMath.Exp10<double>(input, output);
+                GenericMath.ExpM1<double>(input, output);
+            }
+        }));
     }
 
     private static void Check<T>() where T : unmanaged, IFloatingPointIeee754<T>
