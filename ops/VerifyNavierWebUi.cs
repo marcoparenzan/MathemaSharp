@@ -59,7 +59,7 @@ try
  await Navigate("/tubo");
  string pipeBefore=await page.Locator(".answer .big").InnerTextAsync();
  await SetRange("Flow rate","20");
- var pipeExpected=Pipe.Solve(Fluid.Water,0.025,50,20,0.0015).PressureDropPa/1e5;
+ var pipeExpected=Pipe.Solve(Fluid<double>.Water,0.025,50,20,0.0015).PressureDropPa/1e5;
  var expected=pipeExpected.ToString("0.00",CultureInfo.InvariantCulture);
  await page.WaitForFunctionAsync("expected=>document.querySelector('.answer .big').textContent.replaceAll(',','.').includes(expected)",expected);
  string pipeAfter=await page.Locator(".answer .big").InnerTextAsync();
@@ -68,7 +68,7 @@ try
 
  await Navigate("/vento");string windBefore=await page.Locator(".answer .big").InnerTextAsync();
  await SetRange("Wind","45");
- var expectedForce=Wind.Force(45/3.6,2,Shape.FlatPlate).ToString("0",CultureInfo.InvariantCulture);
+ var expectedForce=Wind.Force(45/3.6,2,Shape<double>.FlatPlate).ToString("0",CultureInfo.InvariantCulture);
  await page.WaitForFunctionAsync("expected=>document.querySelector('.answer .big').textContent.trim().startsWith(expected+' N')",expectedForce);
  string windAfter=await page.Locator(".answer .big").InnerTextAsync();
  if(windBefore==windAfter||await page.Locator(".chart svg").CountAsync()!=1)throw new Exception("Wind binding or chart update failed.");

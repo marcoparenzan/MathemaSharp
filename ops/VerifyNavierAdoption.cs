@@ -12,8 +12,8 @@ using System.Xml.Linq;
 using System.Text.RegularExpressions;
 var options=Ecosystem.Validation.EvidenceOptions.Parse(args);
 var output=options.SaveImages?"ops/visual/navier":"ops/validation/navier-adoption-no-images";Directory.CreateDirectory(output);
-var cavity=new CavitySolver(17,100);cavity.Run(40);
-var cylinder=new CylinderLbm(100,80,40,8);cylinder.Run(40);
+var cavity=new CavitySolver<double>(17,100);cavity.Run(40);
+var cylinder=new CylinderLbm<double>(100,80,40,8);cylinder.Run(40);
 (string Name,string Svg)[] reports=[("cavity-ghia",Reports.CavityGhia(cavity)),("cavity-energy",Reports.CavityEnergy(cavity)),("cylinder-probe",Reports.CylinderProbe(cylinder))];
 using var playwright=await Playwright.CreateAsync();
 await using var browser=await playwright.Chromium.LaunchAsync(new() { Channel="msedge",Headless=true });
@@ -55,7 +55,7 @@ foreach(var name in new[]{"MathemaSharp.Lab","MathemaSharp.Docs"})
  ["Classification"]=name.EndsWith("Lab")?"Numerical console output; no local SVG renderer found":"Markdown/asset viewer; no local SVG renderer found" });
 }
 var result=new JsonObject { ["GeneratedUtc"]=DateTime.UtcNow.ToString("O"),["Browser"]=browser.Version,["Failed"]=failed,["SaveImages"]=options.SaveImages,
- ["CoreAssembly"]=typeof(CavitySolver).Assembly.Location,["PlotSharpAssembly"]=typeof(PlotSharp.Charts).Assembly.Location,
+ ["CoreAssembly"]=typeof(CavitySolver<>).Assembly.Location,["PlotSharpAssembly"]=typeof(PlotSharp.Charts).Assembly.Location,
  ["Reports"]=checks,["Apps"]=apps,["PressureVectorsValidated"]=true,["Notes"]="Three production line reports on small smoke fixtures, not numerical accuracy or full Web UI proof. Navier FieldPlot is an API/options compatibility facade; full node-field SVG assembly/header/style and component kernels render in PlotSharp. Numeric source data and scenario/UI decisions remain in NavierStokes. Node rendering is separate from cell Heatmap. Not a complete raster backend migration. App inventory is a lexical source scan, not whole-asset migration proof." };
 File.WriteAllText(Path.Combine(output,"report.json"),result.ToJsonString(new JsonSerializerOptions { WriteIndented=true }));
 return failed==0?0:1;
