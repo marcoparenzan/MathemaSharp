@@ -5,6 +5,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Description>Generic real linear algebra: matrices, norms, QR and 2×2 operations.</Description>
-    <Version>0.2.1-net11-preview.1</Version>
+    <Version>0.2.1-net11-preview.2</Version>
   </PropertyGroup>
 </Project>
