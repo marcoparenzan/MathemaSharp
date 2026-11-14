@@ -32,6 +32,10 @@ using var migratedManifest=System.Text.Json.JsonDocument.Parse(File.ReadAllText(
     ("visual-raster-evidence",["run","--file","ops/RasterizeNotebookEvidence.cs",..imageArguments]),
     ("browser-charts",["run","--file","ops/VerifyBrowserCharts.cs",..imageArguments]),
     ("pysharp-trx",["test","../PySharp/src/PySharp.Tests/PySharp.Tests.csproj","-c","Release","--logger","trx;LogFileName=pysharp.trx","--results-directory",Path.Combine(artifacts,"test-results"),"--verbosity","quiet"]),
+    ("codesharp-test",["test","../CodeSharp/src/CodeSharp.slnx","-c","Release","--verbosity","quiet"]),
+    ("qbsharp-test",["test","../QBSharp/src/QBSharp.slnx","-c","Release","--verbosity","quiet"]),
+    ("flowsharp-test",["test","../FlowSharp/src/FlowSharp.slnx","-c","Release","--verbosity","quiet"]),
+    ("matsharp-codesharp-adapter",["test","../MatSharp/src/MatSharpLib.Tests/MatSharpLib.Tests.csproj","-c","Release","--filter","CodeSharpAdapterTests","--verbosity","quiet"]),
     ("skip-report",["run","--file","ops/ReportSkippedTests.cs","--",Path.Combine(artifacts,"test-results","pysharp.trx")])
 ];
 var reportPaths=new Dictionary<string,string>
